@@ -37,7 +37,7 @@ Serves an OpenAI-compatible API on `http://localhost:8000`.
 
 Drop `-it` for base weights, which you want only for further training.
 
-For 4-bit serving, use the [QAT](qat.md) compressed-tensors builds — 4-bit weights with 16-bit
+For 4-bit serving, use the [QAT](../get-started/qat.md) compressed-tensors builds — 4-bit weights with 16-bit
 activations:
 
 ```bash { .model-fixed }

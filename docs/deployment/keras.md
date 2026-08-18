@@ -10,7 +10,7 @@ source_url: "https://ai.google.dev/gemma/docs/core/keras_inference.md.txt"
 
 Generating content, summarizing, and analysing content are just some of the tasks you can accomplish with Gemma open models. This tutorial shows you how to get started running Gemma using Keras, including generating text content with text and image input. [Keras](https://keras.io/) provides implementations for running Gemma and other models using JAX, PyTorch, and TensorFlow. If you're new to Keras, you might want to read [Getting started with Keras](https://keras.io/getting_started/) before you begin.
 
-Gemma 3 and later models support text and image input. Earlier versions of Gemma only support text input, except for some variants, including [PaliGemma](../get-started/quickstart.md).
+Gemma 3 and later models support text and image input. Earlier versions of Gemma only support text input, except for some variants, including [PaliGemma](../get-started/index.md).
 !!! Note
     This notebook won't run on T4 if you try with Gemma 4. Use L4 or higher GPUs.
     

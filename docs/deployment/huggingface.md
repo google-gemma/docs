@@ -11,7 +11,7 @@ source_url: "https://ai.google.dev/gemma/docs/core/huggingface_inference.md.txt"
 Generating text, summarizing, and analysing content are just some of the tasks you can accomplish with Gemma open models. This tutorial shows you how to get started running Gemma using Hugging Face Transformers using both text and image input to generate text content. The Transformers Python library provides a API for accessing pre-trained generative AI models, including Gemma. For more information, see the [Transformers](https://huggingface.co/docs/transformers/en/index) documentation.
 
 !!! Note
-    Gemma 3 and later models support input of both images and text. Earlier versions of Gemma only support text input, except for some variants, including [PaliGemma](../get-started/quickstart.md).
+    Gemma 3 and later models support input of both images and text. Earlier versions of Gemma only support text input, except for some variants, including [PaliGemma](../get-started/index.md).
 
 
 ### Install Python packages

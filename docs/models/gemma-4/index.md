@@ -146,5 +146,5 @@ model card pages:
 - Gemma 1 [Model Card](../gemma-1/index.md)
 
 Ready to start building?
-[Get started](../../get-started/quickstart.md)
+[Get started](../../get-started/index.md)
 with Gemma models!

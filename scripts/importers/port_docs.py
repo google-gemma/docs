@@ -29,7 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check_fidelity import cache_name, compare, fetch  # noqa: E402
 from convert_notebook import convert  # noqa: E402
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DOCS_DIR = REPO_ROOT / "docs"
 ASSETS_DIR = DOCS_DIR / "assets"
 MANIFEST = Path(__file__).resolve().parent / "sources.toml"

@@ -24,66 +24,116 @@
 # Order is display order: current generation, variants, previous generations, research.
 # ---------------------------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------------------------
+# Families
+#
+# `id` matches a directory under docs/models/, which is what the `models` frontmatter key and
+# the page context header address. `name` is how the family is written in prose and in the UI;
+# `page` is the canonical local destination for that family in the context header.
+#
+# Order is display order: current generation, variants, previous generations, research.
+#
+# Lineage fields drive the family tree on models/index.md:
+#
+#   generation  present only on the mainline spine (Gemma 1 -> 2 -> 3 -> 4). Its value orders
+#               the spine. A family with `generation` is a generation; everything else branches.
+#   based_on    the family id a variant was built from. ONLY set where the model's own page
+#               states it -- the value is cited in the comment beside it. `null` means the page
+#               claims no Gemma base (RecurrentGemma is a Griffin model, not a derived Gemma).
+#   tagline     one short line for the tree card, taken from the page's own `description`.
+#
+# Release dates are deliberately absent. The spine already orders the tree, and no page in
+# docs/models/ states a date, so adding one would invent a fact this file is supposed to own.
+
 families:
   - id: gemma-4
     name: Gemma 4
     page: models/gemma-4/model-card.md
     group: current
+    generation: 4
+    tagline: Multimodal text, image and audio input across five sizes
 
   - id: gemma-3n
     name: Gemma 3n
     page: models/gemma-3n/model-card.md
     group: variant
+    based_on: gemma-3        # the on-device member of the Gemma 3 generation (MatFormer)
+    tagline: On-device models for phones, laptops and tablets
   - id: diffusiongemma
     name: DiffusionGemma
     page: models/diffusiongemma/model-card.md
     group: variant
+    based_on: gemma-4        # "Based on the 26B (4B active) MoE Gemma 4 architecture"
+    tagline: Experimental text diffusion for exceptionally fast generation
   - id: functiongemma
     name: FunctionGemma
     page: models/functiongemma/model-card.md
     group: variant
+    based_on: gemma-3        # "a specialized version of our Gemma 3 270M model"
+    tagline: Gemma 3 270M tuned for function calling
   - id: embeddinggemma
     name: EmbeddingGemma
     page: models/embeddinggemma/model-card.md
     group: variant
+    based_on: gemma-3        # "a 308M parameter multilingual text embedding model based on Gemma 3"
+    tagline: 308M multilingual text embeddings
   - id: paligemma
     name: PaliGemma
     page: models/paligemma/model-card-v2.md
     group: variant
+    based_on: gemma-2        # "PaliGemma 2 ... based on Gemma 2"; PaliGemma 1 was built on Gemma
+    tagline: Vision-language models for captioning, VQA and detection
   - id: shieldgemma
     name: ShieldGemma
     page: models/shieldgemma/model-card-v2.md
     group: variant
+    based_on: gemma-2        # "ShieldGemma 1 is built on Gemma 2". The page does not state a
+                             # base for the 4B ShieldGemma 2; do not guess one here.
+    tagline: Safety classification for text and image content
 
   - id: gemma-3
     name: Gemma 3
     page: models/gemma-3/index.md
     group: previous
+    generation: 3
+    tagline: Multimodal text and image models, 270M to 27B
   - id: gemma-2
     name: Gemma 2
     page: models/gemma-2/index.md
     group: previous
+    generation: 2
+    tagline: Text models in 2B, 9B and 27B
   - id: gemma-1
     name: Gemma
     page: models/gemma-1/index.md
     group: previous
+    generation: 1
+    tagline: The first generation of Gemma text models
 
   - id: recurrentgemma
     name: RecurrentGemma
     page: models/recurrentgemma/model-card.md
     group: research
+    based_on: null           # "based on Griffin" -- an architecture, not a Gemma generation
+    tagline: Griffin architecture mixing recurrences with local attention
   - id: datagemma
     name: DataGemma
     page: models/datagemma/index.md
     group: research
+    based_on: gemma-2        # both RIG and RAG use "a variant of Gemma 2"
+    tagline: Grounding generation in Data Commons statistics
   - id: gemma-scope
     name: Gemma Scope
     page: models/gemma-scope/index.md
     group: research
+    based_on: gemma-3        # "Gemma Scope 2 ... designed for the Gemma 3 model collection"
+    tagline: Interpretability tools for inspecting model internals
   - id: gemma-aps
     name: Gemma APS
     page: models/gemma-aps/index.md
     group: research
+    based_on: gemma-1        # published as google/gemma-2b-aps-it and google/gemma-7b-aps-it
+    tagline: Segmenting text into individual propositions
 
 gemma4:
   context_windows:

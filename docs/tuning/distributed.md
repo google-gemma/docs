@@ -308,5 +308,5 @@ After finetuning, the model has learned the style of movie reviews and is now ge
 
 In this tutorial, you learned how to using KerasNLP JAX backend to finetune a Gemma model on the IMDb dataset in a distributed manner on the powerful TPUs. Here are a few suggestions for what else to learn:
 
-- Learn how to [get started with Keras Gemma](../get-started/quickstart.md).
+- Learn how to [get started with Keras Gemma](../get-started/index.md).
 - Learn how to [finetune the Gemma model on GPU](keras-lora.md).

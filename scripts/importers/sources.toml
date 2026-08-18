@@ -35,6 +35,9 @@ frozen = true
 [[page]]
 path = "get-started/capabilities/mtp.md"
 source = "https://ai.google.dev/gemma/docs/mtp/overview.md.txt"
+# The "Run MTP with Transformers" section was appended by hand from a second upstream page,
+# https://ai.google.dev/gemma/docs/mtp/mtp.md.txt. The page therefore has two origins and
+# only ever the one on disk as its source of truth.
 frozen = true
 
 # --- Run --------------------------------------------------------------------------------------
@@ -77,6 +80,11 @@ assets = "deployment"
 frozen = true
 
 [[page]]
+path = "deployment/gemini-api.md"
+source = "https://ai.google.dev/gemma/docs/core/gemma_on_gemini_api.md.txt"
+frozen = true
+
+[[page]]
 path = "deployment/litert.md"
 source = "https://ai.google.dev/gemma/docs/conversions/hf-to-mediapipe-task.md.txt"
 frozen = true
@@ -89,7 +97,7 @@ frozen = true
 # --- Tuning / Learn ---------------------------------------------------------------------------
 
 [[page]]
-path = "tuning/overview.md"
+path = "tuning/index.md"
 source = "https://ai.google.dev/gemma/docs/tune.md.txt"
 frozen = true
 

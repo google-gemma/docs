@@ -14,10 +14,10 @@ weights, which means you can modify those weights, which then changes the
 behavior of the model. The general steps for fine-tuning a Gemma model are as
 follows:
 
-- [Choose a framework](overview.md#choose-a-framework)
-- [Collect data](overview.md#collect-data)
-- [Tune and test the model](overview.md#tune-and-test-the-model)
-- [Deploy the model](overview.md#deploy-the-model)
+- [Choose a framework](index.md#choose-a-framework)
+- [Collect data](index.md#collect-data)
+- [Tune and test the model](index.md#tune-and-test-the-model)
+- [Deploy the model](index.md#deploy-the-model)
 
 ## Choose a framework
 
@@ -121,7 +121,7 @@ described in the [Responsible Generative AI Toolkit](https://ai.google.dev/respo
 
 After completing your tuning and successful completion of your testing, it's
 time to deploy your model. You can typically refer to the documentation for your
-[chosen framework](overview.md#choose-a-framework) for how to deploy a tuned
+[chosen framework](index.md#choose-a-framework) for how to deploy a tuned
 model.
 
 If you are deploying a model with LoRA tuned weights, note that with this

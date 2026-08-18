@@ -36,7 +36,7 @@ python3 -m sglang.launch_server \
 | 26B A4B | `google/gemma-4-26B-A4B-it` |
 | 31B | `google/gemma-4-31B-it` |
 
-For 4-bit serving, use the [QAT](qat.md) compressed-tensors builds,
+For 4-bit serving, use the [QAT](../get-started/qat.md) compressed-tensors builds,
 `google/gemma-4-{E2B,E4B,12B,31B}-it-qat-w4a16-ct`.
 
 ## Call it

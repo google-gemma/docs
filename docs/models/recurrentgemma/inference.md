@@ -18,7 +18,7 @@ The following sections explain the steps for preparing a notebook to use a Recur
 
 ### Set up Kaggle access for Gemma
 
-To complete this tutorial, you first need to follow the setup instructions *similar* to [Gemma setup](../../get-started/quickstart.md) with a few exceptions:
+To complete this tutorial, you first need to follow the setup instructions *similar* to [Gemma setup](../../get-started/index.md) with a few exceptions:
 
 - Get access to RecurrentGemma (instead of Gemma) on [kaggle.com](https://www.kaggle.com/models/google/recurrentgemma).
 - Select a Colab runtime with sufficient resources to run the RecurrentGemma model.

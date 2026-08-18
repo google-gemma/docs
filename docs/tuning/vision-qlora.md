@@ -466,7 +466,7 @@ Bring home the action with the Hasbro Marvel Avengers Assemble Titan-held Iron M
 
 This tutorial covered how to fine-tune a Gemma model for vision tasks using TRL and QLoRA, specifically for generating product descriptions. Check out the following docs next:
 
-- Learn how to [generate text with a Gemma model](../get-started/quickstart.md).
+- Learn how to [generate text with a Gemma model](../get-started/index.md).
 - Learn how to [fine-tune Gemma for text tasks using Hugging Face Transformers](qlora.md).
 - Learn how to [full model fine-tune using Hugging Face Transformers](full-finetune.md).
 - Learn how to perform [distributed fine-tuning and inference on a Gemma model](distributed.md).

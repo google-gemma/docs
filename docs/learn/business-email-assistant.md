@@ -162,7 +162,7 @@ respectively.
 To set the environment variables:
 
 1. Obtain your Kaggle username and your token key by following the instructions in the [Kaggle documentation](https://www.kaggle.com/docs/api#authentication).
-2. Get access to the Gemma model by following the *Get access to Gemma* instructions in the [Gemma Setup](../get-started/quickstart.md) page.
+2. Get access to the Gemma model by following the *Get access to Gemma* instructions in the [Gemma Setup](../get-started/index.md) page.
 3. Create environment variable files for the project, by creating a `.env` text file at *each* these locations in your clone of the project:
 
    ``` { .no-copy .output }

@@ -8,7 +8,9 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [Google Gemma 4 Open Models](https://gemma.ai/index.md): Official technical documentation portal for Google Gemma 4 open-weight AI models. Explore multimodal capabilities, interactive WebGPU playgrounds, and partner integrations.
 
 ## Get started
-- [Quick Start](https://gemma.ai/get-started/quickstart.md): The Gemma family of open models includes a range of model sizes, capabilities, and task-specialized variations to help you build custom generative solutions.
+- [Quick Start](https://gemma.ai/get-started.md): The Gemma family of open models includes a range of model sizes, capabilities, and task-specialized variations to help you build custom generative solutions.
+- [Best practices](https://gemma.ai/get-started/best-practices.md): Sampling parameters, thinking-mode tokens, modality order and image token budgets that get the best results out of Gemma 4.
+- [Quantization & QAT](https://gemma.ai/get-started/qat.md): Which Gemma 4 quantized weights to download for each engine, and why QAT beats post-training quantization at 4-bit.
 - [Inference](https://gemma.ai/get-started/capabilities/text.md): Basic text inference with Gemma 4 in Hugging Face Transformers: single-turn prompts, multi-turn conversations, and system instructions.
 - [Reasoning](https://gemma.ai/get-started/capabilities/thinking.md): Use Gemma 4's thinking mode to reason before answering, for text and image prompts, and parse the reasoning apart from the answer.
 - [Tool calling](https://gemma.ai/get-started/capabilities/function-calling.md): When using a generative artificial intelligence (AI) model such as Gemma, you may want to use the model to operate programming interfaces in order to complete tasks or answer questions.
@@ -74,12 +76,13 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [Deploy Gemma on mobile devices](https://gemma.ai/deployment/mobile.md): This document outlines various methods and tools for deploying and running Gemma models on mobile devices, including using the Google AI Edge Gallery app and the MediaPipe LLM Inference API.
 - [vLLM](https://gemma.ai/deployment/vllm.md): Serve Gemma 4 with vLLM — install, vllm serve, model repositories, and the OpenAI-compatible API.
 - [SGLang](https://gemma.ai/deployment/sglang.md): Serve Gemma 4 with SGLang — install, launch_server, model repositories, and the OpenAI-compatible API.
+- [Gemini API](https://gemma.ai/deployment/gemini-api.md): Call hosted Gemma 4 models through the Gemini API instead of running and serving your own instance.
 - [Google Cloud](https://gemma.ai/deployment/google-cloud.md): Deploy, serve, and fine-tune Gemma 4 on Google Cloud: Cloud Run, GKE, the Agent Development Kit, vLLM on TPUs, MaxText, and Sovereign Cloud.
 - [Get started with Gemma and LangChain](https://gemma.ai/deployment/langchain.md): This tutorial shows you how to get started with Gemma and LangChain, running in Google Cloud or in your Colab environment.
-- [Quantization & QAT](https://gemma.ai/deployment/qat.md): Which Gemma 4 quantized weights to download for each engine, and why QAT beats post-training quantization at 4-bit.
+- [Unsloth](https://gemma.ai/deployment/unsloth.md): Run Gemma 4 with Unsloth — the desktop Studio app, dynamic-quant GGUFs for llama.cpp, and 2x faster fine-tuning.
 
 ## Fine-tune
-- [Gemma model fine-tuning](https://gemma.ai/tuning/overview.md): Fine-tuning a generative artificial intelligence (AI) model such as Gemma modifies the behavior of the model.
+- [Gemma model fine-tuning](https://gemma.ai/tuning.md): Fine-tuning a generative artificial intelligence (AI) model such as Gemma modifies the behavior of the model.
 - [Fine-Tune Gemma using Hugging Face Transformers and QloRA](https://gemma.ai/tuning/qlora.md): This guide walks you through how to fine-tune Gemma on a custom text-to-sql dataset using Hugging Face Transformers and TRL.
 - [Full Model Fine-Tune using Hugging Face Transformers](https://gemma.ai/tuning/full-finetune.md): This guide walks you through how to fine-tune Gemma on a mobile game NPC dataset using Hugging Face Transformers and TRL.
 - [Fine-Tune Gemma for Vision Tasks using Hugging Face Transformers and QLoRA](https://gemma.ai/tuning/vision-qlora.md): This guide walks you through how to fine-tune Gemma on a custom image and text dataset for a vision task (generating product descriptions) using Hugging Face Transformers and TRL.
@@ -105,7 +108,7 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [Vision token budget](https://gemma.ai/demos/vision-token-budget.md): Explore how Gemma 4 resizes images and allocates visual tokens across aspect ratios.
 
 ## Ecosystem
-- [Gemmaverse](https://gemma.ai/community/gemmaverse.md): Explore community projects and showcases.
+- [Gemmaverse](https://gemma.ai/community.md): Explore community projects and showcases.
 - [Discord](https://gemma.ai/community/discord.md): Join the Gemma developer community on Discord.
 - [Gemma Skills](https://gemma.ai/community/gemma-skills.md): Curated AI agent skills, system prompts, and tool definitions.
 - [Components](https://gemma.ai/contributing/components.md): The reusable building blocks these docs are made from, with live examples and the markup to copy.

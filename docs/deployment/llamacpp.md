@@ -60,7 +60,7 @@ llama-cli -hf ggml-org/gemma-4-E2B-it-GGUF -sys "You are Hong Gildong." -p "Who 
 | 26B A4B | `ggml-org/gemma-4-26B-A4B-it-GGUF` |
 | 31B | `ggml-org/gemma-4-31B-it-GGUF` |
 
-For 4-bit, prefer Google's [QAT](qat.md) weights — trained with quantization simulated rather
+For 4-bit, prefer Google's [QAT](../get-started/qat.md) weights — trained with quantization simulated rather
 than compressed afterwards:
 
 ```bash { .model-swap }

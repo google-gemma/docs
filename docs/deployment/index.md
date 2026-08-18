@@ -28,7 +28,7 @@ Use the following table to quickly identify the best tool for your needs:
 |---|---|---|
 | **Run locally with a Chat UI** | - **[LM Studio](lmstudio.md)** - **[Ollama](ollama.md)** | Beginners, or users who want a "Gemini-like" experience on their laptop. |
 | **Run efficiently on Edge** | - **[LiteRT-LM](https://ai.google.dev/edge/litert-lm/models/gemma-4)** - **[llama.cpp](llamacpp.md)** - **[MLX](mlx.md)** | High-performance local inference with minimal resources. |
-| **Build/Train in Python** | - **[Tunix (Tune-in-JAX)](https://tunix.readthedocs.io/en/latest/)** - **[Hugging Face Transformers](https://huggingface.co/docs/transformers/en/model_doc/gemma4)** - **[Keras](keras.md)** - **[Unsloth](https://unsloth.ai/docs/models/gemma-4)** | Researchers and Developers building custom applications or fine-tuning models. |
+| **Build/Train in Python** | - **[Tunix (Tune-in-JAX)](https://tunix.readthedocs.io/en/latest/)** - **[Hugging Face Transformers](https://huggingface.co/docs/transformers/en/model_doc/gemma4)** - **[Keras](keras.md)** - **[Unsloth](unsloth.md)** | Researchers and Developers building custom applications or fine-tuning models. |
 | **Deploy to Production / Enterprise** | - **[Google Cloud Kubernetes Engine (GKE)](google-cloud.md)** - **[Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/use-gemma)** - **[vLLM](https://docs.vllm.ai/projects/recipes/en/latest/Google/Gemma4.html)** - **[SGLang](https://lmsysorg.mintlify.app/cookbook/autoregressive/Google/Gemma4)** | Scalable, managed cloud deployment with enterprise security and MLOps support. |
 
 ### Framework Details
@@ -53,7 +53,7 @@ Standard frameworks for AI developers building applications, pipelines, or
 training models.
 
 - **[Hugging Face Transformers](https://huggingface.co/docs/transformers/en/model_doc/gemma4)**: The industry standard for quick access to models and pipelines.
-- **[Unsloth](https://unsloth.ai/docs/models/gemma-4)**: An optimized library for fine-tuning LLMs. It lets you train Gemma models 2-5x faster with significantly less memory, making it possible to fine-tune on consumer GPUs (e.g., free Google Colab tiers).
+- **[Unsloth](unsloth.md)**: An optimized library for fine-tuning LLMs. It lets you train Gemma models 2-5x faster with significantly less memory, making it possible to fine-tune on consumer GPUs (e.g., free Google Colab tiers).
 - **[Keras](keras.md)** / **[Tunix (Tune-in-JAX)](https://tunix.readthedocs.io/en/latest/)**: Core libraries for deep learning research and custom architecture implementation.
 
 #### 3. Mobile \& Edge Deployment (On-Device)
@@ -106,7 +106,7 @@ Consider the following factors when choosing a Gemma variant:
   tuning*. Quantization is a complex topic that boils down to what size and precision of data, and consequently how much memory a generative AI model uses for calculations and generating responses. After a model is trained with high-precision data, which is typically 32-bit floating point data, models like Gemma can be modified to use lower precision data such as 16, 8 or 4-bit sizes. These quantized Gemma models can still perform well, depending on the complexity of the tasks, while using significantly less compute and memory resources. However, tools for tuning quantized models are limited and may not be available within your chosen AI development framework. Typically, you must fine-tune a model like Gemma at full precision, then quantize the resulting model.
 
 For a list of key, Google-published Gemma models, see the
-[Getting started with Gemma models](../get-started/quickstart.md), Gemma model list.
+[Getting started with Gemma models](../get-started/index.md), Gemma model list.
 
 ## Run generation and inference requests
 

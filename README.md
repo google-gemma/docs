@@ -29,7 +29,7 @@ uv run --frozen python scripts/build_docs.py
 ```
 
 `build_docs.py` runs the normal Zensical build and then publishes raw Markdown routes such as
-`/get-started/quickstart.md`. The committed `docs/llms.txt` is regenerated from page
+`/get-started/index.md`. The committed `docs/llms.txt` is regenerated from page
 frontmatter and verified by the `generated` lint check.
 
 See `PLAN.md` for the migration roadmap and `docs/contributing/components.md`

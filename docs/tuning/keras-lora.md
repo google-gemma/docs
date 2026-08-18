@@ -14,7 +14,7 @@ Generative artificial intelligent (AI) models like Gemma are effective at a vari
 
 ## Setup
 
-To complete this tutorial, you will first need to complete the setup instructions at [Gemma setup](../get-started/quickstart.md). The Gemma setup instructions show you how to do the following:
+To complete this tutorial, you will first need to complete the setup instructions at [Gemma setup](../get-started/index.md). The Gemma setup instructions show you how to do the following:
 
 - Get access to Gemma on [kaggle.com](https://kaggle.com).
 - Select a Colab runtime with sufficient resources to tune the Gemma model you want to run. [Learn more](../models/gemma-4/index.md#parameter-sizes-and-quantization).
@@ -327,7 +327,7 @@ For demonstration purposes, this tutorial fine-tunes the model on a small subset
 
 This tutorial covered LoRA fine-tuning on a Gemma model using Keras. Check out the following docs next:
 
-- Learn how to [generate text with a Gemma model](../get-started/quickstart.md).
+- Learn how to [generate text with a Gemma model](../get-started/index.md).
 - Learn how to perform [distributed fine-tuning and inference on a Gemma model](distributed.md).
 - Learn how to [use Gemma open models with Vertex AI](https://cloud.google.com/vertex-ai/docs/generative-ai/open-models/use-gemma).
 - Learn how to [fine-tune Gemma using Keras and deploy to Vertex AI](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/community/model_garden/model_garden_gemma_kerasnlp_to_vertexai.ipynb).

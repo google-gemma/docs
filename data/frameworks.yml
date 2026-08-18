@@ -64,6 +64,12 @@ frameworks:
     url: https://docs.sglang.io
     page: deployment/sglang.md
 
+  - id: gemini-api
+    name: Gemini API
+    short_name: Gemini API
+    url: https://ai.google.dev/gemini-api/docs
+    page: deployment/gemini-api.md
+
   - id: google-cloud
     name: Google Cloud
     url: https://cloud.google.com          # unverified
@@ -74,6 +80,11 @@ frameworks:
     short_name: Transformers
     url: https://huggingface.co/docs/transformers
     page: deployment/huggingface.md
+
+  - id: unsloth
+    name: Unsloth
+    url: https://unsloth.ai/docs
+    page: deployment/unsloth.md
 
   - id: keras
     name: Keras

@@ -21,7 +21,7 @@
 "/core/huggingface_inference" = "deployment/huggingface.md"
 "/releases" = "models/releases.md"
 
-"/get_started" = "get-started/quickstart.md"
+"/get_started" = "get-started/index.md"
 "/capabilities/audio" = "get-started/capabilities/audio.md"
 "/capabilities/thinking" = "get-started/capabilities/thinking.md"
 "/capabilities/vision" = "get-started/capabilities/vision.md"
@@ -89,7 +89,7 @@
 "/integrations/litert" = "deployment/litert.md"
 
 # Fine-tuning. Targets are existing stubs; Step 2.3 fills them in.
-"/tune" = "tuning/overview.md"
+"/tune" = "tuning/index.md"
 "/core/huggingface_text_finetune_qlora" = "tuning/qlora.md"
 "/core/huggingface_vision_finetune_qlora" = "tuning/vision-qlora.md"
 "/core/huggingface_text_full_finetune" = "tuning/full-finetune.md"
@@ -104,7 +104,7 @@
 "/personal-code-assistant" = "learn/personal-code-assistant.md"
 
 # Now ported (were [planned] in Step 0.5)
-"/setup" = "get-started/quickstart.md"        # legacy setup page removed
+"/setup" = "get-started/index.md"        # legacy setup page removed
 "/core/prompt-structure" = "get-started/prompt-structure.md"
 "/mtp/overview" = "get-started/capabilities/mtp.md"
 "/mtp/mtp" = "get-started/capabilities/mtp.md"
@@ -164,9 +164,9 @@
 "learn/personal-code-assistant.md#web-service" = "gemma-web-service-project"
 "tuning/spoken-language.md#compute_requirements" = "hardware-requirements"
 # tuning/overview.md carries its own contents list using devsite's short anchors.
-"tuning/overview.md#choose-framework" = "choose-a-framework"
-"tuning/overview.md#tune-and-test" = "tune-and-test-the-model"
-"tuning/overview.md#deploy-model" = "deploy-the-model"
+"tuning/index.md#choose-framework" = "choose-a-framework"
+"tuning/index.md#tune-and-test" = "tune-and-test-the-model"
+"tuning/index.md#deploy-model" = "deploy-the-model"
 "models/gemma-4/index.md#sizes" = "parameter-sizes-and-quantization"
 "deployment/google-cloud.md#run" = "cloud-run"
 # The formatting guidance lives under this page's H1, not a section of its own.
