@@ -355,7 +355,7 @@ def prepare_tuning_dataset():
 
 This function reads in the data and formats it by adding `start_of_turn` and
 `end_of_turn` tags which is the
-[required format](../get-started/prompt-structure.md#gemma-formatting-and-system-instructions)
+[required format](../get-started/prompt-formatting.md#gemma-1-3)
 when providing data for tuning a Gemma model. This code also inserts a
 `prompt_instruction` for each request, which you should edit as appropriate for
 your application.

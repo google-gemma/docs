@@ -66,10 +66,9 @@ nav = [
     # prompt-format references -- so the main list stays what a newcomer needs
     # first: how to run it and how to run it well, then the capability groups.
     { "Advanced" = [
+      { "Prompt formatting" = "get-started/prompt-formatting.md" },
       { "Multi-Token Prediction" = "get-started/capabilities/mtp.md" },
       { "Quantization-Aware Training" = "get-started/qat.md" },
-      "get-started/prompt-formatting.md",
-      { "Prompt structure (Gemma 1-3)" = "get-started/prompt-structure.md" },
     ]},
   ]},
 

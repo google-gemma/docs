@@ -71,6 +71,33 @@
   text-overflow: ellipsis;
 }
 
+/* -------------------------------------------------------------------
+   Detailed variant. On the quickstart the grid is a shortcut past a
+   dozen names, so a tooltip is enough. On the Run overview the grid IS
+   the page, and the reader is deciding rather than recognising -- so
+   the blurb is on the card, not behind a hover.
+   ------------------------------------------------------------------- */
+.md-typeset ul.engine-grid--detailed:not([hidden]) {
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+}
+
+.md-typeset .engine-grid--detailed a.engine {
+  align-items: flex-start;
+  padding: var(--gemma-space-3);
+}
+
+.md-typeset .engine-grid--detailed .engine-name {
+  white-space: normal;
+}
+
+.md-typeset .engine-blurb {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--gemma-text-muted);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
 /* The trailing "see everything" tile reads as an action, not another engine. */
 .md-typeset a.engine--all {
   align-items: center;

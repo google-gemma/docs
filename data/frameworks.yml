@@ -11,12 +11,16 @@
 # This list holds only what is in use. It is not a catalogue of everything that can run Gemma.
 #
 #   id    what frontmatter uses. Lowercase, kebab-case.
+#   pinned  the model generation this entry's `url` is hard-coded to. Set it whenever the URL
+#         embeds a version -- .../gemma-4-31b-it -- so `lint_docs.py --check pinned` can list
+#         every link that needs revisiting when a new generation ships. Omit for stable URLs.
 #   name  the canonical display name.
 #   short_name  optional compact label for dense UI such as the page context strip.
 #   url   the project's own home. Where one was already linked from a docs page, that URL is
 #         reused verbatim; the four marked `unverified` were not found anywhere in docs/ and
 #         should be confirmed before anyone relies on them.
-#   page  our page for it, where we have one.
+#   page  our page for it, where we have one. Entries without one are hosted endpoints: the
+#         grid links straight out to `url`.
 #
 # There is deliberately no `category`. The previous version had one and it was incoherent:
 # `local`/`serve` classify where something runs while `library`/`tuning`/`orchestration`
@@ -92,6 +96,30 @@ frameworks:
     page: deployment/google-cloud.md
     blurb: Cloud Run, GKE and Vertex for production scale.
     mark: GC
+
+  # Hosted endpoints -- no install, no local page. Their URLs name a specific model, so each
+  # carries `pinned`.
+  - id: openrouter
+    name: OpenRouter
+    url: https://openrouter.ai/google/gemma-4-31b-it:free
+    pinned: gemma-4
+    blurb: Free hosted 31B through an OpenAI-compatible router.
+    mark: OR
+
+  - id: cerebras
+    name: Cerebras
+    url: https://inference-docs.cerebras.ai/models/gemma-4-31b
+    pinned: gemma-4
+    blurb: Very high token throughput on Cerebras hardware.
+    mark: CB
+
+  - id: ai-studio
+    name: Google AI Studio
+    short_name: AI Studio
+    url: https://aistudio.google.com/prompts/new_chat?model=gemma-4-31b-it
+    pinned: gemma-4
+    blurb: Try Gemma in the browser, no key or setup.
+    mark: AI
 
   - id: transformers
     name: Hugging Face Transformers

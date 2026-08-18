@@ -17,7 +17,7 @@ results.
 
 ## Base Prompt Structure
 
-FunctionGemma builds on the [Gemma prompt structure](../../get-started/prompt-structure.md), using
+FunctionGemma builds on the [Gemma prompt structure](../../get-started/prompt-formatting.md), using
 `<start_of_turn>role` and `<end_of_turn>` to describe conversational turns.
 The `role` is typically `user` or `model` (and sometimes `developer` for
 providing initial context, as seen below).

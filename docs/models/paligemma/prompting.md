@@ -17,7 +17,7 @@ PaliGemma models use the same prompt formatting as the Gemma foundation models
 they are based on. However, PaliGemma models also support a special
 [task syntax](prompting.md#prompt-task-syntax), which is described in the next section. For
 more information on Gemma prompt formatting, see
-[Gemma prompt and system instructions](../../get-started/prompt-structure.md).
+[Gemma prompt and system instructions](../../get-started/prompt-formatting.md).
 
 !!! Note
     although the pre-trained checkpoints support this prompt structure, they require fine-tuning to your specific use cases.
@@ -99,5 +99,5 @@ for output in outputs:
 ## System instructions
 
 The PaliGemma models don't support any additional system instructions beyond
-the [Gemma system instructions](../../get-started/prompt-structure.md#system-instructions)
+the [Gemma system instructions](../../get-started/prompt-formatting.md#system-instructions)
 from the foundation models they are based on.

@@ -119,9 +119,9 @@ which hold up far better at 4-bit than a generic post-training quant.
 
 | Where | What's there |
 |---|---|
-| [Hugging Face](https://huggingface.co/collections/google/gemma-4) | Safetensors, GGUF and QAT collections |
-| [Kaggle](https://www.kaggle.com/models/google/gemma-4) | The same checkpoints, mirrored |
-| [Ollama](https://ollama.com/library/gemma4) | Prebuilt tags, pulled on first run |
+| [Hugging Face](https://huggingface.co/collections/google/gemma-4){ data-model="gemma-4" } | Safetensors, GGUF and QAT collections |
+| [Kaggle](https://www.kaggle.com/models/google/gemma-4){ data-model="gemma-4" } | The same checkpoints, mirrored |
+| [Ollama](https://ollama.com/library/gemma4){ data-model="gemma-4" } | Prebuilt tags, pulled on first run |
 
 Checkpoint names follow `google/gemma-4-{SIZE}-it{SUFFIX}` — pick the suffix your engine wants:
 

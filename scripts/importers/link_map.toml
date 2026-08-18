@@ -105,14 +105,14 @@
 
 # Now ported (were [planned] in Step 0.5)
 "/setup" = "get-started/index.md"        # legacy setup page removed
-"/core/prompt-structure" = "get-started/prompt-structure.md"
+"/core/prompt-structure" = "get-started/prompt-formatting.md"
 "/mtp/overview" = "get-started/capabilities/mtp.md"
 "/mtp/mtp" = "get-started/capabilities/mtp.md"
 
 # No such upstream page. Referenced from tuning docs about `start_of_turn`/`end_of_turn` tags
 # for core Gemma, so the core formatting page is the right target -- not paligemma/prompting.md,
 # which covers PaliGemma's task-specific syntax.
-"/core/prompt-system-instructions" = "get-started/prompt-structure.md"
+"/core/prompt-system-instructions" = "get-started/prompt-formatting.md"
 
 # ------------------------------------------------------------------------------------------
 # [planned] Page does not exist yet. Links point at the eventual path so the linter's
@@ -170,7 +170,7 @@
 "models/gemma-4/index.md#sizes" = "parameter-sizes-and-quantization"
 "deployment/google-cloud.md#run" = "cloud-run"
 # The formatting guidance lives under this page's H1, not a section of its own.
-"get-started/prompt-structure.md#formatting-instruction" = "gemma-formatting-and-system-instructions"
+"get-started/prompt-formatting.md#formatting-instruction" = "gemma-13"
 # google-cloud.md opens with its own contents list, using devsite's short anchors.
 "deployment/google-cloud.md#model-garden" = "gemini-enterprise-agent-platform"
 "deployment/google-cloud.md#gke" = "google-kubernetes-engine-gke"

@@ -23,8 +23,13 @@ tree below shows.
                                         | selectattr('based_on', 'none') | list %}
 
 <!-- Generated from data/models.yml -- edit that file, not this tree. -->
+{% set counts = [] %}
+{% for gen in generations %}{% set _ = counts.append(
+     modeldata.families | selectattr('based_on', 'defined')
+                        | rejectattr('based_on', 'none')
+                        | selectattr('based_on', 'equalto', gen.id) | list | length) %}{% endfor %}
 <div class="model-tree">
-<ol class="tree-spine">
+<ol class="tree-spine" style="--tree-rows: {{ counts | max + 1 }}">
 {% for gen in generations %}
 {% set kids = modeldata.families | selectattr('based_on', 'defined')
                                  | rejectattr('based_on', 'none')

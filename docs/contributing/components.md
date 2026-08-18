@@ -137,6 +137,54 @@ disagree with the tables.
 `--muted` is how the model switcher (Step 4.2) will show a capability the selected model does
 not have — struck through rather than hidden, so the reader learns the limitation.
 
+## Prompt tokens
+
+Gemma's control tokens are chips, not code. Colour carries the category, so a reader scanning
+`get-started/prompt-formatting.md` can tell a turn marker from a tool call without reading it.
+
+<p>
+  <code class="token-turn">&lt;|turn|&gt;</code>
+  <code class="token-role">system</code>
+  <code class="token-multi">&lt;|image|&gt;</code>
+  <code class="token-tool">&lt;|tool_call|&gt;</code>
+  <code class="token-think">&lt;|think|&gt;</code>
+</p>
+
+| Class | Category | Covers |
+|---|---|---|
+| `.token-turn` | Turn structure | `<\|turn\|>`, `<turn\|>`, `<start_of_turn>`, `<end_of_turn>` |
+| `.token-role` | Roles | `system`, `user`, `model`, `assistant` |
+| `.token-multi` | Modality placeholders | `<\|image\|>`, `<\|audio\|>` |
+| `.token-tool` | Tool use | `<\|tool\|>`, `<\|tool_call\|>`, `<\|tool_response\|>`, `<\|"\|>` |
+| `.token-think` | Reasoning | `<\|think\|>`, `<\|channel>thought`, `<channel\|>` |
+
+**Inline**, in prose or a table cell, use `attr_list` on inline code:
+
+```markdown
+Token to indicate a system instruction: `system`{.token-role}
+Enable reasoning with `<|think|>`{.token-think}
+```
+
+**In an example dialogue**, use a `<pre><code>` block with spans, so the surrounding prompt text
+stays unstyled and line breaks are preserved. Escape the angle brackets:
+
+```html
+<pre><code><span class="token-turn">&lt;|turn&gt;</span><span class="token-role">user</span>
+Describe this image: <span class="token-multi">&lt;|image|&gt;</span><span class="token-turn">&lt;turn|&gt;</span></code></pre>
+```
+
+Which renders as:
+
+<pre><code><span class="token-turn">&lt;|turn&gt;</span><span class="token-role">user</span>
+Describe this image: <span class="token-multi">&lt;|image|&gt;</span><span class="token-turn">&lt;turn|&gt;</span></code></pre>
+
+Keep a token in one chip when the model treats it as one unit — `<|channel>thought` is a single
+`.token-think`, not a chip followed by bare text. Do not use a fenced code block for a dialogue
+that needs tokens: syntax highlighting and these classes cannot both apply.
+
+Colours live in `gemma.css` as `--gemma-cat-*` triplets and are categorical on purpose — they
+stay distinct from each other rather than being derived from the brand blue.
+
 ## Page context strip
 
 The quiet band under every H1. You never write this markup; it is rendered from frontmatter by
@@ -252,6 +300,32 @@ that is editorial rather than a fact about the framework.
 `.engine-mark`'s text with an `<img>` needs no other markup change. Add `.engine--all` to a
 trailing tile to make it read as an action rather than another engine.
 
+Add `.engine-grid--detailed` to show each blurb on the card instead of behind a hover, and wrap
+the name and blurb in `.engine-body`. Use it where the grid *is* the page and the reader is
+deciding rather than recognising — the Run overview does — and the compact form where the grid
+is a shortcut past a list of names, as on the quickstart.
+
+An entry with no `page` is a hosted endpoint: link straight to its `url`, and mark it up as an
+external link.
+
+### Links pinned to a model generation
+
+Some external URLs name a generation — a Hugging Face collection, a provider's model page — and
+go stale when the next one ships. Tag them so they can be found later:
+
+```markdown
+[Hugging Face](https://huggingface.co/collections/google/gemma-4){ data-model="gemma-4" }
+```
+
+In `data/frameworks.yml` the equivalent is a `pinned:` key on the entry. Either way:
+
+```bash
+uv run python scripts/pinned_links.py --model gemma-4
+```
+
+lists every one of them. Tag only genuinely version-pinned URLs — a project's home page is not
+one, and marking it up would bury the links that do need revisiting.
+
 ## Model family tree
 
 The lineage visual on the models overview. Generated from `data/models.yml` `families`:
@@ -321,6 +395,11 @@ Body content, including code blocks.
 
 The `markdown` attribute is required — it tells `md_in_html` to keep parsing Markdown inside
 the tag.
+
+!!! warning "Content tabs do not work inside a step"
+    `pymdownx.tabbed` is a block-level extension and does not run inside an `md_in_html` block,
+    so `=== "Label"` inside a `<li markdown>` renders as literal text above an un-tabbed code
+    block. Use labelled fences inside the step, or move the tabs outside the list.
 
 ## Figures
 

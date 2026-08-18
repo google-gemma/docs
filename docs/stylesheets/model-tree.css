@@ -21,7 +21,7 @@
   display: grid;
   grid-auto-columns: minmax(9rem, 1fr);
   grid-auto-flow: column;
-  gap: var(--gemma-space-4);
+  gap: var(--gemma-space-3) var(--gemma-space-4);
   min-width: 40rem;
   margin: 0;
   padding: 0;
@@ -88,7 +88,7 @@
 .md-typeset ul.tree-branch:not([hidden]) {
   position: relative;
   margin: 0;
-  padding: var(--gemma-space-4) 0 0;
+  padding: var(--gemma-space-3) 0 0;
   list-style: none;
 }
 
@@ -97,18 +97,59 @@
   top: 0;
   left: 50%;
   width: 2px;
-  height: var(--gemma-space-4);
+  height: var(--gemma-space-3);
   background: var(--gemma-border-strong);
   content: "";
 }
 
 .md-typeset ul.tree-branch > li {
   position: relative;
-  margin: 0 0 var(--gemma-space-2);
+  margin: 0 0 var(--gemma-space-3);
 }
 
 .md-typeset ul.tree-branch > li:last-child {
   margin-bottom: 0;
+}
+
+/* Row alignment. Without subgrid each column stacks independently, so a tall card in one
+   generation leaves its neighbours ragged. Subgrid hands the spine's rows down through the
+   generation and its branch list, so every generation card shares row 1 and the nth variant
+   of each generation shares row n+1 -- at any width, with no fixed heights.
+   --tree-rows is emitted by the page as 1 + the largest number of variants. */
+@supports (grid-template-rows: subgrid) {
+  .md-typeset ol.tree-spine:not([hidden]) {
+    grid-template-rows: repeat(var(--tree-rows, 5), auto);
+  }
+
+  .md-typeset ol.tree-spine > li.tree-gen {
+    display: grid;
+    grid-row: 1 / -1;
+    grid-template-rows: subgrid;
+    gap: var(--gemma-space-3);
+  }
+
+  .md-typeset ul.tree-branch:not([hidden]) {
+    display: grid;
+    grid-row: 2 / -1;
+    grid-template-rows: subgrid;
+    gap: var(--gemma-space-3);
+    padding: 0;
+  }
+
+  .md-typeset ul.tree-branch > li {
+    display: grid;
+    margin: 0;
+  }
+
+  /* The rail now sits in the grid gap above the branch rather than in its padding. */
+  .md-typeset ul.tree-branch::before {
+    top: calc(-1 * var(--gemma-space-3));
+  }
+
+  .md-typeset .tree-none {
+    grid-row: 2 / -1;
+    padding-top: 0;
+  }
 }
 
 .md-typeset .tree-name {

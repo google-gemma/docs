@@ -12,69 +12,66 @@ with what hardware you and your users have available to run the model.
 This overview helps you navigate these decisions and start working with Gemma
 models. The general steps for running a Gemma model are as follows:
 
-- [Choose a framework for running](index.md#choose-a-framework)
+- [Choose a framework](index.md#choose-a-framework)
 - [Select a Gemma variant](index.md#select-a-gemma-variant)
 - [Run generation and inference requests](index.md#run-generation-and-inference-requests)
 
 ## Choose a framework
 
-Gemma models are compatible with a wide variety of ecosystem tools. Choosing the
-right one depends on your available hardware (Cloud GPUs versus Local Laptop)
-and your interface preference (Python code versus Desktop Application).
+Gemma runs on a wide range of ecosystem tools. Which one suits you depends on your hardware —
+cloud GPUs or a laptop — and whether you want to write Python or open an application. Every
+option below runs the same weights, so you can move between them later.
 
-Use the following table to quickly identify the best tool for your needs:
+<!-- Generated from data/frameworks.yml -- edit that file, not these grids. -->
+{% macro engines(ids) %}
+<ul class="engine-grid engine-grid--detailed">
+{% for id in ids %}{% for fw in frameworkdata.frameworks if fw.id == id %}
+{% set page = fw.get('page') %}
+  <li><a class="engine" href="{% if page %}../{{ page }}{% else %}{{ fw.url }}{% endif %}"
+         {% if not page %}target="_blank" rel="noopener"{% endif %}>
+    <span class="engine-mark" aria-hidden="true">{{ fw.mark }}</span>
+    <span class="engine-body">
+      <span class="engine-name">{{ fw.short_name | default(fw.name) }}{% if not page %} ↗{% endif %}</span>
+      <span class="engine-blurb">{{ fw.blurb }}</span>
+    </span>
+  </a></li>
+{% endfor %}{% endfor %}
+</ul>
+{% endmacro %}
 
-| If you want to... | Recommended Framework | Best For |
-|---|---|---|
-| **Run locally with a Chat UI** | - **[LM Studio](lmstudio.md)** - **[Ollama](ollama.md)** | Beginners, or users who want a "Gemini-like" experience on their laptop. |
-| **Run efficiently on Edge** | - **[LiteRT-LM](https://ai.google.dev/edge/litert-lm/models/gemma-4)** - **[llama.cpp](llamacpp.md)** - **[MLX](mlx.md)** | High-performance local inference with minimal resources. |
-| **Build/Train in Python** | - **[Tunix (Tune-in-JAX)](https://tunix.readthedocs.io/en/latest/)** - **[Hugging Face Transformers](https://huggingface.co/docs/transformers/en/model_doc/gemma4)** - **[Keras](keras.md)** - **[Unsloth](unsloth.md)** | Researchers and Developers building custom applications or fine-tuning models. |
-| **Deploy to Production / Enterprise** | - **[Google Cloud Kubernetes Engine (GKE)](google-cloud.md)** - **[Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/use-gemma)** - **[vLLM](https://docs.vllm.ai/projects/recipes/en/latest/Google/Gemma4.html)** - **[SGLang](https://lmsysorg.mintlify.app/cookbook/autoregressive/Google/Gemma4)** | Scalable, managed cloud deployment with enterprise security and MLOps support. |
+### Try it without installing anything
 
-### Framework Details
+Hosted endpoints. No download, no GPU — useful for evaluating a model before committing
+hardware to it.
 
-The following are guides for running Gemma models categorized by your deployment
-environment.
+{{ engines(["ai-studio", "openrouter", "cerebras"]) }}
 
-#### 1. Desktop \& Local Inference (High Efficiency)
+### Run it on your own machine
 
-These tools allow you to run Gemma on consumer hardware (laptops, desktops) by
-utilizing optimized formats (like GGUF) or specific hardware accelerators.
+Desktop applications and local runtimes. These use quantized formats such as GGUF, so a laptop
+is usually enough.
 
-- **[LM Studio](lmstudio.md)**: A desktop application that lets you download and chat with Gemma models in a user-friendly interface. No coding required.
-- **[llama.cpp](llamacpp.md)**: A popular open-source C++ port of Llama (and Gemma) that runs incredibly fast on CPUs and Apple Silicon.
-- **[LiteRT-LM](https://ai.google.dev/edge/litert-lm/models/gemma-4)** : Offers a command-line interface ([CLI](https://ai.google.dev/edge/litert-lm/cli)) to run optimized `.litertlm` Gemma models on desktop (Windows, Linux, macOS), powered by LiteRT (formerly TFLite).
-- **[MLX](mlx.md)**: A framework designed specifically for machine learning on Apple Silicon, perfect for Mac users who want built-in performance.
-- **[Ollama](ollama.md)**: A tool to run open LLMs locally, often used to power other applications.
+{{ engines(["lmstudio", "ollama", "llamacpp", "mlx", "litert"]) }}
 
-#### 2. Python Development (Research \& Fine-tuning)
+### Build and fine-tune in Python
 
-Standard frameworks for AI developers building applications, pipelines, or
-training models.
+The libraries you reach for when Gemma is part of an application or a training run.
 
-- **[Hugging Face Transformers](https://huggingface.co/docs/transformers/en/model_doc/gemma4)**: The industry standard for quick access to models and pipelines.
-- **[Unsloth](unsloth.md)**: An optimized library for fine-tuning LLMs. It lets you train Gemma models 2-5x faster with significantly less memory, making it possible to fine-tune on consumer GPUs (e.g., free Google Colab tiers).
-- **[Keras](keras.md)** / **[Tunix (Tune-in-JAX)](https://tunix.readthedocs.io/en/latest/)**: Core libraries for deep learning research and custom architecture implementation.
+{{ engines(["transformers", "unsloth", "keras"]) }}
 
-#### 3. Mobile \& Edge Deployment (On-Device)
+Also see [Tunix](https://tunix.readthedocs.io/en/latest/) for tuning in JAX.
 
-Frameworks designed to run LLMs directly on user devices (Android, iOS, Web)
-without internet connectivity, often utilizing NPUs (Neural Processing Units).
+### Serve it at scale
 
-- **[LiteRT-LM](https://ai.google.dev/edge/litert-lm/models/gemma-4)**: The fully open-source framework for on-device LLM development that offers maximum performance and fine-grained control, with direct support for CPU, GPU, and NPU acceleration on Android and iOS.
+Inference servers and managed platforms for production traffic.
 
-#### 4. Cloud \& Production Deployment
+{{ engines(["vllm", "sglang", "google-cloud", "gemini-api"]) }}
 
-Managed services for scaling your application to thousands of users or accessing
-massive compute power.
+For enterprise deployments, Google Cloud also offers the
+[Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/use-gemma).
 
-- **[Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/use-gemma)**: Google Cloud's fully managed AI platform. Best for enterprise applications requiring SLAs and scaling.
-- **[Google Cloud Kubernetes Engine (GKE)](google-cloud.md)**: For orchestrating your own serving clusters.
-- **[vLLM](https://docs.vllm.ai/projects/recipes/en/latest/Google/Gemma4.html)**: A high-throughput and memory-efficient inference and serving engine, often used in cloud deployments.
-- **[SGLang](https://lmsysorg.mintlify.app/cookbook/autoregressive/Google/Gemma4)**: High-performance serving framework for large language and multimodal models.
-
-Make sure your intended deployment Gemma model format, such as Keras built-in
-format, Safetensors, or GGUF, is supported by your chosen framework.
+Make sure your intended model format — Keras built-in, Safetensors, or GGUF — is supported by
+the framework you pick.
 
 ## Select a Gemma variant
 

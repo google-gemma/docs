@@ -22,10 +22,8 @@
 # Ported in Step 0.6 to resolve links that Step 0.5 pointed at planned paths. These pages are
 # not in the nav yet -- Step 2.1 places them.
 
-[[page]]
-path = "get-started/prompt-structure.md"
-source = "https://ai.google.dev/gemma/docs/core/prompt-structure.md.txt"
-frozen = true
+# get-started/prompt-structure.md was merged into prompt-formatting.md as its "Gemma 1-3"
+# section; the upstream page above lives on there, not at its own path.
 
 [[page]]
 path = "get-started/capabilities/vision.md"

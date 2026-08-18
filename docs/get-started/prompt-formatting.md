@@ -1,15 +1,16 @@
 ---
 title: Prompt Formatting
-description: The control tokens Gemma 4 uses to structure a prompt, and what each one is for.
+description: The control tokens Gemma 4 uses to structure a prompt, and the older start_of_turn format used by Gemma 1 to 3.
 models: [gemma-4]
-hide:
-  - toc
 ---
 
-# Prompt Formatting
 
-Starting with Gemma 4, we introduce new control tokens. For Gemma 3 and lower,
-see the [previous document](prompt-structure.md).
+# Prompt formatting
+
+Gemma 4 introduced a new set of control tokens. Gemma 1 through 3 use an older
+`<start_of_turn>` format, kept below because those models are still in use.
+
+## Gemma 4
 
 The following sections specify the control tokens used by Gemma 4 and their use
 cases. Note that the control tokens are reserved in and specific to our
@@ -31,7 +32,7 @@ You are a helpful assistant.<span class="token-turn">&lt;turn|&gt;</span>
 Hello.<span class="token-turn">&lt;turn|&gt;</span></code></pre>
 
 
-## Multi-modalities
+### Multi-modalities
 
 | Multimodal Token | Purpose |
 |---|---|
@@ -54,7 +55,7 @@ a. <span class="token-multi">&lt;|audio|&gt;</span>
 b. <span class="token-multi">&lt;|audio|&gt;</span><span class="token-turn">&lt;turn|&gt;</span>
 <span class="token-turn">&lt;|turn&gt;</span><span class="token-role">model</span>"""</code></pre>
 
-### Audio
+#### Audio
 
 For the optimal results, use the following prompt structures. You can also
 use a basic `transcribe the audio` prompt.
@@ -74,14 +75,14 @@ use a basic `transcribe the audio` prompt.
 
 But just `transcribe the audio` should work too.
 
-## Agentic and Reasoning Control Tokens
+### Agentic and Reasoning Control Tokens
 
 To support agentic workflows, Gemma uses specialized control tokens that
 delineate internal reasoning (thinking) from external actions (function
 calling). These tokens allow the model to process complex logic before providing
 a final response or interacting with outside tools.
 
-### Function Calling
+#### Function Calling
 
 Gemma 4 is trained on six special tokens to manage the "tool use" lifecycle.
 
@@ -102,7 +103,7 @@ within the structured data blocks.
 - **Purpose:** This token ensures that any special characters (such as `{`, `}`, `,`, or quotes) inside a string are treated as literal text and not as part of the data structure's underlying syntax.
 - **Usage:** All string literals in your function declarations, calls, and responses must be enclosed using this token (e.g., <code>key:<span class="token-tool">&lt;|"|&gt;</span>string value<span class="token-tool">&lt;|"|&gt;</span></code>).
 
-### Thinking Mode
+#### Thinking Mode
 
 To activate thinking mode, include the `<|think|>`{.token-think} control token within the
 system instruction.
@@ -130,7 +131,7 @@ Thinking mode is designed to be enabled at the conversation level. This should
 be consolidated into a single system turn alongside your other system
 instructions, such as tool definitions.
 
-### Reasoning and Function Calling Example
+#### Reasoning and Function Calling Example
 
 In an agentic turn, the model may "think" privately before deciding to call a
 function. The lifecycle follows this sequence:
@@ -199,7 +200,7 @@ Here is the complete JSON chat history for this example:
       }
     ]
 
-### Managing Thought Context Between Turns
+#### Managing Thought Context Between Turns
 
 Properly managing the model's generated thoughts is critical for maintaining
 performance across multi-turn conversations.
@@ -216,13 +217,13 @@ from entering cyclical reasoning loops.
 - **Summarizing Thoughts:** A highly recommended inference technique is to extract, summarize, and feed the model's previous thoughts back into the context window as standard text.
 - **Formatting Constraints:** Because Gemma 4 was not explicitly trained with raw thoughts included in the prompt (outside of the specific tool-call scenario mentioned above), there is no strict or specific format expected by the model for these injected thoughts. You have the flexibility to format summarized reasoning in whatever way best suits your specific agentic architecture.
 
-## Integration Notes
+### Integration Notes
 
 - **Internal State:** The `<|channel>`{.token-think} and `<channel|>`{.token-think} tokens are typically used for Chain-of-Thought (CoT) processing. In standard user-facing applications, this content is usually hidden from the end-user.
 - **Tool Loop:** The `tool_call`{.token-tool} and `tool_response`{.token-tool} tokens facilitate a "handshake" between the model your application environment. The application intercepts the `tool_call`{.token-tool}, executes the underlying code, and feeds the result back to the model within the `tool_response`{.token-tool} tokens.
 - **Model Behavior:** Larger models (e.g., gemma-4-26B-A4B-it, gemma-4-31B-it) may occasionally generate a thought channel even when thinking mode is explicitly turned off. To stabilize model behavior in these edge cases, consider adding an empty thinking token to the prompt.
 
-## Tip: Fine-Tuning Big Models with No-Thinking Datasets
+### Tip: Fine-Tuning Big Models with No-Thinking Datasets
 
 When fine-tuning gemma-4-26B-A4B-it and gemma-4-31B-it with a dataset that does
 not include thinking, you can achieve better results by adding the empty channel
@@ -232,7 +233,7 @@ to your training prompts:
 <span class="token-think">&lt;|channel&gt;thought</span>
 <span class="token-think">&lt;channel|&gt;</span></code></pre>
 
-## Tip: Adaptive Thought Efficiency using System Instructions
+### Tip: Adaptive Thought Efficiency using System Instructions
 
 While "thinking" in Gemma 4 is officially supported as an ON or OFF boolean
 feature, the model has exceptionally strong instruction-following capabilities
@@ -248,6 +249,62 @@ achieve adaptive thought efficiency.
 - **Proof of Concept:** Because this behavior is a byproduct of the model's instructability rather than a specifically trained, there is no single "perfect" prompt. The "LOW" instruction is a proof of concept.
 - **Customization:** We highly encourage developers to play around with their own custom System Instructions. You can fine-tune the depth, length, and style of the model's thinking process to perfectly balance latency, cost, and output quality for your specific use cases.
 
+## Gemma 1-3
 
+Gemma instruction-tuned (IT) models are trained with a specific *formatter* that
+annotates all instruction tuning examples with extra information, both at
+training and inference time. The formatter has two purposes:
 
+1. Indicating roles in a conversation, such as the *system* , *user* , or *assistant* roles.
+2. Delineating turns in a conversation, especially in a multi-turn conversation.
 
+Below, we specify the control tokens used by Gemma and their use cases. Note
+that the control tokens are reserved in and specific to our tokenizer.
+
+- Token to indicate a user turn: `user`{.token-role}
+- Token to indicate a model turn: `model`{.token-role}
+- Token to indicate the beginning of dialogue turn: `<start_of_turn>`{.token-turn}
+- Token to indicate the end of dialogue turn: `<end_of_turn>`{.token-turn}
+
+Here's an example dialogue:
+
+<pre><code><span class="token-turn">&lt;start_of_turn&gt;</span><span class="token-role">user</span>
+knock knock<span class="token-turn">&lt;end_of_turn&gt;</span>
+<span class="token-turn">&lt;start_of_turn&gt;</span><span class="token-role">model</span>
+who is there<span class="token-turn">&lt;end_of_turn&gt;</span>
+<span class="token-turn">&lt;start_of_turn&gt;</span><span class="token-role">user</span>
+Gemma<span class="token-turn">&lt;end_of_turn&gt;</span>
+<span class="token-turn">&lt;start_of_turn&gt;</span><span class="token-role">model</span>
+Gemma who?<span class="token-turn">&lt;end_of_turn&gt;</span></code></pre>
+
+The token `"<end_of_turn>
+"`{.token-turn} is the turn separator, and the prompt prefix is
+`"<start_of_turn>model
+"`. This means that if you'd like to prompt the model
+with a question like, "What is Cramer's Rule?", you should instead feed the
+model as follows:
+
+<pre><code><span class="token-turn">&lt;start_of_turn&gt;</span><span class="token-role">user</span>
+What is Cramer's Rule?<span class="token-turn">&lt;end_of_turn&gt;</span>
+<span class="token-turn">&lt;start_of_turn&gt;</span><span class="token-role">model</span></code></pre>
+
+Note that if you want to finetune the pretrained Gemma models with your own
+data, you can use any such schema for control tokens, as long as it's consistent
+between your training and inference use cases.
+
+### System instructions
+
+Gemma's instruction-tuned models are designed to work with only two roles:
+`user`{.token-role} and `model`{.token-role}. Therefore, the `system`{.token-role} role or a
+system turn is not supported.
+
+Instead of using a separate system role, provide system-level instructions
+directly within the initial user prompt. The model instruction following
+capabilities allow Gemma to interpret the instructions effectively. For example:
+
+<pre><code><span class="token-turn">&lt;start_of_turn&gt;</span><span class="token-role">user</span>
+Only reply like a pirate.
+
+What is the answer to life the universe and everything?<span class="token-turn">&lt;end_of_turn&gt;</span>
+<span class="token-turn">&lt;start_of_turn&gt;</span><span class="token-role">model</span>
+Arrr, 'tis 42,<span class="token-turn">&lt;end_of_turn&gt;</span></code></pre>

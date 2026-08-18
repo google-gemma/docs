@@ -44,8 +44,8 @@ vllm serve google/gemma-4-12B-it-qat-w4a16-ct
 | `-mobile-transformers`, `-mobile-ct` | E2B, E4B |
 
 Collections:
-[gemma-4-qat-q4-0](https://huggingface.co/collections/google/gemma-4-qat-q4-0) ·
-[gemma-4-qat-mobile](https://huggingface.co/collections/google/gemma-4-qat-mobile).
+[gemma-4-qat-q4-0](https://huggingface.co/collections/google/gemma-4-qat-q4-0){ data-model="gemma-4" } ·
+[gemma-4-qat-mobile](https://huggingface.co/collections/google/gemma-4-qat-mobile){ data-model="gemma-4" }.
 All QAT checkpoints are also on
 [Kaggle](https://www.kaggle.com/models/google/gemma-4/transformers).
 

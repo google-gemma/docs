@@ -52,19 +52,19 @@ top_k = 64
 **Install**
 
 Download the [Unsloth app](https://unsloth.ai/download) for macOS, Windows or Linux, or install
-it manually:
+it manually.
 
-=== "macOS, Linux, WSL"
+macOS, Linux, WSL:
 
-    ```bash
-    curl -fsSL https://unsloth.ai/install.sh | sh
-    ```
+```bash
+curl -fsSL https://unsloth.ai/install.sh | sh
+```
 
-=== "Windows PowerShell"
+Windows PowerShell:
 
-    ```powershell
-    irm https://unsloth.ai/install.ps1 | iex
-    ```
+```powershell
+irm https://unsloth.ai/install.ps1 | iex
+```
 </li>
 <li markdown>
 **Launch**
