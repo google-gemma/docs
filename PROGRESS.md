@@ -16,9 +16,9 @@ Temporary tracking file. **Delete before the final commit.**
 - [x] `deployment/langchain.md`
 
 ## 3. Model data
-- [ ] Expand `data/models.yml` with sizes/ids for every family
-- [ ] Validate against the in-repo model cards first, then the collection pages
-- [ ] Do not invent: omit anything not attested
+- [x] Expand `data/models.yml` with sizes/ids for every family
+- [x] Validate against the in-repo model cards first, then the collection pages
+- [x] Do not invent: omit anything not attested
 
 ## 4. Structure
 - [x] Remove `deployment/web.md` + `deployment/mobile.md`

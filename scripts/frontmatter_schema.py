@@ -86,13 +86,16 @@ def model_families() -> frozenset[str]:
 
 @cache
 def model_vocabulary() -> frozenset[str]:
-    """Every accepted `models` value: each family, plus `gemma-4/<size>` for its sizes.
+    """Every accepted `models` value: each family, plus `<family>/<size>` where sizes exist.
 
-    Only Gemma 4 has per-size data today. Other families are addressable at family level
-    until someone adds sizes for them to data/models.yml.
+    Gemma 4's sizes live under the top-level `gemma4` key; every other family carries its own
+    `sizes` list. A family with no sizes recorded stays addressable at family level.
     """
     data = yaml.safe_load(MODELS_DATA.read_text(encoding="utf-8"))
     sizes = {f"gemma-4{MODEL_SEPARATOR}{size['id']}" for size in data["gemma4"]["sizes"]}
+    for family in data.get("families", []):
+        for size in family.get("sizes") or ():
+            sizes.add(f"{family['id']}{MODEL_SEPARATOR}{size['id']}")
     return frozenset(model_families() | sizes)
 
 

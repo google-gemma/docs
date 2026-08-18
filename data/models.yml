@@ -63,30 +63,60 @@ families:
     group: variant
     based_on: gemma-3        # the on-device member of the Gemma 3 generation (MatFormer)
     tagline: On-device models for phones, laptops and tablets
+    sizes:
+      - id: e2b
+        name: E2B
+        parameters: 2B effective
+      - id: e4b
+        name: E4B
+        parameters: 4B effective
   - id: diffusiongemma
     name: DiffusionGemma
     page: models/diffusiongemma/model-card.md
     group: variant
     based_on: gemma-4        # "Based on the 26B (4B active) MoE Gemma 4 architecture"
     tagline: Experimental text diffusion for exceptionally fast generation
+    sizes:
+      - id: 26b-a4b
+        name: 26B A4B
+        parameters: 26B (4B active)
+        hf: google/diffusiongemma-26B-A4B-it
   - id: functiongemma
     name: FunctionGemma
     page: models/functiongemma/model-card.md
     group: variant
     based_on: gemma-3        # "a specialized version of our Gemma 3 270M model"
     tagline: Gemma 3 270M tuned for function calling
+    sizes:
+      - id: 270m
+        name: 270M
+        hf: google/functiongemma-270m-it
   - id: embeddinggemma
     name: EmbeddingGemma
     page: models/embeddinggemma/model-card.md
     group: variant
     based_on: gemma-3        # "a 308M parameter multilingual text embedding model based on Gemma 3"
     tagline: 308M multilingual text embeddings
+    sizes:
+      - id: 300m
+        name: 300M
+        hf: google/embeddinggemma-300M
   - id: paligemma
     name: PaliGemma
     page: models/paligemma/model-card-v2.md
     group: variant
     based_on: gemma-2        # "PaliGemma 2 ... based on Gemma 2"; PaliGemma 1 was built on Gemma
     tagline: Vision-language models for captioning, VQA and detection
+    sizes:                             # PaliGemma 2; each built on the Gemma 2 size beside it
+      - id: 3b
+        name: 3B
+        based_on_size: 2B
+      - id: 10b
+        name: 10B
+        based_on_size: 9B
+      - id: 28b
+        name: 28B
+        based_on_size: 27B
   - id: shieldgemma
     name: ShieldGemma
     page: models/shieldgemma/model-card-v2.md
@@ -94,6 +124,16 @@ families:
     based_on: gemma-2        # "ShieldGemma 1 is built on Gemma 2". The page does not state a
                              # base for the 4B ShieldGemma 2; do not guess one here.
     tagline: Safety classification for text and image content
+    sizes:
+      - id: 2b
+        name: 2B                       # ShieldGemma 1, text
+      - id: 9b
+        name: 9B                       # ShieldGemma 1, text
+      - id: 27b
+        name: 27B                      # ShieldGemma 1, text
+      - id: 4b
+        name: 4B                       # ShieldGemma 2, image
+        hf: google/shieldgemma-2-4b-it
 
   - id: gemma-3
     name: Gemma 3
@@ -101,18 +141,46 @@ families:
     group: previous
     generation: 3
     tagline: Multimodal text and image models, 270M to 27B
+    sizes:
+      - id: 270m
+        name: 270M
+        context: 32K
+      - id: 1b
+        name: 1B
+        context: 32K
+      - id: 4b
+        name: 4B
+        context: 128K
+      - id: 12b
+        name: 12B
+        context: 128K
+      - id: 27b
+        name: 27B
+        context: 128K
   - id: gemma-2
     name: Gemma 2
     page: models/gemma-2/index.md
     group: previous
     generation: 2
     tagline: Text models in 2B, 9B and 27B
+    sizes:
+      - id: 2b
+        name: 2B
+      - id: 9b
+        name: 9B
+      - id: 27b
+        name: 27B
   - id: gemma-1
     name: Gemma
     page: models/gemma-1/index.md
     group: previous
     generation: 1
     tagline: The first generation of Gemma text models
+    sizes:
+      - id: 2b
+        name: 2B
+      - id: 7b
+        name: 7B
 
   - id: recurrentgemma
     name: RecurrentGemma
@@ -120,12 +188,21 @@ families:
     group: research
     based_on: null           # "based on Griffin" -- an architecture, not a Gemma generation
     tagline: Griffin architecture mixing recurrences with local attention
+    sizes:
+      - id: 2b
+        name: 2B
+      - id: 9b
+        name: 9B
   - id: datagemma
     name: DataGemma
     page: models/datagemma/index.md
     group: research
     based_on: gemma-2        # both RIG and RAG use "a variant of Gemma 2"
     tagline: Grounding generation in Data Commons statistics
+    sizes:
+      - id: 27b
+        name: 27B
+        hf: google/datagemma-rig-27b-it   # RIG; the RAG build is datagemma-rag-27b-it
   - id: gemma-scope
     name: Gemma Scope
     page: models/gemma-scope/index.md
@@ -138,6 +215,13 @@ families:
     group: research
     based_on: gemma-1        # published as google/gemma-2b-aps-it and google/gemma-7b-aps-it
     tagline: Segmenting text into individual propositions
+    sizes:
+      - id: 2b
+        name: 2B
+        hf: google/gemma-2b-aps-it
+      - id: 7b
+        name: 7B
+        hf: google/gemma-7b-aps-it
 
 gemma4:
   context_windows:
