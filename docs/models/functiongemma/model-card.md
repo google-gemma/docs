@@ -11,8 +11,8 @@ source_url: "https://ai.google.dev/gemma/docs/functiongemma/model_card.md.txt"
 **Resources and Technical Documentation**:
 
 - [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
-- [FunctionGemma on Kaggle](https://www.kaggle.com/models/google/functiongemma/)
-- [FunctionGemma on Vertex Model Garden](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/functiongemma)
+- [FunctionGemma on Kaggle](https://www.kaggle.com/models/google/functiongemma/){ data-model="functiongemma" }
+- [FunctionGemma on Vertex Model Garden](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/functiongemma){ data-model="functiongemma" }
 
 **Terms of Use** : [Terms](https://ai.google.dev/gemma/terms)  
 
@@ -58,7 +58,7 @@ the
 - **Mobile Actions:** To empower developers to build their own expert
   agents, we have published [a
   dataset](https://huggingface.co/datasets/google/mobile-actions) and
-  [fine-tuning recipe](https://github.com/google-gemma/cookbook/blob/main/.archive/FunctionGemma/%5BFunctionGemma%5DFinetune_FunctionGemma_270M_for_Mobile_Actions_with_Hugging_Face.ipynb)
+  [fine-tuning recipe](https://github.com/google-gemma/cookbook/blob/main/.archive/FunctionGemma/%5BFunctionGemma%5DFinetune_FunctionGemma_270M_for_Mobile_Actions_with_Hugging_Face.ipynb){ data-model="functiongemma" }
   to demonstrate fine-tuning FunctionGemma. It translates user inputs (e.g.,
   "Create a calendar event for lunch," "Turn on the flashlight") into
   function calls that trigger Android OS system tools. This interactive
@@ -157,7 +157,7 @@ Model evaluation metrics and results.
 To demonstrate the value of specialization for small language models, we
 compared the base FunctionGemma model against the fine-tuned model using the
 "Mobile Actions"
-[recipe](https://github.com/google-gemma/cookbook/blob/main/.archive/FunctionGemma/%5BFunctionGemma%5DFinetune_FunctionGemma_270M_for_Mobile_Actions_with_Hugging_Face.ipynb).
+[recipe](https://github.com/google-gemma/cookbook/blob/main/.archive/FunctionGemma/%5BFunctionGemma%5DFinetune_FunctionGemma_270M_for_Mobile_Actions_with_Hugging_Face.ipynb){ data-model="functiongemma" }.
 Fine-tuning significantly improved the base FunctionGemma model's ability to
 correctly identify and format mobile system calls.
 

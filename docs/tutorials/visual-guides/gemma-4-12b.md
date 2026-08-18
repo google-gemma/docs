@@ -9,9 +9,9 @@ source_url: https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-gemma
 
 !!! note
     Originally published on
-    [Exploring Language Models](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-gemma-4-12b).
+    [Exploring Language Models](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-gemma-4-12b){ data-model="gemma-4" }.
 
-[A new Gemma 4 model](https://huggingface.co/google/gemma-4-12B-it) has been released and it’s an interesting one. There was an empty spot between the E4B and 26B A4B that needed to be filled and a 12B model fits nicely there. However, it wouldn’t be Google DeepMind without trying to do something special with that model and sharing it with the public.
+[A new Gemma 4 model](https://huggingface.co/google/gemma-4-12B-it){ data-model="gemma-4" } has been released and it’s an interesting one. There was an empty spot between the E4B and 26B A4B that needed to be filled and a 12B model fits nicely there. However, it wouldn’t be Google DeepMind without trying to do something special with that model and sharing it with the public.
 
 So what is different with Gemma 4 12B?
 

@@ -23,7 +23,7 @@ device.
 
 ## Step 1: Fine-tuning FunctionGemma with the Mobile Actions Dataset
 
-[FunctionGemma](https://huggingface.co/google/functiongemma-270m-it) is a 270
+[FunctionGemma](https://huggingface.co/google/functiongemma-270m-it){ data-model="functiongemma" } is a 270
 million parameter model based on the Gemma 3 architecture. It has been trained
 specifically for function calling, enabling it to translate natural language
 requests into function calls.
@@ -71,7 +71,7 @@ Here is how the show map function looks:
 }
 ```
 
-The [colab notebook](https://github.com/google-gemini/gemma-cookbook/blob/main/FunctionGemma/%5BFunctionGemma%5DFinetune_FunctionGemma_270M_for_Mobile_Actions_with_Hugging_Face.ipynb)
+The [colab notebook](https://github.com/google-gemini/gemma-cookbook/blob/main/FunctionGemma/%5BFunctionGemma%5DFinetune_FunctionGemma_270M_for_Mobile_Actions_with_Hugging_Face.ipynb){ data-model="functiongemma" }
 covers all necessary steps, including:
 
 - Setting up the environment

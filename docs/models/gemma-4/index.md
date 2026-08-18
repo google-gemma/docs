@@ -29,11 +29,11 @@ hardware requirements:
 - **Unified:** A 12B parameter encoder free model for multimodal tasks, replaced vision and audio encoders with direct linear projections of the input.
 
 You can download Gemma 4 models from
-[Kaggle](https://www.kaggle.com/models?query=gemma-4&publisher=google) and
-[Hugging Face](https://huggingface.co/collections/google/gemma-4).
+[Kaggle](https://www.kaggle.com/models?query=gemma-4&publisher=google){ data-model="gemma-4" } and
+[Hugging Face](https://huggingface.co/collections/google/gemma-4){ data-model="gemma-4" }.
 For more technical details on Gemma 4, see the
 [Model Card](model-card.md) and
-[Technical Report](https://goo.gle/Gemma4Report).
+[Technical Report](https://goo.gle/Gemma4Report){ data-model="gemma-4" }.
 Earlier versions of Gemma core models are also available for download. For more
 information, see [Previous Gemma models](index.md#previous-gemma-models).
 
@@ -123,15 +123,15 @@ nearly identically to their high-precision baselines.
 
 Official QAT collections on Hugging Face
 
-- **[collections/google/gemma-4-qat-q4-0](https://huggingface.co/collections/google/gemma-4-qat-q4-0)**
+- **[collections/google/gemma-4-qat-q4-0](https://huggingface.co/collections/google/gemma-4-qat-q4-0){ data-model="gemma-4" }**
     - **Unquantized QAT Checkpoints (`-unquantized` / `-assistant`):** Half-precision weights extracted directly from the QAT pipeline. These are ideal for custom downstream compilation, research, or running speculative decoding using the assistant draft models. *Available for Gemma 4 E2B, E4B, 12B, 26B A4B, and 31B.*
     - **GGUF (`-gguf`):** Checkpoints available for immediate drop-in compatibility across the local LLM ecosystem. *Available for Gemma 4 E2B, E4B, 12B, 26B A4B, and 31B.*
     - **Compressed Tensors (`-w4a16-ct`):** Serialized natively in the `compressed-tensors` standard for optimized, high-concurrency cloud serving. *Available for Gemma 4 E2B, E4B, 12B, and 31B.*
-- **[collections/google/gemma-4-qat-mobile](https://huggingface.co/collections/google/gemma-4-qat-mobile)**
+- **[collections/google/gemma-4-qat-mobile](https://huggingface.co/collections/google/gemma-4-qat-mobile){ data-model="gemma-4" }**
     - **Mobile-Optimized (`-mobile-transformers` / `-mobile-ct`):** Built on a custom `wNa8o8` schema engineered specifically for mobile hardware limits. It utilizes targeted 2-bit decoding layers, optimized KV caches, and static activations to maximize on-device RAM savings without choking edge processors. *Available for Gemma 4 E2B and E4B.*
 
 All official Gemma 4 QAT checkpoints can also be accessed directly from
-[Kaggle](https://www.kaggle.com/models/google/gemma-4/transformers).
+[Kaggle](https://www.kaggle.com/models/google/gemma-4/transformers){ data-model="gemma-4" }.
 
 ## Previous Gemma models
 

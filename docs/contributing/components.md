@@ -327,6 +327,11 @@ uv run python scripts/pinned_links.py --model gemma-4
 lists every one of them. Tag only genuinely version-pinned URLs — a project's home page is not
 one, and marking it up would bury the links that do need revisiting.
 
+Two things the name alone will mislead you about. `paligemma-2` and `shieldgemma-2` are
+PaliGemma 2 and ShieldGemma 2, not Gemma 2; tag them `paligemma` and `shieldgemma`. And pages
+registered in `scripts/notebooks.py` are exported to Jupyter, which renders `attr_list` as
+literal text — leave those untagged.
+
 ## Model family tree
 
 The lineage visual on the models overview. Generated from `data/models.yml` `families`:

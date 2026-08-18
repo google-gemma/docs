@@ -26,10 +26,10 @@ advantages:
 
 RecurrentGemma's model card contains detailed information about the model, implementation information, evaluation information, model usage and limitations, and more.
 
-### [View on Kaggle](https://www.kaggle.com/models/google/recurrentgemma)
+### [View on Kaggle](https://www.kaggle.com/models/google/recurrentgemma){ data-model="recurrentgemma" }
 
 View more code, Colab notebooks, information, and discussions about RecurrentGemma on Kaggle.
 
-### [Run on GitHub](https://github.com/google-deepmind/recurrentgemma/blob/main/colabs/)
+### [Run on GitHub](https://github.com/google-deepmind/recurrentgemma/blob/main/colabs/){ data-model="recurrentgemma" }
 
 Run example Colab notebooks for JAX and PyTorch on GitHub.

@@ -26,8 +26,8 @@ PaliGemma model variants support different pixel resolutions for image inputs, i
 
 You can view and download PaliGemma models from the follow sites:
 
-- Download from [Kaggle](https://www.kaggle.com/models?query=paligemma).
-- Download from [Hugging Face](https://huggingface.co/models?search=google/paligemma).
+- Download from [Kaggle](https://www.kaggle.com/models?query=paligemma){ data-model="paligemma" }.
+- Download from [Hugging Face](https://huggingface.co/models?search=google/paligemma){ data-model="paligemma" }.
 
 
 !!! Important
@@ -59,6 +59,6 @@ Try detection and content generation capabilities with PaliGemma in Colab.
 
 Fine-tune a PaliGemma model with image data using JAX in Colab.
 
-### [View on Kaggle](https://www.kaggle.com/models/google/paligemma-2)
+### [View on Kaggle](https://www.kaggle.com/models/google/paligemma-2){ data-model="paligemma" }
 
 View more code, Colab notebooks, information, and discussions about PaliGemma on Kaggle.

@@ -11,8 +11,8 @@ source_url: "https://ai.google.dev/gemma/docs/shieldgemma/model_card_2.md.txt"
 **Resources and Technical Documentation**:
 
 - [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
-- [ShieldGemma on Kaggle](https://www.kaggle.com/models/google/shieldgemma)
-- [ShieldGemma on Hugging Face Hub](https://huggingface.co/models?search=shieldgemma)
+- [ShieldGemma on Kaggle](https://www.kaggle.com/models/google/shieldgemma){ data-model="shieldgemma" }
+- [ShieldGemma on Hugging Face Hub](https://huggingface.co/models?search=shieldgemma){ data-model="shieldgemma" }
 
 **Terms of Use** : [Terms](https://ai.google.dev/gemma/terms)
 

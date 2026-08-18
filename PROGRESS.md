@@ -23,10 +23,10 @@ Temporary tracking file. **Delete before the final commit.**
 ## 4. Structure
 - [x] Remove `deployment/web.md` + `deployment/mobile.md`
 - [x] Add AI Edge Gallery page
-- [ ] `deployment/google-cloud.md`: grid overview like the Run overview
+- [x] `deployment/google-cloud.md`: grid overview like the Run overview
 
 ## 5. External links
-- [ ] Full sweep: tag every generation-pinned external URL
+- [x] Full sweep: tag every generation-pinned external URL
 
 ## Verification (run before each commit)
 ```

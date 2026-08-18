@@ -9,7 +9,7 @@ source_url: https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-gemma
 
 !!! note
     Originally published on
-    [Exploring Language Models](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-gemma-4).
+    [Exploring Language Models](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-gemma-4){ data-model="gemma-4" }.
 
 I’m beyond excited to announce the Gemma 4 family of models! It’s a big part of the reason why I joined Google DeepMind. Developing incredible research and sharing it with the world is something that even to this day, is ingrained in the culture of their research teams.
 
@@ -17,10 +17,10 @@ I’m beyond excited to announce the Gemma 4 family of models! It’s a big part
 
 There are four models in the Gemma 4 family:
 
-- **[Gemma 4 - E2B](https://huggingface.co/google/gemma-4-e2b-it)** – A dense model with per-layer embeddings, which make them effectively 2 billion parameters
-- **[Gemma 4 - E4B](https://huggingface.co/google/gemma-4-e4b-it)** – A dense model with per-layer embeddings, which make them effectively 4 billion parameters
-- **[Gemma 4 - 31B](https://huggingface.co/google/gemma-4-31b-it)**– A dense model with 31 billion parameters
-- **[Gemma 4 - 26B A4B](https://huggingface.co/google/gemma-4-26B-A4B-it)** – A Mixture of Experts (MoE) model with 26 billion total parameters of which 4 billion are activated during inference.
+- **[Gemma 4 - E2B](https://huggingface.co/google/gemma-4-e2b-it){ data-model="gemma-4" }** – A dense model with per-layer embeddings, which make them effectively 2 billion parameters
+- **[Gemma 4 - E4B](https://huggingface.co/google/gemma-4-e4b-it){ data-model="gemma-4" }** – A dense model with per-layer embeddings, which make them effectively 4 billion parameters
+- **[Gemma 4 - 31B](https://huggingface.co/google/gemma-4-31b-it){ data-model="gemma-4" }**– A dense model with 31 billion parameters
+- **[Gemma 4 - 26B A4B](https://huggingface.co/google/gemma-4-26B-A4B-it){ data-model="gemma-4" }** – A Mixture of Experts (MoE) model with 26 billion total parameters of which 4 billion are activated during inference.
 
 By having a broad range of model sizes, you can choose whichever model best suits your use case and whether it actually fits on your hardware:
 
@@ -219,9 +219,9 @@ Note that the feedforward neural networks (FFNNs) are not interleaved with Mixtu
 
 Now that we have covered the main principles of each variant, let’s go into each set of models to explore them a bit more in-depth:
 
-- Gemma 4 - **[31B](https://huggingface.co/google/gemma-4-31B-it)**
-- Gemma 4 - **[26B A4B](https://huggingface.co/google/gemma-4-25B-A4B-it)**
-- Gemma 4 - **[E2B](https://huggingface.co/google/gemma-4-E2B-it)** and **[E4B](https://huggingface.co/google/gemma-4-E4B-it)**
+- Gemma 4 - **[31B](https://huggingface.co/google/gemma-4-31B-it){ data-model="gemma-4" }**
+- Gemma 4 - **[26B A4B](https://huggingface.co/google/gemma-4-25B-A4B-it){ data-model="gemma-4" }**
+- Gemma 4 - **[E2B](https://huggingface.co/google/gemma-4-E2B-it){ data-model="gemma-4" }** and **[E4B](https://huggingface.co/google/gemma-4-E4B-it){ data-model="gemma-4" }**
 
 ## Gemma 4 - 31B - Dense
 Despite the popularity of Mixture of Experts (which we cover later), the Gemma 4 family has a dense variant that is quite large with 31B parameters. This model is a nice representation of a more “vanilla” architecture amongst the Gemma 4 variants.

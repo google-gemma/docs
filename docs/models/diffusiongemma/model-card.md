@@ -6,7 +6,7 @@ source_url: "https://ai.google.dev/gemma/docs/diffusiongemma/model_card.md.txt"
 ---
 # DiffusionGemma model card
 
-[Hugging Face](https://huggingface.co/google/diffusiongemma-26B-A4B-it) \|
+[Hugging Face](https://huggingface.co/google/diffusiongemma-26B-A4B-it){ data-model="diffusiongemma" } \|
 [GitHub](https://github.com/google-gemma) \|
 [Launch Blog](https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/) \|
 [Documentation](index.md)

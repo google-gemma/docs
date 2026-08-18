@@ -33,8 +33,8 @@ model format. Here are guides for tuning Gemma models with various frameworks:
     - [XTuner](https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_1%5DFinetune_with_XTuner.ipynb)
 - [Google Cloud GKE](https://cloud.google.com/kubernetes-engine/docs/tutorials/finetune-gemma-gpu) (multi-GPU with HF Transformers)
 - [Google Cloud Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/docs/models/open-model-tuning)
-- [Unsloth](https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_2%5DFinetune_with_Unsloth.ipynb)
-- [Axolotl](https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_2%5DFinetune_with_Axolotl.ipynb)
+- [Unsloth](https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_2%5DFinetune_with_Unsloth.ipynb){ data-model="gemma-2" }
+- [Axolotl](https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_2%5DFinetune_with_Axolotl.ipynb){ data-model="gemma-2" }
 - [Keras using distributed tuning](distributed.md)
 
 !!! Note

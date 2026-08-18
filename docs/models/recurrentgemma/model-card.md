@@ -11,7 +11,7 @@ source_url: "https://ai.google.dev/gemma/docs/recurrentgemma/model_card.md.txt"
 **Resources and technical documentation:**
 
 - [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
-- [RecurrentGemma on Kaggle](https://www.kaggle.com/models/google/recurrentgemma)
+- [RecurrentGemma on Kaggle](https://www.kaggle.com/models/google/recurrentgemma){ data-model="recurrentgemma" }
 
 **Terms of Use:** [Terms](https://www.kaggle.com/models/google/gemma/license/consent)
 

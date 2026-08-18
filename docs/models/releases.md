@@ -86,7 +86,7 @@ This page documents releases for the Gemma family of models.
 
 ## October 3, 2024
 
-- Release of [Gemma 2 JPN](https://www.kaggle.com/models/google/gemma-2-2b-jpn-it) in 2B size.
+- Release of [Gemma 2 JPN](https://www.kaggle.com/models/google/gemma-2-2b-jpn-it){ data-model="gemma-2" } in 2B size.
 - Release of [Spoken language tasks](../tuning/spoken-language.md) developer guide.
 
 ## September 12, 2024

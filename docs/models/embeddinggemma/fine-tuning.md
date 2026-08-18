@@ -16,7 +16,7 @@ Imagine your company, "Shibuya Financial" offers various complex financial produ
 
 Before starting this tutorial, complete the following steps:
 
-- Get access to EmbeddingGemma by logging into [Hugging Face](https://huggingface.co/google/embeddinggemma-300M) and selecting **Acknowledge license** for a Gemma model.
+- Get access to EmbeddingGemma by logging into [Hugging Face](https://huggingface.co/google/embeddinggemma-300M){ data-model="embeddinggemma" } and selecting **Acknowledge license** for a Gemma model.
 - Generate a Hugging Face [Access Token](https://huggingface.co/docs/hub/en/security-tokens#how-to-manage-user-access-token) and use it to login from Colab.
 
 
@@ -258,4 +258,4 @@ Explore what more you can do with EmbeddingGemma:
 
 - [Training Overview](https://sbert.net/docs/sentence_transformer/training_overview.html) in Sentence Transformers Documentation
 - [Generate embeddings with Sentence Transformers](inference.md)
-- [Simple RAG example](https://github.com/google-gemma/cookbook/blob/main/Gemma/%5BGemma_3%5DRAG_with_EmbeddingGemma.ipynb) in the Gemma Cookbook
+- [Simple RAG example](https://github.com/google-gemma/cookbook/blob/main/Gemma/%5BGemma_3%5DRAG_with_EmbeddingGemma.ipynb){ data-model="embeddinggemma" } in the Gemma Cookbook

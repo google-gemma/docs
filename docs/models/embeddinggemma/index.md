@@ -29,7 +29,7 @@ EmbeddingGemma includes the following key features:
 - **Offline and secure**: Generate embeddings of documents directly on your hardware, works without internet connection to keep sensitive data secure.
 
 !!! Tip
-    Deploy EmbeddingGemma with Gemma 3n to build contextually relevant mobile-first Retrieval Augmented Generation (RAG) pipelines and chatbots. See our [quickstart RAG notebook](https://github.com/google-gemma/cookbook/blob/main/tutorials/RAG_with_EmbeddingGemma.ipynb) to get started.
+    Deploy EmbeddingGemma with Gemma 3n to build contextually relevant mobile-first Retrieval Augmented Generation (RAG) pipelines and chatbots. See our [quickstart RAG notebook](https://github.com/google-gemma/cookbook/blob/main/tutorials/RAG_with_EmbeddingGemma.ipynb){ data-model="embeddinggemma" } to get started.
 
 
 <div class="cookbook-grid">
@@ -43,7 +43,7 @@ EmbeddingGemma includes the following key features:
 </a>
 </div>
 
-[Access it on Vertex](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/embeddinggemma)
+[Access it on Vertex](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/embeddinggemma){ data-model="embeddinggemma" }
 
 As with other Gemma models, EmbeddingGemma is provided with open weights and
 licensed for responsible [commercial use](https://ai.google.dev/gemma/terms), allowing you to

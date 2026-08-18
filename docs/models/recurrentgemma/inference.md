@@ -8,7 +8,7 @@ source_url: "https://ai.google.dev/gemma/docs/recurrentgemma/recurrentgemma_jax_
 # Inference with RecurrentGemma using JAX and Flax
 
 
-This tutorial demonstrates how to perform basic sampling/inference with the [RecurrentGemma](index.md) 2B Instruct model using [Google DeepMind's `recurrentgemma` library](https://github.com/google-deepmind/recurrentgemma) that was written with [JAX](https://jax.readthedocs.io) (a high-performance numerical computing library), [Flax](https://flax.readthedocs.io) (the JAX-based neural network library), [Orbax](https://orbax.readthedocs.io/) (a JAX-based library for training utilities like checkpointing), and [SentencePiece](https://github.com/google/sentencepiece) (a tokenizer/detokenizer library). Although Flax is not used directly in this notebook, Flax was used to create Gemma and RecurrentGemma (the Griffin model).
+This tutorial demonstrates how to perform basic sampling/inference with the [RecurrentGemma](index.md) 2B Instruct model using [Google DeepMind's `recurrentgemma` library](https://github.com/google-deepmind/recurrentgemma){ data-model="recurrentgemma" } that was written with [JAX](https://jax.readthedocs.io) (a high-performance numerical computing library), [Flax](https://flax.readthedocs.io) (the JAX-based neural network library), [Orbax](https://orbax.readthedocs.io/) (a JAX-based library for training utilities like checkpointing), and [SentencePiece](https://github.com/google/sentencepiece) (a tokenizer/detokenizer library). Although Flax is not used directly in this notebook, Flax was used to create Gemma and RecurrentGemma (the Griffin model).
 
 This notebook can run on Google Colab with the T4 GPU (go to **Edit** \> **Notebook settings** \> Under **Hardware accelerator** select **T4 GPU**).
 
@@ -20,7 +20,7 @@ The following sections explain the steps for preparing a notebook to use a Recur
 
 To complete this tutorial, you first need to follow the setup instructions *similar* to [Gemma setup](../../get-started/index.md) with a few exceptions:
 
-- Get access to RecurrentGemma (instead of Gemma) on [kaggle.com](https://www.kaggle.com/models/google/recurrentgemma).
+- Get access to RecurrentGemma (instead of Gemma) on [kaggle.com](https://www.kaggle.com/models/google/recurrentgemma){ data-model="recurrentgemma" }.
 - Select a Colab runtime with sufficient resources to run the RecurrentGemma model.
 - Generate and configure a Kaggle username and API key.
 
@@ -42,7 +42,7 @@ os.environ["KAGGLE_KEY"] = userdata.get('KAGGLE_KEY')
 
 This notebook focuses on using a free Colab GPU. To enable hardware acceleration, click on **Edit** \> **Notebook settings** \> Select **T4 GPU** \> **Save**.
 
-Next, you need to install the Google DeepMind `recurrentgemma` library from [`github.com/google-deepmind/recurrentgemma`](https://github.com/google-deepmind/recurrentgemma). If you get an error about "pip's dependency resolver", you can usually ignore it.
+Next, you need to install the Google DeepMind `recurrentgemma` library from [`github.com/google-deepmind/recurrentgemma`](https://github.com/google-deepmind/recurrentgemma){ data-model="recurrentgemma" }. If you get an error about "pip's dependency resolver", you can usually ignore it.
 
 !!! Note
     By installing `recurrentgemma`, you will also install [`flax`](https://flax.readthedocs.io), core [`jax`](https://jax.readthedocs.io), [`optax`](https://optax.readthedocs.io/en/latest/) (the JAX-based gradient processing and optimization library), [`orbax`](https://orbax.readthedocs.io/), and [`sentencepiece`](https://github.com/google/sentencepiece).
@@ -109,7 +109,7 @@ RECURRENTGEMMA_PATH: /root/.cache/kagglehub/models/google/recurrentgemma/flax/2b
 
 ## Perform sampling/inference
 
-1. Load the RecurrentGemma model checkpoint with the [`recurrentgemma.jax.load_parameters`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/jax/utils.py#L31) method. The `sharding` argument set to `"single_device"` loads all model parameters on a single device.
+1. Load the RecurrentGemma model checkpoint with the [`recurrentgemma.jax.load_parameters`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/jax/utils.py#L31){ data-model="recurrentgemma" } method. The `sharding` argument set to `"single_device"` loads all model parameters on a single device.
 
    ```python
    import recurrentgemma
@@ -131,7 +131,7 @@ RECURRENTGEMMA_PATH: /root/.cache/kagglehub/models/google/recurrentgemma/flax/2b
    True
    ```
 
-1. To automatically load the correct configuration from the RecurrentGemma model checkpoint, use [`recurrentgemma.GriffinConfig.from_flax_params_or_variables`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/common.py#L128). Then, instantiate the [Griffin](https://arxiv.org/abs/2402.19427) model with [`recurrentgemma.jax.Griffin`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/jax/griffin.py#L29).
+1. To automatically load the correct configuration from the RecurrentGemma model checkpoint, use [`recurrentgemma.GriffinConfig.from_flax_params_or_variables`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/common.py#L128){ data-model="recurrentgemma" }. Then, instantiate the [Griffin](https://arxiv.org/abs/2402.19427) model with [`recurrentgemma.jax.Griffin`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/jax/griffin.py#L29){ data-model="recurrentgemma" }.
 
    ```python
    model_config = recurrentgemma.GriffinConfig.from_flax_params_or_variables(
@@ -140,7 +140,7 @@ RECURRENTGEMMA_PATH: /root/.cache/kagglehub/models/google/recurrentgemma/flax/2b
    model = recurrentgemma.Griffin(model_config)
    ```
 
-1. Create a `sampler` with [`recurrentgemma.jax.Sampler`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/jax/sampler.py#L74) on top of the RecurrentGemma model checkpoint/weights and the tokenizer:
+1. Create a `sampler` with [`recurrentgemma.jax.Sampler`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/jax/sampler.py#L74){ data-model="recurrentgemma" } on top of the RecurrentGemma model checkpoint/weights and the tokenizer:
 
    ```python
    sampler = recurrentgemma.Sampler(
@@ -186,7 +186,7 @@ Output:
 
 ## Learn more
 
-- You can learn more about the Google DeepMind [`recurrentgemma` library on GitHub](https://github.com/google-deepmind/recurrentgemma), which contains docstrings of methods and modules you used in this tutorial, such as [`recurrentgemma.jax.load_parameters`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/jax/utils.py#L31), [`recurrentgemma.jax.Griffin`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/jax/griffin.py#L29), and [`recurrentgemma.jax.Sampler`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/jax/sampler.py#L74).
+- You can learn more about the Google DeepMind [`recurrentgemma` library on GitHub](https://github.com/google-deepmind/recurrentgemma){ data-model="recurrentgemma" }, which contains docstrings of methods and modules you used in this tutorial, such as [`recurrentgemma.jax.load_parameters`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/jax/utils.py#L31){ data-model="recurrentgemma" }, [`recurrentgemma.jax.Griffin`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/jax/griffin.py#L29){ data-model="recurrentgemma" }, and [`recurrentgemma.jax.Sampler`](https://github.com/google-deepmind/recurrentgemma/blob/e4939f9b7edf8baa1d512fb86bfc2e206044d66b/recurrentgemma/jax/sampler.py#L74){ data-model="recurrentgemma" }.
 - The following libraries have their own documentation sites: [core JAX](https://jax.readthedocs.io), [Flax](https://flax.readthedocs.io), and [Orbax](https://orbax.readthedocs.io/).
 - For `sentencepiece` tokenizer/detokenizer documentation, check out [Google's `sentencepiece` GitHub repo](https://github.com/google/sentencepiece).
 - For `kagglehub` documentation, check out `README.md` on [Kaggle's `kagglehub` GitHub repo](https://github.com/Kaggle/kagglehub).

@@ -12,8 +12,8 @@ source_url: "https://ai.google.dev/gemma/docs/core/model_card_3.md.txt"
 
 - [Gemma 3 Technical Report](https://arxiv.org/abs/2503.19786)
 - [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
-- [Gemma on Kaggle](https://www.kaggle.com/models/google/gemma-3)
-- [Gemma on Vertex Model Garden](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/gemma3)
+- [Gemma on Kaggle](https://www.kaggle.com/models/google/gemma-3){ data-model="gemma-3" }
+- [Gemma on Vertex Model Garden](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/gemma3){ data-model="gemma-3" }
 
 **Terms of Use** : [Terms](https://ai.google.dev/gemma/terms)
 

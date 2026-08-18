@@ -8,9 +8,9 @@ source_url: "https://ai.google.dev/gemma/docs/core/model_card_4.md.txt"
 
 ![Gemma 4 Banner](../../assets/gemma-4/gemma4_banner.png)
 
-[Hugging Face](https://huggingface.co/collections/google/gemma-4) \|
+[Hugging Face](https://huggingface.co/collections/google/gemma-4){ data-model="gemma-4" } \|
 [GitHub](https://github.com/google-gemma) \|
-[Launch Blog](https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/) \|
+[Launch Blog](https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/){ data-model="gemma-4" } \|
 [Documentation](index.md) \|
 [Technical Report](https://arxiv.org/abs/2607.02770)
 

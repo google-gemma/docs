@@ -31,7 +31,7 @@ The following sections explain the preliminary steps for getting a notebook to u
 Before using PaliGemma for the first time, you must request access to the model through Kaggle by completing the following steps:
 
 1. Log in to [Kaggle](https://www.kaggle.com), or create a new Kaggle account if you don't already have one.
-2. Go to the [PaliGemma model card](https://www.kaggle.com/models/google/paligemma-2/) and click **Request Access**.
+2. Go to the [PaliGemma model card](https://www.kaggle.com/models/google/paligemma-2/){ data-model="paligemma" } and click **Request Access**.
 3. Complete the consent form and accept the terms and conditions.
 
 ### Configure your API key

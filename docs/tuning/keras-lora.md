@@ -90,7 +90,7 @@ gemma_lm = keras_hub.models.Gemma3CausalLM.from_preset("gemma3_instruct_1b")
 gemma_lm.summary()
 ```
 
-The `Gemma3CausalLM.from_preset()` method instantiates the model from a preset architecture and weights. In the code above, the string `"gemma#_xxxxxxx"` specifies a preset version and parameter size for Gemma. You can find the code strings for Gemma models in their **Model Variation** listings on [Kaggle](https://www.kaggle.com/models/keras/gemma3).
+The `Gemma3CausalLM.from_preset()` method instantiates the model from a preset architecture and weights. In the code above, the string `"gemma#_xxxxxxx"` specifies a preset version and parameter size for Gemma. You can find the code strings for Gemma models in their **Model Variation** listings on [Kaggle](https://www.kaggle.com/models/keras/gemma3){ data-model="gemma-3" }.
 
 ## Inference before fine tuning
 

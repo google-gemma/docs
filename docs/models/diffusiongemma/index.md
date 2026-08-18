@@ -59,7 +59,7 @@ default parameters for the Diffusion Sampling Settings:
 </a>
 </div>
 
-[Access it on Vertex](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/diffusiongemma)
+[Access it on Vertex](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/diffusiongemma){ data-model="diffusiongemma" }
 
 Access the experimental model weights (released under the Apache 2.0 license),
 allowing you to deploy it in your own projects and applications.

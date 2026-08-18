@@ -42,7 +42,7 @@ ollama pull gemma4:12b
 
 `gemma4:latest` is an alias for `e4b`. On Apple Silicon, the `-mlx` tags
 (`gemma4:12b-mlx`) use the MLX runtime. Full list:
-[ollama.com/library/gemma4/tags](https://ollama.com/library/gemma4/tags).
+[ollama.com/library/gemma4/tags](https://ollama.com/library/gemma4/tags){ data-model="gemma-4" }.
 
 ## Images
 

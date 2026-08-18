@@ -11,9 +11,9 @@ source_url: "https://ai.google.dev/gemma/docs/gemma-3n/model_card.md.txt"
 **Resources and Technical Documentation**:
 
 - [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
-- [Gemma on Kaggle](https://www.kaggle.com/models/google/gemma-3n)
-- [Gemma on HuggingFace](https://huggingface.co/collections/google/gemma-3n-685065323f5984ef315c93f4)
-- [Gemma on Vertex Model Garden](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/gemma3n)
+- [Gemma on Kaggle](https://www.kaggle.com/models/google/gemma-3n){ data-model="gemma-3n" }
+- [Gemma on HuggingFace](https://huggingface.co/collections/google/gemma-3n-685065323f5984ef315c93f4){ data-model="gemma-3n" }
+- [Gemma on Vertex Model Garden](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/gemma3n){ data-model="gemma-3n" }
 
 **Terms of Use** : [Terms](https://ai.google.dev/gemma/terms)  
 
@@ -124,7 +124,7 @@ capable of generalizing across multiple tasks. This is specially suitable for
 foundation models, including large language models like these ones.
 
 Together, JAX and ML Pathways are used as described in the
-[paper about the Gemini family of models](https://goo.gle/gemma2report):
+[paper about the Gemini family of models](https://goo.gle/gemma2report){ data-model="gemma-2" }:
 *"the 'single controller' programming model of Jax and Pathways allows a single
 Python process to orchestrate the entire training run, dramatically simplifying
 the development workflow."*

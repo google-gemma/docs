@@ -61,7 +61,7 @@ gemma_lm = keras_hub.models.Gemma4CausalLM.from_preset(
     [Multi-Token Prediction](../get-started/capabilities/mtp.md) — which must never be loaded
     on its own.
 
-The `Gemma4CausalLM.from_preset()` method instantiates the model from a preset architecture and weights. In the code above, the string `"gemma#_xxxxxxx"` specifies a preset version and parameter size for Gemma. You can find the code strings for Gemma models in their **Model Variation** listings on [Kaggle](https://www.kaggle.com/models/keras/gemma4).
+The `Gemma4CausalLM.from_preset()` method instantiates the model from a preset architecture and weights. In the code above, the string `"gemma#_xxxxxxx"` specifies a preset version and parameter size for Gemma. You can find the code strings for Gemma models in their **Model Variation** listings on [Kaggle](https://www.kaggle.com/models/keras/gemma4){ data-model="gemma-4" }.
 
 Once you have the model downloaded, Use the `summary()` function to get more info about the model:
 

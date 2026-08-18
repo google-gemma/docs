@@ -47,7 +47,7 @@ Community-converted weights live under
 
 !!! note
     Coverage and naming vary — these are community conversions, not first-party releases.
-    Search [mlx-community for Gemma 4](https://huggingface.co/mlx-community?search=gemma-4) for
+    Search [mlx-community for Gemma 4](https://huggingface.co/mlx-community?search=gemma-4){ data-model="gemma-4" } for
     the current list. [Ollama](ollama.md) also ships MLX builds for every size under its `-mlx`
     tags, if you would rather not pick a repository.
 

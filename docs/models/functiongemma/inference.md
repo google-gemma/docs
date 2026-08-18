@@ -16,7 +16,7 @@ This guide shows the process of using FunctionGemma within the Hugging Face ecos
 
 Before starting this tutorial, complete the following steps:
 
-- Get access to FunctionGemma by logging into [Hugging Face](https://huggingface.co/google/functiongemma-270m-it) and selecting **Acknowledge license** for a FunctionGemma model.
+- Get access to FunctionGemma by logging into [Hugging Face](https://huggingface.co/google/functiongemma-270m-it){ data-model="functiongemma" } and selecting **Acknowledge license** for a FunctionGemma model.
 - Generate a Hugging Face [Access Token](https://huggingface.co/docs/hub/en/security-tokens#how-to-manage-user-access-token) and add it to your Colab environment.
 
 

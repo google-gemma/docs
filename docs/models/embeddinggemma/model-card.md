@@ -11,8 +11,8 @@ source_url: "https://ai.google.dev/gemma/docs/embeddinggemma/model_card.md.txt"
 **Resources and Technical Documentation**:
 
 - [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
-- [EmbeddingGemma on Kaggle](https://www.kaggle.com/models/google/embeddinggemma/)
-- [EmbeddingGemma on Vertex Model Garden](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/embeddinggemma)
+- [EmbeddingGemma on Kaggle](https://www.kaggle.com/models/google/embeddinggemma/){ data-model="embeddinggemma" }
+- [EmbeddingGemma on Vertex Model Garden](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/embeddinggemma){ data-model="embeddinggemma" }
 
 **Terms of Use** : [Terms](https://ai.google.dev/gemma/terms)
 

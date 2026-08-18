@@ -10,7 +10,7 @@ source_url: "https://ai.google.dev/gemma/docs/paligemma/model-card.md.txt"
 
 **Resources and technical documentation:**
 
-- [PaliGemma on Kaggle](https://www.kaggle.com/models/google/paligemma)
+- [PaliGemma on Kaggle](https://www.kaggle.com/models/google/paligemma){ data-model="paligemma" }
 - [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
 
 **Terms of Use:** [Terms](https://ai.google.dev/gemma/terms)

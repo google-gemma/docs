@@ -200,10 +200,10 @@ what to keep in conversation history.
 
 Unsloth trains Gemma with substantially less memory than a stock Transformers loop, which is
 what makes single-GPU and free-Colab fine-tuning practical. See Unsloth's
-[Gemma 4 fine-tuning guide](https://unsloth.ai/docs/models/gemma-4), and our own
+[Gemma 4 fine-tuning guide](https://unsloth.ai/docs/models/gemma-4){ data-model="gemma-4" }, and our own
 [fine-tuning overview](../tuning/index.md) for the QLoRA and full fine-tune paths.
 
 ## Resources
 
-- [Gemma 4 GGUF collection](https://huggingface.co/collections/unsloth/gemma-4)
-- [Unsloth documentation](https://unsloth.ai/docs/models/gemma-4)
+- [Gemma 4 GGUF collection](https://huggingface.co/collections/unsloth/gemma-4){ data-model="gemma-4" }
+- [Unsloth documentation](https://unsloth.ai/docs/models/gemma-4){ data-model="gemma-4" }

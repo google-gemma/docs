@@ -25,7 +25,7 @@ ShieldGemma 1 is built on [Gemma 2](../gemma-4/index.md) in 2B, 9B, and 27B para
 
 
 - **Content safety evaluation** — Evaluate the safety of prompt input and output responses against a set of defined safety policies.
-- **[Tuneable, open models](https://huggingface.co/collections/google/shieldgemma-67d130ef8da6af884072a789)** — ShieldGemma models are provided with open weights and can be fine-tuned for your specific use case.
+- **[Tuneable, open models](https://huggingface.co/collections/google/shieldgemma-67d130ef8da6af884072a789){ data-model="shieldgemma" }** — ShieldGemma models are provided with open weights and can be fine-tuned for your specific use case.
 
 ## ShieldGemma 2
 
@@ -33,11 +33,11 @@ ShieldGemma 1 is built on [Gemma 2](../gemma-4/index.md) in 2B, 9B, and 27B para
 
 ShieldGemma's 2 model card contains detailed information about the model implementation, evaluations, model usage and limitations, and more.
 
-### [View on Kaggle](https://www.kaggle.com/models/google/shieldgemma-2)
+### [View on Kaggle](https://www.kaggle.com/models/google/shieldgemma-2){ data-model="shieldgemma" }
 
 View more code, Colab notebooks, information, and discussions about ShieldGemma on Kaggle.
 
-### [View on HuggingFace](https://huggingface.co/google/shieldgemma-2-4b-it)
+### [View on HuggingFace](https://huggingface.co/google/shieldgemma-2-4b-it){ data-model="shieldgemma" }
 
 Run a working example for using ShieldGemma to evaluate images.
 
@@ -47,10 +47,10 @@ Run a working example for using ShieldGemma to evaluate images.
 
 ShieldGemma's model card contains detailed information about the model implementation, evaluations, model usage and limitations, and more.
 
-### [View on Kaggle](https://www.kaggle.com/models/google/shieldgemma)
+### [View on Kaggle](https://www.kaggle.com/models/google/shieldgemma){ data-model="shieldgemma" }
 
 View more code, Colab notebooks, information, and discussions about ShieldGemma on Kaggle.
 
-### [Run in Colab](https://colab.research.google.com/github/google-gemini/gemma-cookbook/blob/main/responsible/shieldgemma_on_keras.ipynb)
+### [Run in Colab](https://colab.research.google.com/github/google-gemini/gemma-cookbook/blob/main/responsible/shieldgemma_on_keras.ipynb){ data-model="shieldgemma" }
 
 Run a working example for using ShieldGemma to evaluate text prompt input and output.

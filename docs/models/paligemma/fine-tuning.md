@@ -38,7 +38,7 @@ The following sections explain the preliminary steps for getting a notebook to u
 Before using PaliGemma for the first time, you must request access to the model through Kaggle by completing the following steps:
 
 1. Log in to [Kaggle](https://www.kaggle.com), or create a new Kaggle account if you don't already have one.
-2. Go to the [PaliGemma model card](https://www.kaggle.com/models/google/paligemma-2) and click **Request Access**.
+2. Go to the [PaliGemma model card](https://www.kaggle.com/models/google/paligemma-2){ data-model="paligemma" } and click **Request Access**.
 3. Complete the consent form and accept the terms and conditions.
 
 ### Configure your API key
@@ -170,7 +170,7 @@ In this step, you'll download the model checkpoint and configure it so that you 
 
 ### Download the model checkpoint
 
-PaliGemma includes several model variations. For this tutorial, you'll use the base [JAX/FLAX PaliGemma 3B weight model](https://www.kaggle.com/models/google/paligemma-2/jax/paligemma2-3b-pt-224).
+PaliGemma includes several model variations. For this tutorial, you'll use the base [JAX/FLAX PaliGemma 3B weight model](https://www.kaggle.com/models/google/paligemma-2/jax/paligemma2-3b-pt-224){ data-model="paligemma" }.
 
 Download the model checkpoint from Kaggle by running the following code. This process takes several minutes to complete.
 

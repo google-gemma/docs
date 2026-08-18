@@ -17,4 +17,4 @@ Use the interactive visualization to compare how image dimensions and aspect rat
   ></iframe>
 </div>
 
-If the embedded demo does not load, [open it directly on Hugging Face](https://huggingface.co/spaces/google/gemma4_vision_token_budget).
+If the embedded demo does not load, [open it directly on Hugging Face](https://huggingface.co/spaces/google/gemma4_vision_token_budget){ data-model="gemma-4" }.

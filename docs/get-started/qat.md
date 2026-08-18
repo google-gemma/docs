@@ -52,7 +52,7 @@ Collections:
 [gemma-4-qat-q4-0](https://huggingface.co/collections/google/gemma-4-qat-q4-0){ data-model="gemma-4" } ·
 [gemma-4-qat-mobile](https://huggingface.co/collections/google/gemma-4-qat-mobile){ data-model="gemma-4" }.
 All QAT checkpoints are also on
-[Kaggle](https://www.kaggle.com/models/google/gemma-4/transformers).
+[Kaggle](https://www.kaggle.com/models/google/gemma-4/transformers){ data-model="gemma-4" }.
 
 !!! note "Mobile builds use a different scheme"
     `-mobile-*` weights are built on a custom `wNa8o8` schema with 2-bit decoding layers and

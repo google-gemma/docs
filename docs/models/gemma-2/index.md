@@ -11,8 +11,8 @@ source_url: "https://ai.google.dev/gemma/docs/core/model_card_2.md.txt"
 **Resources and Technical Documentation**:
 
 - [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
-- [Gemma on Kaggle](https://www.kaggle.com/models/google/gemma-2)
-- [Gemma on Vertex Model Garden](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/gemma2)
+- [Gemma on Kaggle](https://www.kaggle.com/models/google/gemma-2){ data-model="gemma-2" }
+- [Gemma on Vertex Model Garden](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/gemma2){ data-model="gemma-2" }
 
 **Terms of Use** : [Terms](https://ai.google.dev/gemma/terms)
 
@@ -111,7 +111,7 @@ capable of generalizing across multiple tasks. This is specially suitable for
 foundation models, including large language models like these ones.
 
 Together, JAX and ML Pathways are used as described in the
-[paper about the Gemini family of models](https://goo.gle/gemma2report); "the 'single
+[paper about the Gemini family of models](https://goo.gle/gemma2report){ data-model="gemma-2" }; "the 'single
 controller' programming model of Jax and Pathways allows a single Python
 process to orchestrate the entire training run, dramatically simplifying the
 development workflow."
@@ -200,7 +200,7 @@ We evaluated a range of dangerous capabilities:
 All evaluations are described in detail in
 [Evaluating Frontier Models for Dangerous Capabilities](https://arxiv.org/abs/2403.13793)
 and in brief in the
-[Gemma 2 technical report](https://storage.googleapis.com/deepmind-media/gemma/gemma-2-report.pdf).
+[Gemma 2 technical report](https://storage.googleapis.com/deepmind-media/gemma/gemma-2-report.pdf){ data-model="gemma-2" }.
 
 | Evaluation | Capability | Gemma 2 IT 27B |
 |---|---|---|

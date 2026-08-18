@@ -11,8 +11,8 @@ source_url: "https://ai.google.dev/gemma/docs/shieldgemma/model_card.md.txt"
 **Resources and Technical Documentation**:
 
 - [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
-- [ShieldGemma on Kaggle](https://www.kaggle.com/models/google/shieldgemma)
-- [ShieldGemma on Hugging Face Hub](https://huggingface.co/models?search=shieldgemma)
+- [ShieldGemma on Kaggle](https://www.kaggle.com/models/google/shieldgemma){ data-model="shieldgemma" }
+- [ShieldGemma on Hugging Face Hub](https://huggingface.co/models?search=shieldgemma){ data-model="shieldgemma" }
 
 **Terms of Use** : [Terms](https://ai.google.dev/gemma/terms)
 
@@ -25,7 +25,7 @@ Summary description and brief definition of inputs and outputs.
 ### Description
 
 ShieldGemma is a series of safety content moderation models built upon
-[Gemma 2](https://ai.google.dev/gemma#gemma-2) that target four harm categories (sexually explicit, dangerous
+[Gemma 2](https://ai.google.dev/gemma#gemma-2){ data-model="gemma-2" } that target four harm categories (sexually explicit, dangerous
 content, hate, and harassment). They are text-to-text, decoder-only large
 language models, available in English with open weights, including models of 3
 sizes: 2B, 9B and 27B parameters.
@@ -113,10 +113,10 @@ Data used for model training and how the data was processed.
 ### Training Dataset
 
 The base models were trained on a dataset of text data that includes a wide
-variety of sources, see the [Gemma 2 documentation](https://ai.google.dev/gemma#gemma-2) for more details.
+variety of sources, see the [Gemma 2 documentation](https://ai.google.dev/gemma#gemma-2){ data-model="gemma-2" } for more details.
 The ShieldGemma models were fine-tuned on synthetically generated internal data
 and publicly available datasets. More details can be found in the
-[ShieldGemma technical report](https://storage.googleapis.com/deepmind-media/gemma/shieldgemma-report.pdf).
+[ShieldGemma technical report](https://storage.googleapis.com/deepmind-media/gemma/shieldgemma-report.pdf){ data-model="shieldgemma" }.
 
 ## Implementation Information
 

@@ -14,7 +14,7 @@ EmbeddingGemma is a lightweight, open embedding model designed for fast, high-qu
 
 Before starting this tutorial, complete the following steps:
 
-- Get access to Gemma by logging into [Hugging Face](https://huggingface.co/google/embeddinggemma-300M) and selecting **Acknowledge license** for a Gemma model.
+- Get access to Gemma by logging into [Hugging Face](https://huggingface.co/google/embeddinggemma-300M){ data-model="embeddinggemma" } and selecting **Acknowledge license** for a Gemma model.
 - Generate a Hugging Face [Access Token](https://huggingface.co/docs/hub/en/security-tokens#how-to-manage-user-access-token) and use it to login from Colab.
 
 
@@ -262,7 +262,7 @@ For RAG systems, use the following `prompt_name` values to create specialized em
 
 - For details on all available EmbeddingGemma prompts, see the [model card](model-card.md#prompt-instructions).
 - For general information on prompt templates, see the [Sentence Transformer documentation](https://sbert.net/examples/sentence_transformer/applications/computing-embeddings/README.html#prompt-templates).
-- For a demo of RAG, see the [Simple RAG example](https://github.com/google-gemma/cookbook/blob/main/Gemma/%5BGemma_3%5DRAG_with_EmbeddingGemma.ipynb) in the Gemma Cookbook.
+- For a demo of RAG, see the [Simple RAG example](https://github.com/google-gemma/cookbook/blob/main/Gemma/%5BGemma_3%5DRAG_with_EmbeddingGemma.ipynb){ data-model="embeddinggemma" } in the Gemma Cookbook.
 
 ## Classification
 
@@ -386,4 +386,4 @@ You are now equipped to generate high-quality text embeddings using EmbeddingGem
 Check out the following docs next:
 
 - [Fine-tune EmbeddingGemma](fine-tuning.md)
-- [Simple RAG example](https://github.com/google-gemma/cookbook/blob/main/Gemma/%5BGemma_3%5DRAG_with_EmbeddingGemma.ipynb) in the Gemma Cookbook
+- [Simple RAG example](https://github.com/google-gemma/cookbook/blob/main/Gemma/%5BGemma_3%5DRAG_with_EmbeddingGemma.ipynb){ data-model="embeddinggemma" } in the Gemma Cookbook
