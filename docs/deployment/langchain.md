@@ -1,8 +1,8 @@
 ---
 title: Get started with Gemma and LangChain
 description: This tutorial shows you how to get started with Gemma and LangChain, running in Google Cloud or in your Colab environment.
-models: [gemma-1]
-frameworks: [langchain, google-cloud, keras, jax, transformers]
+models: [gemma-4, gemma-1]
+frameworks: [langchain, transformers, google-cloud, keras, jax]
 source_url: "https://ai.google.dev/gemma/docs/integrations/langchain.md.txt"
 ---
 # Get started with Gemma and LangChain
@@ -13,6 +13,71 @@ This tutorial shows you how to get started with [Gemma](../index.md) and [LangCh
 !!! Note
     This tutorial runs on A100 GPU in Google Colab. Free Colab hardware acceleration is *insufficient* to run all the code.
 
+
+## Run Gemma 4 with LangChain
+
+The current path is [`langchain-huggingface`](https://python.langchain.com/docs/integrations/chat/huggingface/),
+which works with any Gemma repository on Hugging Face. The examples below follow this page's
+model selector.
+
+```bash
+pip install -qU langchain-huggingface transformers accelerate
+```
+
+=== "Local pipeline"
+
+    Runs the weights on your own hardware.
+
+    ```python { .model-swap }
+    from langchain_huggingface import ChatHuggingFace, HuggingFacePipeline
+
+    llm = HuggingFacePipeline.from_model_id(
+        model_id="google/gemma-4-12B-it",
+        task="text-generation",
+        pipeline_kwargs=dict(
+            max_new_tokens=512,
+            do_sample=False,
+            repetition_penalty=1.03,
+        ),
+    )
+
+    chat_model = ChatHuggingFace(llm=llm)
+    ```
+
+=== "Hosted endpoint"
+
+    Calls a hosted provider instead, so nothing runs locally.
+
+    ```python { .model-swap }
+    from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+
+    llm = HuggingFaceEndpoint(
+        repo_id="google/gemma-4-12B-it",
+        task="text-generation",
+        max_new_tokens=512,
+        do_sample=False,
+        repetition_penalty=1.03,
+        provider="auto",
+    )
+
+    chat_model = ChatHuggingFace(llm=llm)
+    ```
+
+Then invoke it like any other LangChain chat model:
+
+```python
+messages = [
+    ("system", "You are a helpful assistant."),
+    ("human", "What is the capital of France?"),
+]
+print(chat_model.invoke(messages).content)
+```
+
+!!! note "The sections below cover earlier Gemma releases"
+    `GemmaLocalKaggle`, `GemmaChatLocalHF` and the Vertex AI one-click deployment were written
+    for Gemma 1 and still reference its `gemma_2b_en` and `google/gemma-2b` checkpoints. They
+    are kept because that deployment path still exists, not because it is the recommended way
+    to run Gemma 4.
 
 ## Run Gemma in Google Cloud
 

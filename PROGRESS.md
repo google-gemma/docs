@@ -12,8 +12,8 @@ Temporary tracking file. **Delete before the final commit.**
 - [x] `deployment/lmstudio.md`
 - [x] `deployment/keras.md` (checkpoints from Kaggle keras/gemma4)
 - [x] `deployment/litert.md` (retarget to Gemma 4)
-- [ ] `deployment/gemini-api.md` (tabs per language; only 31B + 26B A4B supported)
-- [ ] `deployment/langchain.md`
+- [x] `deployment/gemini-api.md` (tabs per language; only 31B + 26B A4B supported)
+- [x] `deployment/langchain.md`
 
 ## 3. Model data
 - [ ] Expand `data/models.yml` with sizes/ids for every family

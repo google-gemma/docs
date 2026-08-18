@@ -93,6 +93,7 @@ window.GEMMA_MODELS = {
       "ollama": "gemma4:26b",
       "mlx": "mlx-community/gemma-4-26B-A4B-it-qat-4bit",
       "lmstudio": "google/gemma-4-26b-a4b",
+      "gemini_api": "gemma-4-26b-a4b-it",
       "keras": "gemma4_instruct_26b_a4b",
       "keras_base": "gemma4_26b_a4b",
       "keras_assistant": "gemma4_instruct_26b_a4b_assistant"
@@ -117,6 +118,7 @@ window.GEMMA_MODELS = {
       "ollama": "gemma4:31b",
       "mlx": "mlx-community/gemma-4-31B-it-qat-4bit",
       "lmstudio": "google/gemma-4-31b",
+      "gemini_api": "gemma-4-31b-it",
       "keras": "gemma4_instruct_31b",
       "keras_base": "gemma4_31b",
       "keras_assistant": "gemma4_instruct_31b_assistant"
