@@ -167,6 +167,71 @@ generate every registered notebook with `uv run python scripts/notebooks.py`; us
 during verification. Do not edit the generated `.ipynb`
 directly.
 
+## Engine grid
+
+The "run it your way" tiles on the quickstart. A compact relative of `.card` for when the reader
+is picking one of a dozen tools rather than reading about one.
+
+Generated from `data/frameworks.yml` — never hand-write the tiles. An engine appears once it has
+`page`, `blurb` and `mark` keys; the page chooses which ids to feature and in what order, since
+that is editorial rather than a fact about the framework.
+
+```jinja
+{% raw %}{% set featured = ["ollama", "llamacpp"] %}
+<ul class="engine-grid">
+{% for id in featured %}{% for fw in frameworkdata.frameworks if fw.id == id %}
+  <li><a class="engine" href="../{{ fw.page }}" title="{{ fw.blurb }}">
+    <span class="engine-mark" aria-hidden="true">{{ fw.mark }}</span>
+    <span class="engine-name">{{ fw.short_name | default(fw.name) }}</span>
+  </a></li>
+{% endfor %}{% endfor %}
+</ul>{% endraw %}
+```
+
+`mark` is a two- or three-character monogram standing in for a real vendor logo. Replacing
+`.engine-mark`'s text with an `<img>` needs no other markup change. Add `.engine--all` to a
+trailing tile to make it read as an action rather than another engine.
+
+## Model family tree
+
+The lineage visual on the models overview. Generated from `data/models.yml` `families`:
+`generation` orders the mainline spine, and `based_on` attaches each variant to the generation
+its own model page names as its base.
+
+Interaction is pure CSS — hovering or keyboard-focusing one generation dims the others. The
+markup underneath is an ordered list of generations each containing a list of descendants, so it
+still reads correctly with no CSS at all.
+
+```html
+<div class="model-tree">
+<ol class="tree-spine">
+  <li class="tree-gen">
+    <a class="tree-node tree-node--gen" href="…">
+      <span class="tree-gen-name">Gemma 4</span>
+      <span class="tree-gen-note">One line about the generation.</span>
+    </a>
+    <ul class="tree-branch">
+      <li><a class="tree-node" href="…">
+        <span class="tree-name">DiffusionGemma</span>
+        <span class="tree-tagline">What it is for.</span>
+      </a></li>
+    </ul>
+  </li>
+</ol>
+<ul class="tree-aside">…</ul>   <!-- families with no Gemma generation as a base -->
+</div>
+```
+
+Never add a `based_on` a model's own page does not state, and never invent a release date to
+order the tree — the spine already orders it. A family whose page describes a non-Gemma
+architecture takes `based_on: null` and renders below the dashed rule.
+
+!!! warning "List containers need extra specificity"
+    The theme styles lists with `[dir="ltr"] .md-typeset ol li` (0,2,2) and
+    `.md-typeset ul:not([hidden])` (0,2,1). A plain `.md-typeset .my-grid` is only (0,2,0) and
+    silently loses, so `display: grid` never applies and items keep their `1.25em` indent.
+    Qualify the tag — `.md-typeset ul.my-grid:not([hidden])` — for any list-based component.
+
 ## Steps
 
 A numbered walkthrough. Built on an ordered list, so it still reads correctly without CSS.
@@ -275,7 +340,9 @@ reload; hover effects should become instant.
 | `layout.css` | Page grid, sidebars, typography scale |
 | `nav.css` | Header, tabs, sidebars, table of contents |
 | `content.css` | Tables, admonitions, code, content tabs |
-| `components.css` | Everything on this page |
+| `components.css` | Cards, badges, figures, steps, embeds |
+| `engine-grid.css` | The quickstart's engine tiles |
+| `model-tree.css` | The model family lineage tree |
 | `page-context.css` | The applicability bar above every H1 |
 | `tokens.css` | Chat-token badges (`<start_of_turn>` etc.) |
 | `home.css` | Landing page: chrome, backdrop, hero |

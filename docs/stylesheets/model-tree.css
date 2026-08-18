@@ -1,0 +1,159 @@
+/* ---------------------------------------------------------------------------
+   Model family tree -- the lineage visual on models/index.md.
+
+   Reads as four generation columns (Gemma 1 -> 4), each carrying the variants
+   built from it. Generated from data/models.yml `families`: `generation` orders
+   the spine, `based_on` attaches a variant to the generation its own page says
+   it was built from.
+
+   Interaction is pure CSS. Hovering or keyboard-focusing one generation dims
+   the others, so "what came from Gemma 3?" is answerable without reading. The
+   underlying markup is an ordered list of generations, each with a list of
+   descendants, so it still reads correctly with no CSS at all.
+   --------------------------------------------------------------------------- */
+
+.md-typeset .model-tree {
+  margin: var(--gemma-space-6) 0;
+  overflow-x: auto;
+}
+
+.md-typeset ol.tree-spine:not([hidden]) {
+  display: grid;
+  grid-auto-columns: minmax(9rem, 1fr);
+  grid-auto-flow: column;
+  gap: var(--gemma-space-4);
+  min-width: 40rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* `[dir=ltr] .md-typeset ol li` indents list items by 1.25em; qualify to outrank it. */
+.md-typeset ol.tree-spine > li.tree-gen {
+  margin: 0;
+  transition: opacity 150ms ease;
+}
+
+/* Dim the siblings of whichever generation the reader is pointing at. */
+.md-typeset ol.tree-spine:hover .tree-gen:not(:hover),
+.md-typeset ol.tree-spine:focus-within .tree-gen:not(:focus-within) {
+  opacity: 0.45;
+}
+
+.md-typeset .tree-node {
+  display: block;
+  padding: var(--gemma-space-3);
+  border: 1px solid var(--gemma-border);
+  border-radius: var(--gemma-radius-md);
+  background: var(--gemma-surface);
+  color: inherit;
+  text-decoration: none;
+}
+
+.md-typeset .tree-node:hover,
+.md-typeset .tree-node:focus-visible {
+  border-color: var(--gemma-accent);
+  box-shadow: var(--gemma-shadow-sm);
+}
+
+/* The spine node: the generation itself. */
+.md-typeset .tree-node--gen {
+  border-color: var(--gemma-accent);
+  background: var(--gemma-accent-fill);
+  color: var(--gemma-white);
+  text-align: center;
+}
+
+.md-typeset .tree-node--gen:hover,
+.md-typeset .tree-node--gen:focus-visible {
+  box-shadow: var(--gemma-shadow-md);
+}
+
+.md-typeset .tree-gen-name {
+  display: block;
+  font-weight: 700;
+  font-size: 0.9375rem;
+}
+
+.md-typeset .tree-gen-note {
+  display: block;
+  margin-top: 0.1rem;
+  font-size: 0.6875rem;
+  opacity: 0.85;
+}
+
+/* Variants hanging off a generation, joined by a drawn rail. */
+.md-typeset ul.tree-branch:not([hidden]) {
+  position: relative;
+  margin: 0;
+  padding: var(--gemma-space-4) 0 0;
+  list-style: none;
+}
+
+.md-typeset ul.tree-branch::before {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: var(--gemma-space-4);
+  background: var(--gemma-border-strong);
+  content: "";
+}
+
+.md-typeset ul.tree-branch > li {
+  position: relative;
+  margin: 0 0 var(--gemma-space-2);
+}
+
+.md-typeset ul.tree-branch > li:last-child {
+  margin-bottom: 0;
+}
+
+.md-typeset .tree-name {
+  display: block;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+}
+
+.md-typeset .tree-tagline {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--gemma-text-muted);
+  font-size: 0.6875rem;
+  line-height: 1.35;
+}
+
+/* A generation with no descendants still needs to hold its column height. */
+.md-typeset ul.tree-branch--empty::before {
+  display: none;
+}
+
+.md-typeset .tree-none {
+  padding-top: var(--gemma-space-4);
+  color: var(--gemma-text-muted);
+  font-size: 0.6875rem;
+  text-align: center;
+}
+
+/* Models that no page ties to a Gemma generation sit outside the spine. */
+.md-typeset ul.tree-aside:not([hidden]) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gemma-space-3);
+  margin-top: var(--gemma-space-5);
+  padding-top: var(--gemma-space-4);
+  border-top: 1px dashed var(--gemma-border-strong);
+  list-style: none;
+}
+
+.md-typeset ul.tree-aside > li {
+  flex: 1 1 14rem;
+  margin: 0;
+}
+
+.md-typeset .tree-legend {
+  margin-top: var(--gemma-space-3);
+  color: var(--gemma-text-muted);
+  font-size: 0.75rem;
+}

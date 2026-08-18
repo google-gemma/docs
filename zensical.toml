@@ -19,6 +19,8 @@ extra_css = [
   "stylesheets/nav.css",         # header, tabs, sidebar, table of contents
   "stylesheets/content.css",     # tables, admonitions, code, tabs
   "stylesheets/components.css",  # cards, badges, figures, steps, embeds
+  "stylesheets/engine-grid.css", # quickstart: the "run it with" engine grid
+  "stylesheets/model-tree.css",  # models overview: the family lineage tree
   "stylesheets/embeds.css",      # external interactive demos
   "stylesheets/page-context.css",# the applicability bar above every H1
   "stylesheets/tokens.css",      # chat-token badges
@@ -34,7 +36,7 @@ extra_javascript = [
 # every page carries a `models:` frontmatter key, and page metadata shadows a macros variable
 # of the same name -- which silently broke both generated tables. See data/models.yml
 # for what reads it. Hand-editing a model table in a page is a bug; change the data file.
-plugins = { macros = { enabled = true, include_yaml = { modeldata = "data/models.yml" } } }
+plugins = { macros = { enabled = true, include_yaml = { modeldata = "data/models.yml", frameworkdata = "data/frameworks.yml" } } }
 
 # ============================================================================
 # NAVIGATION

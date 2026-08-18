@@ -62,7 +62,7 @@ issues instead of expanding this checklist.
 
 | Page | Decision or input needed |
 |---|---|
-| `community/gemmaverse.md` | Replace `example.com` cards with real projects. |
+| `community/index.md` | Replace `example.com` cards with real projects. |
 | `community/discord.md` | Port the official Discord page. |
 | `community/gemma-skills.md` | Supply first-party content; no upstream source exists. |
 | `cookbook.md` | Decide its purpose and scope. |
@@ -72,10 +72,12 @@ Six upstream pages still need individual keep-or-drop decisions:
 
 - `/core/gemma_library`
 - `/core/pytorch_gemma`
-- `/core/gemma_on_gemini_api`
 - `/core/deploy_to_cloud_run_from_ai_studio`
 - `/gemma_chat`
 - `/meme-generator`
+
+`/core/gemma_on_gemini_api` is resolved: imported as `deployment/gemini-api.md` and placed under
+Run > Serve.
 
 ## Durable authoring rules
 

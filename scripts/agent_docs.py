@@ -21,6 +21,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = REPO_ROOT / "docs"
 CONFIG_FILE = REPO_ROOT / "zensical.toml"
 MODELS_FILE = REPO_ROOT / "data" / "models.yml"
+FRAMEWORKS_FILE = REPO_ROOT / "data" / "frameworks.yml"
 LLMS_TARGET = DOCS_DIR / "llms.txt"
 SITE_URL = "https://gemma.ai"
 
@@ -98,6 +99,10 @@ def model_data() -> dict:
     return yaml.safe_load(MODELS_FILE.read_text(encoding="utf-8"))
 
 
+def framework_data() -> dict:
+    return yaml.safe_load(FRAMEWORKS_FILE.read_text(encoding="utf-8"))
+
+
 def render_llms() -> str:
     pages = source_pages()
     data = model_data()
@@ -141,6 +146,7 @@ def render_raw(relative: str, metadata: dict, body: str) -> str:
     environment = Environment(undefined=StrictUndefined, autoescape=False, keep_trailing_newline=True)
     context = dict(metadata)
     context["modeldata"] = model_data()
+    context["frameworkdata"] = framework_data()
     rendered = environment.from_string(body).render(**context).strip() + "\n"
     if not H1.search(rendered):
         rendered = f"# {metadata['title']}\n\n{rendered}"

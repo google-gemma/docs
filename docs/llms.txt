@@ -8,7 +8,7 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [Google Gemma 4 Open Models](https://gemma.ai/index.md): Official technical documentation portal for Google Gemma 4 open-weight AI models. Explore multimodal capabilities, interactive WebGPU playgrounds, and partner integrations.
 
 ## Get started
-- [Quick Start](https://gemma.ai/get-started.md): The Gemma family of open models includes a range of model sizes, capabilities, and task-specialized variations to help you build custom generative solutions.
+- [Quickstart](https://gemma.ai/get-started.md): Run your first Gemma 4 generation in one command, then pick the engine, model size and checkpoint that fit your hardware.
 - [Best practices](https://gemma.ai/get-started/best-practices.md): Sampling parameters, thinking-mode tokens, modality order and image token budgets that get the best results out of Gemma 4.
 - [Quantization & QAT](https://gemma.ai/get-started/qat.md): Which Gemma 4 quantized weights to download for each engine, and why QAT beats post-training quantization at 4-bit.
 - [Inference](https://gemma.ai/get-started/capabilities/text.md): Basic text inference with Gemma 4 in Hugging Face Transformers: single-turn prompts, multi-turn conversations, and system instructions.
@@ -23,7 +23,7 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [Gemma formatting and system instructions](https://gemma.ai/get-started/prompt-structure.md): Gemma instruction-tuned (IT) models are trained with a specific formatter that annotates all instruction tuning examples with extra information, both at training and inference time.
 
 ## Models
-- [Gemma Model Family](https://gemma.ai/models.md): The Gemma family of open models spans multiple generations and specialized variants.
+- [Gemma Model Family](https://gemma.ai/models.md): What Gemma is, how the generations relate, and which variant was built from which base model.
 - [Gemma 4](https://gemma.ai/models/gemma-4.md): Gemma is a family of generative artificial intelligence models and you can use them in a wide variety of generation tasks, including question answering, summarization, and reasoning.
 - [Gemma 4 — Model card](https://gemma.ai/models/gemma-4/model-card.md): Gemma is a family of open models built by Google DeepMind.
 - [Gemma 3n model overview](https://gemma.ai/models/gemma-3n.md): Gemma 3n is a generative AI model optimized for use in everyday devices, such as phones, laptops, and tablets.

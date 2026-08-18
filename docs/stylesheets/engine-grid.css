@@ -1,0 +1,88 @@
+/* ---------------------------------------------------------------------------
+   Engine grid -- the "run it with" tiles on the quickstart.
+
+   A denser, more scannable relative of `.card`: the reader is picking one of a
+   dozen tools, so each tile leads with the tool's name as a mark rather than a
+   sentence. Generated from data/frameworks.yml; see docs/contributing/components.md.
+
+   The monogram is a placeholder for a real vendor logo. Swapping `.engine-mark`
+   text for an <img> needs no other markup change.
+   --------------------------------------------------------------------------- */
+
+.md-typeset ul.engine-grid:not([hidden]) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: var(--gemma-space-3);
+  margin: var(--gemma-space-5) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.md-typeset ul.engine-grid > li {
+  margin: 0;
+}
+
+.md-typeset a.engine {
+  display: flex;
+  gap: var(--gemma-space-2);
+  align-items: center;
+  height: 100%;
+  padding: var(--gemma-space-2) var(--gemma-space-3);
+  border: 1px solid var(--gemma-border);
+  border-radius: var(--gemma-radius-lg);
+  background: var(--gemma-surface);
+  color: inherit;
+  text-decoration: none;
+}
+
+.md-typeset a.engine:hover,
+.md-typeset a.engine:focus-visible {
+  border-color: var(--gemma-accent);
+  box-shadow: var(--gemma-shadow-md);
+}
+
+/* The monogram tile. Two characters at most -- "vL", "SG", "HF". */
+.md-typeset .engine-mark {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--gemma-radius-md);
+  background: var(--gemma-surface-sunken);
+  color: var(--gemma-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.md-typeset a.engine:hover .engine-mark {
+  background: var(--gemma-accent-fill);
+  color: var(--gemma-white);
+}
+
+.md-typeset .engine-name {
+  min-width: 0;
+  overflow: hidden;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* The trailing "see everything" tile reads as an action, not another engine. */
+.md-typeset a.engine--all {
+  align-items: center;
+  justify-content: center;
+  border-style: dashed;
+  color: var(--gemma-accent);
+  font-weight: 600;
+  font-size: 0.8125rem;
+}
+
+@media screen and (max-width: 44.9375em) {
+  .md-typeset ul.engine-grid:not([hidden]) {
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  }
+}

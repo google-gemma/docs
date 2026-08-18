@@ -1,29 +1,15 @@
 ---
-title: Quick Start
-description: The Gemma family of open models includes a range of model sizes, capabilities, and task-specialized variations to help you build custom generative solutions.
+title: Quickstart
+description: Run your first Gemma 4 generation in one command, then pick the engine, model size and checkpoint that fit your hardware.
 models: [gemma-4]
 frameworks: [transformers, ollama, mlx, vllm, llamacpp]
-hide:
-  - toc
 ---
 
-# Quick Start
+# Quickstart
 
-The Gemma family of open models includes a range of model sizes, capabilities, and task-specialized variations to help you build custom generative solutions.
-
-*The latest generation featuring multimodal (text, image, audio) inputs.*
-
-<!-- Generated from data/models.yml -- edit that file, not this table. -->
-
-| Size | Variant | Input ➔ Output | Context | Intended Platform |
-|---|---|---|---|---|
-{% for size in modeldata.gemma4.sizes -%}
-| **{{ size.name }}** | [Gemma 4 (core)](../models/gemma-4/index.md) | {{ size.modalities.input | map('capitalize') | join(', ') }} ➔ {{ size.modalities.output | map('capitalize') | join(', ') }} | {{ size.context }} | {{ size.platform }} |
-{% endfor %}
-
-!!! tip "New to Gemma?"
-    A good place to start is the Gemma 4 12B model, which can be used for many tasks and runs on laptop hardware.
-
+Gemma is Google DeepMind's family of open models — open weights you download and run yourself,
+on your own hardware. Gemma 4 is the current generation, taking text, image and audio input.
+New here? The [model family](../models/index.md) is the wider tour.
 
 ## Run your first inference
 
@@ -80,7 +66,6 @@ The Gemma family of open models includes a range of model sizes, capabilities, a
     lms chat google/gemma-4-12b
     ```
 
-
 !!! example "Using a coding agent?"
 
     Install the gemma-dev skill so your agent stays current with the latest models:
@@ -88,3 +73,83 @@ The Gemma family of open models includes a range of model sizes, capabilities, a
     ```bash
     npx skills add google-gemma/gemma-skills --skill gemma-dev --global
     ```
+
+## Run it your way
+
+Not your stack? Gemma runs on all of these — each page carries install, run and serve commands.
+
+<!-- Generated from data/frameworks.yml -- edit that file, not this list. -->
+{% set featured = ["ollama", "llamacpp", "lmstudio", "mlx", "litert", "transformers",
+                   "keras", "unsloth", "vllm", "sglang", "gemini-api", "google-cloud"] %}
+<ul class="engine-grid">
+{% for id in featured %}{% for fw in frameworkdata.frameworks if fw.id == id %}
+  <li><a class="engine" href="../{{ fw.page }}" title="{{ fw.blurb }}">
+    <span class="engine-mark" aria-hidden="true">{{ fw.mark }}</span>
+    <span class="engine-name">{{ fw.short_name | default(fw.name) }}</span>
+  </a></li>
+{% endfor %}{% endfor %}
+  <li><a class="engine engine--all" href="../deployment/index.md">All ways to run →</a></li>
+</ul>
+
+## Choose a model
+
+Gemma 4 ships in five sizes. They share a tokenizer and prompt format, so you can start small
+and move up without rewriting anything.
+
+<!-- Generated from data/models.yml -- edit that file, not this table. -->
+
+| Size | Input ➔ Output | Context | Intended Platform |
+|---|---|---|---|
+{% for size in modeldata.gemma4.sizes -%}
+| **{{ size.name }}** | {{ size.modalities.input | map('capitalize') | join(', ') }} ➔ {{ size.modalities.output | map('capitalize') | join(', ') }} | {{ size.context }} | {{ size.platform }} |
+{% endfor %}
+
+!!! tip "New to Gemma?"
+    Start with **Gemma 4 12B**. It handles most tasks, accepts text, image and audio, and runs
+    on laptop hardware at 4-bit. Move to 26B A4B or 31B when you need more quality, or down to
+    E2B/E4B for phones.
+
+Audio input is native to **E2B, E4B and 12B**. The **26B A4B** and **31B** models accept video
+as individual frames — that is, as images — but do not process audio.
+
+## Get the weights
+
+Every size ships full-precision weights plus **quantization-aware training** (QAT) checkpoints,
+which hold up far better at 4-bit than a generic post-training quant.
+
+| Where | What's there |
+|---|---|
+| [Hugging Face](https://huggingface.co/collections/google/gemma-4) | Safetensors, GGUF and QAT collections |
+| [Kaggle](https://www.kaggle.com/models/google/gemma-4) | The same checkpoints, mirrored |
+| [Ollama](https://ollama.com/library/gemma4) | Prebuilt tags, pulled on first run |
+
+Checkpoint names follow `google/gemma-4-{SIZE}-it{SUFFIX}` — pick the suffix your engine wants:
+
+| Running on | Suffix |
+|---|---|
+| llama.cpp, LM Studio, Ollama | `-qat-q4_0-gguf` |
+| vLLM, SGLang | `-qat-w4a16-ct` |
+| Mobile | `-qat-mobile-transformers`, `-qat-mobile-ct` |
+
+[Quantization and QAT](qat.md) covers the full matrix, memory footprints and availability.
+
+## What's next
+
+<div class="card-grid">
+<a class="card" href="best-practices.md">
+  <div class="card-title">Best practices</div>
+  <p class="card-desc">Sampling parameters, thinking-mode tokens, modality order and image token budgets.</p>
+</a>
+<a class="card" href="capabilities/text.md">
+  <div class="card-title">Capabilities</div>
+  <p class="card-desc">Text, reasoning, tool calling, vision, video and audio — each with runnable code.</p>
+</a>
+<a class="card" href="../tuning/index.md">
+  <div class="card-title">Fine-tune Gemma</div>
+  <p class="card-desc">QLoRA, full fine-tunes and distributed training on your own data.</p>
+</a>
+<a class="card" href="../models/index.md">
+  <div class="card-title">The model family</div>
+  <p class="card-desc">Every generation and variant, and which base model each one came from.</p>
+</a>
+</div>
