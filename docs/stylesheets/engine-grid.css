@@ -29,7 +29,7 @@
   height: 100%;
   padding: var(--gemma-space-2) var(--gemma-space-3);
   border: 1px solid var(--gemma-border);
-  border-radius: var(--gemma-radius-lg);
+  border-radius: var(--gemma-radius-md);
   background: var(--gemma-surface);
   color: inherit;
   text-decoration: none;
@@ -38,7 +38,7 @@
 .md-typeset a.engine:hover,
 .md-typeset a.engine:focus-visible {
   border-color: var(--gemma-accent);
-  box-shadow: var(--gemma-shadow-md);
+  box-shadow: var(--gemma-shadow-sm);
 }
 
 /* The monogram tile. Two characters at most -- "vL", "SG", "HF". */

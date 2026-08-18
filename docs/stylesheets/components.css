@@ -24,14 +24,18 @@
   margin: var(--gemma-space-5) 0 var(--gemma-space-6);
 }
 
+/* The shared box recipe: --gemma-surface, a --gemma-border hairline, --gemma-radius-md,
+   and border-to-accent plus --gemma-shadow-sm on hover. Only padding varies by density.
+   These used --md-default-fg-color--lighter, an 0.32-alpha black that drew a far heavier
+   line than every other box on the site. */
 .md-typeset .card,
 .md-typeset .cookbook-card {
   display: flex;
   flex-direction: column;
   padding: var(--gemma-space-4) var(--gemma-space-5);
-  border: 1px solid var(--md-default-fg-color--lighter);
+  border: 1px solid var(--gemma-border);
   border-radius: var(--gemma-radius-md);
-  background: var(--md-default-bg-color);
+  background: var(--gemma-surface);
   text-decoration: none !important;
   color: inherit;
 }
@@ -39,7 +43,7 @@
 .md-typeset a.card:hover,
 .md-typeset a.cookbook-card:hover {
   border-color: var(--gemma-accent);
-  background: var(--md-default-fg-color--lightest);
+  box-shadow: var(--gemma-shadow-sm);
 }
 
 .md-typeset .card-title,
@@ -48,7 +52,7 @@
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-  color: var(--md-default-fg-color);
+  color: var(--gemma-text-secondary);
 }
 
 /* External-link arrow, inline with the title. */
@@ -65,7 +69,7 @@
   margin: 0;
   font-size: 0.85rem;
   line-height: 1.5;
-  color: var(--md-default-fg-color--light);
+  color: var(--gemma-text-muted);
 }
 
 @media screen and (max-width: 37.5em) {

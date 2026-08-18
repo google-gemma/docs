@@ -18,16 +18,58 @@ writing new CSS — if something you need isn't here, add it to
 
 ## Colour tokens
 
+Brand blue is a single ramp — one hue (212°), one saturation, lightness only:
+
+| Step | Hex | Contrast |
+|---|---|---|
+| `--gemma-blue-50` / `-100` | `#E6EFF9` / `#C5D9F2` | Tints and hover washes. |
+| `--gemma-blue-300` | `#71A4DF` | 6.19:1 on ink — dark-scheme text. |
+| `--gemma-blue-500` | `#2C72C4` | 4.87:1 under white — decorative fills, the hero. |
+| `--gemma-blue-600` | `#2561A7` | 6.28:1 under white — dark-scheme fills. |
+| `--gemma-blue-700` | `#20538F` | 7.79:1 both ways. AAA. The primary. |
+
+Use the semantic roles, not the ramp directly:
+
 | Token | Use |
 |---|---|
-| `--gemma-blue` | Fills: buttons, bars, icons, step markers. **Not body text** — 3.51:1 on white fails WCAG AA. |
-| `--gemma-blue-deep` | Text on light surfaces. 4.65:1 on white, passes AA. |
-| `--gemma-blue-light` | Text on dark surfaces. 5.98:1 on ink, passes AA. |
+| `--gemma-accent` | Brand colour that is **text-safe** in the current scheme. Prefer this. |
+| `--gemma-accent-fill` | A fill that **carries white text**. Never point it at a light step. |
 | `--gemma-white`, `--gemma-ink` | Surfaces. |
-| `--gemma-accent` | Whichever of the above is text-safe in the current scheme. **Prefer this.** |
-| `--gemma-accent-fill` | Scheme-aware fill colour. |
+| `--gemma-blue`, `-deep`, `-light` | Legacy aliases into the ramp. Prefer the roles above. |
+
+!!! warning "Contrast is symmetric"
+    The palette this replaced was built on `#3186FF` at 3.51:1. That number fails AA as text on
+    white *and* as a fill behind white text — the same ratio, so a colour too light to read on
+    can never be dark enough to read against. Fills that carry white text come from 600 or 700.
 
 Scales: `--gemma-space-1…7`, `--gemma-radius-sm|md|lg|pill`, `--gemma-shadow-sm|md|lg`.
+
+## Boxes
+
+Every bordered container on the site — cards, engine tiles, tree nodes, tables — uses one
+recipe. Only padding changes.
+
+```css
+background: var(--gemma-surface);
+border: 1px solid var(--gemma-border);
+border-radius: var(--gemma-radius-md);
+```
+
+```css
+/* Interactive boxes, on hover and focus */
+border-color: var(--gemma-accent);
+box-shadow: var(--gemma-shadow-sm);
+```
+
+| Density | Padding | Used by |
+|---|---|---|
+| Compact | `--gemma-space-2` / `-3` | Engine tiles, tree nodes |
+| Default | `--gemma-space-4` / `-5` | Cards |
+| Panel | `--gemma-space-3` / `-4` | Admonitions, on `--gemma-surface-sunken` with a rail |
+
+Do not reach for Material's `--md-default-fg-color--lighter` for a border. It is an 0.32-alpha
+black that draws a visibly heavier line than `--gemma-border`; cards used it for a long time,
+which is why they read as a different design language from everything around them.
 
 ## Cards
 

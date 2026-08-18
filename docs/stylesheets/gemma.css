@@ -11,22 +11,33 @@
 
 :root {
   /* -----------------------------------------------------------------
-     Brand palette (official Gemma colours)
+     Brand blue ramp -- one hue (212deg), one saturation, lightness only.
 
-     Contrast, measured against #FFFFFF and #202124:
+     Contrast against #FFFFFF / #202124, white-on-fill first:
 
-       blue        #3186FF   3.51:1 on white  -- large text / fills only
-       blue-deep   #346BF1   4.65:1 on white  -- PASSES AA for body text
-       blue-light  #4FA0FF   5.98:1 on ink    -- PASSES AA in dark mode
+       300  #71A4DF   2.60 on white |  6.19 on ink  -- dark-scheme text
+       500  #2C72C4   4.87 white-on               -- decorative fills
+       600  #2561A7   6.28 white-on               -- dark-scheme fills
+       700  #20538F   7.79 white-on | 7.79 on white -- primary. AAA both ways.
 
-     So --gemma-blue is a *fill* colour: buttons, bars, icons, headings.
-     Text on a light surface uses --gemma-blue-deep; text on a dark
-     surface uses --gemma-blue-light. Do not link body text in plain
-     --gemma-blue -- it fails WCAG AA.
+     The previous palette was built around #3186FF at 3.51:1. Contrast is
+     symmetric, so that failed AA both as text on white *and* as a fill
+     behind white text -- which is what made it read neon. Fills that carry
+     white text must come from 600/700, never 300/500.
      ----------------------------------------------------------------- */
-  --gemma-blue: #3186FF;
-  --gemma-blue-deep: #346BF1;
-  --gemma-blue-light: #4FA0FF;
+  --gemma-blue-50: #E6EFF9;
+  --gemma-blue-100: #C5D9F2;
+  --gemma-blue-300: #71A4DF;
+  --gemma-blue-500: #2C72C4;
+  --gemma-blue-600: #2561A7;
+  --gemma-blue-700: #20538F;
+  --gemma-blue-800: #183F6C;
+
+  /* Legacy aliases. Kept so nav/content/home keep resolving; each now
+     points into the ramp rather than carrying its own hex. */
+  --gemma-blue: var(--gemma-blue-500);
+  --gemma-blue-deep: var(--gemma-blue-700);
+  --gemma-blue-light: var(--gemma-blue-300);
   --gemma-white: #FFFFFF;
   --gemma-ink: #202124;
 
@@ -39,14 +50,14 @@
   --gemma-home-bg-raised: #07152f;
   --gemma-home-bg-mid: #040c1e;
   --gemma-home-bg-deep: #020712;
-  --gemma-blue-strong: #1A4BD6;
-  --gemma-blue-hover: #2563eb;
+  --gemma-blue-strong: var(--gemma-blue-800);
+  --gemma-blue-hover: var(--gemma-blue-600);
 
   /* -----------------------------------------------------------------
      Semantic roles — remapped per colour scheme further down.
      ----------------------------------------------------------------- */
-  --gemma-accent: var(--gemma-blue-deep);   /* text-safe brand colour   */
-  --gemma-accent-fill: var(--gemma-blue);   /* backgrounds, bars, icons */
+  --gemma-accent: var(--gemma-blue-700);      /* text-safe brand colour     */
+  --gemma-accent-fill: var(--gemma-blue-700); /* fills that carry white text */
 
   /* -----------------------------------------------------------------
      Neutral ramp
@@ -85,7 +96,7 @@
 
   /* Brand blue for small text on the tinted header/table surfaces. Plain blue-deep measures
      4.41:1 there -- fine on white, under AA on the tint. */
-  --gemma-accent-on-tint: #2F63E6;
+  --gemma-accent-on-tint: var(--gemma-blue-700);
 
   /* Status accents for admonition rails. Categorical, so not derived
      from the brand blue -- they have to stay distinguishable. */
@@ -160,8 +171,9 @@
    =================================================================== */
 [data-md-color-scheme="slate"][data-md-color-primary],
 [data-md-color-scheme="slate"] {
-  --gemma-accent: var(--gemma-blue-light);
-  --gemma-accent-fill: var(--gemma-blue-light);
+  --gemma-accent: var(--gemma-blue-300);
+  /* NOT blue-300: this fill carries white text, and white on #71A4DF is 2.60:1. */
+  --gemma-accent-fill: var(--gemma-blue-600);
 
   --gemma-surface: #1c1d21;
   --gemma-surface-sunken: #17181c;
@@ -170,7 +182,7 @@
   --gemma-text-muted: var(--gemma-n300);
   --gemma-text-secondary: var(--gemma-n200);
 
-  --gemma-accent-on-tint: var(--gemma-blue-light);
+  --gemma-accent-on-tint: var(--gemma-blue-300);
   --gemma-header-bg: #17181c;
   --gemma-header-fg: var(--gemma-n200);
   --gemma-header-border: #303239;
