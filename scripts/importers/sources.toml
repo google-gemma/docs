@@ -57,16 +57,6 @@ source = "https://ai.google.dev/gemma/docs/core/keras_inference.md.txt"
 frozen = true
 
 [[page]]
-path = "deployment/mobile.md"
-source = "https://ai.google.dev/gemma/docs/integrations/mobile.md.txt"
-frozen = true
-
-[[page]]
-path = "deployment/web.md"
-source = "https://ai.google.dev/gemma/docs/integrations/web.md.txt"
-frozen = true
-
-[[page]]
 path = "deployment/google-cloud.md"
 source = "https://ai.google.dev/gemma/docs/integrations/google-cloud.md.txt"
 frozen = true
@@ -82,9 +72,15 @@ path = "deployment/gemini-api.md"
 source = "https://ai.google.dev/gemma/docs/core/gemma_on_gemini_api.md.txt"
 frozen = true
 
+# deployment/web.md and deployment/mobile.md were retired: both described the MediaPipe LLM
+# Inference path for Gemma 3, superseded by LiteRT-LM. Their on-device story now lives in
+# deployment/ai-edge-gallery.md, which is authored rather than ported.
+
 [[page]]
 path = "deployment/litert.md"
-source = "https://ai.google.dev/gemma/docs/conversions/hf-to-mediapipe-task.md.txt"
+# Rewritten around LiteRT-LM for Gemma 4; the MediaPipe Task conversion guide it was ported
+# from covered Gemma 3 only.
+source = "https://developers.google.com/edge/litert-lm/models/gemma-4"
 frozen = true
 
 [[page]]

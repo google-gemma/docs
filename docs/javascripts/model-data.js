@@ -19,7 +19,11 @@ window.GEMMA_MODELS = {
       "gguf_qat": "google/gemma-4-E2B-it-qat-q4_0-gguf",
       "ollama": "gemma4:e2b",
       "mlx": "mlx-community/gemma-4-E2B-it-qat-4bit",
-      "lmstudio": "google/gemma-4-e2b"
+      "lmstudio": "google/gemma-4-e2b",
+      "keras": "gemma4_instruct_2b",
+      "keras_base": "gemma4_2b",
+      "keras_assistant": "gemma4_instruct_2b_assistant",
+      "litert": "litert-community/gemma-4-E2B-it-litert-lm"
     },
     "inputs": [
       "text",
@@ -41,7 +45,11 @@ window.GEMMA_MODELS = {
       "gguf_qat": "google/gemma-4-E4B-it-qat-q4_0-gguf",
       "ollama": "gemma4:e4b",
       "mlx": "mlx-community/gemma-4-E4B-it-qat-4bit",
-      "lmstudio": "google/gemma-4-e4b"
+      "lmstudio": "google/gemma-4-e4b",
+      "keras": "gemma4_instruct_4b",
+      "keras_base": "gemma4_4b",
+      "keras_assistant": "gemma4_instruct_4b_assistant",
+      "litert": "litert-community/gemma-4-E4B-it-litert-lm"
     },
     "inputs": [
       "text",
@@ -84,7 +92,10 @@ window.GEMMA_MODELS = {
       "gguf_qat": "google/gemma-4-26B-A4B-it-qat-q4_0-gguf",
       "ollama": "gemma4:26b",
       "mlx": "mlx-community/gemma-4-26B-A4B-it-qat-4bit",
-      "lmstudio": "google/gemma-4-26b-a4b"
+      "lmstudio": "google/gemma-4-26b-a4b",
+      "keras": "gemma4_instruct_26b_a4b",
+      "keras_base": "gemma4_26b_a4b",
+      "keras_assistant": "gemma4_instruct_26b_a4b_assistant"
     },
     "inputs": [
       "text",
@@ -105,7 +116,10 @@ window.GEMMA_MODELS = {
       "gguf_qat": "google/gemma-4-31B-it-qat-q4_0-gguf",
       "ollama": "gemma4:31b",
       "mlx": "mlx-community/gemma-4-31B-it-qat-4bit",
-      "lmstudio": "google/gemma-4-31b"
+      "lmstudio": "google/gemma-4-31b",
+      "keras": "gemma4_instruct_31b",
+      "keras_base": "gemma4_31b",
+      "keras_assistant": "gemma4_instruct_31b_assistant"
     },
     "inputs": [
       "text",

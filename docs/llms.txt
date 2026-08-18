@@ -70,9 +70,8 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [Apple MLX](https://gemma.ai/deployment/mlx.md): Run Gemma 4 on Apple silicon with MLX — text and vision generation, model repos, and the OpenAI-compatible server.
 - [Run Gemma with Hugging Face Transformers](https://gemma.ai/deployment/huggingface.md): Generating text, summarizing, and analysing content are just some of the tasks you can accomplish with Gemma open models.
 - [Run Gemma with Keras](https://gemma.ai/deployment/keras.md): Generating content, summarizing, and analysing content are just some of the tasks you can accomplish with Gemma open models.
-- [Convert Hugging Face Safetensors to MediaPipe Task](https://gemma.ai/deployment/litert.md): This guide provides instructions for converting Gemma models in Hugging Face Safetensors format (.safetensors) into the MediaPipe Task file format (.task).
-- [Deploy Gemma in web browsers](https://gemma.ai/deployment/web.md): You can run Gemma models completely on-device with the MediaPipe LLM Inference API.
-- [Deploy Gemma on mobile devices](https://gemma.ai/deployment/mobile.md): This document outlines various methods and tools for deploying and running Gemma models on mobile devices, including using the Google AI Edge Gallery app and the MediaPipe LLM Inference API.
+- [LiteRT-LM](https://gemma.ai/deployment/litert.md): Run Gemma 4 on-device with LiteRT-LM — CLI install, prebuilt .litertlm weights, and exporting your own fine-tune.
+- [AI Edge Gallery](https://gemma.ai/deployment/ai-edge-gallery.md): Run Gemma 4 on an Android or iOS phone with no code — chat, vision, audio transcription and benchmarking, fully offline.
 - [vLLM](https://gemma.ai/deployment/vllm.md): Serve Gemma 4 with vLLM — install, vllm serve, model repositories, and the OpenAI-compatible API.
 - [SGLang](https://gemma.ai/deployment/sglang.md): Serve Gemma 4 with SGLang — install, launch_server, model repositories, and the OpenAI-compatible API.
 - [Gemini API](https://gemma.ai/deployment/gemini-api.md): Call hosted Gemma 4 models through the Gemini API instead of running and serving your own instance.

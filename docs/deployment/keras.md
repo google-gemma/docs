@@ -47,12 +47,19 @@ import keras_hub
 
 Keras provides implementations of many popular [model architectures](https://keras.io/api/keras_nlp/models/). Download and configure a Gemma model using the `Gemma4CausalLM` class to build an end-to-end, causal language modeling implementation for Gemma 4 models. Create the model using the `from_preset()` method, as shown in the following code example:
 
-```python
+```python { .model-swap }
 gemma_lm = keras_hub.models.Gemma4CausalLM.from_preset(
     "gemma4_instruct_2b",
     dtype="bfloat16",
 )
 ```
+
+!!! note "Keras presets"
+    Presets are `gemma4_instruct_{SIZE}` for the instruction-tuned weights and `gemma4_{SIZE}`
+    for base. There is no 12B preset, so the selector above offers the four sizes KerasHub
+    publishes. Each instruction-tuned preset also has a `_assistant` MTP drafter — see
+    [Multi-Token Prediction](../get-started/capabilities/mtp.md) — which must never be loaded
+    on its own.
 
 The `Gemma4CausalLM.from_preset()` method instantiates the model from a preset architecture and weights. In the code above, the string `"gemma#_xxxxxxx"` specifies a preset version and parameter size for Gemma. You can find the code strings for Gemma models in their **Model Variation** listings on [Kaggle](https://www.kaggle.com/models/keras/gemma4).
 

@@ -22,8 +22,8 @@ In the app, press ++cmd+shift+m++ (macOS) or ++ctrl+shift+m++ (Windows/Linux), s
 
 From the terminal:
 
-```bash
-lms get gemma-4
+```bash { .model-swap }
+lms get google/gemma-4-12b
 ```
 
 List what you have, then load one:
@@ -44,13 +44,13 @@ lms server start
 OpenAI-compatible API at `http://localhost:1234/v1`, serving `/v1/chat/completions`,
 `/v1/completions`, `/v1/embeddings`, `/v1/models` and `/v1/responses`.
 
-```python
+```python { .model-swap }
 from openai import OpenAI
 
 client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
 
 response = client.chat.completions.create(
-    model="gemma-4-12b",
+    model="google/gemma-4-12b",
     messages=[{"role": "user", "content": "Say this is a test"}],
 )
 print(response.choices[0].message.content)

@@ -8,6 +8,10 @@
 #   - Global model/engine switcher (PLAN.md Step 4.2) -- `modalities` drives capability gating,
 #     so an audio example can never offer a model that cannot hear
 #
+# Not every engine publishes every size. Keras has no 12B preset and LiteRT-LM ships only E2B
+# and E4B; the switcher reads that absence and simply does not offer those sizes on those pages,
+# which is the intended behaviour. Do not invent an id to fill a gap.
+#
 # Hand-editing a model table in a page is a bug. Change it here instead.
 #
 # NOT generated from this file: the memory table in models/gemma-4/index.md. That page is a
@@ -164,6 +168,10 @@ gemma4:
         ollama: gemma4:e2b
         mlx: mlx-community/gemma-4-E2B-it-qat-4bit
         lmstudio: google/gemma-4-e2b
+        keras: gemma4_instruct_2b
+        keras_base: gemma4_2b
+        keras_assistant: gemma4_instruct_2b_assistant
+        litert: litert-community/gemma-4-E2B-it-litert-lm
       memory:                          # GB, static weights + ~20% overhead
         bf16: 11.4
         sfp8: 5.7
@@ -191,6 +199,10 @@ gemma4:
         ollama: gemma4:e4b
         mlx: mlx-community/gemma-4-E4B-it-qat-4bit
         lmstudio: google/gemma-4-e4b
+        keras: gemma4_instruct_4b
+        keras_base: gemma4_4b
+        keras_assistant: gemma4_instruct_4b_assistant
+        litert: litert-community/gemma-4-E4B-it-litert-lm
       memory:
         bf16: 17.9
         sfp8: 8.9
@@ -243,6 +255,9 @@ gemma4:
         ollama: gemma4:26b
         mlx: mlx-community/gemma-4-26B-A4B-it-qat-4bit
         lmstudio: google/gemma-4-26b-a4b
+        keras: gemma4_instruct_26b_a4b
+        keras_base: gemma4_26b_a4b
+        keras_assistant: gemma4_instruct_26b_a4b_assistant
       memory:
         bf16: 57.7
         sfp8: 28.8
@@ -268,6 +283,9 @@ gemma4:
         ollama: gemma4:31b
         mlx: mlx-community/gemma-4-31B-it-qat-4bit
         lmstudio: google/gemma-4-31b
+        keras: gemma4_instruct_31b
+        keras_base: gemma4_31b
+        keras_assistant: gemma4_instruct_31b_assistant
       memory:
         bf16: 69.9
         sfp8: 34.9

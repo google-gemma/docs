@@ -78,8 +78,8 @@
 "/integrations/llamacpp" = "deployment/llamacpp.md"
 "/integrations/lmstudio" = "deployment/lmstudio.md"
 "/integrations/mlx" = "deployment/mlx.md"
-"/integrations/web" = "deployment/web.md"
-"/integrations/mobile" = "deployment/mobile.md"
+"/integrations/web" = "deployment/ai-edge-gallery.md"
+"/integrations/mobile" = "deployment/ai-edge-gallery.md"
 "/integrations/langchain" = "deployment/langchain.md"
 "/integrations/google-cloud" = "deployment/google-cloud.md"
 "/core/gke" = "deployment/google-cloud.md"               # GKE folded into the Google Cloud page

@@ -9,9 +9,9 @@ Temporary tracking file. **Delete before the final commit.**
 - [x] vLLM: `vllm serve google/gemma-4-12B-it-qat-w4a16-ct` block not marked `.model-swap`
 
 ## 2. Model selector rollout
-- [ ] `deployment/lmstudio.md`
-- [ ] `deployment/keras.md` (checkpoints from Kaggle keras/gemma4)
-- [ ] `deployment/litert.md` (retarget to Gemma 4)
+- [x] `deployment/lmstudio.md`
+- [x] `deployment/keras.md` (checkpoints from Kaggle keras/gemma4)
+- [x] `deployment/litert.md` (retarget to Gemma 4)
 - [ ] `deployment/gemini-api.md` (tabs per language; only 31B + 26B A4B supported)
 - [ ] `deployment/langchain.md`
 
@@ -21,8 +21,8 @@ Temporary tracking file. **Delete before the final commit.**
 - [ ] Do not invent: omit anything not attested
 
 ## 4. Structure
-- [ ] Remove `deployment/web.md` + `deployment/mobile.md`
-- [ ] Add AI Edge Gallery page
+- [x] Remove `deployment/web.md` + `deployment/mobile.md`
+- [x] Add AI Edge Gallery page
 - [ ] `deployment/google-cloud.md`: grid overview like the Run overview
 
 ## 5. External links

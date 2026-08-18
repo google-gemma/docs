@@ -155,9 +155,8 @@ nav = [
       { "MLX" = "deployment/mlx.md" },
       { "Hugging Face Transformers" = "deployment/huggingface.md" },
       { "Keras" = "deployment/keras.md" },
-      { "LiteRT" = "deployment/litert.md" },
-      { "Web browsers" = "deployment/web.md" },
-      { "Mobile" = "deployment/mobile.md" },
+      { "LiteRT-LM" = "deployment/litert.md" },
+      { "AI Edge Gallery" = "deployment/ai-edge-gallery.md" },
     ]},
     { "Serve" = [
       { "vLLM" = "deployment/vllm.md" },
