@@ -152,11 +152,11 @@ Gemma's control tokens are chips, not code. Colour carries the category, so a re
 
 | Class | Category | Covers |
 |---|---|---|
-| `.token-turn` | Turn structure | `<\|turn\|>`, `<turn\|>`, `<start_of_turn>`, `<end_of_turn>` |
-| `.token-role` | Roles | `system`, `user`, `model`, `assistant` |
-| `.token-multi` | Modality placeholders | `<\|image\|>`, `<\|audio\|>` |
-| `.token-tool` | Tool use | `<\|tool\|>`, `<\|tool_call\|>`, `<\|tool_response\|>`, `<\|"\|>` |
-| `.token-think` | Reasoning | `<\|think\|>`, `<\|channel>thought`, `<channel\|>` |
+| `.token-turn` | Turn structure | <code class="token-turn">&lt;&#124;turn&#124;&gt;</code> <code class="token-turn">&lt;turn&#124;&gt;</code> <code class="token-turn">&lt;start_of_turn&gt;</code> <code class="token-turn">&lt;end_of_turn&gt;</code> |
+| `.token-role` | Roles | <code class="token-role">system</code> <code class="token-role">user</code> <code class="token-role">model</code> <code class="token-role">assistant</code> |
+| `.token-multi` | Modality placeholders | <code class="token-multi">&lt;&#124;image&#124;&gt;</code> <code class="token-multi">&lt;&#124;audio&#124;&gt;</code> |
+| `.token-tool` | Tool use | <code class="token-tool">&lt;&#124;tool&#124;&gt;</code> <code class="token-tool">&lt;&#124;tool_call&#124;&gt;</code> <code class="token-tool">&lt;&#124;tool_response&#124;&gt;</code> <code class="token-tool">&lt;&#124;"&#124;&gt;</code> |
+| `.token-think` | Reasoning | <code class="token-think">&lt;&#124;think&#124;&gt;</code> <code class="token-think">&lt;&#124;channel&gt;thought</code> <code class="token-think">&lt;channel&#124;&gt;</code> |
 
 **Inline**, in prose or a table cell, use `attr_list` on inline code:
 
@@ -178,8 +178,9 @@ Which renders as:
 <pre><code><span class="token-turn">&lt;|turn&gt;</span><span class="token-role">user</span>
 Describe this image: <span class="token-multi">&lt;|image|&gt;</span><span class="token-turn">&lt;turn|&gt;</span></code></pre>
 
-Keep a token in one chip when the model treats it as one unit — `<|channel>thought` is a single
-`.token-think`, not a chip followed by bare text. Do not use a fenced code block for a dialogue
+Keep a token in one chip when the model treats it as one unit —
+<code class="token-think">&lt;|channel&gt;thought</code> is a single chip, not a chip followed by
+bare text. Do not use a fenced code block for a dialogue
 that needs tokens: syntax highlighting and these classes cannot both apply.
 
 Colours live in `gemma.css` as `--gemma-cat-*` triplets and are categorical on purpose — they

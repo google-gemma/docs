@@ -84,6 +84,7 @@
   /* Semantic surfaces, remapped for dark mode below. */
   --gemma-surface: var(--gemma-n0);
   --gemma-surface-sunken: var(--gemma-n50);
+  --gemma-box-surface: var(--gemma-n50);   /* bordered boxes: tinted here, raised in dark */
   --gemma-border: var(--gemma-n150);
   /* One step darker than the hairline. Separators inside a row have to out-read the rule
      that closes the row, or the row looks like a grid. */
@@ -179,6 +180,7 @@
 
   --gemma-surface: #1c1d21;
   --gemma-surface-sunken: #17181c;
+  --gemma-box-surface: #1c1d21;
   --gemma-border: #303239;
   --gemma-border-strong: #454852;
   --gemma-text-muted: var(--gemma-n300);

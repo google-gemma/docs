@@ -30,10 +30,15 @@ Names follow `google/gemma-4-{SIZE}-it{SUFFIX}`, for example:
 ```bash { .model-swap }
 # Local, via llama.cpp
 llama-cli -hf google/gemma-4-12B-it-qat-q4_0-gguf
+```
 
+```bash { .model-fixed }
 # Served, via vLLM
 vllm serve google/gemma-4-12B-it-qat-w4a16-ct
 ```
+
+The GGUF example follows the model selector. The compressed-tensors one is fixed at 12B because
+no 26B A4B `-qat-w4a16-ct` checkpoint is published — see Availability below.
 
 ## Availability
 

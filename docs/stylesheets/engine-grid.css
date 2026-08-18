@@ -30,7 +30,7 @@
   padding: var(--gemma-space-2) var(--gemma-space-3);
   border: 1px solid var(--gemma-border);
   border-radius: var(--gemma-radius-md);
-  background: var(--gemma-surface);
+  background: var(--gemma-box-surface);
   color: inherit;
   text-decoration: none;
 }
@@ -49,7 +49,7 @@
   width: 1.75rem;
   height: 1.75rem;
   border-radius: var(--gemma-radius-md);
-  background: var(--gemma-surface-sunken);
+  background: var(--gemma-surface);
   color: var(--gemma-accent);
   font-size: 0.75rem;
   font-weight: 700;

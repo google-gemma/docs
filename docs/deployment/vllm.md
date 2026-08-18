@@ -40,13 +40,13 @@ Drop `-it` for base weights, which you want only for further training.
 For 4-bit serving, use the [QAT](../get-started/qat.md) compressed-tensors builds — 4-bit weights with 16-bit
 activations:
 
-```bash { .model-fixed }
+```bash { .model-swap }
 vllm serve google/gemma-4-12B-it-qat-w4a16-ct
 ```
 
-Published as `google/gemma-4-{E2B,E4B,12B,31B}-it-qat-w4a16-ct`. This QAT example stays at
-12B because no 26B A4B compressed-tensors checkpoint is published; the page selector controls
-the regular serving and client examples above and below.
+Published as `google/gemma-4-{E2B,E4B,12B,31B}-it-qat-w4a16-ct`. No 26B A4B compressed-tensors
+checkpoint exists, so this page's selector offers the other four sizes; serve 26B A4B from the
+full-precision repository above.
 
 ## Call it
 
