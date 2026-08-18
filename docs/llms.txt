@@ -10,7 +10,6 @@ Follow the Markdown links below to read canonical page content without cloning t
 ## Get started
 - [Quickstart](https://gemma.ai/get-started.md): Run your first Gemma 4 generation in one command, then pick the engine, model size and checkpoint that fit your hardware.
 - [Best practices](https://gemma.ai/get-started/best-practices.md): Sampling parameters, thinking-mode tokens, modality order and image token budgets that get the best results out of Gemma 4.
-- [Quantization & QAT](https://gemma.ai/get-started/qat.md): Which Gemma 4 quantized weights to download for each engine, and why QAT beats post-training quantization at 4-bit.
 - [Inference](https://gemma.ai/get-started/capabilities/text.md): Basic text inference with Gemma 4 in Hugging Face Transformers: single-turn prompts, multi-turn conversations, and system instructions.
 - [Reasoning](https://gemma.ai/get-started/capabilities/thinking.md): Use Gemma 4's thinking mode to reason before answering, for text and image prompts, and parse the reasoning apart from the answer.
 - [Tool calling](https://gemma.ai/get-started/capabilities/function-calling.md): When using a generative artificial intelligence (AI) model such as Gemma, you may want to use the model to operate programming interfaces in order to complete tasks or answer questions.
@@ -19,6 +18,7 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [Video Understanding](https://gemma.ai/get-started/capabilities/video.md): Video data is a rich source of information that can help you accomplish tasks and understand the world around you.
 - [Audio Understanding](https://gemma.ai/get-started/capabilities/audio.md): Starting with Gemma 3n, you can use audio directly into your prompts and workflows.
 - [Speed-up Gemma 4 with Multi-Token Prediction](https://gemma.ai/get-started/capabilities/mtp.md): In Gemma 4, Multi-Token Prediction (MTP) is the specific architecture used to enable highly efficient Speculative Decoding.
+- [Quantization-Aware Training](https://gemma.ai/get-started/qat.md): Which Gemma 4 quantized weights to download for each engine, and why QAT beats post-training quantization at 4-bit.
 - [Prompt Formatting](https://gemma.ai/get-started/prompt-formatting.md): The control tokens Gemma 4 uses to structure a prompt, and what each one is for.
 - [Gemma formatting and system instructions](https://gemma.ai/get-started/prompt-structure.md): Gemma instruction-tuned (IT) models are trained with a specific formatter that annotates all instruction tuning examples with extra information, both at training and inference time.
 

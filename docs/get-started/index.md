@@ -131,7 +131,7 @@ Checkpoint names follow `google/gemma-4-{SIZE}-it{SUFFIX}` — pick the suffix y
 | vLLM, SGLang | `-qat-w4a16-ct` |
 | Mobile | `-qat-mobile-transformers`, `-qat-mobile-ct` |
 
-[Quantization and QAT](qat.md) covers the full matrix, memory footprints and availability.
+[Quantization-aware training](qat.md) covers the full matrix, memory footprints and availability.
 
 ## What's next
 

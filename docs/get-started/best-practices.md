@@ -21,22 +21,22 @@ Use the following standardized sampling configuration across all use cases:
 
 ## 2. Thinking mode configuration
 
-Compared to Gemma 3, the models use standard `system`, `assistant`, and `user` roles. To
-properly manage the thinking process, use the following control tokens:
+Compared to Gemma 3, the models use standard `system`{.token-role}, `assistant`{.token-role},
+and `user`{.token-role} roles. To properly manage the thinking process, use the following
+control tokens:
 
-- **Trigger thinking:** Thinking is enabled by including the
-  <code class="token-think">&lt;|think|&gt;</code> token at the start of the system prompt. To
-  disable thinking, remove the token.
+- **Trigger thinking:** Thinking is enabled by including the `<|think|>`{.token-think} token at
+  the start of the system prompt. To disable thinking, remove the token.
 - **Standard generation:** When thinking is enabled, the model will output its internal
   reasoning followed by the final answer using this structure:
 
-<pre><code><span class="token-think">&lt;|channel&gt;</span>thought
+<pre><code><span class="token-think">&lt;|channel&gt;thought</span>
 <strong>[Internal reasoning]</strong><span class="token-think">&lt;channel|&gt;</span></code></pre>
 
 - **Disabled thinking behavior:** For all models except for the E2B and E4B variants, if
   thinking is disabled, the model will still generate the tags but with an empty thought block:
 
-<pre><code><span class="token-think">&lt;|channel&gt;</span>thought
+<pre><code><span class="token-think">&lt;|channel&gt;thought</span>
 <span class="token-think">&lt;channel|&gt;</span><strong>[Final answer]</strong></code></pre>
 
 !!! note

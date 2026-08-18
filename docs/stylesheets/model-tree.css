@@ -64,9 +64,11 @@
   text-align: center;
 }
 
-.md-typeset .tree-node--gen:hover,
-.md-typeset .tree-node--gen:focus-visible {
+.md-typeset a.tree-node--gen:hover,
+.md-typeset a.tree-node--gen:focus,
+.md-typeset a.tree-node--gen:focus-visible {
   box-shadow: var(--gemma-shadow-md);
+  color: var(--gemma-white);
 }
 
 .md-typeset .tree-gen-name {

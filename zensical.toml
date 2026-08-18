@@ -51,7 +51,6 @@ nav = [
   { "Get started" = [
     { "Quickstart" = "get-started/index.md" },
     { "Best practices" = "get-started/best-practices.md" },
-    { "Quantization & QAT" = "get-started/qat.md" },
     { "Text" = [
       "get-started/capabilities/text.md",
       "get-started/capabilities/thinking.md",
@@ -63,11 +62,12 @@ nav = [
       "get-started/capabilities/video.md",
       "get-started/capabilities/audio.md",
     ]},
-    # MTP and the prompt-format references sit here so the main list stays what
-    # a newcomer needs first: how to run it, how to run it well, and what to
-    # download -- then the capability groups.
+    # Advanced holds the tuning-and-internals material -- MTP, QAT and the
+    # prompt-format references -- so the main list stays what a newcomer needs
+    # first: how to run it and how to run it well, then the capability groups.
     { "Advanced" = [
       { "Multi-Token Prediction" = "get-started/capabilities/mtp.md" },
+      { "Quantization-Aware Training" = "get-started/qat.md" },
       "get-started/prompt-formatting.md",
       { "Prompt structure (Gemma 1-3)" = "get-started/prompt-structure.md" },
     ]},
