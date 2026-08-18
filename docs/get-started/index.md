@@ -2,14 +2,17 @@
 title: Quickstart
 description: Run your first Gemma 4 generation in one command, then pick the engine, model size and checkpoint that fit your hardware.
 models: [gemma-4]
-frameworks: [transformers, ollama, mlx, vllm, llamacpp]
+frameworks: [transformers, llamacpp, ollama, mlx, vllm, lmstudio]
 ---
 
 # Quickstart
 
-Gemma is Google DeepMind's family of open models — open weights you download and run yourself,
+Gemma is Google DeepMind's family of open models and contain open weights you download and run yourself,
 on your own hardware. Gemma 4 is the current generation, taking text, image and audio input.
-New here? The [model family](../models/index.md) is the wider tour.
+
+
+!!! tip "New to Gemma?"
+    To learn more about the Gemma family of models, visit the [model family](../models/index.md) page for a tour.
 
 ## Run your first inference
 
@@ -74,9 +77,9 @@ New here? The [model family](../models/index.md) is the wider tour.
     npx skills add google-gemma/gemma-skills --skill gemma-dev --global
     ```
 
-## Run it your way
+## Providers
 
-Not your stack? Gemma runs on all of these — each page carries install, run and serve commands.
+If you want to run Gemma 4 on a different stack, you can choose from the following:
 
 <!-- Generated from data/frameworks.yml -- edit that file, not this list. -->
 {% set featured = ["ollama", "llamacpp", "lmstudio", "mlx", "litert", "transformers",
@@ -104,17 +107,12 @@ and move up without rewriting anything.
 | **{{ size.name }}** | {{ size.modalities.input | map('capitalize') | join(', ') }} ➔ {{ size.modalities.output | map('capitalize') | join(', ') }} | {{ size.context }} | {{ size.platform }} |
 {% endfor %}
 
-!!! tip "New to Gemma?"
-    Start with **Gemma 4 12B**. It handles most tasks, accepts text, image and audio, and runs
-    on laptop hardware at 4-bit. Move to 26B A4B or 31B when you need more quality, or down to
-    E2B/E4B for phones.
-
 Audio input is native to **E2B, E4B and 12B**. The **26B A4B** and **31B** models accept video
-as individual frames — that is, as images — but do not process audio.
+as individual frames as images but do not process audio.
 
 ## Get the weights
 
-Every size ships full-precision weights plus **quantization-aware training** (QAT) checkpoints,
+Every size ships full-precision weights plus [Quantization-Aware Training](qat.md) (QAT) checkpoints,
 which hold up far better at 4-bit than a generic post-training quant.
 
 | Where | What's there |
@@ -131,7 +129,6 @@ Checkpoint names follow `google/gemma-4-{SIZE}-it{SUFFIX}` — pick the suffix y
 | vLLM, SGLang | `-qat-w4a16-ct` |
 | Mobile | `-qat-mobile-transformers`, `-qat-mobile-ct` |
 
-[Quantization-aware training](qat.md) covers the full matrix, memory footprints and availability.
 
 ## What's next
 

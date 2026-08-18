@@ -131,7 +131,7 @@ Here are a few ways to complete the phrase "Roses are...":
 
 ## Use a prompt template
 
-When generating content with more complex prompting, use a prompt template to structure your request. A prompt template allows you to specify input from specific roles, such as `user` or `model`, and is a required format for managing multi-turn chat interactions with Gemma models. The following example code shows how to construct a prompt template for Gemma:
+When generating content with more complex prompting, use a prompt template to structure your request. A prompt template allows you to specify input from specific roles, such as `user`{.token-role} or `model`{.token-role}, and is a required format for managing multi-turn chat interactions with Gemma models. The following example code shows how to construct a prompt template for Gemma:
 
 ```python { .notebook-cell }
 from transformers import GenerationConfig
@@ -165,7 +165,7 @@ A primal fear, a dark design.
 
 ## Multi-turn conversation
 
-In a multi-turn setup, the conversation history is preserved as a sequence of alternating `user` and `model` roles. This cumulative list serves as the model's memory, ensuring that each new output is informed by the preceding dialogue.
+In a multi-turn setup, the conversation history is preserved as a sequence of alternating `user`{.token-role} and `model`{.token-role} roles. This cumulative list serves as the model's memory, ensuring that each new output is informed by the preceding dialogue.
 
 ```python { .notebook-cell }
 import dialog
@@ -261,7 +261,7 @@ That breaks the sailor's guarded heart.<turn|>
 
 ## System instructions
 
-Use the `system` role to provide the system-level instructions.
+Use the `system`{.token-role} role to provide the system-level instructions.
 
 ```python { .notebook-cell }
 import dialog
@@ -307,7 +307,7 @@ In this guide, you learned how to perform basic text inference with Gemma 4 usin
 1. **Environment**: Setting up the environment and installing dependencies.
 2. **Loading the model**: Using the `pipeline` abstraction.
 3. **Inference**: Running basic text generation.
-4. **Conversation**: Using the `dialog` library for conversation tracking.
+4. **Conversation**: Using the [`dialog`](https://github.com/google-deepmind/dialog) library for conversation tracking.
 5. **Multi-turn conversations**: Multi-turn conversations and applying system instructions.
 
 

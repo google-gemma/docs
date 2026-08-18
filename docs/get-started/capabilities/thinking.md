@@ -10,7 +10,7 @@ colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs
 
 Gemma is a family of lightweight, state-of-the-art open models built from the same research and technology used to create the [Gemini](https://deepmind.google/technologies/gemini/#introduction) models. Gemma 4 is designed to be the world's most efficient open-weight model family.
 
-This document demonstrates how to use the thinking capabilities of Gemma 4 to generate reasoning processes before providing a final answer. You will learn how to enable thinking mode for both text-only and multimodal (image-text) tasks using the Hugging Face `transformers` library, and how to parse the output to separate thinking from the answer.
+This document demonstrates how to use the thinking capabilities of Gemma 4 to generate reasoning processes before providing a final answer. You will learn how to enable thinking mode for both text-only and multimodal (image-text) tasks using the Hugging Face [`transformers`](https://github.com/huggingface/transformers) library, and how to parse the output to separate thinking from the answer.
 
 ## Install Python packages
 
@@ -26,7 +26,7 @@ pip install "transformers>=5.10.1"
 
 ## Load Model
 
-Use the `transformers` libraries to create an instance of a `processor` and `model` using the `AutoProcessor` and `AutoModelForImageTextToText` classes as shown in the following code example:
+Use the [`transformers`](https://github.com/huggingface/transformers) libraries to create an instance of a `processor` and `model` using the `AutoProcessor` and `AutoModelForImageTextToText` classes as shown in the following code example:
 
 ```python { .model-swap .notebook-cell }
 MODEL_ID = "google/gemma-4-E2B-it"
@@ -238,7 +238,7 @@ This equation shows that water can dissociate (break apart) into hydrogen ions (
 
 Properly managing the model's generated thoughts is critical for maintaining performance across multi-turn conversations.
 
-- **Standard Multi-Turn Conversations:** You must remove (strip) the model's generated thoughts from the previous turn before passing the conversation history back to the model for the next turn. If you want to disable thinking mode mid-conversation, you can remove the `<|think|>` token when you strip the previous thoughts.
+- **Standard Multi-Turn Conversations:** You must remove (strip) the model's generated thoughts from the previous turn before passing the conversation history back to the model for the next turn. If you want to disable thinking mode mid-conversation, you can remove the `<|think|>`{.token-think} token when you strip the previous thoughts.
 - **Function Calling (Exception):** If a single model turn involves function or tool calls, thoughts must **NOT** be removed between the function calls.
 - **Maintaining Conversation History:** The historical model output must only include the final response. Ensure that no generated thoughts from previous turns remain in the context window before the next user turn begins.
 
