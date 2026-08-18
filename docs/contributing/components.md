@@ -18,17 +18,35 @@ writing new CSS — if something you need isn't here, add it to
 
 ## Colour tokens
 
-Brand blue is a single ramp — one hue (212°), one saturation, lightness only:
+Brand blue has **one knob**. `--gemma-blue-seed` in `docs/stylesheets/gemma.css` is the only
+colour to change; every step, both schemes and every component follow from it:
 
-| Step | Hex | Contrast |
-|---|---|---|
-| `--gemma-blue-50` / `-100` | `#E6EFF9` / `#C5D9F2` | Tints and hover washes. |
-| `--gemma-blue-300` | `#71A4DF` | 6.19:1 on ink — dark-scheme text. |
-| `--gemma-blue-500` | `#2C72C4` | 4.87:1 under white — decorative fills, the hero. |
-| `--gemma-blue-600` | `#2561A7` | 6.28:1 under white — dark-scheme fills. |
-| `--gemma-blue-700` | `#20538F` | 7.79:1 both ways. AAA. The primary. |
+```css
+--gemma-blue-seed: #0B57D0;
+```
 
-Use the semantic roles, not the ramp directly:
+The steps are the seed mixed with white (black at the dark end) in sRGB, so they stay on the
+seed's own hue. With the current seed:
+
+| Step | Hex | Contrast | Role |
+|---|---|---|---|
+| `--gemma-blue-50` / `-100` | `#EBF2FB` / `#CEDDF6` | — | Tints, hover washes. |
+| `--gemma-blue-300` | `#80A8E7` | 6.65:1 on ink | Dark-scheme text. |
+| `--gemma-blue-500` | `#417CDA` | 4.10:1 under white | **Decorative only** — gradients, 2px rules. |
+| `--gemma-blue-600` | `#2368D5` | 5.23:1 under white | Dark-scheme fills. |
+| `--gemma-blue-700` | `#0B57D0` | 6.39:1 both ways | The primary. |
+| `--gemma-blue-800` | `#0944A2` | 8.90:1 under white | Pressed / strong. |
+
+Before committing a new seed, check it:
+
+```bash
+uv run python scripts/check_contrast.py --seed "#RRGGBB"
+```
+
+It prints the derived ramp and exits non-zero if any step misses the threshold its role needs,
+so a colour change never silently breaks legibility.
+
+Use the semantic roles in components, not the ramp directly:
 
 | Token | Use |
 |---|---|
@@ -38,9 +56,9 @@ Use the semantic roles, not the ramp directly:
 | `--gemma-blue`, `-deep`, `-light` | Legacy aliases into the ramp. Prefer the roles above. |
 
 !!! warning "Contrast is symmetric"
-    The palette this replaced was built on `#3186FF` at 3.51:1. That number fails AA as text on
-    white *and* as a fill behind white text — the same ratio, so a colour too light to read on
-    can never be dark enough to read against. Fills that carry white text come from 600 or 700.
+    A colour too light to read *on* white is also too light to sit *behind* white text — it is
+    the same ratio. The palette this replaced was built on `#3186FF` at 3.51:1, which failed
+    both ways; that is what made it read neon. Fills carrying white text come from 600 or 700.
 
 Scales: `--gemma-space-1…7`, `--gemma-radius-sm|md|lg|pill`, `--gemma-shadow-sm|md|lg`.
 
