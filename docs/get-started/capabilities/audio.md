@@ -1,5 +1,5 @@
 ---
-title: Audio Understanding
+title: Audio understanding
 description: Starting with Gemma 3n, you can use audio directly into your prompts and workflows.
 models: [gemma-4, gemma-3n]
 requires: audio
@@ -7,7 +7,7 @@ frameworks: [transformers]
 colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/audio.ipynb
 ---
 
-# Audio Understanding
+# Audio understanding
 
 Starting with [Gemma 3n](../../models/gemma-3n/index.md), you can use audio directly into your prompts and workflows. Audio and spoken language are rich sources of data for capturing user intents, recording information about the world around us, and understanding
 specific problems to be solved.
@@ -320,23 +320,22 @@ Korean: 역에 어떻게 가나요?<turn|>
 ## Summary
 
 In this guide, you learned how to process audio using Gemma 4 models. The examples demonstrated how to perform Speech-to-Text (ASR) to transcribe spoken language, as well as Automated Speech Translation (AST) to translate spoken audio directly into another language. You also saw how to capture audio from a microphone in a notebook environment for processing.
-
 ## What's next
 
 <div class="card-grid">
+<a class="card" href="../prompt-formatting.md">
+  <span class="card-icon">{{ icon('lucide/braces') }}</span>
+  <div class="card-title">Prompt formatting</div>
+  <p class="card-desc">The control tokens that structure a Gemma prompt.</p>
+</a>
+<a class="card" href="mtp.md">
+  <span class="card-icon">{{ icon('lucide/zap') }}</span>
+  <div class="card-title">Multi-Token Prediction</div>
+  <p class="card-desc">Speculative decoding for faster inference at identical quality.</p>
+</a>
 <a class="card" href="../../deployment/index.md">
   <span class="card-icon">{{ icon('lucide/play') }}</span>
   <div class="card-title">Run Gemma</div>
   <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
-</a>
-<a class="card" href="vision.md">
-  <span class="card-icon">{{ icon('lucide/eye') }}</span>
-  <div class="card-title">Vision understanding</div>
-  <p class="card-desc">Detection, OCR, visual question answering and captioning.</p>
-</a>
-<a class="card" href="thinking.md">
-  <span class="card-icon">{{ icon('lucide/brain') }}</span>
-  <div class="card-title">Reasoning</div>
-  <p class="card-desc">Let Gemma reason before it answers, and parse the two apart.</p>
 </a>
 </div>

@@ -39,7 +39,7 @@ The first step is to install Hugging Face Libraries, including TRL, and datasets
     If you are using a GPU with Ampere architecture (such as NVIDIA L4) or newer, you can use Flash attention. Flash Attention is a method that significantly speeds computations up and reduces memory usage from quadratic to linear in sequence length, leading to acelerating training up to 3x. Learn more at [FlashAttention](https://github.com/Dao-AILab/flash-attention/tree/main).*
 
 
-Before you can start training, you have to make sure that you accepted the terms of use for Gemma. You can accept the license on [Hugging Face](http://huggingface.co/google/gemma-3-270m-it) by clicking on the Agree and access repository button on the model page at: <http://huggingface.co/google/gemma-3-270m-it>
+Before you can start training, you have to make sure that you accepted the terms of use for Gemma. You can accept the license on [Hugging Face](http://huggingface.co/google/gemma-3-270m-it){ data-model="gemma-3" } by clicking on the Agree and access repository button on the model page at: <http://huggingface.co/google/gemma-3-270m-it>
 
 After you have accepted the license, you need a valid Hugging Face Token to access the model. If you are running inside a Google Colab, you can securely use your Hugging Face Token using the Colab secrets otherwise you can set the token as directly in the `login` method. Make sure your token has write access too, as you push your model to the Hub during training.
 
@@ -409,26 +409,10 @@ print(outputs[0]['generated_text'][1]['content'])
 Nameless. You... you z-mell like... wet plantz. Why you wear shiny piecez on your head?
 ```
 
-## Summary
+## Summary and next steps
 
-This tutorial covered how to full model fine-tune using TRL. 
+This tutorial covered how to full model fine-tune using TRL. Check out the following docs next:
 
-## What's next
-
-<div class="card-grid">
-<a class="card" href="qlora.md">
-  <span class="card-icon">{{ icon('lucide/graduation-cap') }}</span>
-  <div class="card-title">QLoRA</div>
-  <p class="card-desc">Fine-tune for text tasks with far less memory.</p>
-</a>
-<a class="card" href="vision-qlora.md">
-  <span class="card-icon">{{ icon('lucide/eye') }}</span>
-  <div class="card-title">Vision QLoRA</div>
-  <p class="card-desc">Fine-tune on image and text pairs.</p>
-</a>
-<a class="card" href="../deployment/google-cloud.md#cloud-run">
-  <span class="card-icon">{{ icon('lucide/play') }}</span>
-  <div class="card-title">Deploy to Cloud Run</div>
-  <p class="card-desc">Serve the result with scale-to-zero GPUs.</p>
-</a>
-</div>
+- Learn how to [fine-tune Gemma for text tasks using Hugging Face Transformers](qlora.md).
+- Learn how to [fine-tune Gemma for vision tasks using Hugging Face Transformers](vision-qlora.md).
+- Learn how to [deploy to Cloud Run](../deployment/google-cloud.md#cloud-run)

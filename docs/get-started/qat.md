@@ -73,10 +73,14 @@ Approximate footprint for the static weights, from the
 
 Context (KV cache) is on top of this. Size it with the
 [VRAM calculator](../resources/vram-calculator.md).
-
 ## What's next
 
 <div class="card-grid">
+<a class="card" href="../models/index.md">
+  <span class="card-icon">{{ icon('lucide/boxes') }}</span>
+  <div class="card-title">The model family</div>
+  <p class="card-desc">Every generation and variant, and what each came from.</p>
+</a>
 <a class="card" href="../deployment/index.md">
   <span class="card-icon">{{ icon('lucide/play') }}</span>
   <div class="card-title">Run Gemma</div>
@@ -86,10 +90,5 @@ Context (KV cache) is on top of this. Size it with the
   <span class="card-icon">{{ icon('lucide/gauge') }}</span>
   <div class="card-title">(V)RAM calculator</div>
   <p class="card-desc">What each size needs at 16-, 8- and 4-bit.</p>
-</a>
-<a class="card" href="capabilities/mtp.md">
-  <span class="card-icon">{{ icon('lucide/zap') }}</span>
-  <div class="card-title">Multi-Token Prediction</div>
-  <p class="card-desc">Speculative decoding for faster inference at identical quality.</p>
 </a>
 </div>

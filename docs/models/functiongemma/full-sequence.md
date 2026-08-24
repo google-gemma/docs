@@ -275,7 +275,6 @@ You have established how to build an application that can calls functions with F
 2. **Model's Turn**: The model receives the user's prompt and a list of available tools, returning a structured function call object instead of plain text.
 3. **Developer's Turn**: The developer parses this output using regular expressions to extract function names and arguments, executes the actual Python code, and appends the results to the chat history using the specific tool role.
 4. **Final Response**: The model processes the tool's execution result to generate a final, natural language answer for the user.
-
 ## What's next
 
 <div class="card-grid">
@@ -283,5 +282,10 @@ You have established how to build an application that can calls functions with F
   <span class="card-icon">{{ icon('lucide/graduation-cap') }}</span>
   <div class="card-title">Fine-tune FunctionGemma</div>
   <p class="card-desc">Teach it to pick the right tool for your policies.</p>
+</a>
+<a class="card" href="../../deployment/index.md">
+  <span class="card-icon">{{ icon('lucide/play') }}</span>
+  <div class="card-title">Run Gemma</div>
+  <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
 </a>
 </div>

@@ -94,7 +94,6 @@ Here are some things to avoid when prompting Gemma with visual data.
   something based on this image", provide specific instructions to achieve
   intended outputs. Clearly define what "something" is. For example, a poem,
   recipe, or code snippet.
-
 ## What's next
 
 <div class="card-grid">
@@ -108,9 +107,9 @@ Here are some things to avoid when prompting Gemma with visual data.
   <div class="card-title">Video understanding</div>
   <p class="card-desc">Pass video as frames and reason over what happens.</p>
 </a>
-<a class="card" href="../best-practices.md">
-  <span class="card-icon">{{ icon('lucide/sliders-horizontal') }}</span>
-  <div class="card-title">Best practices</div>
-  <p class="card-desc">Sampling parameters, thinking tokens, modality order and token budgets.</p>
+<a class="card" href="../prompt-formatting.md">
+  <span class="card-icon">{{ icon('lucide/braces') }}</span>
+  <div class="card-title">Prompt formatting</div>
+  <p class="card-desc">The control tokens that structure a Gemma prompt.</p>
 </a>
 </div>

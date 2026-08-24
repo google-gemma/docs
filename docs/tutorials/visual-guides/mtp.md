@@ -105,23 +105,22 @@ This new lookup table is then used in the LM Head where it is multiplied by the 
 ![](https://substackcdn.com/image/fetch/$s_!v7BV!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F755089fb-51ad-4a4e-bfc1-16b1986f2c9d_812x1228.png)
 
 This computation is much easier and instead tells us that the next token is almost certainly in the chosen clusters. This efficient embedder allows for speeding up the draft model even more!
-
 ## What's next
 
 <div class="card-grid">
-<a class="card" href="../../get-started/capabilities/mtp.md">
-  <span class="card-icon">{{ icon('lucide/zap') }}</span>
-  <div class="card-title">Multi-Token Prediction</div>
-  <p class="card-desc">Speculative decoding for faster inference at identical quality.</p>
+<a class="card" href="diffusiongemma.md">
+  <span class="card-icon">{{ icon('lucide/book-open') }}</span>
+  <div class="card-title">A Visual Guide to DiffusionGemma</div>
+  <p class="card-desc">How denoising produces text instead of pixels.</p>
 </a>
-<a class="card" href="../../deployment/index.md">
-  <span class="card-icon">{{ icon('lucide/play') }}</span>
-  <div class="card-title">Run Gemma</div>
-  <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
+<a class="card" href="../../resources/vram-calculator.md">
+  <span class="card-icon">{{ icon('lucide/gauge') }}</span>
+  <div class="card-title">(V)RAM calculator</div>
+  <p class="card-desc">What each size needs at 16-, 8- and 4-bit.</p>
 </a>
-<a class="card" href="../../get-started/qat.md">
-  <span class="card-icon">{{ icon('lucide/shrink') }}</span>
-  <div class="card-title">Quantization-Aware Training</div>
-  <p class="card-desc">Which quantized weights to download for each engine, and why.</p>
+<a class="card" href="../../resources/index.md">
+  <span class="card-icon">{{ icon('lucide/library') }}</span>
+  <div class="card-title">Resources</div>
+  <p class="card-desc">Demos, tools and the repositories worth bookmarking.</p>
 </a>
 </div>

@@ -26,7 +26,6 @@ than duplicating it here.
   <p class="card-desc">Compare fine-tuning approaches and choose a practical starting point.</p>
 </a>
 </div>
-
 ## What's next
 
 <div class="card-grid">
@@ -35,14 +34,14 @@ than duplicating it here.
   <div class="card-title">A Visual Guide to Gemma 4</div>
   <p class="card-desc">How the architecture works, drawn out step by step.</p>
 </a>
-<a class="card" href="../get-started/index.md">
-  <span class="card-icon">{{ icon('lucide/rocket') }}</span>
-  <div class="card-title">Quickstart</div>
-  <p class="card-desc">Run your first Gemma 4 generation in one command.</p>
+<a class="card" href="../tutorials/visual-guides/mtp.md">
+  <span class="card-icon">{{ icon('lucide/book-open') }}</span>
+  <div class="card-title">A Visual Guide to MTP</div>
+  <p class="card-desc">Drafter models and speculative decoding, illustrated.</p>
 </a>
-<a class="card" href="../tuning/index.md">
-  <span class="card-icon">{{ icon('lucide/graduation-cap') }}</span>
-  <div class="card-title">Fine-tune Gemma</div>
-  <p class="card-desc">QLoRA, full fine-tunes and distributed training on your own data.</p>
+<a class="card" href="../tutorials/visual-guides/diffusiongemma.md">
+  <span class="card-icon">{{ icon('lucide/book-open') }}</span>
+  <div class="card-title">A Visual Guide to DiffusionGemma</div>
+  <p class="card-desc">How denoising produces text instead of pixels.</p>
 </a>
 </div>

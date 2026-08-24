@@ -627,15 +627,9 @@ You have established how to build an application that can call functions with Ge
 2. **Model's Turn**: The model receives the user's prompt and a list of available tools, returning a structured function call object instead of plain text.
 3. **Developer's Turn**: The developer parses this output using regular expressions to extract function names and arguments, executes the actual Python code, and appends the results to the chat history using the specific tool role.
 4. **Final Response**: The model processes the tool's execution result to generate a final, natural language answer for the user.
-
 ## What's next
 
 <div class="card-grid">
-<a class="card" href="../../deployment/index.md">
-  <span class="card-icon">{{ icon('lucide/play') }}</span>
-  <div class="card-title">Run Gemma</div>
-  <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
-</a>
 <a class="card" href="vision.md">
   <span class="card-icon">{{ icon('lucide/eye') }}</span>
   <div class="card-title">Vision understanding</div>
@@ -646,9 +640,9 @@ You have established how to build an application that can call functions with Ge
   <div class="card-title">Audio understanding</div>
   <p class="card-desc">Transcribe, translate and reason over speech.</p>
 </a>
-<a class="card" href="thinking.md">
-  <span class="card-icon">{{ icon('lucide/brain') }}</span>
-  <div class="card-title">Reasoning</div>
-  <p class="card-desc">Let Gemma reason before it answers, and parse the two apart.</p>
+<a class="card" href="../../deployment/index.md">
+  <span class="card-icon">{{ icon('lucide/play') }}</span>
+  <div class="card-title">Run Gemma</div>
+  <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
 </a>
 </div>

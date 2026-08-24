@@ -182,30 +182,12 @@ You can include multiple audio files in your prompt by including additional `"ty
     Do not use `<|audio|>` or `<audio_soft_token>` tokens in text portion of a prompt template as this approach creates redundant tokens and processing errors.
     
 
-## Summary
+## Next steps
 
+Build and explore more with Gemma models:
 
-
-## What's next
-
-<div class="card-grid">
-<a class="card" href="../tuning/qlora.md">
-  <span class="card-icon">{{ icon('lucide/graduation-cap') }}</span>
-  <div class="card-title">QLoRA</div>
-  <p class="card-desc">Fine-tune for text tasks with far less memory.</p>
-</a>
-<a class="card" href="../tuning/vision-qlora.md">
-  <span class="card-icon">{{ icon('lucide/eye') }}</span>
-  <div class="card-title">Vision QLoRA</div>
-  <p class="card-desc">Fine-tune on image and text pairs.</p>
-</a>
-<a class="card" href="../tuning/distributed.md">
-  <span class="card-icon">{{ icon('lucide/network') }}</span>
-  <div class="card-title">Distributed tuning</div>
-  <p class="card-desc">Train across multiple accelerators.</p>
-</a>
-<a class="card" href="https://cloud.google.com/vertex-ai/docs/generative-ai/open-models/use-gemma" target="_blank" rel="noopener">
-  <div class="card-title">Gemma on Vertex AI <span class="card-ext">↗</span></div>
-  <p class="card-desc">Use Gemma open models on Google Cloud.</p>
-</a>
-</div>
+- [Fine-tune Gemma for text tasks using Hugging Face Transformers](../tuning/qlora.md)
+- [Fine-tune Gemma for vision tasks using Hugging Face Transformers](../tuning/vision-qlora.md)
+- [Perform distributed fine-tuning and inference on Gemma models](../tuning/distributed.md)
+- [Use Gemma open models with Vertex AI](https://cloud.google.com/vertex-ai/docs/generative-ai/open-models/use-gemma)
+- [Fine-tune Gemma using Keras and deploy to Vertex AI](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/community/model_garden/model_garden_gemma_kerasnlp_to_vertexai.ipynb)

@@ -18,20 +18,45 @@
 
 /* -------------------------------------------------------------------
    Card icons
-   The visual anchor on a `.card`. Sits above the title so a grid of
-   cards scans down the left edge.
+   A tile to the left of the title, matching `.engine-mark`, so both
+   grids read as one component. The card becomes a two-column grid to
+   place it -- see components.css.
    ------------------------------------------------------------------- */
 .md-typeset .card-icon {
-  display: block;
-  margin-bottom: var(--gemma-space-2);
-  color: var(--gemma-accent);
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--gemma-radius-md);
+  background: var(--gemma-icon-tile);
+  color: inherit;
   line-height: 1;
 }
 
 .md-typeset .card-icon .gemma-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.125rem;
+  height: 1.125rem;
   vertical-align: baseline;
+}
+
+/* -------------------------------------------------------------------
+   Tile fill
+   Mixed from --gemma-accent rather than fixed, so one rule serves both
+   schemes: a pale blue against the light card, a muted blue against the
+   dark one. The icon keeps the surrounding text colour either way --
+   a saturated fill under a dark icon is what made the old hover
+   unreadable.
+   ------------------------------------------------------------------- */
+.md-typeset .card-icon,
+.md-typeset .engine-mark {
+  --gemma-icon-tile: color-mix(in srgb, var(--gemma-accent) 8%, transparent);
+}
+
+.md-typeset a.card:hover .card-icon,
+.md-typeset a.card:focus-visible .card-icon,
+.md-typeset a.engine:hover .engine-mark,
+.md-typeset a.engine:focus-visible .engine-mark {
+  background: color-mix(in srgb, var(--gemma-accent) 22%, transparent);
 }
 
 /* An external-link card carries the ↗ instead, so the arrow keeps its meaning. */

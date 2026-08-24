@@ -40,6 +40,17 @@
   color: inherit;
 }
 
+.md-typeset .card:has(.card-icon) {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--gemma-space-3);
+  align-content: start;
+}
+
+.md-typeset .card:has(.card-icon) .card-icon {
+  grid-row: 1 / span 2;
+}
+
 .md-typeset a.card:hover,
 .md-typeset a.cookbook-card:hover {
   border-color: var(--gemma-accent);

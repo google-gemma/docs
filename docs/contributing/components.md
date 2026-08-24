@@ -159,7 +159,9 @@ Two headings, and only these two. Never `Summary and next steps`, never `Next st
 **`## Summary`** is a prose recap of what the reader just did. Optional -- use it on a tutorial
 that walked through something, skip it on a reference page. No cards.
 
-**`## What's next`** is always a `.card-grid`, always with an icon, and always last.
+**`## What's next`** is always a `.card-grid`, always with an icon, and always last. Two to
+four cards, and **every one must point forward** -- never back to a section the reader already
+passed through. Linking across sections is fine; a Get started page may point at Learn.
 
 ```markdown
 ## What's next

@@ -147,23 +147,22 @@ Looking at the picture below, there is a big difference in creating audio tokens
 ![](https://substackcdn.com/image/fetch/$s_!5OvL!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffba73d61-baca-4a32-9f48-6116b4bdbfa3_4656x4864.png)
 
 Gemma 4 12B is not just a model that fits nicely between E4B and 26B A4B, it does something different and the way it does so is quite interesting!
-
 ## What's next
 
 <div class="card-grid">
-<a class="card" href="gemma-4.md">
+<a class="card" href="mtp.md">
   <span class="card-icon">{{ icon('lucide/book-open') }}</span>
-  <div class="card-title">A Visual Guide to Gemma 4</div>
-  <p class="card-desc">How the architecture works, drawn out step by step.</p>
+  <div class="card-title">A Visual Guide to MTP</div>
+  <p class="card-desc">Drafter models and speculative decoding, illustrated.</p>
 </a>
-<a class="card" href="../../get-started/index.md">
-  <span class="card-icon">{{ icon('lucide/rocket') }}</span>
-  <div class="card-title">Quickstart</div>
-  <p class="card-desc">Run your first Gemma 4 generation in one command.</p>
+<a class="card" href="diffusiongemma.md">
+  <span class="card-icon">{{ icon('lucide/book-open') }}</span>
+  <div class="card-title">A Visual Guide to DiffusionGemma</div>
+  <p class="card-desc">How denoising produces text instead of pixels.</p>
 </a>
-<a class="card" href="../../models/gemma-4/index.md">
-  <span class="card-icon">{{ icon('lucide/boxes') }}</span>
-  <div class="card-title">Gemma 4</div>
-  <p class="card-desc">Sizes, architectures, context windows and memory.</p>
+<a class="card" href="../../resources/index.md">
+  <span class="card-icon">{{ icon('lucide/library') }}</span>
+  <div class="card-title">Resources</div>
+  <p class="card-desc">Demos, tools and the repositories worth bookmarking.</p>
 </a>
 </div>

@@ -53,21 +53,9 @@ Without Google Play access, install the APK from the
 | [LiteRT](litert.md) | The runtime that executes the model |
 | [Hugging Face](https://huggingface.co/litert-community){ data-model="gemma-4" } | Where the `.litertlm` weights come from |
 
-## What's next
+## Next steps
 
-<div class="card-grid">
-<a class="card" href="litert.md">
-  <span class="card-icon">{{ icon('lucide/terminal') }}</span>
-  <div class="card-title">LiteRT-LM</div>
-  <p class="card-desc">Run the same models from a terminal or your own app.</p>
-</a>
-<a class="card" href="../tuning/index.md">
-  <span class="card-icon">{{ icon('lucide/graduation-cap') }}</span>
-  <div class="card-title">Fine-tune Gemma</div>
-  <p class="card-desc">Adapt a model first, then export it.</p>
-</a>
-<a class="card" href="https://github.com/google-ai-edge/gallery/wiki" target="_blank" rel="noopener">
-  <div class="card-title">Project wiki <span class="card-ext">↗</span></div>
-  <p class="card-desc">Detailed setup, including corporate-managed devices.</p>
-</a>
-</div>
+- Run the same models from a terminal or your own app with [LiteRT-LM](litert.md).
+- Fine-tune first, then export: [fine-tuning overview](../tuning/index.md).
+- Read the [project wiki](https://github.com/google-ai-edge/gallery/wiki) for detailed setup,
+  including corporate-managed devices.

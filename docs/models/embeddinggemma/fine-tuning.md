@@ -253,14 +253,13 @@ model.push_to_hub("my-embedding-gemma")
 ## Summary
 
 You have now learned how to adapt an EmbeddingGemma model for a specific domain by fine-tuning it with the Sentence Transformers library.
-
 ## What's next
 
 <div class="card-grid">
-<a class="card" href="inference.md">
-  <span class="card-icon">{{ icon('lucide/type') }}</span>
-  <div class="card-title">Generate embeddings</div>
-  <p class="card-desc">Produce embeddings with Sentence Transformers.</p>
+<a class="card" href="../../resources/index.md">
+  <span class="card-icon">{{ icon('lucide/library') }}</span>
+  <div class="card-title">Resources</div>
+  <p class="card-desc">Demos, tools and the repositories worth bookmarking.</p>
 </a>
 <a class="card" href="https://sbert.net/docs/sentence_transformer/training_overview.html" target="_blank" rel="noopener">
   <div class="card-title">Training overview <span class="card-ext">↗</span></div>

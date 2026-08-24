@@ -96,24 +96,10 @@ available on Google Play Store.
 Now, you can try giving a voice command or typing in the app to see how well
 your new fine-tuned model does calling the functions available to it.
 
+## Next Steps
+
 Congratulations! You now know how to fine-tune a model with Hugging Face and
 deploy it on-device with LiteRT-LM.
 
-## What's next
-
-<div class="card-grid">
-<a class="card" href="../deployment/litert.md">
-  <span class="card-icon">{{ icon('lucide/smartphone') }}</span>
-  <div class="card-title">LiteRT-LM</div>
-  <p class="card-desc">Run the exported model on a device.</p>
-</a>
-<a class="card" href="../deployment/ai-edge-gallery.md">
-  <span class="card-icon">{{ icon('lucide/smartphone') }}</span>
-  <div class="card-title">AI Edge Gallery</div>
-  <p class="card-desc">Try it on a phone with no code.</p>
-</a>
-<a class="card" href="https://github.com/google-ai-edge/LiteRT-LM" target="_blank" rel="noopener">
-  <div class="card-title">LiteRT-LM on GitHub <span class="card-ext">↗</span></div>
-  <p class="card-desc">The runtime, its Kotlin API and platform guides.</p>
-</a>
-</div>
+- [LiteRT-LM Overview](https://github.com/google-ai-edge/LiteRT-LM)
+- [LiteRT-LM Kotlin API for Android and JVM](https://github.com/google-ai-edge/LiteRT-LM/tree/main/kotlin)

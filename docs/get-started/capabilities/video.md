@@ -1,11 +1,11 @@
 ---
-title: Video Understanding
+title: Video understanding
 description: Video data is a rich source of information that can help you accomplish tasks and understand the world around you.
 models: [gemma-4]
 frameworks: [transformers]
 colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/video.ipynb
 ---
-# Video Understanding
+# Video understanding
 
 Video data is a rich source of information that can help you accomplish tasks and understand the world around you. Using Gemma with video data can help you understand spatial relationships, interpret human interactions, and assist with situational awareness. This tutorial shows you how to get started processing video data with Gemma using Hugging Face Transformers.
 
@@ -98,19 +98,18 @@ Here's a breakdown of the key moments:
 ## Summary
 
 In this guide, you learned how to process video data using Gemma 4 models. The examples demonstrated how to use the `processor` to automatically process the input video and generate textual understanding of the video content.
-
 ## What's next
 
 <div class="card-grid">
+<a class="card" href="audio.md">
+  <span class="card-icon">{{ icon('lucide/mic') }}</span>
+  <div class="card-title">Audio understanding</div>
+  <p class="card-desc">Transcribe, translate and reason over speech.</p>
+</a>
 <a class="card" href="../prompt-formatting.md">
   <span class="card-icon">{{ icon('lucide/braces') }}</span>
   <div class="card-title">Prompt formatting</div>
   <p class="card-desc">The control tokens that structure a Gemma prompt.</p>
-</a>
-<a class="card" href="function-calling.md">
-  <span class="card-icon">{{ icon('lucide/wrench') }}</span>
-  <div class="card-title">Tool calling</div>
-  <p class="card-desc">Give Gemma functions to call and feed the results back.</p>
 </a>
 <a class="card" href="../../deployment/index.md">
   <span class="card-icon">{{ icon('lucide/play') }}</span>

@@ -584,13 +584,17 @@ print(text[0])
 ## Summary
 
 In this guide, you learned how to use DiffusionGemma for various tasks. 
-
 ## What's next
 
 <div class="card-grid">
-<a class="card" href="explained.md">
-  <span class="card-icon">{{ icon('lucide/book-open') }}</span>
-  <div class="card-title">Diffusion explained</div>
-  <p class="card-desc">How text diffusion differs from standard autoregressive generation.</p>
+<a class="card" href="../../deployment/index.md">
+  <span class="card-icon">{{ icon('lucide/play') }}</span>
+  <div class="card-title">Run Gemma</div>
+  <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
+</a>
+<a class="card" href="../../tuning/index.md">
+  <span class="card-icon">{{ icon('lucide/graduation-cap') }}</span>
+  <div class="card-title">Fine-tune Gemma</div>
+  <p class="card-desc">QLoRA, full fine-tunes and distributed training.</p>
 </a>
 </div>
