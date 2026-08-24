@@ -570,9 +570,24 @@ Budget Size: 560
 
 In this guide, you learned how to use Gemma 4 models for image understanding tasks. The examples covered generating text from images, using prompt templates for visual QA, processing multiple images simultaneously, optical character recognition (OCR), object detection with bounding boxes, and managing variable resolutions using token budgets.
 
-<!-- TODO: Port over 
-### Next Steps
+<!-- notebook:skip-start -->
+## What's next
 
-- [Prompt and system instructions](../prompt-formatting.md)
-- [Function calling](function-calling.md)
-- [Run Gemma overview](../../deployment/index.md) -->
+<div class="card-grid">
+<a class="card" href="../prompt-formatting.md">
+  <span class="card-icon">{{ icon('lucide/braces') }}</span>
+  <div class="card-title">Prompt formatting</div>
+  <p class="card-desc">The control tokens that structure a Gemma prompt.</p>
+</a>
+<a class="card" href="function-calling.md">
+  <span class="card-icon">{{ icon('lucide/wrench') }}</span>
+  <div class="card-title">Tool calling</div>
+  <p class="card-desc">Give Gemma functions to call and feed the results back.</p>
+</a>
+<a class="card" href="../../deployment/index.md">
+  <span class="card-icon">{{ icon('lucide/play') }}</span>
+  <div class="card-title">Run Gemma</div>
+  <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
+</a>
+</div>
+<!-- notebook:skip-end -->

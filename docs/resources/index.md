@@ -23,14 +23,17 @@ the community has built, and the repositories worth bookmarking.
 
 <div class="card-grid">
 <a class="card" href="vram-calculator.md">
+  <span class="card-icon">{{ icon('lucide/gauge') }}</span>
   <div class="card-title">(V)RAM calculator</div>
   <p class="card-desc">What each Gemma 4 size needs at 16-, 8- and 4-bit, before context.</p>
 </a>
 <a class="card" href="vision-token-budget.md">
+  <span class="card-icon">{{ icon('lucide/eye') }}</span>
   <div class="card-title">Vision token budget</div>
   <p class="card-desc">How Gemma 4 allocates image tokens across resolutions and aspect ratios.</p>
 </a>
 <a class="card" href="gemma-skills.md">
+  <span class="card-icon">{{ icon('lucide/wrench') }}</span>
   <div class="card-title">Gemma Skills</div>
   <p class="card-desc">Agent skills for building with Gemma and for fine-tuning it.</p>
 </a>

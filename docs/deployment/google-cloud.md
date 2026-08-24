@@ -14,18 +14,22 @@ you are doing, not by product name — each card jumps to the detail below.
 
 <div class="card-grid">
 <a class="card" href="google-cloud.md#cloud-run">
+  <span class="card-icon">{{ icon('lucide/play') }}</span>
   <div class="card-title">Cloud Run</div>
   <p class="card-desc">Fully managed, scale-to-zero, pay-per-use GPU inference.</p>
 </a>
 <a class="card" href="google-cloud.md#google-kubernetes-engine-gke">
+  <span class="card-icon">{{ icon('lucide/boxes') }}</span>
   <div class="card-title">GKE</div>
   <p class="card-desc">Your own serving cluster on TPUs or GPUs, for high throughput and low latency.</p>
 </a>
 <a class="card" href="google-cloud.md#vllm-with-tpus">
+  <span class="card-icon">{{ icon('lucide/zap') }}</span>
   <div class="card-title">vLLM on TPUs</div>
   <p class="card-desc">State-of-the-art serving performance on Cloud TPUs.</p>
 </a>
 <a class="card" href="google-cloud.md#sovereign-cloud">
+  <span class="card-icon">{{ icon('lucide/shield') }}</span>
   <div class="card-title">Sovereign Cloud</div>
   <p class="card-desc">Extra control and compliance for sensitive workloads.</p>
 </a>
@@ -35,10 +39,12 @@ you are doing, not by product name — each card jumps to the detail below.
 
 <div class="card-grid">
 <a class="card" href="google-cloud.md#gemini-enterprise-agent-platform">
+  <span class="card-icon">{{ icon('lucide/layout-grid') }}</span>
   <div class="card-title">Agent Platform</div>
   <p class="card-desc">Test and deploy straight from Model Garden in the console.</p>
 </a>
 <a class="card" href="google-cloud.md#agent-development-kit-adk">
+  <span class="card-icon">{{ icon('lucide/wrench') }}</span>
   <div class="card-title">Agent Development Kit</div>
   <p class="card-desc">Orchestrate agents around Gemma's reasoning and function calling.</p>
 </a>
@@ -48,10 +54,12 @@ you are doing, not by product name — each card jumps to the detail below.
 
 <div class="card-grid">
 <a class="card" href="google-cloud.md#gemini-enterprise-agent-platform-training-clusters">
+  <span class="card-icon">{{ icon('lucide/graduation-cap') }}</span>
   <div class="card-title">Training Clusters</div>
   <p class="card-desc">Managed infrastructure for large-scale fine-tuning of open models.</p>
 </a>
 <a class="card" href="google-cloud.md#maxtext">
+  <span class="card-icon">{{ icon('lucide/cpu') }}</span>
   <div class="card-title">MaxText</div>
   <p class="card-desc">High-performance JAX implementation for Cloud TPUs.</p>
 </a>

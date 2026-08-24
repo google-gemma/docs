@@ -208,3 +208,23 @@ outputs = target_model.generate(
 response = processor.decode(outputs[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
 print(response)
 ```
+
+## What's next
+
+<div class="card-grid">
+<a class="card" href="../../deployment/index.md">
+  <span class="card-icon">{{ icon('lucide/play') }}</span>
+  <div class="card-title">Run Gemma</div>
+  <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
+</a>
+<a class="card" href="../qat.md">
+  <span class="card-icon">{{ icon('lucide/shrink') }}</span>
+  <div class="card-title">Quantization-Aware Training</div>
+  <p class="card-desc">Which quantized weights to download for each engine, and why.</p>
+</a>
+<a class="card" href="../../tutorials/visual-guides/mtp.md">
+  <span class="card-icon">{{ icon('lucide/book-open') }}</span>
+  <div class="card-title">A Visual Guide to MTP</div>
+  <p class="card-desc">Drafter models and speculative decoding, illustrated.</p>
+</a>
+</div>

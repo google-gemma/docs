@@ -362,3 +362,23 @@ As such, the sampler only accepts a group of tokens when they are each individua
 Re-noising the canvas in the Entropy Bounded Sampler is quite straightforward, all rejected tokens are re-noised! That doesn’t mean though that the accepted tokens will always remain in place. In next denoising steps, the model may decide to give it a lower probability after generating updated context.
 
 ![](https://substackcdn.com/image/fetch/$s_!B6mT!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F89e216c8-01b0-4505-82dd-283694fc0a4a_2048x1767.png)
+
+## What's next
+
+<div class="card-grid">
+<a class="card" href="../../models/diffusiongemma/index.md">
+  <span class="card-icon">{{ icon('lucide/layers') }}</span>
+  <div class="card-title">DiffusionGemma</div>
+  <p class="card-desc">Text diffusion built on the Gemma 4 MoE architecture.</p>
+</a>
+<a class="card" href="../../models/index.md">
+  <span class="card-icon">{{ icon('lucide/boxes') }}</span>
+  <div class="card-title">The model family</div>
+  <p class="card-desc">Every generation and variant, and what each one came from.</p>
+</a>
+<a class="card" href="../../get-started/index.md">
+  <span class="card-icon">{{ icon('lucide/rocket') }}</span>
+  <div class="card-title">Quickstart</div>
+  <p class="card-desc">Run your first Gemma 4 generation in one command.</p>
+</a>
+</div>

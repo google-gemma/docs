@@ -327,3 +327,23 @@ Much like the vision encoder, the embeddings produced by the Conformer are proje
 ![](https://substackcdn.com/image/fetch/$s_!KsrJ!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0f6fd442-0913-4538-b49a-262025b7aa4e_5820x3990.png)
 
 This gives us a pipeline that feels quite similar to what we explored with the vision encoder!
+
+## What's next
+
+<div class="card-grid">
+<a class="card" href="../../get-started/index.md">
+  <span class="card-icon">{{ icon('lucide/rocket') }}</span>
+  <div class="card-title">Quickstart</div>
+  <p class="card-desc">Run your first Gemma 4 generation in one command.</p>
+</a>
+<a class="card" href="../../models/gemma-4/index.md">
+  <span class="card-icon">{{ icon('lucide/boxes') }}</span>
+  <div class="card-title">Gemma 4</div>
+  <p class="card-desc">Sizes, architectures, context windows and memory.</p>
+</a>
+<a class="card" href="mtp.md">
+  <span class="card-icon">{{ icon('lucide/book-open') }}</span>
+  <div class="card-title">A Visual Guide to MTP</div>
+  <p class="card-desc">Drafter models and speculative decoding, illustrated.</p>
+</a>
+</div>

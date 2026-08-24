@@ -99,9 +99,24 @@ Here's a breakdown of the key moments:
 
 In this guide, you learned how to process video data using Gemma 4 models. The examples demonstrated how to use the `processor` to automatically process the input video and generate textual understanding of the video content.
 
-<!-- TODO: Port over
-### Next steps
+<!-- notebook:skip-start -->
+## What's next
 
-- [Prompt and system instructions](../prompt-formatting.md)
-- [Function calling](function-calling.md)
-- [Run Gemma overview](../../deployment/index.md) -->
+<div class="card-grid">
+<a class="card" href="../prompt-formatting.md">
+  <span class="card-icon">{{ icon('lucide/braces') }}</span>
+  <div class="card-title">Prompt formatting</div>
+  <p class="card-desc">The control tokens that structure a Gemma prompt.</p>
+</a>
+<a class="card" href="function-calling.md">
+  <span class="card-icon">{{ icon('lucide/wrench') }}</span>
+  <div class="card-title">Tool calling</div>
+  <p class="card-desc">Give Gemma functions to call and feed the results back.</p>
+</a>
+<a class="card" href="../../deployment/index.md">
+  <span class="card-icon">{{ icon('lucide/play') }}</span>
+  <div class="card-title">Run Gemma</div>
+  <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
+</a>
+</div>
+<!-- notebook:skip-end -->

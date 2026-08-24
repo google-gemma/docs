@@ -100,3 +100,23 @@ When formatting the answer, first output the transcription in {SOURCE_LANGUAGE},
 All models support image inputs and can process videos as frames whereas the E2B, E4B, and 12B
 models also support audio inputs. Audio supports a maximum length of 30 seconds. Video supports
 a maximum of 60 seconds assuming the images are processed at one frame per second.
+
+## What's next
+
+<div class="card-grid">
+<a class="card" href="capabilities/thinking.md">
+  <span class="card-icon">{{ icon('lucide/brain') }}</span>
+  <div class="card-title">Reasoning</div>
+  <p class="card-desc">Let Gemma reason before it answers, and parse the two apart.</p>
+</a>
+<a class="card" href="prompt-formatting.md">
+  <span class="card-icon">{{ icon('lucide/braces') }}</span>
+  <div class="card-title">Prompt formatting</div>
+  <p class="card-desc">The control tokens that structure a Gemma prompt.</p>
+</a>
+<a class="card" href="capabilities/vision.md">
+  <span class="card-icon">{{ icon('lucide/eye') }}</span>
+  <div class="card-title">Vision understanding</div>
+  <p class="card-desc">Detection, OCR, visual question answering and captioning.</p>
+</a>
+</div>

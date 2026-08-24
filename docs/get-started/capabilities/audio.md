@@ -321,9 +321,24 @@ Korean: 역에 어떻게 가나요?<turn|>
 
 In this guide, you learned how to process audio using Gemma 4 models. The examples demonstrated how to perform Speech-to-Text (ASR) to transcribe spoken language, as well as Automated Speech Translation (AST) to translate spoken audio directly into another language. You also saw how to capture audio from a microphone in a notebook environment for processing.
 
-<!-- TODO: Port over
-### Next steps
+<!-- notebook:skip-start -->
+## What's next
 
-- [Run Gemma overview](../../deployment/index.md)
-- [Vision understanding](vision.md)
-- [Thinking mode](thinking.md) -->
+<div class="card-grid">
+<a class="card" href="../../deployment/index.md">
+  <span class="card-icon">{{ icon('lucide/play') }}</span>
+  <div class="card-title">Run Gemma</div>
+  <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
+</a>
+<a class="card" href="vision.md">
+  <span class="card-icon">{{ icon('lucide/eye') }}</span>
+  <div class="card-title">Vision understanding</div>
+  <p class="card-desc">Detection, OCR, visual question answering and captioning.</p>
+</a>
+<a class="card" href="thinking.md">
+  <span class="card-icon">{{ icon('lucide/brain') }}</span>
+  <div class="card-title">Reasoning</div>
+  <p class="card-desc">Let Gemma reason before it answers, and parse the two apart.</p>
+</a>
+</div>
+<!-- notebook:skip-end -->

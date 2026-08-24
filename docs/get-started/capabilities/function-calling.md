@@ -628,12 +628,29 @@ You have established how to build an application that can call functions with Ge
 3. **Developer's Turn**: The developer parses this output using regular expressions to extract function names and arguments, executes the actual Python code, and appends the results to the chat history using the specific tool role.
 4. **Final Response**: The model processes the tool's execution result to generate a final, natural language answer for the user.
 
+<!-- notebook:skip-start -->
+## What's next
 
-<!-- TODO: Port over
-### Next Steps
-Check out the following documentation for further reading.
-
-- [Run Gemma overview](../../deployment/index.md)
-- [Vision understanding](vision.md)
-- [Audio understanding](audio.md)
-- [Thinking mode](thinking.md) -->
+<div class="card-grid">
+<a class="card" href="../../deployment/index.md">
+  <span class="card-icon">{{ icon('lucide/play') }}</span>
+  <div class="card-title">Run Gemma</div>
+  <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
+</a>
+<a class="card" href="vision.md">
+  <span class="card-icon">{{ icon('lucide/eye') }}</span>
+  <div class="card-title">Vision understanding</div>
+  <p class="card-desc">Detection, OCR, visual question answering and captioning.</p>
+</a>
+<a class="card" href="audio.md">
+  <span class="card-icon">{{ icon('lucide/mic') }}</span>
+  <div class="card-title">Audio understanding</div>
+  <p class="card-desc">Transcribe, translate and reason over speech.</p>
+</a>
+<a class="card" href="thinking.md">
+  <span class="card-icon">{{ icon('lucide/brain') }}</span>
+  <div class="card-title">Reasoning</div>
+  <p class="card-desc">Let Gemma reason before it answers, and parse the two apart.</p>
+</a>
+</div>
+<!-- notebook:skip-end -->

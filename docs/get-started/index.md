@@ -136,18 +136,22 @@ Checkpoint names follow `google/gemma-4-{SIZE}-it{SUFFIX}` — pick the suffix y
 
 <div class="card-grid">
 <a class="card" href="best-practices.md">
+  <span class="card-icon">{{ icon('lucide/sliders-horizontal') }}</span>
   <div class="card-title">Best practices</div>
   <p class="card-desc">Sampling parameters, thinking-mode tokens, modality order and image token budgets.</p>
 </a>
 <a class="card" href="capabilities/text.md">
+  <span class="card-icon">{{ icon('lucide/type') }}</span>
   <div class="card-title">Capabilities</div>
   <p class="card-desc">Text, reasoning, tool calling, vision, video and audio — each with runnable code.</p>
 </a>
 <a class="card" href="../tuning/index.md">
+  <span class="card-icon">{{ icon('lucide/graduation-cap') }}</span>
   <div class="card-title">Fine-tune Gemma</div>
   <p class="card-desc">QLoRA, full fine-tunes and distributed training on your own data.</p>
 </a>
 <a class="card" href="../models/index.md">
+  <span class="card-icon">{{ icon('lucide/boxes') }}</span>
   <div class="card-title">The model family</div>
   <p class="card-desc">Every generation and variant, and which base model each one came from.</p>
 </a>

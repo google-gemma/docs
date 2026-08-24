@@ -308,3 +308,23 @@ Only reply like a pirate.
 What is the answer to life the universe and everything?<span class="token-turn">&lt;end_of_turn&gt;</span>
 <span class="token-turn">&lt;start_of_turn&gt;</span><span class="token-role">model</span>
 Arrr, 'tis 42,<span class="token-turn">&lt;end_of_turn&gt;</span></code></pre>
+
+## What's next
+
+<div class="card-grid">
+<a class="card" href="capabilities/thinking.md">
+  <span class="card-icon">{{ icon('lucide/brain') }}</span>
+  <div class="card-title">Reasoning</div>
+  <p class="card-desc">Let Gemma reason before it answers, and parse the two apart.</p>
+</a>
+<a class="card" href="capabilities/function-calling.md">
+  <span class="card-icon">{{ icon('lucide/wrench') }}</span>
+  <div class="card-title">Tool calling</div>
+  <p class="card-desc">Give Gemma functions to call and feed the results back.</p>
+</a>
+<a class="card" href="best-practices.md">
+  <span class="card-icon">{{ icon('lucide/sliders-horizontal') }}</span>
+  <div class="card-title">Best practices</div>
+  <p class="card-desc">Sampling parameters, thinking tokens, modality order and token budgets.</p>
+</a>
+</div>
