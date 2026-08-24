@@ -220,7 +220,7 @@ Note that the feedforward neural networks (FFNNs) are not interleaved with Mixtu
 Now that we have covered the main principles of each variant, let’s go into each set of models to explore them a bit more in-depth:
 
 - Gemma 4 - **[31B](https://huggingface.co/google/gemma-4-31B-it){ data-model="gemma-4" }**
-- Gemma 4 - **[26B A4B](https://huggingface.co/google/gemma-4-25B-A4B-it){ data-model="gemma-4" }**
+- Gemma 4 - **[26B A4B](https://huggingface.co/google/gemma-4-26B-A4B-it){ data-model="gemma-4" }**
 - Gemma 4 - **[E2B](https://huggingface.co/google/gemma-4-E2B-it){ data-model="gemma-4" }** and **[E4B](https://huggingface.co/google/gemma-4-E4B-it){ data-model="gemma-4" }**
 
 ## Gemma 4 - 31B - Dense
