@@ -22,11 +22,6 @@ the community has built, and the repositories worth bookmarking.
 ## Demos and tools
 
 <div class="card-grid">
-<a class="card" href="vram-calculator.md">
-  <span class="card-icon">{{ icon('lucide/gauge') }}</span>
-  <div class="card-title">(V)RAM calculator</div>
-  <p class="card-desc">What each Gemma 4 size needs at 16-, 8- and 4-bit, before context.</p>
-</a>
 <a class="card" href="vision-token-budget.md">
   <span class="card-icon">{{ icon('lucide/eye') }}</span>
   <div class="card-title">Vision token budget</div>

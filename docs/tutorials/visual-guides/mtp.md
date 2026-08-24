@@ -113,11 +113,6 @@ This computation is much easier and instead tells us that the next token is almo
   <div class="card-title">A Visual Guide to DiffusionGemma</div>
   <p class="card-desc">How denoising produces text instead of pixels.</p>
 </a>
-<a class="card" href="../../resources/vram-calculator.md">
-  <span class="card-icon">{{ icon('lucide/gauge') }}</span>
-  <div class="card-title">(V)RAM calculator</div>
-  <p class="card-desc">What each size needs at 16-, 8- and 4-bit.</p>
-</a>
 <a class="card" href="../../resources/index.md">
   <span class="card-icon">{{ icon('lucide/library') }}</span>
   <div class="card-title">Resources</div>

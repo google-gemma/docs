@@ -71,8 +71,7 @@ Approximate footprint for the static weights, from the
 | 26B A4B | 57.7 GB | 28.8 GB | 14.4 GB |
 | 31B | 69.9 GB | 34.9 GB | 17.5 GB |
 
-Context (KV cache) is on top of this. Size it with the
-[VRAM calculator](../resources/vram-calculator.md).
+Context (KV cache) is on top of this, and grows with prompt and generation length.
 ## What's next
 
 <div class="card-grid">

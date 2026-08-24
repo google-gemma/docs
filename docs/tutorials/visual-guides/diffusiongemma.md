@@ -370,9 +370,9 @@ Re-noising the canvas in the Entropy Bounded Sampler is quite straightforward, a
   <div class="card-title">Resources</div>
   <p class="card-desc">Demos, tools and the repositories worth bookmarking.</p>
 </a>
-<a class="card" href="../../resources/vram-calculator.md">
-  <span class="card-icon">{{ icon('lucide/gauge') }}</span>
-  <div class="card-title">(V)RAM calculator</div>
-  <p class="card-desc">What each size needs at 16-, 8- and 4-bit.</p>
+<a class="card" href="../../resources/vision-token-budget.md">
+  <span class="card-icon">{{ icon('lucide/eye') }}</span>
+  <div class="card-title">Vision token budget</div>
+  <p class="card-desc">How Gemma 4 allocates image tokens across resolutions.</p>
 </a>
 </div>
