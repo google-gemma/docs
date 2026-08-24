@@ -95,17 +95,11 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [A Visual Guide to Gemma 4 12B](https://gemma.ai/tutorials/visual-guides/gemma-4-12b.md): A Visual Guide to Gemma 4 12B — a visual walkthrough.
 - [A Visual Guide to MTP](https://gemma.ai/tutorials/visual-guides/mtp.md): How multi-token prediction and speculative decoding make Gemma 4 faster — drafter models, shared KV cache, and the clustered LM head.
 - [A Visual Guide to DiffusionGemma](https://gemma.ai/tutorials/visual-guides/diffusiongemma.md): A Visual Guide to DiffusionGemma — a visual walkthrough.
-- [Build a business email AI assistant with Gemma](https://gemma.ai/learn/business-email-assistant.md): Handling customer inquiries, including emails, is a necessary part of running many businesses, but it can quickly get overwhelming.
-- [Build a personal AI coding assistant with Gemma](https://gemma.ai/learn/personal-code-assistant.md): Run a Gemma coding assistant on your own hardware, keeping your codebase local when connectivity, cost, or data security rule out hosted models.
-- [Cookbook](https://gemma.ai/cookbook.md): Interactive demos, tools, notebooks, and community resources for the Gemma model family.
 
-## Demos
-- [Tools](https://gemma.ai/tools.md): Interactive tools for planning your Gemma deployment.
-- [(V)RAM Calculator](https://gemma.ai/tools/vram-calculator.md): Estimate memory requirements for running Gemma models.
-- [Model Selector](https://gemma.ai/tools/model-selector.md): Find the right Gemma model for your hardware and use case.
-- [Vision token budget](https://gemma.ai/demos/vision-token-budget.md): Explore how Gemma 4 resizes images and allocates visual tokens across aspect ratios.
-
-## Ecosystem
+## Resources
+- [Resources](https://gemma.ai/resources.md): Demos, tools, community projects and the external repositories and collections worth knowing about.
+- [(V)RAM Calculator](https://gemma.ai/resources/vram-calculator.md): Estimate memory requirements for running Gemma models.
+- [Vision token budget](https://gemma.ai/resources/vision-token-budget.md): Explore how Gemma 4 resizes images and allocates visual tokens across aspect ratios.
 - [Gemmaverse](https://gemma.ai/community.md): Explore community projects and showcases.
 - [Discord](https://gemma.ai/community/discord.md): Join the Gemma developer community on Discord.
 - [Gemma Skills](https://gemma.ai/community/gemma-skills.md): Curated AI agent skills, system prompts, and tool definitions.

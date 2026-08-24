@@ -72,4 +72,4 @@ Approximate footprint for the static weights, from the
 | 31B | 69.9 GB | 34.9 GB | 17.5 GB |
 
 Context (KV cache) is on top of this. Size it with the
-[VRAM calculator](../tools/vram-calculator.md).
+[VRAM calculator](../resources/vram-calculator.md).

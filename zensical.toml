@@ -191,31 +191,24 @@ nav = [
       { "Multi-Token Prediction" = "tutorials/visual-guides/mtp.md" },
       { "DiffusionGemma" = "tutorials/visual-guides/diffusiongemma.md" },
     ]},
-    { "Tutorials" = [
-      "learn/business-email-assistant.md",
-      "learn/personal-code-assistant.md",
-    ]},
-    { "Notebooks & resources" = "cookbook.md" },
   ]},
 
   # ---------------------------------------------------------------------------
-  # Absorbs the old Tools tab: things we built, plus things we embed.
+  # One tab for everything that sits beside the documentation: the old Demos and
+  # Ecosystem tabs, plus the notebook and external-link directory. Its index is
+  # card-driven so a new demo or link is one entry, not a new nav level.
   # ---------------------------------------------------------------------------
-  { "Demos" = [
-    { "Interactive tools" = [
-      { "Overview" = "tools/index.md" },
-      "tools/vram-calculator.md",
-      "tools/model-selector.md",
+  { "Resources" = [
+    { "Overview" = "resources/index.md" },
+    { "Demos & tools" = [
+      "resources/vram-calculator.md",
+      { "Vision token budget" = "resources/vision-token-budget.md" },
     ]},
-    { "Apps & Spaces" = [
-      { "Vision token budget" = "demos/vision-token-budget.md" },
+    { "Community" = [
+      "community/index.md",
+      "community/discord.md",
+      "community/gemma-skills.md",
     ]},
-  ]},
-
-  { "Ecosystem" = [
-    "community/index.md",
-    "community/discord.md",
-    "community/gemma-skills.md",
     { "Contribute" = "contributing/components.md" },
   ]},
 ]

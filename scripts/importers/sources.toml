@@ -131,17 +131,13 @@ source = "https://ai.google.dev/gemma/docs/spoken-language/task-specific-tuning.
 assets = "tuning"
 frozen = true
 
-[[page]]
-path = "learn/business-email-assistant.md"
-source = "https://ai.google.dev/gemma/docs/business-email-assistant.md.txt"
-assets = "learn"
-frozen = true
-
-[[page]]
-path = "learn/personal-code-assistant.md"
-source = "https://ai.google.dev/gemma/docs/personal-code-assistant.md.txt"
-assets = "learn"
-frozen = true
+# learn/business-email-assistant.md and learn/personal-code-assistant.md were retired: both were
+# Gemma 2 tutorials, superseded by the Fine-tune section. Their upstream sources were
+# .../business-email-assistant.md.txt and .../personal-code-assistant.md.txt if a Gemma 4
+# version is ever wanted.
+#
+# cookbook.md moved to resources/index.md; tools/index.md and tools/model-selector.md were
+# removed. All three were authored here, so none had a manifest entry.
 
 # --- Core -------------------------------------------------------------------------------------
 

@@ -72,8 +72,6 @@ adjust training parameters, and add data until you achieve the task performance
 that meets your needs. Some of our example applications show that you can
 influence the behavior of a Gemma model with as few as 20 prompt and response
 pairs. For more details, see
-[Build a business email AI assistant with Gemma](../learn/business-email-assistant.md)
-and
 [Tasks in spoken languages with Gemma](spoken-language.md).
 
 ## Tune and test the model

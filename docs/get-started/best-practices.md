@@ -71,7 +71,7 @@ The supported token budgets are **70**, **140**, **280**, **560**, and **1120**.
 - Use *higher budgets* for tasks like OCR, document parsing, or reading small text.
 
 !!! tip
-    The [vision token budget demo](../demos/vision-token-budget.md) shows the quality and speed
+    The [vision token budget demo](../resources/vision-token-budget.md) shows the quality and speed
     tradeoff at each budget.
 
 ## 6. Audio

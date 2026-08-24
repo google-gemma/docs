@@ -8,10 +8,11 @@ and this script is the readout:
     uv run python scripts/pinned_links.py                  # everything, grouped by generation
     uv run python scripts/pinned_links.py --model gemma-4  # just the ones to revisit
 
-Two sources are scanned:
+Three sources are scanned:
 
   data/frameworks.yml   entries carrying `pinned: <family-id>`
   docs/**/*.md          links annotated `[text](url){ data-model="<family-id>" }`
+  docs/**/*.md          frontmatter `cards:` entries carrying `model: <family-id>`
 
 This is a report, not a gate. It never fails a build; it answers "what has to change for the
 next generation?" in one command.
@@ -54,6 +55,28 @@ def from_frameworks() -> list[tuple[str, str, str, str]]:
     return rows
 
 
+def from_frontmatter() -> list[tuple[str, str, str, str]]:
+    """Card grids keep their URLs in frontmatter, where the link regex cannot reach them."""
+    rows = []
+    for path in sorted(DOCS_DIR.rglob("*.md")):
+        text = path.read_text(encoding="utf-8")
+        if not text.startswith("---"):
+            continue
+        _, _, rest = text.partition("---\n")
+        front, sep, _ = rest.partition("\n---")
+        if not sep:
+            continue
+        try:
+            data = yaml.safe_load(front) or {}
+        except yaml.YAMLError:
+            continue
+        for card in data.get("cards") or ():
+            if isinstance(card, dict) and card.get("model"):
+                rel = path.relative_to(REPO_ROOT).as_posix()
+                rows.append((str(card["model"]), rel, str(card.get("title", "")), str(card.get("url", ""))))
+    return rows
+
+
 def from_markdown() -> list[tuple[str, str, str, str]]:
     rows = []
     for path in sorted(DOCS_DIR.rglob("*.md")):
@@ -71,7 +94,7 @@ def main() -> int:
     parser.add_argument("--model", help="only show links pinned to this family id, e.g. gemma-4")
     args = parser.parse_args()
 
-    rows = from_frameworks() + from_markdown()
+    rows = from_frameworks() + from_markdown() + from_frontmatter()
     families = known_families()
 
     unknown = sorted({model for model, *_ in rows if model not in families})

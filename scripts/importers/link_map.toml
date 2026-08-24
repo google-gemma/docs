@@ -100,8 +100,8 @@
 "/spoken-language/task-specific-tuning" = "tuning/spoken-language.md"
 
 # Learn
-"/business-email-assistant" = "learn/business-email-assistant.md"
-"/personal-code-assistant" = "learn/personal-code-assistant.md"
+"/business-email-assistant" = "tuning/index.md"
+"/personal-code-assistant" = "tuning/index.md"
 
 # Now ported (were [planned] in Step 0.5)
 "/setup" = "get-started/index.md"        # legacy setup page removed
@@ -158,10 +158,6 @@
 "deployment/huggingface.md#vision" = "generate-text-from-image-data"
 "deployment/index.md#select-a-variant" = "select-a-gemma-variant"
 "deployment/index.md#run-generation" = "run-generation-and-inference-requests"
-"learn/business-email-assistant.md#compute_requirements" = "hardware-requirements"
-"learn/personal-code-assistant.md#compute_requirements" = "hardware-requirements"
-"learn/personal-code-assistant.md#extension" = "vs-code-extension-project"
-"learn/personal-code-assistant.md#web-service" = "gemma-web-service-project"
 "tuning/spoken-language.md#compute_requirements" = "hardware-requirements"
 # tuning/overview.md carries its own contents list using devsite's short anchors.
 "tuning/index.md#choose-framework" = "choose-a-framework"

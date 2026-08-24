@@ -74,7 +74,7 @@ This page documents releases for the Gemma family of models.
 
 ## October 16, 2024
 
-- Release of [Personal AI code assistant](../learn/personal-code-assistant.md) developer guide.
+- Release of the Personal AI code assistant developer guide.
 
 ## October 15, 2024
 
@@ -82,7 +82,7 @@ This page documents releases for the Gemma family of models.
 
 ## October 8, 2024
 
-- Release of [Business email assistant](../learn/business-email-assistant.md) developer guide.
+- Release of the Business email assistant developer guide.
 
 ## October 3, 2024
 

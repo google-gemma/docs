@@ -47,6 +47,11 @@ ADMONITION = re.compile(
     r"^!!!\s+(?P<label>[A-Za-z]+)(?:\s+\"[^\"]*\")?\n(?P<body>(?:[ \t]+.*(?:\n|$))*)",
     re.MULTILINE,
 )
+# `attr_list` attaches classes and attributes to inline spans -- `<|think|>`{.token-think}, or a
+# link followed by { data-model="gemma-4" }. Jupyter has no such extension and renders the braces
+# as literal text, so they are stripped on the way out: the site keeps the styling, the notebook
+# keeps the words. Anchored to the closing `, ) or ] so ordinary prose braces are left alone.
+ATTR_LIST = re.compile(r"(?<=[`)\]])[ \t]*\{[^}\n]*\}")
 
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -68,7 +73,8 @@ def notebook_markdown(text: str) -> str:
         quoted = "\n> ".join(body.splitlines())
         return f"> **{match.group('label').title()}:** {quoted}\n"
 
-    return ADMONITION.sub(replace_admonition, text).strip()
+    text = ADMONITION.sub(replace_admonition, text)
+    return ATTR_LIST.sub("", text).strip()
 
 
 def markdown_cell(source: str) -> dict | None:
