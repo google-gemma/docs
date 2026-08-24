@@ -41,7 +41,8 @@
   box-shadow: var(--gemma-shadow-sm);
 }
 
-/* The monogram tile. Two characters at most -- "vL", "SG", "HF". */
+/* The mark tile: a brand logo where Simple Icons ships one, otherwise a two- or
+   three-character monogram. Both sit on the same tile so the grid stays even. */
 .md-typeset .engine-mark {
   display: grid;
   flex: 0 0 auto;
@@ -54,6 +55,11 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+}
+
+.md-typeset .engine-logo {
+  width: 1rem;
+  height: 1rem;
 }
 
 .md-typeset a.engine:hover .engine-mark {

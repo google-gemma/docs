@@ -62,6 +62,42 @@ Use the semantic roles in components, not the ramp directly:
 
 Scales: `--gemma-space-1…7`, `--gemma-radius-sm|md|lg|pill`, `--gemma-shadow-sm|md|lg`.
 
+## Icons
+
+Five icon sets ship with Zensical: **lucide** (line icons, the default here), **material**,
+**fontawesome**, **octicons**, and **simple** (brand logos). Project-specific icons go in
+`overrides/.icons/`.
+
+**In prose**, use the shortcode:
+
+```markdown
+Run it locally :lucide-rocket: and you are done.
+```
+
+**In markup** — any card, grid or generated block — use the `icon()` macro instead:
+
+```jinja
+<span class="card-icon">{{ icon('lucide/rocket') }}</span>
+{{ icon('simple/ollama', 'engine-logo') }}
+```
+
+!!! warning "The shortcode does not work inside HTML"
+    `:lucide-rocket:` is an *inline Markdown* construct. Inside a raw HTML block — which every
+    card grid is — it stays literal text. Adding `markdown` to the block does render it, but
+    `md_in_html` then wraps each card in a `<p>` and the grid layout breaks. The `icon()` macro
+    runs in the Jinja preprocessor, before Markdown, so the SVG is already in place. It also
+    reaches the grids generated from `data/*.yml`, where a shortcode cannot go at all.
+
+Icons inherit `currentColor`, so set the colour on the parent and never on the SVG. Size comes
+from CSS in `icons.css`; the macro strips the file's own `width`/`height` so the sets cannot
+disagree.
+
+!!! danger "Do not use emoji shortcodes"
+    `:rocket:` renders as `<img src="https://cdn.jsdelivr.net/...twemoji...">` — an external CDN
+    request per emoji, which breaks offline viewing and adds a third-party dependency. Raw
+    Unicode emoji avoid the request but render in the system font, so they differ on every
+    platform and cannot be styled. Use an icon set.
+
 ## Boxes
 
 Every bordered container on the site — cards, engine tiles, tree nodes, tables — uses one

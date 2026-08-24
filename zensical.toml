@@ -19,6 +19,7 @@ extra_css = [
   "stylesheets/nav.css",         # header, tabs, sidebar, table of contents
   "stylesheets/content.css",     # tables, admonitions, code, tabs
   "stylesheets/components.css",  # cards, badges, figures, steps, embeds
+  "stylesheets/icons.css",       # inlined icon-set SVGs and card icons
   "stylesheets/engine-grid.css", # quickstart: the "run it with" engine grid
   "stylesheets/model-tree.css",  # models overview: the family lineage tree
   "stylesheets/embeds.css",      # external interactive demos

@@ -87,7 +87,9 @@ If you want to run Gemma 4 on a different stack, you can choose from the followi
 <ul class="engine-grid">
 {% for id in featured %}{% for fw in frameworkdata.frameworks if fw.id == id %}
   <li><a class="engine" href="../{{ fw.page }}" title="{{ fw.blurb }}">
-    <span class="engine-mark" aria-hidden="true">{{ fw.mark }}</span>
+    <span class="engine-mark" aria-hidden="true">
+      {%- if fw.get('icon') %}{{ icon(fw.icon, 'engine-logo') }}{% else %}{{ fw.mark }}{% endif -%}
+    </span>
     <span class="engine-name">{{ fw.short_name | default(fw.name) }}</span>
   </a></li>
 {% endfor %}{% endfor %}

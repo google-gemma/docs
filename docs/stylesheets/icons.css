@@ -1,0 +1,40 @@
+/* ---------------------------------------------------------------------------
+   Icons.
+
+   Emitted by the `icon()` macro in main.py, which inlines an SVG from the sets
+   that ship with Zensical. Every one carries stroke="currentColor" or
+   fill="currentColor", so an icon takes the colour of whatever contains it --
+   never set a colour on the SVG itself, set it on the parent.
+
+   Sizing lives here rather than in the file because the shipped sets disagree
+   about their intrinsic dimensions; the macro strips width/height on the way in.
+   --------------------------------------------------------------------------- */
+
+.md-typeset .gemma-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  vertical-align: -0.2em;
+}
+
+/* -------------------------------------------------------------------
+   Card icons
+   The visual anchor on a `.card`. Sits above the title so a grid of
+   cards scans down the left edge.
+   ------------------------------------------------------------------- */
+.md-typeset .card-icon {
+  display: block;
+  margin-bottom: var(--gemma-space-2);
+  color: var(--gemma-accent);
+  line-height: 1;
+}
+
+.md-typeset .card-icon .gemma-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: baseline;
+}
+
+/* An external-link card carries the ↗ instead, so the arrow keeps its meaning. */
+.md-typeset a.card[target="_blank"] .card-icon {
+  display: none;
+}

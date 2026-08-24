@@ -34,6 +34,7 @@ frameworks:
     page: deployment/ollama.md
     blurb: One command to pull and chat, locally.
     mark: Ol
+    icon: simple/ollama
 
   - id: llamacpp
     name: llama.cpp
@@ -48,6 +49,7 @@ frameworks:
     page: deployment/lmstudio.md
     blurb: Desktop chat app, no coding required.
     mark: LM
+    icon: simple/lmstudio
 
   - id: mlx
     name: MLX
@@ -55,6 +57,7 @@ frameworks:
     page: deployment/mlx.md
     blurb: Native Apple silicon, no conversion step.
     mark: MLX
+    icon: simple/apple
 
   - id: litert
     name: LiteRT
@@ -74,6 +77,7 @@ frameworks:
     page: deployment/vllm.md
     blurb: High-throughput serving with an OpenAI-compatible API.
     mark: vL
+    icon: simple/vllm
 
   - id: sglang
     name: SGLang
@@ -89,6 +93,7 @@ frameworks:
     page: deployment/gemini-api.md
     blurb: Hosted Gemma, no infrastructure to run.
     mark: GA
+    icon: simple/googlegemini
 
   - id: google-cloud
     name: Google Cloud
@@ -96,6 +101,7 @@ frameworks:
     page: deployment/google-cloud.md
     blurb: Cloud Run, GKE and Vertex for production scale.
     mark: GC
+    icon: simple/googlecloud
 
   # Hosted endpoints -- no install, no local page. Their URLs name a specific model, so each
   # carries `pinned`.
@@ -105,6 +111,7 @@ frameworks:
     pinned: gemma-4
     blurb: Free hosted 31B through an OpenAI-compatible router.
     mark: OR
+    icon: simple/openrouter
 
   - id: cerebras
     name: Cerebras
@@ -120,6 +127,7 @@ frameworks:
     pinned: gemma-4
     blurb: Try Gemma in the browser, no key or setup.
     mark: AI
+    icon: simple/google
 
   - id: transformers
     name: Hugging Face Transformers
@@ -128,6 +136,7 @@ frameworks:
     page: deployment/huggingface.md
     blurb: The standard Python path for building and training.
     mark: HF
+    icon: simple/huggingface
 
   - id: unsloth
     name: Unsloth
@@ -142,6 +151,7 @@ frameworks:
     page: deployment/keras.md
     blurb: Multi-backend deep learning for research.
     mark: Ke
+    icon: simple/keras
 
   - id: jax
     name: JAX

@@ -29,7 +29,9 @@ option below runs the same weights, so you can move between them later.
 {% set page = fw.get('page') %}
   <li><a class="engine" href="{% if page %}../{{ page }}{% else %}{{ fw.url }}{% endif %}"
          {% if not page %}target="_blank" rel="noopener"{% endif %}>
-    <span class="engine-mark" aria-hidden="true">{{ fw.mark }}</span>
+    <span class="engine-mark" aria-hidden="true">
+      {%- if fw.get('icon') %}{{ icon(fw.icon, 'engine-logo') }}{% else %}{{ fw.mark }}{% endif -%}
+    </span>
     <span class="engine-body">
       <span class="engine-name">{{ fw.short_name | default(fw.name) }}{% if not page %} ↗{% endif %}</span>
       <span class="engine-blurb">{{ fw.blurb }}</span>
