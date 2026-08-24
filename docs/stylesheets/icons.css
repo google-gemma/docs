@@ -41,22 +41,26 @@
 
 /* -------------------------------------------------------------------
    Tile fill
-   Mixed from --gemma-accent rather than fixed, so one rule serves both
-   schemes: a pale blue against the light card, a muted blue against the
-   dark one. The icon keeps the surrounding text colour either way --
-   a saturated fill under a dark icon is what made the old hover
-   unreadable.
+   Plain surface at rest -- white against the tinted card in light mode,
+   sunken against it in dark -- lifting to a pale accent tint on hover.
+   The icon keeps the surrounding text colour throughout: it never
+   inverts, so a hover can never put a dark glyph on a dark fill.
    ------------------------------------------------------------------- */
 .md-typeset .card-icon,
 .md-typeset .engine-mark {
-  --gemma-icon-tile: color-mix(in srgb, var(--gemma-accent) 8%, transparent);
+  --gemma-icon-tile: var(--gemma-surface);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .card-icon,
+[data-md-color-scheme="slate"] .md-typeset .engine-mark {
+  --gemma-icon-tile: var(--gemma-surface-sunken);
 }
 
 .md-typeset a.card:hover .card-icon,
 .md-typeset a.card:focus-visible .card-icon,
 .md-typeset a.engine:hover .engine-mark,
 .md-typeset a.engine:focus-visible .engine-mark {
-  background: color-mix(in srgb, var(--gemma-accent) 22%, transparent);
+  background: color-mix(in srgb, var(--gemma-accent) 18%, var(--gemma-surface));
 }
 
 /* An external-link card carries the ↗ instead, so the arrow keeps its meaning. */

@@ -103,7 +103,7 @@ Here are some things to avoid when prompting Gemma with visual data.
   <p class="card-desc">Analyse and describe the contents of an image.</p>
 </a>
 <a class="card" href="video.md">
-  <span class="card-icon">{{ icon('lucide/video') }}</span>
+  <span class="card-icon">{{ icon('lucide/film') }}</span>
   <div class="card-title">Video understanding</div>
   <p class="card-desc">Pass video as frames and reason over what happens.</p>
 </a>

@@ -636,7 +636,7 @@ You have established how to build an application that can call functions with Ge
   <p class="card-desc">Detection, OCR, visual question answering and captioning.</p>
 </a>
 <a class="card" href="audio.md">
-  <span class="card-icon">{{ icon('lucide/mic') }}</span>
+  <span class="card-icon">{{ icon('lucide/audio-lines') }}</span>
   <div class="card-title">Audio understanding</div>
   <p class="card-desc">Transcribe, translate and reason over speech.</p>
 </a>

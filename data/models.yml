@@ -66,9 +66,13 @@ families:
     sizes:
       - id: e2b
         name: E2B
+        input: text, images, audio
+        platform: Mobile devices
         parameters: 2B effective
       - id: e4b
         name: E4B
+        input: text, images, audio
+        platform: Mobile devices and laptops
         parameters: 4B effective
   - id: diffusiongemma
     name: DiffusionGemma
@@ -144,18 +148,28 @@ families:
     sizes:
       - id: 270m
         name: 270M
+        input: text
+        platform: Mobile devices and single board computers
         context: 32K
       - id: 1b
         name: 1B
+        input: text
+        platform: Mobile devices and single board computers
         context: 32K
       - id: 4b
         name: 4B
+        input: text, images
+        platform: Desktop computers and small servers
         context: 128K
       - id: 12b
         name: 12B
+        input: text, images
+        platform: Higher-end desktop computers and servers
         context: 128K
       - id: 27b
         name: 27B
+        input: text, images
+        platform: Large servers or server clusters
         context: 128K
   - id: gemma-2
     name: Gemma 2
@@ -166,10 +180,16 @@ families:
     sizes:
       - id: 2b
         name: 2B
+        input: text
+        platform: Mobile devices and laptops
       - id: 9b
         name: 9B
+        input: text
+        platform: Higher-end desktop computers and servers
       - id: 27b
         name: 27B
+        input: text
+        platform: Large servers or server clusters
   - id: gemma-1
     name: Gemma
     page: models/gemma-1/index.md
@@ -179,14 +199,20 @@ families:
     sizes:
       - id: 2b
         name: 2B
+        input: text
+        platform: Mobile devices and laptops
       - id: 7b
         name: 7B
+        input: text
+        platform: Desktop computers and small servers
 
   - id: recurrentgemma
     name: RecurrentGemma
     page: models/recurrentgemma/model-card.md
     group: research
-    based_on: null           # "based on Griffin" -- an architecture, not a Gemma generation
+    # No `based_on` at all, not even null: RecurrentGemma is a Griffin model rather than a
+    # derived Gemma, so it is left out of the family tree entirely instead of being drawn
+    # as an orphan beside it. It keeps its place in the nav and the model lists.
     tagline: Griffin architecture mixing recurrences with local attention
     sizes:
       - id: 2b

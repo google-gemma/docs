@@ -90,7 +90,7 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [Fine-tune FunctionGemma 270M for Mobile Actions](https://gemma.ai/tuning/mobile-actions.md): Mobile Actions is a demo app where users can trigger actions on their device from voice or text input.
 
 ## Learn
-- [Choose your path](https://gemma.ai/learn.md): Start with a common Gemma task and jump directly to the most useful documentation.
+- [Learn](https://gemma.ai/learn.md): Illustrated walkthroughs of how the Gemma models work, from the architecture down to individual mechanisms.
 - [A Visual Guide to Gemma 4](https://gemma.ai/tutorials/visual-guides/gemma-4.md): A Visual Guide to Gemma 4 — a visual walkthrough.
 - [A Visual Guide to Gemma 4 12B](https://gemma.ai/tutorials/visual-guides/gemma-4-12b.md): A Visual Guide to Gemma 4 12B — a visual walkthrough.
 - [A Visual Guide to MTP](https://gemma.ai/tutorials/visual-guides/mtp.md): How multi-token prediction and speculative decoding make Gemma 4 faster — drafter models, shared KV cache, and the clustered LM head.

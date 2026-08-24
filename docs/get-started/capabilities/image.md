@@ -573,12 +573,12 @@ In this guide, you learned how to use Gemma 4 models for image understanding tas
 
 <div class="card-grid">
 <a class="card" href="video.md">
-  <span class="card-icon">{{ icon('lucide/video') }}</span>
+  <span class="card-icon">{{ icon('lucide/film') }}</span>
   <div class="card-title">Video understanding</div>
   <p class="card-desc">Pass video as frames and reason over what happens.</p>
 </a>
 <a class="card" href="audio.md">
-  <span class="card-icon">{{ icon('lucide/mic') }}</span>
+  <span class="card-icon">{{ icon('lucide/audio-lines') }}</span>
   <div class="card-title">Audio understanding</div>
   <p class="card-desc">Transcribe, translate and reason over speech.</p>
 </a>

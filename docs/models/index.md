@@ -68,9 +68,9 @@ tree below shows.
 </div>
 
 <p class="tree-legend">
-Each variant sits under the generation its own model page names as its base. Models below the
-dashed line are Gemma models whose pages describe a different architecture rather than a Gemma
-generation.
+Each variant sits under the generation its own model page names as its base.
+{% if independent %}Models below the dashed line are Gemma models whose pages describe a
+different architecture rather than a Gemma generation.{% endif %}
 </p>
 
 ## Gemma 4
@@ -90,6 +90,36 @@ The current generation, and where to start unless you need something a variant d
 
 [Run one now](../get-started/index.md) or read the [Gemma 4 model card](gemma-4/model-card.md)
 for the full technical detail.
+
+## Earlier generations
+
+Still supported, and still the right choice when a smaller or text-only model is enough.
+
+<!-- Generated from data/models.yml -- edit that file, not these tables. -->
+{% set generations = modeldata.families | selectattr('generation', 'defined')
+                                        | sort(attribute='generation', reverse=true) %}
+{% for gen in generations if gen.generation != 4 %}
+{% set sized = (gen.sizes | default([])) | selectattr('platform', 'defined') | list %}
+{% if sized %}
+### {{ gen.name }}
+
+| Size | Input ➔ Output | Intended Platform |
+|---|---|---|
+{% for size in sized -%}
+| **{{ size.name }}** | {{ size.input | capitalize }} ➔ Text | {{ size.platform }} |
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% set n3 = modeldata.families | selectattr('id', 'equalto', 'gemma-3n') | list | first %}
+### {{ n3.name }}
+
+The on-device member of the Gemma 3 generation.
+
+| Size | Input ➔ Output | Intended Platform |
+|---|---|---|
+{% for size in n3.sizes -%}
+| **{{ size.name }}** | {{ size.input | capitalize }} ➔ Text | {{ size.platform }} |
+{% endfor %}
 
 ## Choosing between them
 

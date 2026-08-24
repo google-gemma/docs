@@ -86,9 +86,4 @@ Context (KV cache) is on top of this. Size it with the
   <div class="card-title">Run Gemma</div>
   <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
 </a>
-<a class="card" href="../resources/vram-calculator.md">
-  <span class="card-icon">{{ icon('lucide/gauge') }}</span>
-  <div class="card-title">(V)RAM calculator</div>
-  <p class="card-desc">What each size needs at 16-, 8- and 4-bit.</p>
-</a>
 </div>
