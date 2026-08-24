@@ -267,7 +267,7 @@ Hey, what's the weather in Tokyo right now?<end_of_turn>
 <start_function_call>call:get_current_weather{location:<escape>Tokyo, Japan<escape>}<end_function_call><start_function_response>response:get_current_weather{temperature:15,weather:<escape>sunny<escape>}<end_function_response>The current weather in Tokyo is sunny with a temperature of 15 degrees Celsius.<end_of_turn>
 ```
 
-## Summary and next steps
+## Summary
 
 You have established how to build an application that can calls functions with FunctionGemma. The workflow is established through a four-stage cycle:
 
@@ -276,6 +276,12 @@ You have established how to build an application that can calls functions with F
 3. **Developer's Turn**: The developer parses this output using regular expressions to extract function names and arguments, executes the actual Python code, and appends the results to the chat history using the specific tool role.
 4. **Final Response**: The model processes the tool's execution result to generate a final, natural language answer for the user.
 
-Check out the following documentation for further reading.
+## What's next
 
-- [Fine-tuning with FunctionGemma](fine-tuning.md)
+<div class="card-grid">
+<a class="card" href="fine-tuning.md">
+  <span class="card-icon">{{ icon('lucide/graduation-cap') }}</span>
+  <div class="card-title">Fine-tune FunctionGemma</div>
+  <p class="card-desc">Teach it to pick the right tool for your policies.</p>
+</a>
+</div>

@@ -250,12 +250,24 @@ Uploading your model makes it easy to access for inference directly from the Hub
 model.push_to_hub("my-embedding-gemma")
 ```
 
-## Summary and next steps
+## Summary
 
 You have now learned how to adapt an EmbeddingGemma model for a specific domain by fine-tuning it with the Sentence Transformers library.
 
-Explore what more you can do with EmbeddingGemma:
+## What's next
 
-- [Training Overview](https://sbert.net/docs/sentence_transformer/training_overview.html) in Sentence Transformers Documentation
-- [Generate embeddings with Sentence Transformers](inference.md)
-- [Simple RAG example](https://github.com/google-gemma/cookbook/blob/main/Gemma/%5BGemma_3%5DRAG_with_EmbeddingGemma.ipynb){ data-model="embeddinggemma" } in the Gemma Cookbook
+<div class="card-grid">
+<a class="card" href="inference.md">
+  <span class="card-icon">{{ icon('lucide/type') }}</span>
+  <div class="card-title">Generate embeddings</div>
+  <p class="card-desc">Produce embeddings with Sentence Transformers.</p>
+</a>
+<a class="card" href="https://sbert.net/docs/sentence_transformer/training_overview.html" target="_blank" rel="noopener">
+  <div class="card-title">Training overview <span class="card-ext">↗</span></div>
+  <p class="card-desc">Sentence Transformers' own guide to training.</p>
+</a>
+<a class="card" href="https://github.com/google-gemma/cookbook/blob/main/Gemma/%5BGemma_3%5DRAG_with_EmbeddingGemma.ipynb" target="_blank" rel="noopener" data-model="embeddinggemma">
+  <div class="card-title">RAG example <span class="card-ext">↗</span></div>
+  <p class="card-desc">A simple retrieval pipeline in the Gemma Cookbook.</p>
+</a>
+</div>

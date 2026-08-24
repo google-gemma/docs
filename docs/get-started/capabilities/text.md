@@ -310,7 +310,6 @@ In this guide, you learned how to perform basic text inference with Gemma 4 usin
 4. **Conversation**: Using the [`dialog`](https://github.com/google-deepmind/dialog) library for conversation tracking.
 5. **Multi-turn conversations**: Multi-turn conversations and applying system instructions.
 
-<!-- notebook:skip-start -->
 ## What's next
 
 <div class="card-grid">
@@ -330,4 +329,3 @@ In this guide, you learned how to perform basic text inference with Gemma 4 usin
   <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
 </a>
 </div>
-<!-- notebook:skip-end -->

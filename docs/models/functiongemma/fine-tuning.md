@@ -598,7 +598,7 @@ check_success_rate()
 Success : 16 / 20
 ```
 
-## Summary and next steps
+## Summary
 
 You learned how to fine-tune FunctionGemma to resolve **tool selection ambiguity** , a scenario where a model must choose between overlapping tools (e.g., internal vs. external search) based on specific enterprise policies. By utilizing the **Hugging Face TRL library** and `SFTTrainer`, the tutorial walked through the process of preparing a dataset, configuring hyperparameters, and executing a supervised fine-tuning loop.
 
@@ -612,7 +612,16 @@ Now that you have a fine-tuned model, consider the following steps to move towar
 - **Expand the Dataset**: The current dataset was a small, synthetic split (50/50) used for demonstration. For a robust enterprise application, curate a larger, more diverse dataset that covers edge cases and rare policy exceptions.
 - **Evaluation with RAG** : Integrate the fine-tuned model into a Retrieval Augmented Generation (RAG) pipeline to verify that the `search_knowledge_base` tool calls actually retrieve relevant documents and result in accurate final answers.
 
-Check out the following docs next:
+## What's next
 
-- [Full function calling sequence with FunctionGemma](full-sequence.md)
-- [Fine-tune FunctionGemma for Mobile Actions](https://github.com/google-gemma/cookbook/blob/main/FunctionGemma/%5BFunctionGemma%5DFinetune_FunctionGemma_270M_for_Mobile_Actions_with_Hugging_Face.ipynb){ data-model="functiongemma" } in the Gemma Cookbook
+<div class="card-grid">
+<a class="card" href="full-sequence.md">
+  <span class="card-icon">{{ icon('lucide/split') }}</span>
+  <div class="card-title">Full calling sequence</div>
+  <p class="card-desc">The complete cycle, from the model's call to the final answer.</p>
+</a>
+<a class="card" href="https://github.com/google-gemma/cookbook/blob/main/FunctionGemma/%5BFunctionGemma%5DFinetune_FunctionGemma_270M_for_Mobile_Actions_with_Hugging_Face.ipynb" target="_blank" rel="noopener" data-model="functiongemma">
+  <div class="card-title">Mobile Actions notebook <span class="card-ext">↗</span></div>
+  <p class="card-desc">Fine-tune FunctionGemma 270M for on-device actions.</p>
+</a>
+</div>

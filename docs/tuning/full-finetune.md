@@ -409,10 +409,26 @@ print(outputs[0]['generated_text'][1]['content'])
 Nameless. You... you z-mell like... wet plantz. Why you wear shiny piecez on your head?
 ```
 
-## Summary and next steps
+## Summary
 
-This tutorial covered how to full model fine-tune using TRL. Check out the following docs next:
+This tutorial covered how to full model fine-tune using TRL. 
 
-- Learn how to [fine-tune Gemma for text tasks using Hugging Face Transformers](qlora.md).
-- Learn how to [fine-tune Gemma for vision tasks using Hugging Face Transformers](vision-qlora.md).
-- Learn how to [deploy to Cloud Run](../deployment/google-cloud.md#cloud-run)
+## What's next
+
+<div class="card-grid">
+<a class="card" href="qlora.md">
+  <span class="card-icon">{{ icon('lucide/graduation-cap') }}</span>
+  <div class="card-title">QLoRA</div>
+  <p class="card-desc">Fine-tune for text tasks with far less memory.</p>
+</a>
+<a class="card" href="vision-qlora.md">
+  <span class="card-icon">{{ icon('lucide/eye') }}</span>
+  <div class="card-title">Vision QLoRA</div>
+  <p class="card-desc">Fine-tune on image and text pairs.</p>
+</a>
+<a class="card" href="../deployment/google-cloud.md#cloud-run">
+  <span class="card-icon">{{ icon('lucide/play') }}</span>
+  <div class="card-title">Deploy to Cloud Run</div>
+  <p class="card-desc">Serve the result with scale-to-zero GPUs.</p>
+</a>
+</div>

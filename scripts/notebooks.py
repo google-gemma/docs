@@ -52,6 +52,16 @@ ADMONITION = re.compile(
 # as literal text, so they are stripped on the way out: the site keeps the styling, the notebook
 # keeps the words. Anchored to the closing `, ) or ] so ordinary prose braces are left alone.
 ATTR_LIST = re.compile(r"(?<=[`)\]])[ \t]*\{[^}\n]*\}")
+# A card grid is site navigation: raw HTML, and `{{ icon(...) }}` calls that only the Jinja
+# preprocessor resolves. Both render as literal text in Jupyter, and a notebook has nowhere to
+# navigate to anyway, so the grid and the heading introducing it are dropped.
+#
+# `^</div>` anchors to a line that *starts* with the closing tag. Card titles are indented, so
+# this stops at the end of the grid rather than at the first `</div>` inside it.
+CARD_GRID = re.compile(
+    r"(?:^#{1,6}[^\n]*\n+)?^<div class=\"card-grid\">.*?^</div>[ \t]*$\n?",
+    re.DOTALL | re.MULTILINE,
+)
 
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -73,6 +83,7 @@ def notebook_markdown(text: str) -> str:
         quoted = "\n> ".join(body.splitlines())
         return f"> **{match.group('label').title()}:** {quoted}\n"
 
+    text = CARD_GRID.sub("", text)
     text = ADMONITION.sub(replace_admonition, text)
     return ATTR_LIST.sub("", text).strip()
 

@@ -462,13 +462,31 @@ MODEL OUTPUT>>
 Bring home the action with the Hasbro Marvel Avengers Assemble Titan-held Iron Man Action Figure! This highly detailed 30.5-centimeter figure is perfect for recreating epic battles.  Collect the entire Marvel Avengers Assemble Titan-held series for an authentic experience.  Shop now!
 ```
 
-## Summary and next steps
+## Summary
 
-This tutorial covered how to fine-tune a Gemma model for vision tasks using TRL and QLoRA, specifically for generating product descriptions. Check out the following docs next:
+This tutorial covered how to fine-tune a Gemma model for vision tasks using TRL and QLoRA, specifically for generating product descriptions. 
 
-- Learn how to [generate text with a Gemma model](../get-started/index.md).
-- Learn how to [fine-tune Gemma for text tasks using Hugging Face Transformers](qlora.md).
-- Learn how to [full model fine-tune using Hugging Face Transformers](full-finetune.md).
-- Learn how to perform [distributed fine-tuning and inference on a Gemma model](distributed.md).
-- Learn how to [use Gemma open models with Vertex AI](https://cloud.google.com/vertex-ai/docs/generative-ai/open-models/use-gemma).
-- Learn how to [fine-tune Gemma using KerasNLP and deploy to Vertex AI](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/community/model_garden/model_garden_gemma_kerasnlp_to_vertexai.ipynb).
+## What's next
+
+<div class="card-grid">
+<a class="card" href="../get-started/index.md">
+  <span class="card-icon">{{ icon('lucide/rocket') }}</span>
+  <div class="card-title">Quickstart</div>
+  <p class="card-desc">Run your first Gemma 4 generation.</p>
+</a>
+<a class="card" href="qlora.md">
+  <span class="card-icon">{{ icon('lucide/graduation-cap') }}</span>
+  <div class="card-title">QLoRA</div>
+  <p class="card-desc">Fine-tune for text tasks with far less memory.</p>
+</a>
+<a class="card" href="full-finetune.md">
+  <span class="card-icon">{{ icon('lucide/layers') }}</span>
+  <div class="card-title">Full fine-tune</div>
+  <p class="card-desc">Update every weight, not just adapters.</p>
+</a>
+<a class="card" href="distributed.md">
+  <span class="card-icon">{{ icon('lucide/network') }}</span>
+  <div class="card-title">Distributed tuning</div>
+  <p class="card-desc">Train across multiple accelerators.</p>
+</a>
+</div>

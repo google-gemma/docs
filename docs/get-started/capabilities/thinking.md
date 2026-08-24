@@ -502,7 +502,6 @@ In this guide, you learned how to use the thinking capabilities of Gemma 4 model
 3. **Parsing the combined output**: Using `parse_response` to separate `thinking` and `answer` blocks.
 4. **Multimodal tasks**: Applying thinking capabilities to multimodal tasks (image + text).
 
-<!-- notebook:skip-start -->
 ## What's next
 
 <div class="card-grid">
@@ -522,4 +521,3 @@ In this guide, you learned how to use the thinking capabilities of Gemma 4 model
   <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
 </a>
 </div>
-<!-- notebook:skip-end -->

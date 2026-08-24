@@ -77,8 +77,8 @@ Run it locally :lucide-rocket: and you are done.
 **In markup** — any card, grid or generated block — use the `icon()` macro instead:
 
 ```jinja
-<span class="card-icon">{{ icon('lucide/rocket') }}</span>
-{{ icon('simple/ollama', 'engine-logo') }}
+{% raw %}<span class="card-icon">{{ icon('lucide/rocket') }}</span>
+{{ icon('simple/ollama', 'engine-logo') }}{% endraw %}
 ```
 
 !!! warning "The shortcode does not work inside HTML"
@@ -151,6 +151,54 @@ A grid of links. Used on the cookbook, model overviews and ecosystem pages.
 
 `.cookbook-grid` / `.cookbook-card` are aliases kept for converter output and existing pages.
 Use `.card-grid` / `.card` in anything new.
+
+## Ending a page
+
+Two headings, and only these two. Never `Summary and next steps`, never `Next steps`.
+
+**`## Summary`** is a prose recap of what the reader just did. Optional -- use it on a tutorial
+that walked through something, skip it on a reference page. No cards.
+
+**`## What's next`** is always a `.card-grid`, always with an icon, and always last.
+
+```markdown
+## What's next
+
+<div class="card-grid">
+<a class="card" href="../tuning/index.md">
+  <span class="card-icon">{% raw %}{{ icon('lucide/graduation-cap') }}{% endraw %}</span>
+  <div class="card-title">Fine-tune Gemma</div>
+  <p class="card-desc">QLoRA, full fine-tunes and distributed training on your own data.</p>
+</a>
+</div>
+```
+
+A card pointing off-site takes the `↗` in its title and **no icon**, so the arrow stays the
+signal that you are leaving:
+
+```markdown
+<a class="card" href="https://…" target="_blank" rel="noopener" data-model="gemma-4">
+  <div class="card-title">Gemma on Vertex AI <span class="card-ext">↗</span></div>
+  <p class="card-desc">Use Gemma open models on Google Cloud.</p>
+</a>
+```
+
+Note `data-model` sits on the anchor as a plain attribute. `attr_list` syntax does not work
+inside an HTML block, and `scripts/pinned_links.py` reads both forms.
+
+Which pages get what:
+
+| Section | Ends with |
+|---|---|
+| Get started, Learn | `What's next` on every page |
+| Run, Fine-tune | `What's next` |
+| Models | `Summary` where a recap helps; `What's next` only where the page genuinely leads on. Model cards get neither -- a spec sheet ends. |
+
+!!! warning "Card grids are stripped from notebooks"
+    A grid is site navigation: raw HTML plus {% raw %}`{{ icon() }}`{% endraw %} calls that only the Jinja
+    preprocessor resolves, both of which render as literal text in Jupyter. `scripts/notebooks.py`
+    drops any `card-grid` block and the heading above it, so a page registered as a notebook
+    source needs no special handling.
 
 ## Badges
 

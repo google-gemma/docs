@@ -581,6 +581,16 @@ print(text[0])
 <channel|>This image shows the Golden Gate Bridge in San Francisco, California. In the foreground, you can see Fort Point, a historic brick fortification, and a small rock in the water with a bird perched on it. The bridge spans across the bay toward the Marin Head visible in the background.<eos><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad><pad>
 ```
 
-## Summary and next steps
+## Summary
 
-In this guide, you learned how to use DiffusionGemma for various tasks. Check out [Diffusion in Text Generation Explained](explained.md) to understand how model works in detail.
+In this guide, you learned how to use DiffusionGemma for various tasks. 
+
+## What's next
+
+<div class="card-grid">
+<a class="card" href="explained.md">
+  <span class="card-icon">{{ icon('lucide/book-open') }}</span>
+  <div class="card-title">Diffusion explained</div>
+  <p class="card-desc">How text diffusion differs from standard autoregressive generation.</p>
+</a>
+</div>

@@ -379,11 +379,20 @@ tensor([[0.7855, 0.7382]])
 🙋‍♂️ apple vs. car -> 🤖 score:  0.7382126
 ```
 
-## Summary and next steps
+## Summary
 
 You are now equipped to generate high-quality text embeddings using EmbeddingGemma and the Sentence Transformers library. Apply these skills to build powerful features like semantic similarity, text classification, and Retrieval-Augmented Generation (RAG) systems, and continue exploring what's possible with Gemma models.
 
-Check out the following docs next:
+## What's next
 
-- [Fine-tune EmbeddingGemma](fine-tuning.md)
-- [Simple RAG example](https://github.com/google-gemma/cookbook/blob/main/Gemma/%5BGemma_3%5DRAG_with_EmbeddingGemma.ipynb){ data-model="embeddinggemma" } in the Gemma Cookbook
+<div class="card-grid">
+<a class="card" href="fine-tuning.md">
+  <span class="card-icon">{{ icon('lucide/graduation-cap') }}</span>
+  <div class="card-title">Fine-tune EmbeddingGemma</div>
+  <p class="card-desc">Adapt the model to your own domain.</p>
+</a>
+<a class="card" href="https://github.com/google-gemma/cookbook/blob/main/Gemma/%5BGemma_3%5DRAG_with_EmbeddingGemma.ipynb" target="_blank" rel="noopener" data-model="embeddinggemma">
+  <div class="card-title">RAG example <span class="card-ext">↗</span></div>
+  <p class="card-desc">A simple retrieval pipeline in the Gemma Cookbook.</p>
+</a>
+</div>

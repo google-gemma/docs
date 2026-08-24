@@ -570,7 +570,6 @@ Budget Size: 560
 
 In this guide, you learned how to use Gemma 4 models for image understanding tasks. The examples covered generating text from images, using prompt templates for visual QA, processing multiple images simultaneously, optical character recognition (OCR), object detection with bounding boxes, and managing variable resolutions using token budgets.
 
-<!-- notebook:skip-start -->
 ## What's next
 
 <div class="card-grid">
@@ -590,4 +589,3 @@ In this guide, you learned how to use Gemma 4 models for image understanding tas
   <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
 </a>
 </div>
-<!-- notebook:skip-end -->

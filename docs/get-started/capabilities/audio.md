@@ -321,7 +321,6 @@ Korean: 역에 어떻게 가나요?<turn|>
 
 In this guide, you learned how to process audio using Gemma 4 models. The examples demonstrated how to perform Speech-to-Text (ASR) to transcribe spoken language, as well as Automated Speech Translation (AST) to translate spoken audio directly into another language. You also saw how to capture audio from a microphone in a notebook environment for processing.
 
-<!-- notebook:skip-start -->
 ## What's next
 
 <div class="card-grid">
@@ -341,4 +340,3 @@ In this guide, you learned how to process audio using Gemma 4 models. The exampl
   <p class="card-desc">Let Gemma reason before it answers, and parse the two apart.</p>
 </a>
 </div>
-<!-- notebook:skip-end -->

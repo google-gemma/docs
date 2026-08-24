@@ -628,7 +628,6 @@ You have established how to build an application that can call functions with Ge
 3. **Developer's Turn**: The developer parses this output using regular expressions to extract function names and arguments, executes the actual Python code, and appends the results to the chat history using the specific tool role.
 4. **Final Response**: The model processes the tool's execution result to generate a final, natural language answer for the user.
 
-<!-- notebook:skip-start -->
 ## What's next
 
 <div class="card-grid">
@@ -653,4 +652,3 @@ You have established how to build an application that can call functions with Ge
   <p class="card-desc">Let Gemma reason before it answers, and parse the two apart.</p>
 </a>
 </div>
-<!-- notebook:skip-end -->

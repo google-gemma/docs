@@ -99,7 +99,6 @@ Here's a breakdown of the key moments:
 
 In this guide, you learned how to process video data using Gemma 4 models. The examples demonstrated how to use the `processor` to automatically process the input video and generate textual understanding of the video content.
 
-<!-- notebook:skip-start -->
 ## What's next
 
 <div class="card-grid">
@@ -119,4 +118,3 @@ In this guide, you learned how to process video data using Gemma 4 models. The e
   <p class="card-desc">Every engine that runs Gemma, from a laptop to a cluster.</p>
 </a>
 </div>
-<!-- notebook:skip-end -->

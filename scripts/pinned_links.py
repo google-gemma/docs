@@ -13,6 +13,7 @@ Three sources are scanned:
   data/frameworks.yml   entries carrying `pinned: <family-id>`
   docs/**/*.md          links annotated `[text](url){ data-model="<family-id>" }`
   docs/**/*.md          frontmatter `cards:` entries carrying `model: <family-id>`
+  docs/**/*.md          HTML anchors carrying a `data-model` attribute (card grids)
 
 This is a report, not a gate. It never fails a build; it answers "what has to change for the
 next generation?" in one command.
@@ -34,6 +35,7 @@ MODELS = REPO_ROOT / "data" / "models.yml"
 
 # [label](url){ ... data-model="gemma-4" ... } -- attr_list, so it survives into the HTML as a
 # real attribute and can be found in the built site too.
+ANCHOR = re.compile(r"<a\b[^>]*>")
 TAGGED_LINK = re.compile(
     r"\[(?P<label>[^\]]*)\]\((?P<url>[^)\s]+)[^)]*\)\{[^}]*data-model=\"(?P<model>[^\"]+)\"[^}]*\}"
 )
@@ -52,6 +54,21 @@ def from_frameworks() -> list[tuple[str, str, str, str]]:
             rows.append(
                 (str(entry["pinned"]), "data/frameworks.yml", str(entry["name"]), str(entry["url"]))
             )
+    return rows
+
+
+def from_html() -> list[tuple[str, str, str, str]]:
+    """Card grids are raw HTML, so a tagged link there is an attribute, not attr_list syntax."""
+    rows = []
+    for path in sorted(DOCS_DIR.rglob("*.md")):
+        rel = path.relative_to(REPO_ROOT).as_posix()
+        for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+            for tag in ANCHOR.finditer(line):
+                attrs = tag.group(0)
+                model = re.search(r'data-model="([^"]+)"', attrs)
+                href = re.search(r'href="([^"]+)"', attrs)
+                if model and href:
+                    rows.append((model.group(1), f"{rel}:{lineno}", "", href.group(1)))
     return rows
 
 
@@ -94,7 +111,7 @@ def main() -> int:
     parser.add_argument("--model", help="only show links pinned to this family id, e.g. gemma-4")
     args = parser.parse_args()
 
-    rows = from_frameworks() + from_markdown() + from_frontmatter()
+    rows = from_frameworks() + from_markdown() + from_frontmatter() + from_html()
     families = known_families()
 
     unknown = sorted({model for model, *_ in rows if model not in families})
