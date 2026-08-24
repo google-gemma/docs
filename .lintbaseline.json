@@ -15,10 +15,6 @@
     "css",
     "generated"
   ],
-  "count": 3,
-  "known": [
-    "stubs|docs/community/discord.md|stub: 46 chars of content (minimum 400)",
-    "stubs|docs/community/gemma-skills.md|stub: 62 chars of content (minimum 400)",
-    "stubs|docs/community/index.md|placeholder link: example.com"
-  ]
+  "count": 0,
+  "known": []
 }

@@ -204,11 +204,7 @@ nav = [
       "resources/vram-calculator.md",
       { "Vision token budget" = "resources/vision-token-budget.md" },
     ]},
-    { "Community" = [
-      "community/index.md",
-      "community/discord.md",
-      "community/gemma-skills.md",
-    ]},
+    { "Gemma Skills" = "resources/gemma-skills.md" },
     { "Contribute" = "contributing/components.md" },
   ]},
 ]

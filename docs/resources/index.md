@@ -5,9 +5,6 @@ cards:
   - title: "Gemma Cookbook"
     desc: "Official Jupyter notebooks covering inference, fine-tuning, RAG and function calling."
     url: "https://github.com/google-gemma/gemma-cookbook"
-  - title: "Gemma Skills"
-    desc: "Agent skills for building with Gemma and for training it, installable with one command."
-    url: "https://github.com/google-gemma/gemma-skills"
   - title: "google-gemma on GitHub"
     desc: "The organization behind these docs: every repository, tool and community project."
     url: "https://github.com/google-gemma"
@@ -33,22 +30,9 @@ the community has built, and the repositories worth bookmarking.
   <div class="card-title">Vision token budget</div>
   <p class="card-desc">How Gemma 4 allocates image tokens across resolutions and aspect ratios.</p>
 </a>
-</div>
-
-## Community
-
-<div class="card-grid">
-<a class="card" href="../community/index.md">
-  <div class="card-title">Gemmaverse</div>
-  <p class="card-desc">Projects and showcases built on Gemma by the community.</p>
-</a>
-<a class="card" href="../community/gemma-skills.md">
+<a class="card" href="gemma-skills.md">
   <div class="card-title">Gemma Skills</div>
-  <p class="card-desc">Curated agent skills, system prompts and tool definitions.</p>
-</a>
-<a class="card" href="../community/discord.md">
-  <div class="card-title">Discord</div>
-  <p class="card-desc">Where Gemma developers ask questions and share what they are building.</p>
+  <p class="card-desc">Agent skills for building with Gemma and for fine-tuning it.</p>
 </a>
 </div>
 
