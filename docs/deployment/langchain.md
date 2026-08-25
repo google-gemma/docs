@@ -384,4 +384,4 @@ content='I can help you with anything.\n<end_of_turn>\n<end_of_turn>\n'
 
 - Learn how to [finetune a Gemma model](../tuning/keras-lora.md).
 - Learn how to perform [distributed fine-tuning and inference on a Gemma model](../tuning/distributed.md).
-- Learn how to [use Gemma models with Vertex AI](https://cloud.google.com/vertex-ai/docs/generative-ai/open-models/use-gemma).
+- Learn how to [use Gemma models with Vertex AI][vertex-use-gemma].

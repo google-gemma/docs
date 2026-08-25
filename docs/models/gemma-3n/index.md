@@ -44,7 +44,7 @@ Gemma 3n includes the following key features:
 
 
 As with other Gemma models, Gemma 3n is provided with open weights and
-licensed for responsible [commercial use](https://ai.google.dev/gemma/terms), allowing you to tune
+licensed for responsible [commercial use][gemma-terms], allowing you to tune
 and deploy it in your own projects and applications.
 
 !!! Tip

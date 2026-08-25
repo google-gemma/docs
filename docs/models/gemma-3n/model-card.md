@@ -10,12 +10,12 @@ source_url: "https://ai.google.dev/gemma/docs/gemma-3n/model_card.md.txt"
 
 **Resources and Technical Documentation**:
 
-- [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
+- [Responsible Generative AI Toolkit][responsible-ai]
 - [Gemma on Kaggle](https://www.kaggle.com/models/google/gemma-3n){ data-model="gemma-3n" }
 - [Gemma on HuggingFace](https://huggingface.co/collections/google/gemma-3n-685065323f5984ef315c93f4){ data-model="gemma-3n" }
 - [Gemma on Vertex Model Garden](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/gemma3n){ data-model="gemma-3n" }
 
-**Terms of Use** : [Terms](https://ai.google.dev/gemma/terms)  
+**Terms of Use** : [Terms][gemma-terms]  
 
 **Authors**: Google DeepMind
 
@@ -273,7 +273,7 @@ creating an open model, we have carefully considered the following:
     - Generative models trained on large-scale, real-world text and image data can reflect socio-cultural biases embedded in the training material. These models underwent careful scrutiny, input data pre-processing described and posterior evaluations reported in this card.
 - Misinformation and Misuse
     - Generative models can be misused to generate text that is false, misleading, or harmful.
-    - Guidelines are provided for responsible use with the model, see the [Responsible Generative AI Toolkit](https://ai.google.dev/responsible).
+    - Guidelines are provided for responsible use with the model, see the [Responsible Generative AI Toolkit][responsible-ai].
 - Transparency and Accountability:
     - This model card summarizes details on the models' architecture, capabilities, limitations, and evaluation processes.
     - A responsibly developed open model offers the opportunity to share innovation by making generative model technology accessible to developers and researchers across the AI ecosystem.
@@ -282,7 +282,7 @@ Risks identified and mitigations:
 
 - **Perpetuation of biases**: It's encouraged to perform continuous monitoring (using evaluation metrics, human review) and the exploration of de-biasing techniques during model training, fine-tuning, and other use cases.
 - **Generation of harmful content**: Mechanisms and guidelines for content safety are essential. Developers are encouraged to exercise caution and implement appropriate content safety safeguards based on their specific product policies and application use cases.
-- **Misuse for malicious purposes** : Technical limitations and developer and end-user education can help mitigate against malicious applications of generative models. Educational resources and reporting mechanisms for users to flag misuse are provided. Prohibited uses of Gemma models are outlined in the [Gemma Prohibited Use Policy](https://ai.google.dev/gemma/prohibited_use_policy).
+- **Misuse for malicious purposes** : Technical limitations and developer and end-user education can help mitigate against malicious applications of generative models. Educational resources and reporting mechanisms for users to flag misuse are provided. Prohibited uses of Gemma models are outlined in the [Gemma Prohibited Use Policy][prohibited-use].
 - **Privacy violations**: Models were trained on data filtered for removal of certain personal information and other sensitive data. Developers are encouraged to adhere to privacy regulations with privacy-preserving techniques.
 
 ### Benefits

@@ -6,7 +6,7 @@ models: [gemma-4]
 
 # Gemma Skills
 
-[Gemma Skills](https://github.com/google-gemma/gemma-skills) are installable skills that give a
+[Gemma Skills][gemma-skills-repo] are installable skills that give a
 coding agent working knowledge of Gemma — current model names, the APIs to reach for, and the
 steps a task actually takes. Install one and the agent stops guessing.
 

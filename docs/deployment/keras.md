@@ -360,4 +360,4 @@ In this tutorial, you learned how to generate text using Keras and Gemma. Here a
 - Learn how to [finetune a Gemma model](../tuning/keras-lora.md).
 - Learn how to perform [distributed fine-tuning and inference on a Gemma model](../tuning/distributed.md).
 - Learn about [Gemma integration with Vertex AI](google-cloud.md)
-- Learn how to [use Gemma models with Vertex AI](https://cloud.google.com/vertex-ai/docs/generative-ai/open-models/use-gemma).
+- Learn how to [use Gemma models with Vertex AI][vertex-use-gemma].

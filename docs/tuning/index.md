@@ -113,7 +113,7 @@ model testing is to use success, failure, and borderline cases:
 
 When testing failure or boundary conditions for your generative AI application,
 you should also apply generative AI safety approaches, techniques, and tools as
-described in the [Responsible Generative AI Toolkit](https://ai.google.dev/responsible).
+described in the [Responsible Generative AI Toolkit][responsible-ai].
 
 ## Deploy the model
 

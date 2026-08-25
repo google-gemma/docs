@@ -189,5 +189,5 @@ Build and explore more with Gemma models:
 - [Fine-tune Gemma for text tasks using Hugging Face Transformers](../tuning/qlora.md)
 - [Fine-tune Gemma for vision tasks using Hugging Face Transformers](../tuning/vision-qlora.md)
 - [Perform distributed fine-tuning and inference on Gemma models](../tuning/distributed.md)
-- [Use Gemma open models with Vertex AI](https://cloud.google.com/vertex-ai/docs/generative-ai/open-models/use-gemma)
+- [Use Gemma open models with Vertex AI][vertex-use-gemma]
 - [Fine-tune Gemma using Keras and deploy to Vertex AI](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/community/model_garden/model_garden_gemma_kerasnlp_to_vertexai.ipynb)

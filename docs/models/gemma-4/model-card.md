@@ -8,8 +8,8 @@ source_url: "https://ai.google.dev/gemma/docs/core/model_card_4.md.txt"
 
 ![Gemma 4 Banner](../../assets/gemma-4/gemma4_banner.png)
 
-[Hugging Face](https://huggingface.co/collections/google/gemma-4){ data-model="gemma-4" } \|
-[GitHub](https://github.com/google-gemma) \|
+[Hugging Face][hf-gemma4] \|
+[GitHub][gemma-github] \|
 [Launch Blog](https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/){ data-model="gemma-4" } \|
 [Documentation](index.md) \|
 [Technical Report](https://arxiv.org/abs/2607.02770)
@@ -353,7 +353,7 @@ concerns. In creating an open model, we have carefully considered the following:
     - VLMs trained on large-scale, real-world text and image data can reflect socio-cultural biases embedded in the training material. Gemma 4 models underwent careful scrutiny, input data pre-processing, and post-training evaluations as reported in this card to help mitigate the risk of these biases.
 - **Misinformation and Misuse**
     - VLMs can be misused to generate text that is false, misleading, or harmful.
-    - Guidelines are provided for responsible use with the model, see the [Responsible Generative AI Toolkit](https://ai.google.dev/responsible).
+    - Guidelines are provided for responsible use with the model, see the [Responsible Generative AI Toolkit][responsible-ai].
 - **Transparency and Accountability**
     - This model card summarizes details on the models' architecture, capabilities, limitations, and evaluation processes.
     - A responsibly developed open model offers the opportunity to share innovation by making VLM technology accessible to developers and researchers across the AI ecosystem.

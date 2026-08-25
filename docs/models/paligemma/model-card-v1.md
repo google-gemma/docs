@@ -11,9 +11,9 @@ source_url: "https://ai.google.dev/gemma/docs/paligemma/model-card.md.txt"
 **Resources and technical documentation:**
 
 - [PaliGemma on Kaggle](https://www.kaggle.com/models/google/paligemma){ data-model="paligemma" }
-- [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
+- [Responsible Generative AI Toolkit][responsible-ai]
 
-**Terms of Use:** [Terms](https://ai.google.dev/gemma/terms)
+**Terms of Use:** [Terms][gemma-terms]
 
 **Authors:** Google
 
@@ -211,7 +211,7 @@ various industries and domains. The following list of potential uses is not
 comprehensive. The purpose of this list is to provide contextual information
 about the possible use-cases that the model creators considered as part of model
 training and development. Prohibited uses of Gemma models are outlined in the
-[Gemma Prohibited Use Policy](https://ai.google.dev/gemma/prohibited_use_policy).
+[Gemma Prohibited Use Policy][prohibited-use].
 
 Fine-tune in specific vision-language task:
 
@@ -232,7 +232,7 @@ concerns. In creating an open model, we have carefully considered the following:
     - VLMs trained on large-scale, real-world image-text data can reflect socio-cultural biases embedded in the training material. These models underwent careful scrutiny, input data pre-processing described and posterior evaluations reported in this card.
 - Misinformation and Misuse
     - VLMs can be misused to generate text that is false, misleading, or harmful.
-    - Guidelines are provided for responsible use with the model, see the [Responsible Generative AI Toolkit](https://ai.google.dev/responsible).
+    - Guidelines are provided for responsible use with the model, see the [Responsible Generative AI Toolkit][responsible-ai].
 - Transparency and Accountability
     - This model card summarizes details on the models' architecture, capabilities, limitations, and evaluation processes.
     - A responsibly developed open model offers the opportunity to share innovation by making VLM technology accessible to developers and researchers across the AI ecosystem.
@@ -241,7 +241,7 @@ Risks identified and mitigations:
 
 - **Perpetuation of biases:** It's encouraged to perform continuous monitoring (using evaluation metrics, human review) and the exploration of de-biasing techniques during model training, fine-tuning, and other use cases.
 - **Generation of harmful content:** Mechanisms and guidelines for content safety are essential. Developers are encouraged to exercise caution and implement appropriate content safety safeguards based on their specific product policies and application use cases.
-- **Misuse for malicious purposes:** Technical limitations and developer and end-user education can help mitigate against malicious applications of LLMs. Educational resources and reporting mechanisms for users to flag misuse are provided: see the [Responsible Generative AI Toolkit](https://ai.google.dev/responsible). Prohibited uses of Gemma models are outlined in the [Gemma Prohibited Use Policy](https://ai.google.dev/gemma/prohibited_use_policy).
+- **Misuse for malicious purposes:** Technical limitations and developer and end-user education can help mitigate against malicious applications of LLMs. Educational resources and reporting mechanisms for users to flag misuse are provided: see the [Responsible Generative AI Toolkit][responsible-ai]. Prohibited uses of Gemma models are outlined in the [Gemma Prohibited Use Policy][prohibited-use].
 - **Privacy violations:** Models were trained on data filtered to remove certain personal information and sensitive data. Developers are encouraged to adhere to privacy regulations with privacy-preserving techniques.
 
 ### Limitations

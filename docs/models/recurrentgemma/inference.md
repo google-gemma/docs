@@ -190,7 +190,7 @@ Output:
 - The following libraries have their own documentation sites: [core JAX](https://jax.readthedocs.io), [Flax](https://flax.readthedocs.io), and [Orbax](https://orbax.readthedocs.io/).
 - For `sentencepiece` tokenizer/detokenizer documentation, check out [Google's `sentencepiece` GitHub repo](https://github.com/google/sentencepiece).
 - For `kagglehub` documentation, check out `README.md` on [Kaggle's `kagglehub` GitHub repo](https://github.com/Kaggle/kagglehub).
-- Learn how to [use Gemma models with Google Cloud Vertex AI](https://cloud.google.com/vertex-ai/docs/generative-ai/open-models/use-gemma).
+- Learn how to [use Gemma models with Google Cloud Vertex AI][vertex-use-gemma].
 - Check out the [RecurrentGemma: Moving Past Transformers
   for Efficient Open Language Models](https://arxiv.org/pdf/2404.07839) paper by Google DeepMind.
 - Read the [Griffin: Mixing Gated Linear Recurrences with

@@ -10,11 +10,11 @@ source_url: "https://ai.google.dev/gemma/docs/shieldgemma/model_card_2.md.txt"
 
 **Resources and Technical Documentation**:
 
-- [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
+- [Responsible Generative AI Toolkit][responsible-ai]
 - [ShieldGemma on Kaggle](https://www.kaggle.com/models/google/shieldgemma){ data-model="shieldgemma" }
 - [ShieldGemma on Hugging Face Hub](https://huggingface.co/models?search=shieldgemma){ data-model="shieldgemma" }
 
-**Terms of Use** : [Terms](https://ai.google.dev/gemma/terms)
+**Terms of Use** : [Terms][gemma-terms]
 
 **Authors**: Google
 
@@ -168,7 +168,7 @@ These models have certain limitations that users should be aware of.
 
 ShieldGemma 2 is intended to be used as a safety content moderator, either for
 human user inputs, model outputs, or both. These models are part of the
-[Responsible Generative AI Toolkit](https://ai.google.dev/responsible), which is a set of
+[Responsible Generative AI Toolkit][responsible-ai], which is a set of
 recommendations, tools, datasets and models aimed to improve the safety of AI
 applications as part of the Gemma ecosystem.
 
@@ -185,7 +185,7 @@ of safety principles, and might perform unpredictably under conditions that
 require a good understanding of language ambiguity and nuance.
 
 As with other models that are part of the Gemma ecosystem, ShieldGemma is
-subject to Google's [prohibited use policies](https://ai.google.dev/gemma/prohibited_use_policy).
+subject to Google's [prohibited use policies][prohibited-use].
 
 ### Ethical Considerations and Risks
 

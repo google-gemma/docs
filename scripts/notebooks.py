@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+from functools import lru_cache
 from pathlib import Path
 
 import yaml
@@ -68,6 +69,10 @@ CARD_GRID = re.compile(
 # Neither is standard Markdown, so Jupyter would show both as literal text.
 SNIPPET_INCLUDE = re.compile(r'^-{2,}8<-{2,}[ \t]+"[^"]+"[ \t]*$\n?', re.MULTILINE)
 ABBR_DEF = re.compile(r"^\*\[[^\]]+\]:.*$\n?", re.MULTILINE)
+# Shared reference links resolve against snippets/links.md, which the site appends to every page
+# and a notebook never sees. Resolve them to ordinary inline links on the way out, so the export
+# carries real URLs instead of unresolved brackets.
+REFERENCE_LINK = re.compile(r"\[([^\]]+)\]\[([a-z0-9][a-z0-9-]*)\]")
 
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -81,8 +86,20 @@ def split_frontmatter(text: str) -> tuple[dict, str]:
     raise ValueError("unterminated frontmatter")
 
 
+@lru_cache(maxsize=1)
+def shared_links() -> dict[str, str]:
+    data = yaml.safe_load((REPO_ROOT / "data" / "links.yml").read_text(encoding="utf-8"))
+    return {name: entry["url"] for name, entry in (data.get("links") or {}).items()}
+
+
 def notebook_markdown(text: str) -> str:
     text = SKIP_REGION.sub("", text)
+
+    def resolve_reference(match: re.Match) -> str:
+        url = shared_links().get(match.group(2))
+        return f"[{match.group(1)}]({url})" if url else match.group(0)
+
+    text = REFERENCE_LINK.sub(resolve_reference, text)
 
     def replace_admonition(match: re.Match) -> str:
         body = "\n".join(line.strip() for line in match.group("body").splitlines()).strip()

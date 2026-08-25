@@ -46,7 +46,7 @@ EmbeddingGemma includes the following key features:
 [Access it on Vertex](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/embeddinggemma){ data-model="embeddinggemma" }
 
 As with other Gemma models, EmbeddingGemma is provided with open weights and
-licensed for responsible [commercial use](https://ai.google.dev/gemma/terms), allowing you to
+licensed for responsible [commercial use][gemma-terms], allowing you to
 fine tune and deploy it in your own projects and applications.
 
 [Try EmbeddingGemma](inference.md)

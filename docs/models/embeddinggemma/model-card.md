@@ -10,11 +10,11 @@ source_url: "https://ai.google.dev/gemma/docs/embeddinggemma/model_card.md.txt"
 
 **Resources and Technical Documentation**:
 
-- [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
+- [Responsible Generative AI Toolkit][responsible-ai]
 - [EmbeddingGemma on Kaggle](https://www.kaggle.com/models/google/embeddinggemma/){ data-model="embeddinggemma" }
 - [EmbeddingGemma on Vertex Model Garden](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/embeddinggemma){ data-model="embeddinggemma" }
 
-**Terms of Use** : [Terms](https://ai.google.dev/gemma/terms)
+**Terms of Use** : [Terms][gemma-terms]
 
 **Authors**: Google DeepMind
 
@@ -231,7 +231,7 @@ training and development.
 Risks identified and mitigations:
 
 - **Perpetuation of biases**: It's encouraged to perform continuous monitoring (using evaluation metrics, human review) and the exploration of de-biasing techniques during model training, fine-tuning, and other use cases.
-- **Misuse for malicious purposes** : Technical limitations and developer and end-user education can help mitigate against malicious applications of embeddings. Educational resources and reporting mechanisms for users to flag misuse are provided. Prohibited uses of Gemma models are outlined in the [Gemma Prohibited Use Policy](https://ai.google.dev/gemma/prohibited_use_policy).
+- **Misuse for malicious purposes** : Technical limitations and developer and end-user education can help mitigate against malicious applications of embeddings. Educational resources and reporting mechanisms for users to flag misuse are provided. Prohibited uses of Gemma models are outlined in the [Gemma Prohibited Use Policy][prohibited-use].
 - **Privacy violations**: Models were trained on data filtered for removal of certain personal information and other sensitive data. Developers are encouraged to adhere to privacy regulations with privacy-preserving techniques.
 
 ### Benefits

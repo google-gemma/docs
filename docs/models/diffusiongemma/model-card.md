@@ -7,7 +7,7 @@ source_url: "https://ai.google.dev/gemma/docs/diffusiongemma/model_card.md.txt"
 # DiffusionGemma model card
 
 [Hugging Face](https://huggingface.co/google/diffusiongemma-26B-A4B-it){ data-model="diffusiongemma" } \|
-[GitHub](https://github.com/google-gemma) \|
+[GitHub][gemma-github] \|
 [Launch Blog](https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/) \|
 [Documentation](index.md)
 
@@ -273,7 +273,7 @@ following:
     - VLMs trained on large-scale, real-world text and image data can reflect socio-cultural biases embedded in the training material. DiffusionGemma underwent careful scrutiny, input data pre-processing, and post-training evaluations as reported in this card to help mitigate the risk of these biases.
 - **Misinformation and Misuse**
     - VLMs can be misused to generate text that is false, misleading, or harmful.
-    - Guidelines are provided for responsible use with the model, see the [Responsible Generative AI Toolkit](https://ai.google.dev/responsible).
+    - Guidelines are provided for responsible use with the model, see the [Responsible Generative AI Toolkit][responsible-ai].
 - **Transparency and Accountability**
     - This model card summarizes details on the model's architecture, capabilities, limitations, and evaluation processes.
     - A responsibly developed open model offers the opportunity to share innovation by making VLM technology accessible to developers and researchers across the AI ecosystem.
