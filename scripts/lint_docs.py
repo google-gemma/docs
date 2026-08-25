@@ -760,6 +760,7 @@ CHECKS: dict[str, Callable[[Context], Iterable[Finding]]] = {
 
 CHECK_HELP = {
     "links": "links back to ai.google.dev/gemma/docs",
+    "references": "reference links that resolve to nothing",
     "images": "hotlinked, inlined, or missing images",
     "internal": "relative links or fragments that don't resolve",
     "stubs": "placeholder pages and leftover example.com",

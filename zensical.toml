@@ -205,7 +205,10 @@ nav = [
       { "Vision token budget" = "resources/vision-token-budget.md" },
     ]},
     { "Gemma Skills" = "resources/gemma-skills.md" },
-    { "Contribute" = "contributing/components.md" },
+    { "Contribute" = [
+      { "Components" = "contributing/components.md" },
+      { "Conventions" = "contributing/conventions.md" },
+    ]},
   ]},
 ]
 
