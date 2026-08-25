@@ -8,7 +8,7 @@ models: [gemma-4]
 # Prompt formatting
 
 Gemma 4 introduced a new set of control tokens. Gemma 1 through 3 use an older
-`<start_of_turn>` format, kept below because those models are still in use.
+`<start_of_turn>`{.token-turn} format, kept below because those models are still in use.
 
 ## Gemma 4
 

@@ -308,6 +308,30 @@ def check_links(ctx: Context) -> Iterable[Finding]:
                     )
 
 
+# `[text][id]` -- a reference link. An id that resolves to nothing renders as literal text
+# rather than failing, so nobody notices until a reader sees the brackets on the page.
+REFERENCE_USE = re.compile(r"\[[^\]]+\]\[([a-z0-9][a-z0-9-]*)\]")
+REFERENCE_DEF = re.compile(r"^\[([^\]]+)\]:\s+\S", re.MULTILINE)
+
+
+def check_references(ctx: Context) -> Iterable[Finding]:
+    """Every `[text][id]` must resolve, from data/links.yml or from the page itself."""
+    import generate_snippets
+
+    shared = set(generate_snippets.link_data())
+    for page in ctx.pages:
+        local = set(REFERENCE_DEF.findall(page.path.read_text(encoding="utf-8")))
+        for lineno, line in outside_code(page):
+            for match in REFERENCE_USE.finditer(line):
+                name = match.group(1)
+                if name not in shared and name not in local:
+                    yield Finding(
+                        "references", page.repo_rel, lineno,
+                        f"unknown reference '[{name}]' -- add it to data/links.yml or define it "
+                        "on the page; an unresolved one renders as literal text",
+                    )
+
+
 def check_images(ctx: Context) -> Iterable[Finding]:
     """Images must be vendored into docs/assets/, not hotlinked.
 
@@ -696,6 +720,7 @@ def check_generated(ctx: Context) -> Iterable[Finding]:
     """
     import agent_docs
     import generate_model_names
+    import generate_snippets
     import notebooks
 
     outputs = (
@@ -703,6 +728,7 @@ def check_generated(ctx: Context) -> Iterable[Finding]:
         (generate_model_names.JS_TARGET, generate_model_names.render_js()),
         *agent_docs.generated_outputs(),
         *notebooks.generated_outputs(),
+        *generate_snippets.generated_outputs(),
     )
     for target, expected in outputs:
         rel = target.relative_to(REPO_ROOT).as_posix()
@@ -717,6 +743,7 @@ def check_generated(ctx: Context) -> Iterable[Finding]:
 
 CHECKS: dict[str, Callable[[Context], Iterable[Finding]]] = {
     "links": check_links,
+    "references": check_references,
     "images": check_images,
     "internal": check_internal,
     "stubs": check_stubs,

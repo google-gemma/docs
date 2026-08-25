@@ -24,7 +24,7 @@ pip install "transformers>=5.10.1"
 
 ## Load Model
 
-Use the `transformers` libraries to create an instance of a `processor` and `model` using the `AutoProcessor` and `AutoModelForImageTextToText` classes as shown in the following code example:
+Use the [`transformers`](https://huggingface.co/docs/transformers/installation) libraries to create an instance of a `processor` and `model` using the `AutoProcessor` and `AutoModelForImageTextToText` classes as shown in the following code example:
 
 ```python { .notebook-cell .model-swap }
 MODEL_ID = "google/gemma-4-E2B-it"

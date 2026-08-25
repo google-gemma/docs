@@ -127,3 +127,5 @@ instructions:
 - [Gemma prompt and system instructions](../get-started/prompt-formatting.md)
 - [PaliGemma prompt and system instructions](../models/paligemma/prompting.md)
 - [FunctionGemma formatting and best practices](../models/functiongemma/formatting.md)
+
+--8<-- "glossary.md"

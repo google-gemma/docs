@@ -120,3 +120,5 @@ a maximum of 60 seconds assuming the images are processed at one frame per secon
   <p class="card-desc">Detection, OCR, visual question answering and captioning.</p>
 </a>
 </div>
+
+--8<-- "glossary.md"

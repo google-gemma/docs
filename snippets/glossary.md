@@ -1,0 +1,18 @@
+<!-- GENERATED from data/glossary.yml by scripts/generate_snippets.py -- do not edit. -->
+
+*[MTP]: Multi-Token Prediction — a small drafter model proposes several tokens at once and the main model verifies them in one pass
+*[QAT]: Quantization-Aware Training — quantization is simulated during training so the model learns to compensate for it
+*[PTQ]: Post-Training Quantization — compressing a finished model, which loses more quality than QAT at the same bit width
+*[GGUF]: The file format llama.cpp and its ecosystem use for quantized weights
+*[LoRA]: Low-Rank Adaptation — fine-tuning a small set of added weights instead of the whole model
+*[QLoRA]: LoRA applied on top of a quantized base model, so fine-tuning fits on a single consumer GPU
+*[SFT]: Supervised Fine-Tuning — training on prompt and response pairs
+*[DPO]: Direct Preference Optimization — aligning a model from preferred and rejected response pairs
+*[MoE]: Mixture of Experts — only a fraction of the model's parameters are active for any given token
+*[PLE]: Per-Layer Embeddings — embedding tables kept in flash storage rather than in memory
+*[KV cache]: The stored attention keys and values for tokens already processed; it grows with context length
+*[IT]: Instruction-Tuned — trained to follow instructions, so it responds usefully without further training
+*[PT]: Pre-Trained — the base model, before any instruction tuning
+*[VLM]: Vision-Language Model — one that takes images alongside text
+*[RAG]: Retrieval-Augmented Generation — retrieving relevant documents and putting them in the prompt
+*[TPU]: Tensor Processing Unit — Google's accelerator for machine learning workloads

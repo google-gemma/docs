@@ -26,7 +26,7 @@ pip install "transformers>=5.10.1"
 
 ## Load Model
 
-Use `transformers` library to load the pipeline
+Use [`transformers`](https://huggingface.co/docs/transformers/installation) library to load the pipeline
 
 ```python { .notebook-cell .model-swap }
 MODEL_ID = "google/gemma-4-E2B-it"
@@ -331,16 +331,16 @@ output = vqa_pipe(messages, return_full_text=False, generate_kwargs=gen_kwargs)
 print(output[0]['generated_text'])
 
 draw_results(output[0]['generated_text'])
-```
+``` 
 
-````
+```{ .no-copy .output }
 ```json
 [
   {"box_2d": [243, 252, 956, 415], "label": "person"},
   {"box_2d": [356, 606, 654, 802], "label": "cat"}
 ]
 ```<turn|>
-````
+```
 
 ![png](../../assets/capabilities/output_b041486b_1.png)
 
@@ -420,14 +420,14 @@ print(output[0]['generated_text'])
 draw_results(output[0]['generated_text'])
 ```
 
-````
+```{ .no-copy .output }
 ```json
 [
   {"box_2d": [454, 871, 533, 923], "label": "person"},
   {"box_2d": [551, 316, 665, 628], "label": "car"}
 ]
 ```<turn|>
-````
+```
 
 ![png](../../assets/capabilities/output_bc2920e6_1.png)
 
@@ -517,7 +517,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-````
+```{ .no-copy .output }
 Budget Size: 70
 # of Image Tokens: 64
 [transformers] You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
@@ -562,7 +562,7 @@ Budget Size: 560
   {"box_2d": [404, 867, 520, 925], "label": "person"}
 ]
 ```<turn|>
-````
+```
 
 ![png](../../assets/capabilities/output_76f17518_3.png)
 

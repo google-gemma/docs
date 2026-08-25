@@ -84,6 +84,11 @@ nav = [
       { "Overview" = "models/gemma-4/index.md" },
       { "Model card" = "models/gemma-4/model-card.md" },
     ]},
+    { "Previous generations" = [
+      { "Gemma 3" = "models/gemma-3/index.md" },
+      { "Gemma 2" = "models/gemma-2/index.md" },
+      { "Gemma" = "models/gemma-1/index.md" },
+    ]},
     { "Variants" = [
       { "Gemma 3n" = [
         { "Overview" = "models/gemma-3n/index.md" },
@@ -122,11 +127,6 @@ nav = [
         { "ShieldGemma model card" = "models/shieldgemma/model-card-v1.md" },
         { "ShieldGemma 2 model card" = "models/shieldgemma/model-card-v2.md" },
       ]},
-    ]},
-    { "Previous generations" = [
-      { "Gemma 3" = "models/gemma-3/index.md" },
-      { "Gemma 2" = "models/gemma-2/index.md" },
-      { "Gemma" = "models/gemma-1/index.md" },
     ]},
     { "Research" = [
       { "RecurrentGemma" = [
@@ -306,6 +306,15 @@ pygments_lang_class = true
 [project.markdown_extensions.pymdownx.keys]
 [project.markdown_extensions.pymdownx.magiclink]
 [project.markdown_extensions.pymdownx.mark]
+# Shared reference-link and glossary definitions, generated into snippets/ from
+# data/links.yml and data/glossary.yml. links.md is appended to every page because a reference
+# definition renders as nothing; glossary.md is opt-in per page, since `abbr` marks up every
+# occurrence of a term and a global glossary would be noise.
+[project.markdown_extensions.pymdownx.snippets]
+base_path = ["snippets"]
+auto_append = ["links.md"]
+check_paths = true
+
 [project.markdown_extensions.pymdownx.smartsymbols]
 [project.markdown_extensions.pymdownx.superfences]
 custom_fences = [

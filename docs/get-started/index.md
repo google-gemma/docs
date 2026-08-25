@@ -7,12 +7,28 @@ frameworks: [transformers, llamacpp, ollama, mlx, vllm, lmstudio]
 
 # Quickstart
 
-Gemma is Google DeepMind's family of open models and contain open weights you download and run yourself,
-on your own hardware. Gemma 4 is the current generation, taking text, image and audio input.
+<img class="page-mark" src="../assets/gemma-mark.png"
+     alt="" width="132" height="132">
 
+Gemma is a family of lightweight, state-of-the-art open models built from the same research and technology used to create the [Gemini](https://deepmind.google/models/gemini/) models. Developed by Google DeepMind and other teams across Google, Gemma is named after the Latin *gemma*, meaning precious stone. The Gemma model weights are supported by developer tools that promote innovation, collaboration, and the responsible use of artificial intelligence (AI). 
+
+The latest in the Gemma family is [Gemma 4](../models/gemma-4/index.md) featuring multimodal (text, image, audio) inputs.
 
 !!! tip "New to Gemma?"
     To learn more about the Gemma family of models, visit the [model family](../models/index.md) page for a tour.
+
+## Choose a model
+
+Gemma 4 ships in five sizes. They share a tokenizer and prompt format, so you can start small
+and move up without rewriting anything.
+
+<!-- Generated from data/models.yml -- edit that file, not this table. -->
+
+| Size | Input ➔ Output | Context | Intended Platform |
+|---|---|---|---|
+{% for size in modeldata.gemma4.sizes -%}
+| **{{ size.name }}** | {{ size.modalities.input | map('capitalize') | join(', ') }} ➔ {{ size.modalities.output | map('capitalize') | join(', ') }} | {{ size.context }} | {{ size.platform }} |
+{% endfor %}
 
 ## Run your first inference
 
@@ -96,21 +112,6 @@ If you want to run Gemma 4 on a different stack, you can choose from the followi
   <li><a class="engine engine--all" href="../deployment/index.md">All ways to run →</a></li>
 </ul>
 
-## Choose a model
-
-Gemma 4 ships in five sizes. They share a tokenizer and prompt format, so you can start small
-and move up without rewriting anything.
-
-<!-- Generated from data/models.yml -- edit that file, not this table. -->
-
-| Size | Input ➔ Output | Context | Intended Platform |
-|---|---|---|---|
-{% for size in modeldata.gemma4.sizes -%}
-| **{{ size.name }}** | {{ size.modalities.input | map('capitalize') | join(', ') }} ➔ {{ size.modalities.output | map('capitalize') | join(', ') }} | {{ size.context }} | {{ size.platform }} |
-{% endfor %}
-
-Audio input is native to **E2B, E4B and 12B**. The **26B A4B** and **31B** models accept video
-as individual frames as images but do not process audio.
 
 ## Get the weights
 
@@ -119,9 +120,9 @@ which hold up far better at 4-bit than a generic post-training quant.
 
 | Where | What's there |
 |---|---|
-| [Hugging Face](https://huggingface.co/collections/google/gemma-4){ data-model="gemma-4" } | Safetensors, GGUF and QAT collections |
-| [Kaggle](https://www.kaggle.com/models/google/gemma-4){ data-model="gemma-4" } | The same checkpoints, mirrored |
-| [Ollama](https://ollama.com/library/gemma4){ data-model="gemma-4" } | Prebuilt tags, pulled on first run |
+| [Hugging Face][hf-gemma4] | Safetensors, GGUF and QAT collections |
+| [Kaggle][kaggle-gemma4] | The same checkpoints, mirrored |
+| [Ollama][ollama-gemma4] | Prebuilt tags, pulled on first run |
 
 Checkpoint names follow `google/gemma-4-{SIZE}-it{SUFFIX}` — pick the suffix your engine wants:
 
@@ -151,3 +152,5 @@ Checkpoint names follow `google/gemma-4-{SIZE}-it{SUFFIX}` — pick the suffix y
   <p class="card-desc">Every generation and variant, and which base model each one came from.</p>
 </a>
 </div>
+
+--8<-- "glossary.md"

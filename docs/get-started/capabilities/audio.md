@@ -1,7 +1,7 @@
 ---
 title: Audio understanding
 description: Starting with Gemma 3n, you can use audio directly into your prompts and workflows.
-models: [gemma-4, gemma-3n]
+models: [gemma-4]
 requires: audio
 frameworks: [transformers]
 colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/audio.ipynb
@@ -29,7 +29,7 @@ pip install "transformers>=5.10.1"
 
 ## Load Model
 
-Use the `transformers` libraries to create an instance of a `processor` and `model` using the `AutoProcessor` and `AutoModelForImageTextToText` classes as shown in the following code example:
+Use the [`transformers`](https://huggingface.co/docs/transformers/installation) library to create an instance of a `processor` and `model` using the `AutoProcessor` and `AutoModelForImageTextToText` classes as shown in the following code example:
 
 ```python { .notebook-cell .model-swap }
 MODEL_ID = "google/gemma-4-E2B-it"

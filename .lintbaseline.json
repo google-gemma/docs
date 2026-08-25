@@ -2,6 +2,7 @@
   "_comment": "Known violations at baseline time. Shrink to zero; never grow. Regenerate with: uv run python scripts/lint_docs.py --write-baseline",
   "checks": [
     "links",
+    "references",
     "images",
     "internal",
     "stubs",

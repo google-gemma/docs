@@ -9,7 +9,7 @@ colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs
 
 Gemma is a family of lightweight, state-of-the-art open models built from the same research and technology used to create the [Gemini](https://deepmind.google/technologies/gemini/#introduction) models. Gemma 4 is designed to be the world's most efficient open-weight model family.
 
-This document provides a guide to performing basic text inference with Gemma 4 using the Hugging Face `transformers` library. It covers environment setup, model loading, and various text generation scenarios including single-turn prompts, structured multi-turn conversations, and applying system instructions.
+This document provides a guide to performing basic text inference with Gemma 4 using the Hugging Face [`transformers`](https://huggingface.co/docs/transformers/installation) library. It covers environment setup, model loading, and various text generation scenarios including single-turn prompts, structured multi-turn conversations, and applying system instructions.
 
 ## Install Python packages
 
@@ -23,7 +23,7 @@ pip install torch accelerate
 pip install "transformers>=5.10.1"
 ```
 
-[Dialog](https://github.com/google-deepmind/dialog) is a library to manipulate and display conversations.
+[`Dialog`](https://github.com/google-deepmind/dialog) is a library to manipulate and display conversations.
 
 ```bash { .notebook-cell }
 pip install dialog
@@ -31,7 +31,7 @@ pip install dialog
 
 ## Load Model
 
-Use `transformers` library to load the pipeline
+Use [`transformers`](https://huggingface.co/docs/transformers/installation) library to load the pipeline
 
 ```python { .notebook-cell .model-swap }
 MODEL_ID = "google/gemma-4-E2B-it"

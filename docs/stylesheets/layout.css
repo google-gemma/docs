@@ -168,3 +168,26 @@ html {
 .md-typeset a:hover {
   text-decoration: underline;
 }
+
+/* -------------------------------------------------------------------
+   Page mark
+   A product image floated beside a page's opening prose. Floated rather
+   than placed in a grid so the text wraps around it and the page needs
+   no wrapper element; drops below the prose on narrow screens.
+   ------------------------------------------------------------------- */
+.md-typeset .page-mark {
+  float: right;
+  width: 8.25rem;
+  max-width: 33%;
+  height: auto;
+  margin: 0 0 var(--gemma-space-4) var(--gemma-space-5);
+}
+
+@media screen and (max-width: 37.5em) {
+  .md-typeset .page-mark {
+    float: none;
+    display: block;
+    max-width: 6rem;
+    margin: 0 0 var(--gemma-space-4);
+  }
+}

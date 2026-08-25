@@ -62,6 +62,10 @@ CARD_GRID = re.compile(
     r"(?:^#{1,6}[^\n]*\n+)?^<div class=\"card-grid\">.*?^</div>[ \t]*$\n?",
     re.DOTALL | re.MULTILINE,
 )
+# `--8<-- "glossary.md"` is a snippets include and `*[TERM]: ...` an abbreviation definition.
+# Neither is standard Markdown, so Jupyter would show both as literal text.
+SNIPPET_INCLUDE = re.compile(r'^-{2,}8<-{2,}[ \t]+"[^"]+"[ \t]*$\n?', re.MULTILINE)
+ABBR_DEF = re.compile(r"^\*\[[^\]]+\]:.*$\n?", re.MULTILINE)
 
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -84,6 +88,8 @@ def notebook_markdown(text: str) -> str:
         return f"> **{match.group('label').title()}:** {quoted}\n"
 
     text = CARD_GRID.sub("", text)
+    text = SNIPPET_INCLUDE.sub("", text)
+    text = ABBR_DEF.sub("", text)
     text = ADMONITION.sub(replace_admonition, text)
     return ATTR_LIST.sub("", text).strip()
 

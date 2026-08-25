@@ -1,0 +1,55 @@
+# Shared outbound links -- the single source of truth for URLs used on more than one page.
+#
+# Consumed by:
+#   - scripts/generate_snippets.py  -> snippets/links.md, auto-appended to every page
+#   - scripts/pinned_links.py       -> the `model:` key below is what it reports
+#   - scripts/lint_docs.py          -> `links` check rejects a reference id that is not here
+#
+# Use one from a page as an ordinary reference link. No URL, no attributes:
+#
+#     Read the [Responsible GenAI Toolkit][responsible-ai] before deploying.
+#
+# Why this exists. `ai.google.dev/responsible` appears on 26 pages; when a URL like that moves,
+# 26 files have to change. Here it is one line. It also means a link's model tag is declared
+# once, next to the URL, rather than repeated at every use site.
+#
+#   id     the reference name pages write in [text][id]. Lowercase, kebab-case.
+#   url    the destination.
+#   model  set only when the URL names a model generation and will go stale when the next one
+#          ships. Must match a family id in data/models.yml. Omit for durable URLs.
+
+links:
+  # --- Policy and terms ------------------------------------------------------------------
+  responsible-ai:
+    url: https://ai.google.dev/responsible
+  gemma-terms:
+    url: https://ai.google.dev/gemma/terms
+  prohibited-use:
+    url: https://ai.google.dev/gemma/prohibited_use_policy
+
+  # --- Weights and collections -----------------------------------------------------------
+  hf-gemma4:
+    url: https://huggingface.co/collections/google/gemma-4
+    model: gemma-4
+  kaggle-gemma4:
+    url: https://www.kaggle.com/models/google/gemma-4
+    model: gemma-4
+  ollama-gemma4:
+    url: https://ollama.com/library/gemma4
+    model: gemma-4
+  hf-gemma4-qat-q40:
+    url: https://huggingface.co/collections/google/gemma-4-qat-q4-0
+    model: gemma-4
+  hf-gemma4-qat-mobile:
+    url: https://huggingface.co/collections/google/gemma-4-qat-mobile
+    model: gemma-4
+
+  # --- Ecosystem -------------------------------------------------------------------------
+  gemma-cookbook:
+    url: https://github.com/google-gemma/gemma-cookbook
+  gemma-skills-repo:
+    url: https://github.com/google-gemma/gemma-skills
+  gemma-github:
+    url: https://github.com/google-gemma
+  vertex-use-gemma:
+    url: https://cloud.google.com/vertex-ai/docs/generative-ai/open-models/use-gemma

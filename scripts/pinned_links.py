@@ -8,8 +8,9 @@ and this script is the readout:
     uv run python scripts/pinned_links.py                  # everything, grouped by generation
     uv run python scripts/pinned_links.py --model gemma-4  # just the ones to revisit
 
-Three sources are scanned:
+Four sources are scanned:
 
+  data/links.yml        shared reference links carrying `model: <family-id>`
   data/frameworks.yml   entries carrying `pinned: <family-id>`
   docs/**/*.md          links annotated `[text](url){ data-model="<family-id>" }`
   docs/**/*.md          frontmatter `cards:` entries carrying `model: <family-id>`
@@ -31,6 +32,7 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = REPO_ROOT / "docs"
 FRAMEWORKS = REPO_ROOT / "data" / "frameworks.yml"
+LINKS = REPO_ROOT / "data" / "links.yml"
 MODELS = REPO_ROOT / "data" / "models.yml"
 
 # [label](url){ ... data-model="gemma-4" ... } -- attr_list, so it survives into the HTML as a
@@ -94,6 +96,16 @@ def from_frontmatter() -> list[tuple[str, str, str, str]]:
     return rows
 
 
+def from_shared_links() -> list[tuple[str, str, str, str]]:
+    """A shared link declares its generation once, beside the URL, not at each use site."""
+    data = yaml.safe_load(LINKS.read_text(encoding="utf-8"))
+    rows = []
+    for name, entry in (data.get("links") or {}).items():
+        if entry.get("model"):
+            rows.append((str(entry["model"]), "data/links.yml", f"[{name}]", str(entry["url"])))
+    return rows
+
+
 def from_markdown() -> list[tuple[str, str, str, str]]:
     rows = []
     for path in sorted(DOCS_DIR.rglob("*.md")):
@@ -111,7 +123,8 @@ def main() -> int:
     parser.add_argument("--model", help="only show links pinned to this family id, e.g. gemma-4")
     args = parser.parse_args()
 
-    rows = from_frameworks() + from_markdown() + from_frontmatter() + from_html()
+    rows = (from_frameworks() + from_shared_links() + from_markdown()
+            + from_frontmatter() + from_html())
     families = known_families()
 
     unknown = sorted({model for model, *_ in rows if model not in families})

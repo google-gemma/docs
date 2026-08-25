@@ -96,6 +96,17 @@ for the full technical detail.
 Still supported, and still the right choice when a smaller or text-only model is enough.
 
 <!-- Generated from data/models.yml -- edit that file, not these tables. -->
+{% set n3 = modeldata.families | selectattr('id', 'equalto', 'gemma-3n') | list | first %}
+### {{ n3.name }}
+
+The on-device member of the Gemma 3 generation.
+
+| Size | Input ➔ Output | Intended Platform |
+|---|---|---|
+{% for size in n3.sizes -%}
+| **{{ size.name }}** | {{ size.input | capitalize }} ➔ Text | {{ size.platform }} |
+{% endfor %}
+
 {% set generations = modeldata.families | selectattr('generation', 'defined')
                                         | sort(attribute='generation', reverse=true) %}
 {% for gen in generations if gen.generation != 4 %}
@@ -110,16 +121,7 @@ Still supported, and still the right choice when a smaller or text-only model is
 {% endfor %}
 {% endif %}
 {% endfor %}
-{% set n3 = modeldata.families | selectattr('id', 'equalto', 'gemma-3n') | list | first %}
-### {{ n3.name }}
 
-The on-device member of the Gemma 3 generation.
-
-| Size | Input ➔ Output | Intended Platform |
-|---|---|---|
-{% for size in n3.sizes -%}
-| **{{ size.name }}** | {{ size.input | capitalize }} ➔ Text | {{ size.platform }} |
-{% endfor %}
 
 ## Choosing between them
 
@@ -133,3 +135,5 @@ The on-device member of the Gemma 3 generation.
   are built for it.
 
 For the full dated history of every release, see [Releases](releases.md).
+
+--8<-- "glossary.md"

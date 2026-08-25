@@ -25,6 +25,9 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [Gemma Model Family](https://gemma.ai/models.md): What Gemma is, how the generations relate, and which variant was built from which base model.
 - [Gemma 4](https://gemma.ai/models/gemma-4.md): Gemma is a family of generative artificial intelligence models and you can use them in a wide variety of generation tasks, including question answering, summarization, and reasoning.
 - [Gemma 4 — Model card](https://gemma.ai/models/gemma-4/model-card.md): Gemma is a family of open models built by Google DeepMind.
+- [Gemma 3 model card](https://gemma.ai/models/gemma-3.md): Model card for the multimodal Gemma 3 models: 128K context, 140+ languages, inputs and outputs, training data, and evaluation.
+- [Gemma 2 model card](https://gemma.ai/models/gemma-2.md): Model card for Gemma 2 text-to-text models: description, inputs and outputs, training data, and evaluation.
+- [Gemma model card](https://gemma.ai/models/gemma-1.md): Model card for the first-generation Gemma text-to-text models: description, inputs and outputs, training data, and evaluation.
 - [Gemma 3n model overview](https://gemma.ai/models/gemma-3n.md): Gemma 3n is a generative AI model optimized for use in everyday devices, such as phones, laptops, and tablets.
 - [Gemma 3n model card](https://gemma.ai/models/gemma-3n/model-card.md): Model card for Gemma 3n: on-device inputs and outputs, training data, evaluation results, and intended use.
 - [DiffusionGemma model overview](https://gemma.ai/models/diffusiongemma.md): DiffusionGemma is an experimental open model that explores text diffusion, an exceptionally fast approach to text generation.
@@ -50,9 +53,6 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [ShieldGemma](https://gemma.ai/models/shieldgemma.md): ShieldGemma is a set of instruction tuned models for evaluating the safety of text and images against a set of defined safety policies.
 - [ShieldGemma model card](https://gemma.ai/models/shieldgemma/model-card-v1.md): Model card for ShieldGemma: safety-classification inputs and outputs, training data, evaluation results, and intended use.
 - [ShieldGemma 2 model card](https://gemma.ai/models/shieldgemma/model-card-v2.md): ShieldGemma 2 is a model trained on Gemma 3's 4B IT checkpoint for image safety classification across key categories that takes in images and outputs safety labels per policy.
-- [Gemma 3 model card](https://gemma.ai/models/gemma-3.md): Model card for the multimodal Gemma 3 models: 128K context, 140+ languages, inputs and outputs, training data, and evaluation.
-- [Gemma 2 model card](https://gemma.ai/models/gemma-2.md): Model card for Gemma 2 text-to-text models: description, inputs and outputs, training data, and evaluation.
-- [Gemma model card](https://gemma.ai/models/gemma-1.md): Model card for the first-generation Gemma text-to-text models: description, inputs and outputs, training data, and evaluation.
 - [RecurrentGemma](https://gemma.ai/models/recurrentgemma.md): RecurrentGemma is an open model based on Griffin, a hybrid model architecture that mixes gated linear recurrences with local sliding window attention.
 - [RecurrentGemma model card](https://gemma.ai/models/recurrentgemma/model-card.md): RecurrentGemma is a family of open language models built on a novel recurrent architecture developed at Google.
 - [Inference with RecurrentGemma using JAX and Flax](https://gemma.ai/models/recurrentgemma/inference.md): Run sampling and inference with RecurrentGemma 2B Instruct using Google DeepMind's recurrentgemma library and JAX.

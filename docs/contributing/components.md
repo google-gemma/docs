@@ -62,6 +62,51 @@ Use the semantic roles in components, not the ramp directly:
 
 Scales: `--gemma-space-1…7`, `--gemma-radius-sm|md|lg|pill`, `--gemma-shadow-sm|md|lg`.
 
+## Shared links
+
+A URL used on more than one page goes in `data/links.yml`, never inline. `ai.google.dev/responsible`
+appears on 26 pages; when a URL like that moves, this is the one line that changes.
+
+```yaml
+hf-gemma4:
+  url: https://huggingface.co/collections/google/gemma-4
+  model: gemma-4        # only when the URL names a generation
+```
+
+Pages use it as an ordinary reference link — no URL, no attributes:
+
+```markdown
+Every checkpoint is in the [Hugging Face collection][hf-gemma4].
+```
+
+`scripts/generate_snippets.py` renders the definitions into `snippets/links.md`, which
+`pymdownx.snippets` appends to every page. A definition renders as nothing, so appending it
+everywhere is free.
+
+The `model:` key is what `pinned_links.py` reports, so a link's generation is declared **once**,
+beside the URL, instead of repeated at every use site.
+
+!!! warning "An unresolved reference fails silently"
+    `[text][typo]` renders as literal text — brackets and all — rather than erroring. The
+    `references` lint check catches it: every reference must resolve, either from
+    `data/links.yml` or from a definition on the page itself.
+
+## Glossary
+
+Terms go in `data/glossary.yml` and render as abbreviations with a hover definition. The theme
+gives them `cursor: help` and a dotted grey underline, so a term reads as a term and not as a
+link — a link is blue with a pointer cursor.
+
+Unlike shared links, the glossary is **opt-in per page**:
+
+```markdown
+--8<-- "glossary.md"
+```
+
+Python-Markdown marks up *every* occurrence of a term, so a global glossary would put eleven
+dotted underlines on the MTP page and forty-one on GGUF across the site. Include it where the
+acronyms are used but not explained; leave it off the page that is itself the explanation.
+
 ## Icons
 
 Five icon sets ship with Zensical: **lucide** (line icons, the default here), **material**,

@@ -49,8 +49,8 @@ no 26B A4B `-qat-w4a16-ct` checkpoint is published — see Availability below.
 | `-mobile-transformers`, `-mobile-ct` | E2B, E4B |
 
 Collections:
-[gemma-4-qat-q4-0](https://huggingface.co/collections/google/gemma-4-qat-q4-0){ data-model="gemma-4" } ·
-[gemma-4-qat-mobile](https://huggingface.co/collections/google/gemma-4-qat-mobile){ data-model="gemma-4" }.
+[gemma-4-qat-q4-0][hf-gemma4-qat-q40] ·
+[gemma-4-qat-mobile][hf-gemma4-qat-mobile].
 All QAT checkpoints are also on
 [Kaggle](https://www.kaggle.com/models/google/gemma-4/transformers){ data-model="gemma-4" }.
 
