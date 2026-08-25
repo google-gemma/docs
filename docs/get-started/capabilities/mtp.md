@@ -3,6 +3,8 @@ title: Speed-up Gemma 4 with Multi-Token Prediction
 description: In Gemma 4, Multi-Token Prediction (MTP) is the specific architecture used to enable highly efficient Speculative Decoding.
 models: [gemma-4]
 source_url: "https://ai.google.dev/gemma/docs/mtp/overview.md.txt"
+frameworks: [transformers]
+colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/mtp.ipynb
 ---
 # Speed-up Gemma 4 with Multi-Token Prediction
 
@@ -54,10 +56,6 @@ efficiency:
 
 ## Run MTP with Transformers
 
-!!! tip
-    This walkthrough is also available as a runnable
-    [Colab notebook](https://colab.research.google.com/github/google-gemma/cookbook/blob/main/docs/mtp/mtp.ipynb).
-
 After the drafter has predicted multiple draft tokens, the target model now only has to verify
 those suggested draft tokens. The verification is done in parallel thereby drastically speeding
 up inference. It reduces the number of forward passes the target model has to do for each token.
@@ -70,7 +68,7 @@ Multi-Token Prediction (MTP) head.
 
 Install the Hugging Face libraries required for running the Gemma 4 and Gemma 4 assistant model.
 
-```bash
+```bash { .notebook-cell }
 # Install PyTorch & other libraries
 pip install torch accelerate
 
@@ -92,7 +90,7 @@ model in choosing which tokens to predict.
 Use the `transformers` libraries to create an instance of a `processor` and `model` using the
 `AutoProcessor` and `AutoModelForCausalLM` classes as shown in the following code example:
 
-```python
+```python { .notebook-cell }
 TARGET_MODEL_ID = "google/gemma-4-E2B-it" # @param ["google/gemma-4-E2B-it", "google/gemma-4-E4B-it", "google/gemma-4-12B-it", "google/gemma-4-31B-it", "google/gemma-4-26B-A4B-it"]
 ASSISTANT_MODEL_ID = TARGET_MODEL_ID + "-assistant"
 
@@ -120,7 +118,7 @@ assistant_model = AutoModelForCausalLM.from_pretrained(
 Using an assistant in `transformers` is fortunately quite straightforward and requires you to
 pass the assistant model to the `model.generate` function:
 
-```python
+```python { .notebook-cell }
 # Process inputs with the `target_model`
 messages = [
     {
@@ -189,7 +187,7 @@ automatically adapt the number of drafted tokens at runtime:
 Likewise, you can update number of draft tokens by updating `num_assistant_tokens` in the
 drafter like so:
 
-```python
+```python { .notebook-cell }
 # Update how many draft tokens are generated at the start of inference
 assistant_model.generation_config.num_assistant_tokens = 4
 

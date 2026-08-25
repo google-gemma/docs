@@ -30,6 +30,8 @@ NOTEBOOKS = {
         REPO_ROOT / "docs" / "notebooks" / "video.ipynb",
     REPO_ROOT / "docs" / "get-started" / "capabilities" / "audio.md":
         REPO_ROOT / "docs" / "notebooks" / "audio.ipynb",
+    REPO_ROOT / "docs" / "get-started" / "capabilities" / "mtp.md":
+        REPO_ROOT / "docs" / "notebooks" / "mtp.ipynb",
     REPO_ROOT / "docs" / "tuning" / "qlora.md":
         REPO_ROOT / "docs" / "notebooks" / "qlora.ipynb",
     REPO_ROOT / "docs" / "tuning" / "full-finetune.md":
