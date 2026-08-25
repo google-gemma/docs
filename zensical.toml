@@ -202,9 +202,9 @@ nav = [
   { "Resources" = [
     { "Overview" = "resources/index.md" },
     { "Demos & tools" = [
+      { "Gemma Skills" = "resources/gemma-skills.md" },
       { "Vision token budget" = "resources/vision-token-budget.md" },
     ]},
-    { "Gemma Skills" = "resources/gemma-skills.md" },
     { "Contribute" = [
       { "Components" = "contributing/components.md" },
       { "Conventions" = "contributing/conventions.md" },
