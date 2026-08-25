@@ -46,6 +46,13 @@ Nothing in this list should ever be edited by hand. Each has a generator, and
 | `snippets/links.md`, `snippets/glossary.md` | `generate_snippets.py` | `links.yml`, `glossary.yml` |
 | `docs/llms.txt` and the raw `.md` routes | `agent_docs.py` | Page frontmatter and the nav |
 | `docs/notebooks/*.ipynb` | `notebooks.py` | The ten registered tutorial pages |
+| `overrides/.icons/**.svg` | `vendor_icons.py` | The icons pages actually reference |
+
+Icons are the one entry checked by `--check icons` rather than `--check generated`, because
+they are copied out of Zensical rather than rendered from our own data. They have to be
+committed: the lint workflow installs only PyYAML and Jinja2, so an icon that exists solely
+inside the Zensical package is missing there and takes the whole test suite down with it.
+Referencing a new icon works immediately while authoring, then fails lint until it is vendored.
 
 ## Imported pages are frozen
 

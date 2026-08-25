@@ -98,8 +98,8 @@ Follow the Markdown links below to read canonical page content without cloning t
 
 ## Resources
 - [Resources](https://gemma.ai/resources.md): Demos, tools, community projects and the external repositories and collections worth knowing about.
-- [Vision token budget](https://gemma.ai/resources/vision-token-budget.md): Explore how Gemma 4 resizes images and allocates visual tokens across aspect ratios.
 - [Gemma Skills](https://gemma.ai/resources/gemma-skills.md): Agent skills that teach a coding agent how to build with Gemma and how to fine-tune it.
+- [Vision token budget](https://gemma.ai/resources/vision-token-budget.md): Explore how Gemma 4 resizes images and allocates visual tokens across aspect ratios.
 - [Components](https://gemma.ai/contributing/components.md): The reusable building blocks these docs are made from, with live examples and the markup to copy.
 - [Conventions](https://gemma.ai/contributing/conventions.md): How this documentation stays consistent — where facts live, what is generated, and what the linter enforces.
 

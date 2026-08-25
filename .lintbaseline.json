@@ -3,6 +3,7 @@
   "checks": [
     "links",
     "references",
+    "icons",
     "images",
     "internal",
     "stubs",

@@ -332,6 +332,22 @@ def check_references(ctx: Context) -> Iterable[Finding]:
                     )
 
 
+def check_icons(ctx: Context) -> Iterable[Finding]:
+    """Every icon a page asks for must be vendored under overrides/.icons/.
+
+    `icon()` falls back to the installed Zensical package, so an un-vendored icon still renders
+    while authoring -- and then fails in CI, where only PyYAML and Jinja2 are installed. This
+    check is what turns that into an obvious message instead of a stack trace.
+    """
+    import vendor_icons
+
+    for name in sorted(vendor_icons.missing()):
+        yield Finding(
+            "icons", "overrides/.icons", 0,
+            f"'{name}' is referenced but not vendored -- run scripts/vendor_icons.py",
+        )
+
+
 def check_images(ctx: Context) -> Iterable[Finding]:
     """Images must be vendored into docs/assets/, not hotlinked.
 
@@ -744,6 +760,7 @@ def check_generated(ctx: Context) -> Iterable[Finding]:
 CHECKS: dict[str, Callable[[Context], Iterable[Finding]]] = {
     "links": check_links,
     "references": check_references,
+    "icons": check_icons,
     "images": check_images,
     "internal": check_internal,
     "stubs": check_stubs,
@@ -761,6 +778,7 @@ CHECKS: dict[str, Callable[[Context], Iterable[Finding]]] = {
 CHECK_HELP = {
     "links": "links back to ai.google.dev/gemma/docs",
     "references": "reference links that resolve to nothing",
+    "icons": "icons referenced by a page but not vendored",
     "images": "hotlinked, inlined, or missing images",
     "internal": "relative links or fragments that don't resolve",
     "stubs": "placeholder pages and leftover example.com",

@@ -24,6 +24,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent
 
 # Icon names are used to build a file path, so keep them to a strict shape.
+VENDOR_ICONS = REPO_ROOT / "overrides" / ".icons"
 ICON_NAME = re.compile(r"^[a-z0-9]+(?:/[a-z0-9-]+)+$")
 
 # Sized by CSS, not by the file: the shipped sets disagree about their intrinsic dimensions.
@@ -37,7 +38,7 @@ SVG_CLASS = re.compile(r'(<svg\b[^>]*?)\sclass="([^"]*)"')
 @lru_cache(maxsize=1)
 def _icon_roots() -> tuple[Path, ...]:
     """Where to look for icons: the project's own overrides first, then Zensical's sets."""
-    roots = [REPO_ROOT / "overrides" / ".icons"]
+    roots = [VENDOR_ICONS]
     spec = importlib.util.find_spec("zensical")
     if spec and spec.origin:
         roots.append(Path(spec.origin).parent / "templates" / ".icons")
@@ -59,8 +60,19 @@ def _load_icon(name: str, css_class: str) -> str:
                 svg = SVG_OPEN.sub(f'<svg class="{css_class}"', svg, count=1)
             return SVG_OPEN.sub('<svg aria-hidden="true"', svg, count=1)
 
+    if not _icon_roots():
+        # No roots at all means Zensical isn't installed and nothing is vendored -- the lint
+        # workflow's environment. Name the fix rather than reporting an empty set list.
+        raise ValueError(
+            f"icon({name!r}): no icon sets available. Zensical is not installed and "
+            f"{VENDOR_ICONS.relative_to(REPO_ROOT).as_posix()}/ is empty -- "
+            "run `uv run python scripts/vendor_icons.py` and commit the result."
+        )
     sets = ", ".join(sorted(p.name for root in _icon_roots() for p in root.iterdir() if p.is_dir()))
-    raise ValueError(f"icon({name!r}): not found. Available sets: {sets}")
+    raise ValueError(
+        f"icon({name!r}): not found in {sets}. If it exists in Zensical, "
+        "run `uv run python scripts/vendor_icons.py` to vendor it."
+    )
 
 
 def icon(name: str, css_class: str = "gemma-icon") -> str:
