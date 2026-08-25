@@ -12,9 +12,25 @@ with what hardware you and your users have available to run the model.
 This overview helps you navigate these decisions and start working with Gemma
 models. The general steps for running a Gemma model are as follows:
 
-- [Choose a framework](index.md#choose-a-framework)
-- [Select a Gemma variant](index.md#select-a-gemma-variant)
-- [Run generation and inference requests](index.md#run-generation-and-inference-requests)
+<ol class="steps" markdown>
+<li markdown>
+**[Choose a framework](index.md#choose-a-framework)**
+
+Pick the runtime that matches your hardware — a hosted endpoint, a desktop app, a Python
+library or an inference server.
+</li>
+<li markdown>
+**[Select a Gemma variant](index.md#select-a-gemma-variant)**
+
+Decide on a family, a size and a quantization level. Start with the smallest
+instruction-tuned core model that could work.
+</li>
+<li markdown>
+**[Run generation and inference requests](index.md#run-generation-and-inference-requests)**
+
+Follow your framework's guide, and format prompts the way the variant expects.
+</li>
+</ol>
 
 ## Choose a framework
 

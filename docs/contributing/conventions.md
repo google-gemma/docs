@@ -19,7 +19,7 @@ Four YAML files under `data/` own everything that would otherwise be repeated ac
 | File | Owns | Read by |
 |---|---|---|
 | `models.yml` | Every family, its sizes, lineage, context windows, memory, and per-engine checkpoint ids | Model tables, the family tree, the model selector, frontmatter validation |
-| `frameworks.yml` | Every engine: display name, home page, our page, blurb, logo | The engine grids, the page context strip, frontmatter validation |
+| `frameworks.yml` | Every engine: display name, home page, our page, blurb, logo — plus `tuning_paths`, the routes shown on the fine-tuning overview | The engine grids on Run and Fine-tune, the page context strip, frontmatter validation |
 | `links.yml` | Any URL used on more than one page | Reference links on every page, the pinned-link sweep |
 | `glossary.yml` | Acronym definitions | Abbreviation tooltips on pages that opt in |
 

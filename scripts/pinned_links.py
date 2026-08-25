@@ -11,7 +11,7 @@ and this script is the readout:
 Four sources are scanned:
 
   data/links.yml        shared reference links carrying `model: <family-id>`
-  data/frameworks.yml   entries carrying `pinned: <family-id>`
+  data/frameworks.yml   frameworks and tuning paths carrying `pinned: <family-id>`
   docs/**/*.md          links annotated `[text](url){ data-model="<family-id>" }`
   docs/**/*.md          frontmatter `cards:` entries carrying `model: <family-id>`
   docs/**/*.md          HTML anchors carrying a `data-model` attribute (card grids)
@@ -49,13 +49,19 @@ def known_families() -> set[str]:
 
 
 def from_frameworks() -> list[tuple[str, str, str, str]]:
+    """Both lists in frameworks.yml: the frameworks themselves and the tuning paths.
+
+    A tuning path names itself with `label` rather than `name`, and several point at archived
+    cookbook notebooks whose URLs embed the generation they were written for.
+    """
     data = yaml.safe_load(FRAMEWORKS.read_text(encoding="utf-8"))
     rows = []
-    for entry in data.get("frameworks", []):
-        if "pinned" in entry:
-            rows.append(
-                (str(entry["pinned"]), "data/frameworks.yml", str(entry["name"]), str(entry["url"]))
-            )
+    for key, title in (("frameworks", "name"), ("tuning_paths", "label")):
+        for entry in data.get(key, []):
+            if "pinned" in entry:
+                rows.append(
+                    (str(entry["pinned"]), "data/frameworks.yml", str(entry[title]), str(entry["url"]))
+                )
     return rows
 
 
@@ -69,7 +75,11 @@ def from_html() -> list[tuple[str, str, str, str]]:
                 attrs = tag.group(0)
                 model = re.search(r'data-model="([^"]+)"', attrs)
                 href = re.search(r'href="([^"]+)"', attrs)
-                if model and href:
+                # A grid built by a Jinja macro carries `data-model="{{ path.pinned }}"` in the
+                # source and a real id only after rendering. The declaration in
+                # data/frameworks.yml is what counts for those, so skip the placeholder rather
+                # than reporting it as an unknown family.
+                if model and href and "{{" not in model.group(1):
                     rows.append((model.group(1), f"{rel}:{lineno}", "", href.group(1)))
     return rows
 

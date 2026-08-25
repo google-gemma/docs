@@ -22,6 +22,7 @@ import importlib.util
 import re
 import shutil
 from pathlib import Path
+from typing import Iterator
 
 import yaml
 
@@ -30,17 +31,52 @@ DOCS_DIR = REPO_ROOT / "docs"
 FRAMEWORKS = REPO_ROOT / "data" / "frameworks.yml"
 VENDOR_DIR = REPO_ROOT / "overrides" / ".icons"
 
-# `{{ icon('lucide/rocket') }}` in a page, and the `icon:` key on a framework entry.
-ICON_CALL = re.compile(r"icon\(\s*'([a-z0-9]+/[a-z0-9-]+)'")
+# An `icon(...)` call, captured to the end of the line. The name is not always the first thing
+# inside it -- `icon(card.icon | default('lucide/external-link'))` puts it inside a filter -- so
+# the call span is extracted first and every quoted name inside it taken.
+ICON_CALL = re.compile(r"icon\((.*)")
+ICON_NAME = re.compile(r"['\"]([a-z0-9]+/[a-z0-9-]+)['\"]")
+
+
+def _yaml_icon_values(node) -> Iterator[str]:
+    """Every value of an `icon:` key, at any depth.
+
+    Covers data/frameworks.yml and page frontmatter alike, including the per-card `icon:` on
+    a `cards:` list.
+    """
+    if isinstance(node, dict):
+        for key, value in node.items():
+            if key == "icon" and isinstance(value, str) and "/" in value:
+                yield value
+            else:
+                yield from _yaml_icon_values(value)
+    elif isinstance(node, list):
+        for item in node:
+            yield from _yaml_icon_values(item)
+
+
+def _frontmatter(text: str):
+    if not text.startswith("---"):
+        return None
+    lines = text.splitlines()
+    for index in range(1, len(lines)):
+        if lines[index].strip() == "---":
+            try:
+                return yaml.safe_load("\n".join(lines[1:index]))
+            except yaml.YAMLError:
+                return None
+    return None
 
 
 def referenced_icons() -> set[str]:
     """Every icon name the docs ask for, from pages and from data/frameworks.yml."""
     names: set[str] = set()
     for path in DOCS_DIR.rglob("*.md"):
-        names |= set(ICON_CALL.findall(path.read_text(encoding="utf-8")))
-    data = yaml.safe_load(FRAMEWORKS.read_text(encoding="utf-8"))
-    names |= {e["icon"] for e in data.get("frameworks", []) if e.get("icon")}
+        text = path.read_text(encoding="utf-8")
+        for call in ICON_CALL.findall(text):
+            names |= set(ICON_NAME.findall(call))
+        names |= set(_yaml_icon_values(_frontmatter(text)))
+    names |= set(_yaml_icon_values(yaml.safe_load(FRAMEWORKS.read_text(encoding="utf-8"))))
     return names
 
 

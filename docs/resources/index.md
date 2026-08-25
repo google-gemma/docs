@@ -5,13 +5,16 @@ cards:
   - title: "Gemma Cookbook"
     desc: "Official Jupyter notebooks covering inference, fine-tuning, RAG and function calling."
     url: "https://github.com/google-gemma/gemma-cookbook"
+    icon: lucide/notebook-pen
   - title: "google-gemma on GitHub"
     desc: "The organization behind these docs: every repository, tool and community project."
     url: "https://github.com/google-gemma"
+    icon: simple/github
   - title: "Gemma 4 on Hugging Face"
     desc: "Every Gemma 4 checkpoint, including the QAT and GGUF collections."
     url: "https://huggingface.co/collections/google/gemma-4"
     model: gemma-4
+    icon: simple/huggingface
 ---
 
 # Resources
@@ -39,6 +42,7 @@ the community has built, and the repositories worth bookmarking.
 <div class="card-grid">
 {% for card in cards %}
 <a class="card" href="{{ card.url }}" target="_blank" rel="noopener">
+  <span class="card-icon">{{ icon(card.icon | default('lucide/external-link')) }}</span>
   <div class="card-title">{{ card.title }} <span class="card-ext">↗</span></div>
   <p class="card-desc">{{ card.desc }}</p>
 </a>
@@ -47,7 +51,7 @@ the community has built, and the repositories worth bookmarking.
 
 !!! tip "Adding to this page"
     The **Elsewhere** cards come from the `cards:` list in this page's frontmatter — add a
-    title, description and URL and it appears. Demos and tools get their own page under
+    title, description, URL and `icon` and it appears. Demos and tools get their own page under
     `docs/resources/` and a card in the grid above.
 
 ## Contribute

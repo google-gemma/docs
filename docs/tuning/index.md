@@ -14,35 +14,82 @@ weights, which means you can modify those weights, which then changes the
 behavior of the model. The general steps for fine-tuning a Gemma model are as
 follows:
 
-- [Choose a framework](index.md#choose-a-framework)
-- [Collect data](index.md#collect-data)
-- [Tune and test the model](index.md#tune-and-test-the-model)
-- [Deploy the model](index.md#deploy-the-model)
+<ol class="steps" markdown>
+<li markdown>
+**[Choose a framework](index.md#choose-a-framework)**
+
+Each one is tied to a model format and to how much hardware you have. Pick before you
+prepare data, because the format follows from it.
+</li>
+<li markdown>
+**[Collect data](index.md#collect-data)**
+
+Pairs of input and expected response. Start small — as few as 20 pairs can shift behaviour.
+</li>
+<li markdown>
+**[Tune and test the model](index.md#tune-and-test-the-model)**
+
+Choose between full fine-tuning and a parameter-efficient method such as LoRA, then test
+against success, failure and boundary cases.
+</li>
+<li markdown>
+**[Deploy the model](index.md#deploy-the-model)**
+
+Ship the tuned weights — and for LoRA, the base model alongside its adapter.
+</li>
+</ol>
 
 ## Choose a framework
 
-Gemma models are compatible with a variety of AI tuning frameworks. Each
-framework offers various advantages and is typically constrained to a specific
-model format. Here are guides for tuning Gemma models with various frameworks:
+Gemma models are compatible with a variety of AI tuning frameworks. Each is tied to a
+particular model format and to how much hardware you need, so this is the decision that shapes
+the rest. Make sure your intended deployment format — Keras, Safetensors or GGUF — is
+supported as an output by whichever one you pick.
 
-- [Keras using LoRA](keras-lora.md)
-- [Gemma library for JAX](https://gemma-llm.readthedocs.io/en/latest/colab_finetuning.html)
-- Hugging Face
-    - [Transformers and PEFT](https://huggingface.co/blog/gemma-peft)
-    - [LLamMA Factory](https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_1%5DFinetune_with_LLaMA_Factory.ipynb)
-    - [XTuner](https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_1%5DFinetune_with_XTuner.ipynb)
-- [Google Cloud GKE](https://cloud.google.com/kubernetes-engine/docs/tutorials/finetune-gemma-gpu) (multi-GPU with HF Transformers)
-- [Google Cloud Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/docs/models/open-model-tuning)
-- [Unsloth](https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_2%5DFinetune_with_Unsloth.ipynb){ data-model="gemma-2" }
-- [Axolotl](https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_2%5DFinetune_with_Axolotl.ipynb){ data-model="gemma-2" }
-- [Keras using distributed tuning](distributed.md)
+<!-- Generated from data/frameworks.yml -- edit that file, not these grids. -->
+{% set fwmap = {} %}
+{%- for fw in frameworkdata.frameworks %}{% set _ = fwmap.update({fw.id: fw}) %}{% endfor %}
+{% macro paths(ids) %}
+<ul class="engine-grid engine-grid--detailed">
+{% for id in ids %}{% for path in frameworkdata.tuning_paths if path.id == id %}
+{% set fw = fwmap.get(path.framework) if path.get('framework') else none %}
+{% set page = path.get('page') %}
+  <li><a class="engine" href="{% if page %}../{{ page }}{% else %}{{ path.url }}{% endif %}"
+         {% if not page %}target="_blank" rel="noopener"{% endif %}
+         {%- if path.get('pinned') %} data-model="{{ path.pinned }}"{% endif %}>
+    <span class="engine-mark" aria-hidden="true">
+      {%- if fw and fw.get('icon') %}{{ icon(fw.icon, 'engine-logo') }}{% else %}{{ path.get('mark') or fw.mark }}{% endif -%}
+    </span>
+    <span class="engine-body">
+      <span class="engine-name">{{ path.label }}{% if not page %} ↗{% endif %}</span>
+      <span class="engine-blurb">{{ path.blurb }}</span>
+    </span>
+  </a></li>
+{% endfor %}{% endfor %}
+</ul>
+{% endmacro %}
 
-!!! Note
+### Tune in Python
+
+The libraries you reach for when tuning is part of a training pipeline you control.
+
+{{ paths(["keras-lora", "transformers-peft", "gemma-jax"]) }}
+
+### Start from a notebook
+
+Ready-made cookbook notebooks that run end to end. These were written for earlier Gemma
+generations — the approach carries over, but expect to update model names and dependencies.
+
+{{ paths(["unsloth-notebook", "axolotl", "llama-factory", "xtuner"]) }}
+
+### Tune at scale
+
+For runs that outgrow a single machine, or that you would rather not operate yourself.
+
+{{ paths(["keras-distributed", "gke", "vertex-ai"]) }}
+
+!!! note
     The JAX fine-tuning guide has been replaced by the [Gemma library fine-tuning](https://gemma-llm.readthedocs.io/en/latest/colab_sampling.html) guide.
-
-
-Make sure your intended deployment model format, such as Keras format,
-Safetensors, or GGUF, is supported as an output by your chosen framework.
 
 ## Collect data
 
