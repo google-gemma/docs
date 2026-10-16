@@ -197,23 +197,13 @@ When using `shuffle=False` to your own custom datasets, ensure your source data 
 
 You are now ready to fine-tune your model. Hugging Face TRL [SFTTrainer](https://huggingface.co/docs/trl/sft_trainer) makes it straightforward to supervise fine-tune open LLMs. The `SFTTrainer` is a subclass of the `Trainer` from the `transformers` library and supports all the same features,
 
-The following code loads the FunctionGemma model and tokenizer from Hugging Face.
+The following code loads the FunctionGemma tokenizer from Hugging Face and shows how the chat template formats a training example. The `SFTTrainer` loads the model for you.
 
 ```python { .notebook-cell }
-import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer
 
-# Load model and tokenizer
-model = AutoModelForCausalLM.from_pretrained(
-    base_model,
-    dtype="auto",
-    device_map="auto",
-    attn_implementation="eager"
-)
+# Load the tokenizer
 tokenizer = AutoTokenizer.from_pretrained(base_model)
-
-print(f"Device: {model.device}")
-print(f"DType: {model.dtype}")
 
 # Print formatted user prompt
 print("--- dataset input ---")
@@ -224,8 +214,6 @@ print(debug_msg)
 ```
 
 ``` { .no-copy .output }
-Device: cuda:0
-DType: torch.bfloat16
 --- dataset input ---
 {
   "messages": [
@@ -311,12 +299,10 @@ What is the reimbursement limit for travel meals?<end_of_turn>
 <start_function_call>call:search_knowledge_base{query:<escape>travel meal reimbursement limit policy<escape>}<end_function_call><start_function_response>
 ```
 
-## Before fine-tune
-
-The output below shows that the out-of-the-box capabilities may not be good enough for this use case.
+The following function measures how often a model calls the expected tool on the test set. You will use it before and after training.
 
 ```python { .notebook-cell }
-def check_success_rate():
+def check_success_rate(model):
   success_count = 0
   for idx, item in enumerate(dataset['test']):
     messages = [
@@ -347,8 +333,61 @@ def check_success_rate():
         print(f"  -> ❌ wrong (hallucinated '{other_tool}')")
 
   print(f"Success : {success_count} / {len(dataset['test'])}")
+```
 
-check_success_rate()
+## Training
+
+Before you can start your training, you need to define the hyperparameters you want to use in a `SFTConfig` instance.
+
+```python { .notebook-cell }
+from trl import SFTConfig
+
+args = SFTConfig(
+    output_dir=checkpoint_dir,              # directory to save and repository id
+    max_length=512,                         # max sequence length for model and packing of the dataset
+    packing=False,                          # Groups multiple samples in the dataset into a single sequence
+    num_train_epochs=8,                     # number of training epochs
+    per_device_train_batch_size=4,          # batch size per device during training
+    gradient_checkpointing=False,           # the model is small, so skip gradient checkpointing for speed
+    optim="adamw_torch_fused",              # use fused adamw optimizer
+    logging_steps=1,                        # log every step
+    #save_strategy="epoch",                  # save checkpoint every epoch
+    eval_strategy="epoch",                  # evaluate checkpoint every epoch
+    learning_rate=learning_rate,            # learning rate
+    lr_scheduler_type="constant",            # use constant learning rate scheduler
+    push_to_hub=True,                        # push model to hub
+    report_to="tensorboard",                 # report metrics to tensorboard
+)
+```
+
+You now have every building block you need to create your `SFTTrainer` to start the training of your model.
+
+```python { .notebook-cell }
+from trl import SFTTrainer
+
+# Create Trainer object
+trainer = SFTTrainer(
+    model=base_model,
+    args=args,
+    train_dataset=dataset['train'],
+    eval_dataset=dataset['test'],
+)
+```
+
+``` { .no-copy .output }
+Tokenizing train dataset:   0%|          | 0/20 [00:00<?, ? examples/s]
+Truncating train dataset:   0%|          | 0/20 [00:00<?, ? examples/s]
+Tokenizing eval dataset:   0%|          | 0/20 [00:00<?, ? examples/s]
+Truncating eval dataset:   0%|          | 0/20 [00:00<?, ? examples/s]
+The model is already on multiple devices. Skipping the move to device specified in `args`.
+```
+
+## Before fine-tune
+
+The trainer has loaded the base model. The output below shows that its out-of-the-box capabilities may not be good enough for this use case.
+
+```python { .notebook-cell }
+check_success_rate(trainer.model)
 ```
 
 ``` { .no-copy .output }
@@ -415,58 +454,6 @@ check_success_rate()
 Success : 2 / 20
 ```
 
-## Training
-
-Before you can start your training, you need to define the hyperparameters you want to use in a `SFTConfig` instance.
-
-```python { .notebook-cell }
-from trl import SFTConfig
-
-torch_dtype = model.dtype
-
-args = SFTConfig(
-    output_dir=checkpoint_dir,              # directory to save and repository id
-    max_length=512,                         # max sequence length for model and packing of the dataset
-    packing=False,                          # Groups multiple samples in the dataset into a single sequence
-    num_train_epochs=8,                     # number of training epochs
-    per_device_train_batch_size=4,          # batch size per device during training
-    gradient_checkpointing=False,           # Caching is incompatible with gradient checkpointing
-    optim="adamw_torch_fused",              # use fused adamw optimizer
-    logging_steps=1,                        # log every step
-    #save_strategy="epoch",                  # save checkpoint every epoch
-    eval_strategy="epoch",                  # evaluate checkpoint every epoch
-    learning_rate=learning_rate,            # learning rate
-    fp16=True if torch_dtype == torch.float16 else False,   # use float16 precision
-    bf16=True if torch_dtype == torch.bfloat16 else False,  # use bfloat16 precision
-    lr_scheduler_type="constant",            # use constant learning rate scheduler
-    push_to_hub=True,                        # push model to hub
-    report_to="tensorboard",                 # report metrics to tensorboard
-)
-```
-
-You now have every building block you need to create your `SFTTrainer` to start the training of your model.
-
-```python { .notebook-cell }
-from trl import SFTTrainer
-
-# Create Trainer object
-trainer = SFTTrainer(
-    model=model,
-    args=args,
-    train_dataset=dataset['train'],
-    eval_dataset=dataset['test'],
-    processing_class=tokenizer,
-)
-```
-
-``` { .no-copy .output }
-Tokenizing train dataset:   0%|          | 0/20 [00:00<?, ? examples/s]
-Truncating train dataset:   0%|          | 0/20 [00:00<?, ? examples/s]
-Tokenizing eval dataset:   0%|          | 0/20 [00:00<?, ? examples/s]
-Truncating eval dataset:   0%|          | 0/20 [00:00<?, ? examples/s]
-The model is already on multiple devices. Skipping the move to device specified in `args`.
-```
-
 Start training by calling the `train()` method.
 
 ```python { .notebook-cell }
@@ -528,7 +515,7 @@ plt.show()
 After the training is done, you'll want to evaluate and test your model. You can load different samples from the test dataset and evaluate the model on those samples.
 
 ```python { .notebook-cell }
-check_success_rate()
+check_success_rate(trainer.model)
 ```
 
 ``` { .no-copy .output }
