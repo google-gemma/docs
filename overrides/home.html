@@ -17,142 +17,639 @@
 {% extends "main.html" %}
 
 {% block container %}
-<div class="gemma-bg">
-  <svg class="gemma-wave-svg" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-    <defs>
-      <linearGradient id="gemmaWaveGrad1" x1="0%" y1="0%" x2="100%" y2="50%">
-        <stop offset="0%" stop-color="var(--gemma-blue)" stop-opacity="0.55" />
-        <stop offset="50%" stop-color="var(--gemma-blue-light)" stop-opacity="0.75" />
-        <stop offset="100%" stop-color="var(--gemma-blue-deep)" stop-opacity="0.15" />
-      </linearGradient>
-      <linearGradient id="gemmaWaveGrad2" x1="100%" y1="100%" x2="0%" y2="0%">
-        <stop offset="0%" stop-color="#64B5F6" stop-opacity="0.5" />
-        <stop offset="50%" stop-color="var(--gemma-blue)" stop-opacity="0.65" />
-        <stop offset="100%" stop-color="#0e244b" stop-opacity="0.2" />
-      </linearGradient>
-      <linearGradient id="gemmaCoreGlow" x1="0%" y1="50%" x2="100%" y2="50%">
-        <stop offset="0%" stop-color="var(--gemma-blue)" stop-opacity="0" />
-        <stop offset="45%" stop-color="var(--gemma-blue-light)" stop-opacity="0.45" />
-        <stop offset="55%" stop-color="#64B5F6" stop-opacity="0.6" />
-        <stop offset="100%" stop-color="var(--gemma-blue-deep)" stop-opacity="0" />
-      </linearGradient>
-      <filter id="waveBlurLow" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="6" />
-      </filter>
-      <filter id="waveBlurHigh" x="-30%" y="-30%" width="160%" height="160%">
-        <feGaussianBlur stdDeviation="24" />
-      </filter>
-      <filter id="coreBloom" x="-50%" y="-50%" width="200%" height="200%">
-        <feGaussianBlur stdDeviation="45" />
-      </filter>
-    </defs>
+<section class="gemma-stage" id="gemma-stage" aria-label="Gemma interactive hero">
+  <canvas class="gemma-hero-canvas" id="gemma-hero-canvas" aria-hidden="true"></canvas>
 
-    <ellipse cx="720" cy="650" rx="660" ry="150" fill="url(#gemmaCoreGlow)" filter="url(#coreBloom)" opacity="0.75" />
-    <ellipse cx="680" cy="670" rx="380" ry="85" fill="#1D53D4" filter="url(#coreBloom)" opacity="0.25" />
+  <div class="gemma-teaser">
+    <h1 class="gemma-title">Gemma</h1>
+    <p class="gemma-tagline">Our most capable open models</p>
 
-    <path d="M-100 690 C 300 500, 520 790, 850 580 C 1120 420, 1350 650, 1580 550 L 1580 950 L -100 950 Z" fill="url(#gemmaWaveGrad1)" filter="url(#waveBlurHigh)" opacity="0.45" />
-    <path d="M-100 660 C 250 460, 480 730, 780 570 C 1080 400, 1320 620, 1580 520 L 1580 950 L -100 950 Z" fill="url(#gemmaWaveGrad2)" filter="url(#waveBlurLow)" opacity="0.55" />
-    <path d="M-100 660 C 250 460, 480 730, 780 570 C 1080 400, 1320 620, 1580 520" stroke="#64B5F6" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.75" filter="url(#waveBlurLow)" />
-    <path d="M-100 660 C 250 460, 480 730, 780 570 C 1080 400, 1320 620, 1580 520" stroke="var(--gemma-white)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.65" />
-    <path d="M-100 720 C 220 640, 490 500, 760 600 C 1030 700, 1280 490, 1580 590" stroke="var(--gemma-blue-light)" stroke-width="2.5" fill="none" opacity="0.6" filter="url(#waveBlurLow)" />
-    <path d="M-100 720 C 220 640, 490 500, 760 600 C 1030 700, 1280 490, 1580 590" stroke="#90CAF9" stroke-width="1" fill="none" opacity="0.5" />
-    <path d="M-50 570 C 350 680, 600 470, 900 640 C 1180 800, 1380 560, 1600 660" stroke="var(--gemma-blue)" stroke-width="2" fill="none" opacity="0.45" filter="url(#waveBlurLow)" />
-  </svg>
-</div>
-
-<div class="gemma-teaser">
-  <div class="gemma-name" aria-label="Gemma model family">
-    <div class="gemma-prefix-slot">
-      <span class="gemma-cycling" id="gemma-prefix"></span>
-    </div>
-    <span class="gemma-static">Gemma</span>
-    <div class="gemma-suffix-slot">
-      <span class="gemma-cycling" id="gemma-suffix"></span>
+    <div class="gemma-hero-search" id="gemma-hero-search">
+      <div class="gemma-hero-search__bar">
+        <svg class="gemma-hero-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+        <div class="gemma-hero-search__field" id="gemma-hero-search-field">
+          <input type="search" class="gemma-hero-search__input" id="gemma-hero-search-input" aria-label="Search Gemma documentation" autocomplete="off" spellcheck="false">
+          <span class="gemma-hero-search__rotator is-visible" id="gemma-hero-search-rotator-a">Run Gemma 4 locally with Ollama…</span>
+          <span class="gemma-hero-search__rotator" id="gemma-hero-search-rotator-b" aria-hidden="true"></span>
+        </div>
+        <button type="button" class="gemma-hero-search__go" id="gemma-hero-search-go" aria-label="Jump to topic">
+          <span>Explore</span>
+          <span aria-hidden="true">↵</span>
+        </button>
+      </div>
+      <div class="gemma-hero-search__results" id="gemma-hero-search-results" role="listbox" aria-label="Search suggestions" hidden></div>
     </div>
   </div>
 
-  <p class="gemma-tagline">Our most capable open models</p>
-
-  <div class="gemma-actions">
-    <a class="gemma-btn" href="get-started/">Get Started</a>
-    <a class="gemma-btn gemma-btn--ghost" href="models/">Model Overview</a>
+  <div class="gemma-actions" role="group" aria-label="Primary actions">
+    <a class="gemma-btn gemma-btn--primary" href="get-started/">
+      <span>Get started</span>
+      <svg class="gemma-btn__icon gemma-btn__icon--slide" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M3.25 8H12.75M12.75 8L8.5 3.75M12.75 8L8.5 12.25" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <a class="gemma-btn gemma-btn--glass" href="https://aistudio.google.com/prompts/new_chat?model=gemma-4-31b-it" target="_blank" rel="noopener">
+      <span>Try in Google AI Studio</span>
+      <svg class="gemma-btn__icon gemma-btn__icon--pop" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.75M11.5 4.5V10.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <a class="gemma-btn gemma-btn--glass" href="models/">
+      <span>Explore models</span>
+    </a>
   </div>
-</div>
+</section>
 
 <script>
   (function () {
-    var variants = [
-      { prefix: '', suffix: '\u00a04' },
-      { prefix: 'Diffusion', suffix: '' },
-      { prefix: '', suffix: '\u00a03n' },
-      { prefix: 'Med', suffix: '' },
-      { prefix: 'Translate', suffix: '' },
-      { prefix: 'Pali', suffix: '' },
-      { prefix: '', suffix: '\u00a03' },
-      { prefix: 'Shield', suffix: '' },
-      { prefix: 'Embedding', suffix: '' },
-      { prefix: 'Dolphin', suffix: '' },
-      { prefix: '', suffix: '\u00a02' },
-      { prefix: 'Function', suffix: '' },
-      { prefix: 'Data', suffix: '' },
-      { prefix: 'Recurrent', suffix: '' },
-    ];
+    function initGemmaHome() {
+      var stage = document.getElementById('gemma-stage');
+      var canvas = document.getElementById('gemma-hero-canvas');
+      if (!stage || !canvas || stage.dataset.gemmaReady === 'true') return;
+      stage.dataset.gemmaReady = 'true';
 
-    var index = 0;
-    var prefixEl = document.getElementById('gemma-prefix');
-    var suffixEl = document.getElementById('gemma-suffix');
+      var ctx = canvas.getContext('2d');
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var width = 0;
+      var height = 0;
+      var dpr = 1;
+      var dots = [];
+      var ripples = [];
 
-    if (!prefixEl || !suffixEl) return;
+      var pointer = {
+        x: -9999,
+        y: -9999,
+        tx: -9999,
+        ty: -9999,
+        vx: 0,
+        vy: 0,
+        active: false,
+        energy: 0
+      };
 
-    prefixEl.textContent = variants[0].prefix;
-    suffixEl.textContent = variants[0].suffix;
-    prefixEl.style.transform = 'translateY(0)';
-    prefixEl.style.opacity = '1';
-    suffixEl.style.transform = 'translateY(0)';
-    suffixEl.style.opacity = '1';
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    var duration = 3000;
-    var animation = 400;
-    var easing = 'cubic-bezier(0.4, 0, 0.2, 1)';
-
-    var intervalId = setInterval(function () {
-      if (!document.body.contains(prefixEl)) {
-        clearInterval(intervalId);
-        return;
+      function addLineDots(x1, y1, x2, y2, count, depth, group, motifIdx) {
+        for (var i = 0; i <= count; i++) {
+          var u = i / count;
+          dots.push({
+            bx: x1 + (x2 - x1) * u,
+            by: y1 + (y2 - y1) * u,
+            ox: 0,
+            oy: 0,
+            vx: 0,
+            vy: 0,
+            u: u,
+            depth: depth,
+            group: group,
+            motif: motifIdx,
+            seed: Math.random() * Math.PI * 2,
+            baseR: 1.25 + (i % 4 === 0 ? 0.45 : 0)
+          });
+        }
       }
 
-      prefixEl.style.transition = 'transform ' + animation + 'ms ' + easing + ', opacity ' + animation + 'ms ease';
-      suffixEl.style.transition = 'transform ' + animation + 'ms ' + easing + ', opacity ' + animation + 'ms ease';
-      prefixEl.style.transform = 'translateY(-120%)';
-      prefixEl.style.opacity = '0';
-      suffixEl.style.transform = 'translateY(-120%)';
-      suffixEl.style.opacity = '0';
+      function buildMotif(mx, my, R, motifIdx, isCenter) {
+        var s = R * Math.SQRT1_2;
+        var circleCount = isCenter ? 136 : 108;
 
-      setTimeout(function () {
-        index = (index + 1) % variants.length;
-        prefixEl.textContent = variants[index].prefix;
-        suffixEl.textContent = variants[index].suffix;
-        prefixEl.style.transition = 'none';
-        suffixEl.style.transition = 'none';
-        prefixEl.style.transform = 'translateY(120%)';
-        prefixEl.style.opacity = '0';
-        suffixEl.style.transform = 'translateY(120%)';
-        suffixEl.style.opacity = '0';
+        for (var i = 0; i < circleCount; i++) {
+          var u = i / circleCount;
+          var ang = u * Math.PI * 2;
+          dots.push({
+            bx: mx + Math.cos(ang) * R,
+            by: my + Math.sin(ang) * R,
+            ox: 0,
+            oy: 0,
+            vx: 0,
+            vy: 0,
+            u: u,
+            depth: isCenter ? 1.0 : 0.65,
+            group: 'circle',
+            motif: motifIdx,
+            seed: u * Math.PI * 6 + motifIdx,
+            baseR: 1.35 + (i % 6 === 0 ? 0.55 : 0)
+          });
+        }
 
-        void prefixEl.offsetHeight;
+        var quadrants = [
+          { qx: 1, qy: -1, start: Math.PI * 0.5 },
+          { qx: 1, qy: 1, start: Math.PI },
+          { qx: -1, qy: 1, start: Math.PI * 1.5 },
+          { qx: -1, qy: -1, start: 0 }
+        ];
+
+        for (var q = 0; q < quadrants.length; q++) {
+          var quad = quadrants[q];
+          var cx = mx + quad.qx * s;
+          var cy = my + quad.qy * s;
+
+          for (var k = 0; k < 3; k++) {
+            var arcDots = isCenter ? (38 - k * 3) : (30 - k * 3);
+            for (var j = 0; j <= arcDots; j++) {
+              if (k > 0 && (j === 0 || j === arcDots)) continue;
+              var t = j / arcDots;
+              var theta = quad.start + t * (Math.PI * 0.5);
+              var pinchOffset = k * (0.044 * R) * Math.sin(t * Math.PI);
+              var rk = s + pinchOffset;
+              dots.push({
+                bx: cx + Math.cos(theta) * rk,
+                by: cy + Math.sin(theta) * rk,
+                ox: 0,
+                oy: 0,
+                vx: 0,
+                vy: 0,
+                u: (q + t) * 0.25,
+                depth: isCenter ? (1.35 - k * 0.12) : 0.85,
+                group: k === 0 ? 'star-primary' : 'star-ribbon',
+                motif: motifIdx,
+                seed: t * Math.PI * 4 + k * 1.3 + q,
+                baseR: k === 0 ? 1.55 : (k === 1 ? 1.3 : 1.12)
+              });
+            }
+          }
+        }
+
+        var ext = 1.06 * R;
+        var lineCount = isCenter ? 52 : 40;
+        addLineDots(mx - s, my - ext, mx - s, my + ext, lineCount, 0.78, 'grid', motifIdx);
+        addLineDots(mx + s, my - ext, mx + s, my + ext, lineCount, 0.78, 'grid', motifIdx);
+        addLineDots(mx - ext, my - s, mx + ext, my - s, lineCount, 0.78, 'grid', motifIdx);
+        addLineDots(mx - ext, my + s, mx + ext, my + s, lineCount, 0.78, 'grid', motifIdx);
+
+        var wing = 1.28 * R;
+        addLineDots(mx - wing, my, mx - s, my, 14, 0.82, 'axis', motifIdx);
+        addLineDots(mx + s, my, mx + wing, my, 14, 0.82, 'axis', motifIdx);
+
+        var diagInner = 0.295 * R * Math.SQRT1_2;
+        addLineDots(mx - s, my - s, mx - diagInner, my - diagInner, 18, 0.9, 'diag', motifIdx);
+        addLineDots(mx + diagInner, my + diagInner, mx + s, my + s, 18, 0.9, 'diag', motifIdx);
+
+        var dustPositions = [
+          [-0.95, -0.82], [0.88, -0.76], [-1.18, 0.56], [1.14, 0.62],
+          [0.64, 0.92], [-0.62, 0.95], [0.22, -1.12], [-0.28, 1.15]
+        ];
+        for (var d = 0; d < dustPositions.length; d++) {
+          dots.push({
+            bx: mx + dustPositions[d][0] * R,
+            by: my + dustPositions[d][1] * R,
+            ox: 0,
+            oy: 0,
+            vx: 0,
+            vy: 0,
+            u: d / dustPositions.length,
+            depth: 1.4,
+            group: 'dust',
+            motif: motifIdx,
+            seed: d * 2.1 + motifIdx,
+            baseR: 1.45
+          });
+        }
+      }
+
+      function rebuildLattice() {
+        dots.length = 0;
+        var cx = width * 0.5;
+        var cy = height * 0.465;
+        var isWideDesktop = width >= 960 && (width / height) >= 1.1;
+        var R = isWideDesktop
+          ? Math.max(130, Math.min(width * 0.175, height * 0.295))
+          : Math.max(140, Math.min(width * 0.33, height * 0.24));
+        var s = R * Math.SQRT1_2;
+
+        buildMotif(cx, cy, R, 0, true);
+
+        if (isWideDesktop) {
+          var dx = Math.max(R * 2.85, width * 0.515);
+          buildMotif(cx - dx, cy, R, 1, false);
+          buildMotif(cx + dx, cy, R, 2, false);
+
+          var dy = Math.max(R * 2.52, height * 0.54);
+          buildMotif(cx, cy - dy, R, 3, false);
+          buildMotif(cx, cy + dy, R, 4, false);
+
+          addLineDots(cx, cy - dy + s, cx, cy - s, 32, 0.85, 'axis', 0);
+          addLineDots(cx, cy + s, cx, cy + dy - s, 32, 0.85, 'axis', 0);
+        } else {
+          var reachY = Math.max(R * 1.9, height * 0.44);
+          addLineDots(cx, cy - reachY, cx, cy - s, 26, 0.82, 'axis', 0);
+          addLineDots(cx, cy + s, cx, cy + reachY, 26, 0.82, 'axis', 0);
+        }
+      }
+
+      function resize() {
+        if (!document.body.contains(stage)) return;
+        var rect = stage.getBoundingClientRect();
+        width = Math.max(1, rect.width);
+        height = Math.max(1, rect.height);
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        rebuildLattice();
+      }
+
+      stage.addEventListener('pointermove', function (e) {
+        var rect = stage.getBoundingClientRect();
+        var nx = e.clientX - rect.left;
+        var ny = e.clientY - rect.top;
+        if (pointer.active) {
+          pointer.vx = (nx - pointer.tx) * 0.45 + pointer.vx * 0.55;
+          pointer.vy = (ny - pointer.ty) * 0.45 + pointer.vy * 0.55;
+        }
+        pointer.tx = nx;
+        pointer.ty = ny;
+        if (!pointer.active) {
+          pointer.x = nx;
+          pointer.y = ny;
+          pointer.active = true;
+        }
+      });
+
+      stage.addEventListener('pointerleave', function () {
+        pointer.active = false;
+      });
+
+      stage.addEventListener('pointerdown', function (e) {
+        if (e.target.closest && e.target.closest('.gemma-actions, .gemma-hero-search')) return;
+        var rect = stage.getBoundingClientRect();
+        ripples.push({
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top,
+          r: 0,
+          maxR: Math.max(width, height) * 0.65,
+          strength: 1.0
+        });
+      });
+
+      var startTime = performance.now();
+
+      function render(now) {
+        if (!document.body.contains(stage)) return;
+        var t = (now - startTime) * 0.001;
+        var isDark = document.body.getAttribute('data-md-color-scheme') === 'slate';
+
+        ctx.clearRect(0, 0, width, height);
+
+        if (pointer.active) {
+          pointer.x += (pointer.tx - pointer.x) * 0.18;
+          pointer.y += (pointer.ty - pointer.y) * 0.18;
+          pointer.energy += (1 - pointer.energy) * 0.12;
+        } else {
+          pointer.energy *= 0.93;
+        }
+        pointer.vx *= 0.88;
+        pointer.vy *= 0.88;
+
+        var parX = pointer.energy > 0.01 ? ((pointer.x - width * 0.5) / width) * 14 * pointer.energy : 0;
+        var parY = pointer.energy > 0.01 ? ((pointer.y - height * 0.5) / height) * 14 * pointer.energy : 0;
+
+        if (pointer.energy > 0.02) {
+          var grad = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 220);
+          if (isDark) {
+            grad.addColorStop(0, 'rgba(76, 154, 255, ' + (0.13 * pointer.energy).toFixed(3) + ')');
+            grad.addColorStop(0.55, 'rgba(11, 87, 208, ' + (0.05 * pointer.energy).toFixed(3) + ')');
+            grad.addColorStop(1, 'rgba(11, 87, 208, 0)');
+          } else {
+            grad.addColorStop(0, 'rgba(26, 115, 232, ' + (0.09 * pointer.energy).toFixed(3) + ')');
+            grad.addColorStop(0.6, 'rgba(26, 115, 232, ' + (0.03 * pointer.energy).toFixed(3) + ')');
+            grad.addColorStop(1, 'rgba(26, 115, 232, 0)');
+          }
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, width, height);
+        }
+
+        for (var rIdx = ripples.length - 1; rIdx >= 0; rIdx--) {
+          var rp = ripples[rIdx];
+          rp.r += 9.5;
+          rp.strength = Math.max(0, 1 - rp.r / rp.maxR);
+          if (rp.strength <= 0.01) {
+            ripples.splice(rIdx, 1);
+          }
+        }
+
+        var cursorRadius = 195;
+        var cursorRadiusSq = cursorRadius * cursorRadius;
+        var activeDots = [];
+        var cx = width * 0.5;
+        var cy = height * 0.455;
+
+        for (var i = 0; i < dots.length; i++) {
+          var d = dots[i];
+          var breathe = reducedMotion ? 0 : Math.sin(t * 1.7 + d.seed) * 1.15;
+          var targetX = d.bx + parX * d.depth + Math.cos(d.seed + t * 0.9) * breathe;
+          var targetY = d.by + parY * d.depth + Math.sin(d.seed + t * 0.9) * breathe;
+
+          var curX = targetX + d.ox;
+          var curY = targetY + d.oy;
+          var proximity = 0;
+
+          if (pointer.energy > 0.01) {
+            var dx = curX - pointer.x;
+            var dy = curY - pointer.y;
+            var distSq = dx * dx + dy * dy;
+            if (distSq < cursorRadiusSq && distSq > 0.001) {
+              var dist = Math.sqrt(distSq);
+              var falloff = 1 - dist / cursorRadius;
+              var smooth = falloff * falloff * pointer.energy;
+              proximity = smooth;
+
+              var nx = dx / dist;
+              var ny = dy / dist;
+              var repel = smooth * 3.1;
+              var swirl = smooth * 0.22;
+
+              d.vx += (nx * repel + pointer.vx * swirl - ny * smooth * 0.65);
+              d.vy += (ny * repel + pointer.vy * swirl + nx * smooth * 0.65);
+            }
+          }
+
+          for (var k = 0; k < ripples.length; k++) {
+            var rip = ripples[k];
+            var rdx = curX - rip.x;
+            var rdy = curY - rip.y;
+            var rDist = Math.sqrt(rdx * rdx + rdy * rdy) || 1;
+            var band = Math.abs(rDist - rip.r);
+            if (band < 52) {
+              var rPush = (1 - band / 52) * rip.strength * 2.6;
+              d.vx += (rdx / rDist) * rPush;
+              d.vy += (rdy / rDist) * rPush;
+              proximity = Math.min(1, proximity + (1 - band / 52) * rip.strength * 0.85);
+            }
+          }
+
+          d.vx += -0.088 * d.ox;
+          d.vx *= 0.84;
+          d.vy += -0.088 * d.oy;
+          d.vy *= 0.84;
+          d.ox += d.vx;
+          d.oy += d.vy;
+
+          var drawX = targetX + d.ox;
+          var drawY = targetY + d.oy;
+
+          var wave = reducedMotion
+            ? 0.75
+            : 0.55 + 0.45 * Math.sin(d.u * Math.PI * 4 - t * 2.2 + d.seed * 0.5);
+
+          var tdx = (drawX - cx) / 215;
+          var tdy = (drawY - cy) / 92;
+          var textMask = Math.min(1, 0.28 + 0.72 * Math.min(1, tdx * tdx + tdy * tdy));
+
+          var alpha = (0.28 + 0.38 * wave) * (d.motif === 0 ? 0.96 : 0.72) * textMask;
+          if (d.group === 'star-primary') alpha = Math.min(1, alpha + 0.14 * textMask);
+          alpha = Math.min(1, alpha + proximity * 0.55);
+
+          var radius = d.baseR * (0.84 + 0.22 * wave) + proximity * 1.55;
+
+          if (proximity > 0.28 && activeDots.length < 36) {
+            activeDots.push({ x: drawX, y: drawY, p: proximity });
+          }
+
+          ctx.beginPath();
+          ctx.arc(drawX, drawY, radius, 0, Math.PI * 2);
+
+          if (isDark) {
+            if (proximity > 0.2) {
+              ctx.fillStyle = 'rgba(168, 212, 255, ' + alpha.toFixed(3) + ')';
+            } else {
+              ctx.fillStyle = 'rgba(72, 138, 248, ' + alpha.toFixed(3) + ')';
+            }
+          } else {
+            if (proximity > 0.2) {
+              ctx.fillStyle = 'rgba(11, 87, 208, ' + Math.min(1, alpha + 0.18).toFixed(3) + ')';
+            } else {
+              ctx.fillStyle = 'rgba(38, 122, 242, ' + alpha.toFixed(3) + ')';
+            }
+          }
+          ctx.fill();
+        }
+
+        if (activeDots.length > 1) {
+          ctx.lineWidth = 0.75;
+          for (var a = 0; a < activeDots.length; a++) {
+            for (var b = a + 1; b < activeDots.length; b++) {
+              var adx = activeDots[a].x - activeDots[b].x;
+              var ady = activeDots[a].y - activeDots[b].y;
+              var ad2 = adx * adx + ady * ady;
+              if (ad2 < 1400) {
+                var lineAlpha = (1 - ad2 / 1400) * Math.min(activeDots[a].p, activeDots[b].p) * 0.32;
+                ctx.strokeStyle = isDark
+                  ? 'rgba(138, 192, 255, ' + lineAlpha.toFixed(3) + ')'
+                  : 'rgba(11, 87, 208, ' + lineAlpha.toFixed(3) + ')';
+                ctx.beginPath();
+                ctx.moveTo(activeDots[a].x, activeDots[a].y);
+                ctx.lineTo(activeDots[b].x, activeDots[b].y);
+                ctx.stroke();
+              }
+            }
+          }
+        }
+
+        if (!reducedMotion) {
+          requestAnimationFrame(render);
+        }
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      requestAnimationFrame(render);
+
+      /* Hero Search Bar with rotating prompts + live instant search */
+      var input = document.getElementById('gemma-hero-search-input');
+      var field = document.getElementById('gemma-hero-search-field');
+      var rotatorA = document.getElementById('gemma-hero-search-rotator-a');
+      var rotatorB = document.getElementById('gemma-hero-search-rotator-b');
+      var goBtn = document.getElementById('gemma-hero-search-go');
+      var resultsBox = document.getElementById('gemma-hero-search-results');
+      var searchWrap = document.getElementById('gemma-hero-search');
+      if (!input || !field || !rotatorA || !rotatorB || !resultsBox) return;
+
+      var prompts = [
+        { text: 'Run Gemma 4 locally with Ollama…', title: 'Run Gemma with Ollama', url: 'deployment/ollama/', path: 'Run › Local' },
+        { text: 'Compare Gemma 4 model sizes & context…', title: 'Gemma 4 model overview', url: 'models/gemma-4/', path: 'Models › Gemma 4' },
+        { text: 'Fine-tune with QLoRA or Unsloth…', title: 'QLoRA fine-tuning guide', url: 'tuning/qlora/', path: 'Fine-tune › Guides' },
+        { text: 'Multimodal vision, audio, and video…', title: 'Vision & multimodal capabilities', url: 'get-started/capabilities/vision/', path: 'Get started › Multimodal' },
+        { text: 'Function calling & tool use…', title: 'Function calling with Gemma', url: 'get-started/capabilities/function-calling/', path: 'Get started › Text' },
+        { text: 'Try DiffusionGemma or PaliGemma 2…', title: 'DiffusionGemma overview', url: 'models/diffusiongemma/', path: 'Models › Variants' }
+      ];
+
+      var promptIdx = 0;
+      var activeSlotIsA = true;
+      var searchIndex = null;
+      var activeResultIdx = 0;
+      var currentItems = [];
+
+      function loadSearchIndex() {
+        if (searchIndex) return Promise.resolve(searchIndex);
+        return fetch('search.json')
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            var seen = {};
+            searchIndex = (data.items || []).filter(function (item) {
+              if (!item.title || !item.location) return false;
+              var base = item.location.split('#')[0];
+              if (seen[base] && item.level > 1) return false;
+              seen[base] = true;
+              return true;
+            });
+            return searchIndex;
+          })
+          .catch(function () { return []; });
+      }
+
+      function syncRotatorVisibility() {
+        var hide = document.activeElement === input || input.value.length > 0;
+        field.classList.toggle('is-typing', hide);
+      }
+
+      var rotateInterval = setInterval(function () {
+        if (!document.body.contains(field)) {
+          clearInterval(rotateInterval);
+          return;
+        }
+        if (document.activeElement === input || input.value.length > 0 || reducedMotion) return;
+        promptIdx = (promptIdx + 1) % prompts.length;
+        var curr = activeSlotIsA ? rotatorA : rotatorB;
+        var next = activeSlotIsA ? rotatorB : rotatorA;
+        activeSlotIsA = !activeSlotIsA;
+
+        next.style.transition = 'none';
+        next.classList.remove('is-visible', 'is-exiting');
+        next.textContent = prompts[promptIdx].text;
+        void next.offsetWidth;
 
         requestAnimationFrame(function () {
-          prefixEl.style.transition = 'transform ' + animation + 'ms ' + easing + ', opacity ' + animation + 'ms ease';
-          suffixEl.style.transition = 'transform ' + animation + 'ms ' + easing + ', opacity ' + animation + 'ms ease';
-          prefixEl.style.transform = 'translateY(0)';
-          prefixEl.style.opacity = '1';
-          suffixEl.style.transform = 'translateY(0)';
-          suffixEl.style.opacity = '1';
+          next.style.transition = '';
+          curr.classList.remove('is-visible');
+          curr.classList.add('is-exiting');
+          next.classList.add('is-visible');
         });
-      }, animation + 30);
-    }, duration);
+      }, 3600);
+
+      function renderResults(items) {
+        currentItems = items;
+        activeResultIdx = 0;
+        if (!items.length) {
+          resultsBox.hidden = true;
+          return;
+        }
+        resultsBox.innerHTML = items.map(function (it, idx) {
+          return '<a class="gemma-hero-search__item' + (idx === 0 ? ' is-active' : '') + '" href="' + it.url + '" role="option">' +
+            '<span class="gemma-hero-search__item-title">' + it.title + '</span>' +
+            '<span class="gemma-hero-search__item-path">' + it.path + '</span>' +
+          '</a>';
+        }).join('');
+        resultsBox.hidden = false;
+      }
+
+      function updateSearch() {
+        var q = input.value.trim().toLowerCase();
+        if (!q) {
+          var ordered = prompts.slice(promptIdx).concat(prompts.slice(0, promptIdx));
+          renderResults(ordered);
+          return;
+        }
+        loadSearchIndex().then(function (list) {
+          var tokens = q.split(/\s+/);
+          var scored = [];
+          for (var i = 0; i < list.length; i++) {
+            var it = list[i];
+            var titleLow = (it.title || '').toLowerCase();
+            var pathStr = (it.path || []).join(' › ');
+            var hay = titleLow + ' ' + pathStr.toLowerCase() + ' ' + (it.text || '').toLowerCase();
+            var score = 0;
+            var allMatch = true;
+            for (var t = 0; t < tokens.length; t++) {
+              var tok = tokens[t];
+              if (titleLow.indexOf(tok) !== -1) score += 10;
+              else if (hay.indexOf(tok) !== -1) score += 3;
+              else { allMatch = false; break; }
+            }
+            if (allMatch && score > 0) {
+              scored.push({
+                title: it.title,
+                url: it.location,
+                path: pathStr || 'Documentation',
+                score: score - (it.level || 1)
+              });
+            }
+          }
+          scored.sort(function (a, b) { return b.score - a.score; });
+          renderResults(scored.slice(0, 6));
+        });
+      }
+
+      input.addEventListener('focus', function () {
+        syncRotatorVisibility();
+        updateSearch();
+      });
+
+      searchWrap.querySelector('.gemma-hero-search__bar').addEventListener('click', function (e) {
+        if (e.target.closest && e.target.closest('.gemma-hero-search__go')) return;
+        input.focus();
+        syncRotatorVisibility();
+        updateSearch();
+      });
+
+      input.addEventListener('blur', function () {
+        syncRotatorVisibility();
+      });
+
+      input.addEventListener('input', function () {
+        syncRotatorVisibility();
+        updateSearch();
+      });
+
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          resultsBox.hidden = true;
+          input.blur();
+          return;
+        }
+        var links = resultsBox.querySelectorAll('.gemma-hero-search__item');
+        if (e.key === 'ArrowDown' && links.length) {
+          e.preventDefault();
+          links[activeResultIdx].classList.remove('is-active');
+          activeResultIdx = (activeResultIdx + 1) % links.length;
+          links[activeResultIdx].classList.add('is-active');
+          links[activeResultIdx].scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'ArrowUp' && links.length) {
+          e.preventDefault();
+          links[activeResultIdx].classList.remove('is-active');
+          activeResultIdx = (activeResultIdx - 1 + links.length) % links.length;
+          links[activeResultIdx].classList.add('is-active');
+          links[activeResultIdx].scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          if (!resultsBox.hidden && currentItems[activeResultIdx]) {
+            window.location.href = currentItems[activeResultIdx].url;
+          } else {
+            window.location.href = prompts[promptIdx].url;
+          }
+        }
+      });
+
+      if (goBtn) {
+        goBtn.addEventListener('click', function () {
+          if (!resultsBox.hidden && currentItems[activeResultIdx]) {
+            window.location.href = currentItems[activeResultIdx].url;
+          } else {
+            window.location.href = prompts[promptIdx].url;
+          }
+        });
+      }
+
+      document.addEventListener('click', function (e) {
+        if (searchWrap && !searchWrap.contains(e.target)) {
+          resultsBox.hidden = true;
+        }
+      });
+    }
+
+    window.__initGemmaHome = initGemmaHome;
+    initGemmaHome();
   })();
 </script>
 {% endblock %}

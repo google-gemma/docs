@@ -26,9 +26,29 @@
    =================================================================== */
 
 :root {
-  --gemma-ease: cubic-bezier(0.2, 0, 0.2, 1);
-  --gemma-duration-fast: 100ms;
-  --gemma-duration: 160ms;
+  --gemma-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --gemma-duration-fast: 120ms;
+  --gemma-duration: 200ms;
+}
+
+@keyframes gemmaPageReveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.md-content__inner,
+.gemma-stage {
+  animation: gemmaPageReveal 260ms var(--gemma-ease) both;
+}
+
+.md-sidebar--primary .md-nav--primary > .md-nav__list {
+  animation: gemmaPageReveal 220ms var(--gemma-ease) both;
 }
 
 /* -------------------------------------------------------------------

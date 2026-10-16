@@ -258,13 +258,223 @@
     if (requested && available.includes(requested)) apply(requested);
   };
 
+  let prevTabState = null;
+
+  const syncTabIndicator = () => {
+    const list = document.querySelector(".md-tabs__list");
+    if (!list) return;
+    const activeLink = list.querySelector(".md-tabs__item--active > .md-tabs__link, .md-tabs__link--active");
+    if (!activeLink) return;
+
+    const listRect = list.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+    const nextLeft = linkRect.left - listRect.left;
+    const nextWidth = linkRect.width;
+    const nextHeight = linkRect.height;
+
+    let indicator = list.querySelector(".gemma-tab-indicator");
+    if (!indicator) {
+      indicator = document.createElement("span");
+      indicator.className = "gemma-tab-indicator";
+      list.appendChild(indicator);
+    }
+    list.classList.add("has-sliding-indicator");
+    indicator.style.height = `${nextHeight}px`;
+
+    if (prevTabState && (Math.abs(prevTabState.left - nextLeft) > 1 || Math.abs(prevTabState.width - nextWidth) > 1)) {
+      indicator.style.transition = "none";
+      indicator.style.transform = `translate3d(${prevTabState.left}px, -50%, 0)`;
+      indicator.style.width = `${prevTabState.width}px`;
+      void indicator.offsetWidth;
+      requestAnimationFrame(() => {
+        indicator.style.transition = "";
+        indicator.style.transform = `translate3d(${nextLeft}px, -50%, 0)`;
+        indicator.style.width = `${nextWidth}px`;
+      });
+    } else {
+      indicator.style.transform = `translate3d(${nextLeft}px, -50%, 0)`;
+      indicator.style.width = `${nextWidth}px`;
+    }
+
+    prevTabState = { left: nextLeft, width: nextWidth };
+  };
+
   document.addEventListener("click", (event) => {
+    if (event.target.closest?.(".md-search__button, [data-md-component=search]")) {
+      setTimeout(initSearchModalDefaults, 20);
+      setTimeout(initSearchModalDefaults, 150);
+    }
+    const tabLink = event.target.closest?.(".md-tabs__link");
+    if (tabLink) {
+      const list = tabLink.closest(".md-tabs__list");
+      const currentActive = list?.querySelector(".md-tabs__item--active > .md-tabs__link, .md-tabs__link--active");
+      if (list && currentActive) {
+        const listRect = list.getBoundingClientRect();
+        const linkRect = currentActive.getBoundingClientRect();
+        prevTabState = { left: linkRect.left - listRect.left, width: linkRect.width };
+      }
+    }
     for (const picker of document.querySelectorAll(".page-context__picker")) {
       if (!picker.contains(event.target)) closePicker(picker);
     }
   });
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
-  if (window.document$?.subscribe) window.document$.subscribe(init);
+  window.addEventListener("keydown", (event) => {
+    if (((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") || event.key === "/") {
+      setTimeout(initSearchModalDefaults, 20);
+      setTimeout(initSearchModalDefaults, 150);
+    }
+  });
+  window.addEventListener("resize", syncTabIndicator);
+
+  const DEFAULT_SEARCH_TOPICS = [
+    {
+      title: "Quickstart with Gemma 4",
+      path: ["Get started", "Quickstart"],
+      url: "get-started/",
+      excerpt: "Choose a Gemma 4 model size (E2B to 31B) and run your first inference locally or in Google Colab."
+    },
+    {
+      title: "Gemma 4 model overview & benchmarks",
+      path: ["Models", "Gemma 4"],
+      url: "models/gemma-4/",
+      excerpt: "Architecture, context windows, multimodal inputs, and benchmark results across the Gemma 4 family."
+    },
+    {
+      title: "Run Gemma locally with Ollama",
+      path: ["Run", "Local"],
+      url: "deployment/ollama/",
+      excerpt: "Pull and run quantized Gemma 4 checkpoints on macOS, Linux, or Windows with a single command."
+    },
+    {
+      title: "Fine-tune Gemma with QLoRA",
+      path: ["Fine-tune", "Guides"],
+      url: "tuning/qlora/",
+      excerpt: "Memory-efficient 4-bit LoRA fine-tuning with Hugging Face TRL and PEFT on a single GPU."
+    },
+    {
+      title: "Multimodal vision, audio, and video",
+      path: ["Get started", "Multimodal"],
+      url: "get-started/capabilities/vision/",
+      excerpt: "Pass images, multi-frame video, and audio inputs to Gemma 4 and control token budgets."
+    },
+    {
+      title: "Function calling & tool use",
+      path: ["Get started", "Text"],
+      url: "get-started/capabilities/function-calling/",
+      excerpt: "Define structured tool schemas and parse model tool calls in multi-turn agent loops."
+    }
+  ];
+
+  const resolveSiteBase = () => {
+    try {
+      const cfg = document.querySelector("#__config");
+      if (cfg) {
+        const parsed = JSON.parse(cfg.textContent);
+        const raw = new URL(parsed.base || ".", window.location.href).toString();
+        return raw.endsWith("/") ? raw : `${raw}/`;
+      }
+    } catch {
+      // Fallback to root
+    }
+    return new URL("/", window.location.href).toString();
+  };
+
+  const initSearchModalDefaults = () => {
+    let shadowRoot = null;
+    for (const div of document.querySelectorAll("body > div")) {
+      if (div.shadowRoot && div.shadowRoot.querySelector(".z")) {
+        shadowRoot = div.shadowRoot;
+        break;
+      }
+    }
+    if (!shadowRoot || shadowRoot.__gemmaDefaultsInit) return;
+    const resultsPane = shadowRoot.querySelector(".z");
+    const input = shadowRoot.querySelector(".f input");
+    if (!resultsPane || !input) return;
+    shadowRoot.__gemmaDefaultsInit = true;
+
+    const base = resolveSiteBase();
+    const wrapper = document.createElement("div");
+    wrapper.className = "gemma-search-defaults";
+    wrapper.innerHTML =
+      `<h3 class="B">Suggested topics</h3>` +
+      `<ol class="b">` +
+      DEFAULT_SEARCH_TOPICS.map((item, idx) => {
+        const href = new URL(item.url, base).toString();
+        const crumbs = item.path.map((p) => `<li>${p}</li>`).join("");
+        return (
+          `<li>` +
+          `<a class="i${idx === 0 ? " h" : ""}" href="${href}">` +
+          `<div class="C">` +
+          `<div class="D"><menu class="t">${crumbs}</menu></div>` +
+          `<h2 class="x">${item.title}</h2>` +
+          `<div class="u">${item.excerpt}</div>` +
+          `</div>` +
+          `</a>` +
+          `</li>`
+        );
+      }).join("") +
+      `</ol>`;
+
+    resultsPane.insertBefore(wrapper, resultsPane.firstChild);
+
+    let activeIdx = 0;
+    const links = [...wrapper.querySelectorAll("a.i")];
+    const closeModal = () => shadowRoot.querySelector(".k button")?.click();
+    const setHighlight = (next) => {
+      links.forEach((a, i) => a.classList.toggle("h", i === next));
+      activeIdx = next;
+    };
+    links.forEach((a, i) => {
+      a.addEventListener("pointerenter", () => setHighlight(i));
+      a.addEventListener("click", () => closeModal());
+    });
+
+    const syncVisibility = () => {
+      const hasQuery = input.value.trim().length > 0;
+      wrapper.style.display = hasQuery ? "none" : "";
+    };
+
+    input.addEventListener("input", syncVisibility);
+    input.addEventListener("focus", syncVisibility);
+    input.addEventListener("keydown", (e) => {
+      if (input.value.trim().length > 0) return;
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        e.stopPropagation();
+        setHighlight((activeIdx + 1) % links.length);
+        links[activeIdx]?.scrollIntoView({ block: "nearest" });
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        e.stopPropagation();
+        setHighlight((activeIdx - 1 + links.length) % links.length);
+        links[activeIdx]?.scrollIntoView({ block: "nearest" });
+      } else if (e.key === "Enter" && links[activeIdx]) {
+        e.preventDefault();
+        e.stopPropagation();
+        const dest = links[activeIdx].href;
+        closeModal();
+        window.location.href = dest;
+      }
+    });
+
+    const observer = new MutationObserver(syncVisibility);
+    observer.observe(resultsPane, { childList: true, subtree: true });
+    syncVisibility();
+  };
+
+  const onPageReady = () => {
+    init();
+    syncTabIndicator();
+    initSearchModalDefaults();
+    setTimeout(initSearchModalDefaults, 250);
+    if (typeof window.__initGemmaHome === "function") {
+      window.__initGemmaHome();
+    }
+  };
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", onPageReady);
+  else onPageReady();
+  if (window.document$?.subscribe) window.document$.subscribe(onPageReady);
 })();

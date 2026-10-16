@@ -71,37 +71,36 @@
 
 /* -------------------------------------------------------------------
    Admonitions
-   A tinted panel with a single accent rail on the left. Quieter than
-   Material's default full-colour title bar.
+   Clean editorial callouts: uniform 1px hairline, subtle surface tint,
+   crisp typographic title, no 3px left border rail or stock icons.
    ------------------------------------------------------------------- */
 .md-typeset .admonition,
 .md-typeset details {
   margin: var(--gemma-space-5) 0;
-  padding: var(--gemma-space-3) var(--gemma-space-4);
-  font-size: 0.83rem;
+  padding: 0.95rem 1.2rem;
+  font-size: 0.84rem;
+  line-height: 1.6;
   background-color: var(--gemma-surface-sunken);
   border: 1px solid var(--gemma-border);
-  border-left: 3px solid var(--gemma-n300);
-  border-radius: var(--gemma-radius-md);
+  border-radius: var(--gemma-radius-lg);
   box-shadow: none;
 }
 
 .md-typeset .admonition-title,
 .md-typeset summary {
-  margin: 0 0 var(--gemma-space-1);
-  padding: 0 0 0 var(--gemma-space-5);
-  font-size: 0.83rem;
+  margin: 0 0 0.25rem;
+  padding: 0 !important;
+  font-size: 0.85rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--md-default-fg-color);
   background-color: transparent;
   border: 0;
 }
 
 .md-typeset .admonition-title::before,
 .md-typeset summary::before {
-  top: 0.1em;
-  left: 0;
-  width: 1rem;
-  height: 1rem;
+  display: none !important;
 }
 
 .md-typeset .admonition > :last-child,
@@ -109,38 +108,22 @@
   margin-bottom: 0;
 }
 
-/* Material tints each type at `.md-typeset .admonition.note` (0,3,1), which outranks the
-   base rule above. Matching that specificity keeps every panel on the same neutral surface;
-   the type is carried by the rail colour instead. */
 .md-typeset .admonition[class],
 .md-typeset details[class] {
   background-color: var(--gemma-surface-sunken);
-}
-
-/* Accent rail and icon tint per type. */
-.md-typeset .admonition.note,
-.md-typeset details.note {
-  border-left-color: var(--gemma-blue);
-}
-
-.md-typeset .note > .admonition-title::before,
-.md-typeset .note > summary::before {
-  background-color: var(--gemma-blue);
-}
-
-.md-typeset .admonition.tip,
-.md-typeset details.tip {
-  border-left-color: var(--gemma-status-success);
+  border-left: 1px solid var(--gemma-border);
 }
 
 .md-typeset .admonition.warning,
 .md-typeset details.warning {
-  border-left-color: var(--gemma-status-warning);
+  background-color: color-mix(in srgb, var(--gemma-status-warning) 5%, var(--gemma-surface-sunken));
+  border-color: color-mix(in srgb, var(--gemma-status-warning) 28%, var(--gemma-border));
 }
 
 .md-typeset .admonition.danger,
 .md-typeset details.danger {
-  border-left-color: var(--gemma-status-danger);
+  background-color: color-mix(in srgb, var(--gemma-status-danger) 5%, var(--gemma-surface-sunken));
+  border-color: color-mix(in srgb, var(--gemma-status-danger) 28%, var(--gemma-border));
 }
 
 /* -------------------------------------------------------------------
