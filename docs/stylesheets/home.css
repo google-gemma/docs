@@ -117,15 +117,16 @@ body[data-md-color-scheme="slate"] .gemma-hero-search__bar:focus-within {
 }
 
 .gemma-hero-search__icon { width: 1.05rem; height: 1.05rem; flex-shrink: 0; color: var(--gemma-n500); }
-.gemma-hero-search__field { position: relative; flex: 1; height: 100%; display: flex; align-items: center; overflow: hidden; }
-.gemma-hero-search__input { width: 100%; height: 100%; padding: 0; border: 0; outline: 0; background: transparent; color: var(--gemma-ink); font-family: inherit; font-size: 0.9rem; }
+.gemma-hero-search__field { position: relative; flex: 1; min-width: 0; height: 100%; display: flex; align-items: center; overflow: hidden; }
+.gemma-hero-search__input { width: 100%; height: 100%; padding: 0; border: 0; outline: 0; background: transparent; color: var(--gemma-ink); font-family: inherit; font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 body[data-md-color-scheme="slate"] .gemma-hero-search__input { color: var(--gemma-white); }
 
 .gemma-hero-search__rotator {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
+  display: block;
+  width: 100%;
+  line-height: 3.2rem;
   color: var(--gemma-n600);
   font-size: 0.9rem;
   white-space: nowrap;
@@ -147,6 +148,7 @@ body[data-md-color-scheme="slate"] .gemma-hero-search__rotator { color: var(--ge
 .gemma-hero-search__go {
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
   gap: 0.35rem;
   height: 2.3rem;
   padding: 0 0.9rem;
@@ -200,8 +202,14 @@ body[data-md-color-scheme="slate"] .gemma-hero-search__results {
 body[data-md-color-scheme="slate"] .gemma-hero-search__item { color: var(--gemma-white) !important; }
 .gemma-hero-search__item:hover,
 .gemma-hero-search__item.is-active { background-color: color-mix(in srgb, var(--gemma-blue) 12%, transparent); }
-.gemma-hero-search__item-title { font-size: 0.84rem; font-weight: 600; }
-.gemma-hero-search__item-path { font-size: 0.73rem; color: var(--gemma-text-muted); }
+.gemma-hero-search__item-title { font-size: 0.84rem; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gemma-hero-search__item-path { font-size: 0.73rem; color: var(--gemma-text-muted); flex-shrink: 0; white-space: nowrap; }
+
+@media (max-width: 520px) {
+  .gemma-hero-search__bar { gap: 0.45rem; height: 2.95rem; padding: 0 0.38rem 0 0.95rem; }
+  .gemma-hero-search__input, .gemma-hero-search__rotator { font-size: 0.82rem; line-height: 2.95rem; }
+  .gemma-hero-search__go { height: 2.15rem; padding: 0 0.72rem; font-size: 0.72rem; }
+}
 
 .gemma-actions {
   position: absolute;

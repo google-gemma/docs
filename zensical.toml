@@ -25,7 +25,7 @@ extra_css = [
   "stylesheets/embeds.css?v=2",      # external interactive demos
   "stylesheets/page-context.css?v=2",# the applicability bar above every H1
   "stylesheets/tokens.css?v=2",      # chat-token badges
-  "stylesheets/home.css?v=2",        # landing page: chrome, backdrop, hero
+  "stylesheets/home.css?v=3",        # landing page: chrome, backdrop, hero
   "stylesheets/motion.css?v=2",      # transitions + reduced-motion opt-out
 ]
 # Order matters: the generated data must load before the switcher that reads it.
