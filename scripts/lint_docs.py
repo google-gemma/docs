@@ -696,7 +696,7 @@ def check_css(ctx: Context) -> Iterable[Finding]:
         return
 
     registered = {
-        Path(entry).name
+        Path(entry.split("?", 1)[0]).name
         for entry in ctx.config.get("project", {}).get("extra_css", [])
     }
 

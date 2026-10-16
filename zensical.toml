@@ -14,24 +14,24 @@ Copyright &copy; 2026 Google DeepMind
 """
 # Order matters: the token layer must load first, motion last.
 extra_css = [
-  "stylesheets/gemma.css",       # tokens: palette, spacing, radius, shadow
-  "stylesheets/layout.css",      # page grid, sidebars, typography scale
-  "stylesheets/nav.css",         # header, tabs, sidebar, table of contents
-  "stylesheets/content.css",     # tables, admonitions, code, tabs
-  "stylesheets/components.css",  # cards, badges, figures, steps, embeds
-  "stylesheets/icons.css",       # inlined icon-set SVGs and card icons
-  "stylesheets/engine-grid.css", # quickstart: the "run it with" engine grid
-  "stylesheets/model-tree.css",  # models overview: the family lineage tree
-  "stylesheets/embeds.css",      # external interactive demos
-  "stylesheets/page-context.css",# the applicability bar above every H1
-  "stylesheets/tokens.css",      # chat-token badges
-  "stylesheets/home.css",        # landing page: chrome, backdrop, hero
-  "stylesheets/motion.css",      # transitions + reduced-motion opt-out
+  "stylesheets/gemma.css?v=2",       # tokens: palette, spacing, radius, shadow
+  "stylesheets/layout.css?v=2",      # page grid, sidebars, typography scale
+  "stylesheets/nav.css?v=2",         # header, tabs, sidebar, table of contents
+  "stylesheets/content.css?v=2",     # tables, admonitions, code, tabs
+  "stylesheets/components.css?v=2",  # cards, badges, figures, steps, embeds
+  "stylesheets/icons.css?v=2",       # inlined icon-set SVGs and card icons
+  "stylesheets/engine-grid.css?v=2", # quickstart: the "run it with" engine grid
+  "stylesheets/model-tree.css?v=2",  # models overview: the family lineage tree
+  "stylesheets/embeds.css?v=2",      # external interactive demos
+  "stylesheets/page-context.css?v=2",# the applicability bar above every H1
+  "stylesheets/tokens.css?v=2",      # chat-token badges
+  "stylesheets/home.css?v=2",        # landing page: chrome, backdrop, hero
+  "stylesheets/motion.css?v=2",      # transitions + reduced-motion opt-out
 ]
 # Order matters: the generated data must load before the switcher that reads it.
 extra_javascript = [
-  "javascripts/model-data.js",     # GENERATED from data/models.yml -- do not edit
-  "javascripts/model-switcher.js", # page context strip selector + code rewriting
+  "javascripts/model-data.js?v=2",     # GENERATED from data/models.yml -- do not edit
+  "javascripts/model-switcher.js?v=2", # page context strip selector + code rewriting
   "javascripts/mathjax.js",
   "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js",
 ]
