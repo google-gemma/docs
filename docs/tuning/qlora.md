@@ -197,7 +197,6 @@ from trl import SFTConfig
 
 args = SFTConfig(
     output_dir="gemma-text-to-sql",         # directory to save and repository id
-    max_length=512,                         # max length for model and packing of the dataset
     num_train_epochs=3,                     # number of training epochs
     per_device_train_batch_size=1,          # batch size per device during training
     per_device_eval_batch_size=1,           # batch size per device during evaluation
