@@ -59,15 +59,15 @@
   --gemma-white: #FFFFFF;
   --gemma-ink: #202124;
 
-  /* Landing-page gradient stops, derived from the palette. */
+  /* Landing-page stage & gradient stops, derived from the palette. */
   --gemma-ink-raised: #152238;
   --gemma-navy-900: #0e2042;
   --gemma-navy-800: #102a5c;
   --gemma-navy-700: #16366e;
-  --gemma-home-bg: #040d1a;
-  --gemma-home-bg-raised: #07152f;
-  --gemma-home-bg-mid: #040c1e;
-  --gemma-home-bg-deep: #020712;
+  --gemma-home-bg: #ffffff;
+  --gemma-home-bg-raised: #f2f5fb;
+  --gemma-home-bg-mid: #eef2f9;
+  --gemma-home-bg-deep: #141518;
   --gemma-blue-strong: var(--gemma-blue-800);
   --gemma-blue-hover: var(--gemma-blue-600);
 
