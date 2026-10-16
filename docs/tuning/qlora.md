@@ -145,45 +145,32 @@ You are now ready to fine-tune your model. Hugging Face TRL [SFTTrainer](https:/
 - Parameter-efficient fine-tuning (PEFT) support including QloRA
 - Preparing the model and tokenizer for conversational fine-tuning (such as adding special tokens)
 
-The following code loads the Gemma model and tokenizer from Hugging Face and initializes the quantization configuration.
+The following code defines the quantization configuration and loads the tokenizer. The `SFTTrainer` loads and quantizes the model for you.
 
 ```python { .notebook-cell .model-swap }
 import torch
-from transformers import AutoProcessor, AutoModelForMultimodalLM, BitsAndBytesConfig
-from peft import prepare_model_for_kbit_training
+from transformers import AutoTokenizer, BitsAndBytesConfig
 
 # Hugging Face model id
 model_id = "google/gemma-4-E2B"
 
 # Check if GPU supports bfloat16
 if torch.cuda.is_bf16_supported():
-    torch_dtype = torch.bfloat16
+    dtype = "bfloat16"
 else:
-    torch_dtype = torch.float16
-
-# Define model init arguments
-model_kwargs = dict(
-    dtype=torch_dtype, # What torch dtype to use
-    device_map="auto", # Let torch decide how to load the model
-)
+    dtype = "float16"
 
 # BitsAndBytesConfig: Enables 4-bit quantization to reduce model size/memory usage
-model_kwargs["quantization_config"] = BitsAndBytesConfig(
+quantization_config = BitsAndBytesConfig(
     load_in_4bit=True,
     bnb_4bit_use_double_quant=True,
     bnb_4bit_quant_type='nf4',
-    bnb_4bit_compute_dtype=torch_dtype,
-    bnb_4bit_quant_storage=torch_dtype,
+    bnb_4bit_compute_dtype=dtype,
+    bnb_4bit_quant_storage=dtype,
 )
 
-# Load model and processor
-model = AutoModelForMultimodalLM.from_pretrained(model_id, **model_kwargs)
-processor = AutoProcessor.from_pretrained("google/gemma-4-E2B-it") # Load the Instruction Processor to use the official Gemma template
-
-# NOTE: You should call the prepare_model_for_kbit_training() function to preprocess the quantized model for training.
-# On T4, we are skipping this step purely due to VRAM limitation and for a quick demonstration.
-if (torch.cuda.get_device_properties(0).total_memory/1024**3) > 16:
-    model = prepare_model_for_kbit_training(model)
+# The base model ships no chat template, so load the tokenizer of the instruction-tuned model
+tokenizer = AutoTokenizer.from_pretrained("google/gemma-4-E2B-it")
 ```
 
 The `SFTTrainer` supports a built-in integration with `peft`, which makes it straightforward to efficiently tune LLMs using QLoRA. You only need to create a `LoraConfig` and provide it to the trainer.
@@ -206,7 +193,6 @@ peft_config = LoraConfig(
 Before you can start your training, you need to define the hyperparameter you want to use in a `SFTConfig` instance.
 
 ```python { .notebook-cell }
-import torch
 from trl import SFTConfig
 
 args = SFTConfig(
@@ -220,8 +206,9 @@ args = SFTConfig(
     save_strategy="epoch",                  # save checkpoint every epoch
     eval_strategy="epoch",                  # evaluate checkpoint every epoch
     learning_rate=2e-4,                     # learning rate
-    fp16=True if torch_dtype == torch.float16 else False,  # use float16 precision
-    bf16=True if torch_dtype == torch.bfloat16 else False, # use bfloat16 precision
+    fp16=dtype == "float16",                # use float16 precision
+    bf16=dtype == "bfloat16",               # use bfloat16 precision
+    model_init_kwargs={"dtype": dtype},     # dtype of the weights that are not quantized
     lr_scheduler_type="constant",           # use constant learning rate scheduler
     push_to_hub=True,                       # push model to hub
     report_to="tensorboard",                # report metrics to tensorboard
@@ -235,12 +222,13 @@ from trl import SFTTrainer
 
 # Create Trainer object
 trainer = SFTTrainer(
-    model=model,
+    model=model_id,
     args=args,
     train_dataset=dataset["train"],
     eval_dataset=dataset["test"],
+    processing_class=tokenizer,
+    quantization_config=quantization_config,
     peft_config=peft_config,
-    processing_class=processor.tokenizer,  # the data is text only
 )
 ```
 
@@ -268,7 +256,6 @@ Before you can test your model, make sure to free the memory.
 
 ```python { .notebook-cell }
 # free the memory again
-del model
 del trainer
 torch.cuda.empty_cache()
 ```
