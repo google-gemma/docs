@@ -123,7 +123,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 # Load model and tokenizer
 model = AutoModelForCausalLM.from_pretrained(
     base_model,
-    torch_dtype="auto",
+    dtype="auto",
     device_map="auto",
     attn_implementation="eager"
 )
@@ -250,10 +250,6 @@ args = SFTConfig(
     lr_scheduler_type="constant",           # use constant learning rate scheduler
     push_to_hub=True,                       # push model to hub
     report_to="tensorboard",                # report metrics to tensorboard
-    dataset_kwargs={
-        "add_special_tokens": False, # Template with special tokens
-        "append_concat_token": True, # Add EOS token as separator token between examples
-    }
 )
 ```
 
@@ -353,7 +349,7 @@ model_id = checkpoint_dir
 # Load Model
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
-    torch_dtype="auto",
+    dtype="auto",
     device_map="auto",
     attn_implementation="eager"
 )
