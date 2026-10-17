@@ -75,12 +75,12 @@ Each of the methods has its own advantages and disadvantages and depends on the 
 
 This guide uses an already existing dataset ([philschmid/gretel-synthetic-text-to-sql](https://huggingface.co/datasets/philschmid/gretel-synthetic-text-to-sql)), a high quality synthetic Text-to-SQL dataset including natural language instructions, schema definitions, reasoning and the corresponding SQL query.
 
-[Hugging Face TRL](https://huggingface.co/docs/trl/en/index) supports automatic templating of conversation dataset formats. This means you only need to convert your dataset into the right json objects, and `trl` takes care of templating and putting it into the right format.
+[Hugging Face TRL](https://huggingface.co/docs/trl/en/index) supports automatic templating of conversation dataset formats. This means you only need to convert your dataset into the right json objects, and `trl` takes care of templating and putting it into the right format. With the prompt-completion format below, `trl` also computes the loss on the completion only, so the model learns to write the SQL query rather than to repeat the prompt.
 
 ```text
-{"messages": [{"role": "system", "content": "You are..."}, {"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}]}
-{"messages": [{"role": "system", "content": "You are..."}, {"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}]}
-{"messages": [{"role": "system", "content": "You are..."}, {"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}]}
+{"prompt": [{"role": "system", "content": "You are..."}, {"role": "user", "content": "..."}], "completion": [{"role": "assistant", "content": "..."}]}
+{"prompt": [{"role": "system", "content": "You are..."}, {"role": "user", "content": "..."}], "completion": [{"role": "assistant", "content": "..."}]}
+{"prompt": [{"role": "system", "content": "You are..."}, {"role": "user", "content": "..."}], "completion": [{"role": "assistant", "content": "..."}]}
 ```
 
 The [philschmid/gretel-synthetic-text-to-sql](https://huggingface.co/datasets/philschmid/gretel-synthetic-text-to-sql) contains over 100k samples. To keep the guide small, it is downsampled to only use 10,000 samples.
@@ -106,11 +106,13 @@ user_prompt = """Given the <USER_QUERY> and the <SCHEMA>, generate the correspon
 """
 def create_conversation(sample, idx):
   return {
-    "messages": [
+    "prompt": [
       {"role": "system", "content": system_message},
       {"role": "user", "content": user_prompt.format(question=sample["sql_prompt"], context=sample["sql_context"])},
+    ],
+    "completion": [
       {"role": "assistant", "content": sample["sql"]}
-    ]
+    ],
   }
 
 # Load dataset from the hub
@@ -123,7 +125,7 @@ dataset = dataset.map(create_conversation, with_indices=True, remove_columns=dat
 dataset = dataset.train_test_split(test_size=0.2, shuffle=False)
 
 # Print formatted user prompt
-for item in dataset["train"][0]["messages"]:
+for item in dataset["train"][0]["prompt"] + dataset["train"][0]["completion"]:
   print(item)
 ```
 
@@ -143,45 +145,32 @@ You are now ready to fine-tune your model. Hugging Face TRL [SFTTrainer](https:/
 - Parameter-efficient fine-tuning (PEFT) support including QloRA
 - Preparing the model and tokenizer for conversational fine-tuning (such as adding special tokens)
 
-The following code loads the Gemma model and tokenizer from Hugging Face and initializes the quantization configuration.
+The following code defines the quantization configuration and loads the tokenizer. The `SFTTrainer` loads and quantizes the model for you.
 
 ```python { .notebook-cell .model-swap }
 import torch
-from transformers import AutoProcessor, AutoModelForMultimodalLM, BitsAndBytesConfig
-from peft import prepare_model_for_kbit_training
+from transformers import AutoTokenizer, BitsAndBytesConfig
 
 # Hugging Face model id
 model_id = "google/gemma-4-E2B"
 
 # Check if GPU supports bfloat16
 if torch.cuda.is_bf16_supported():
-    torch_dtype = torch.bfloat16
+    dtype = "bfloat16"
 else:
-    torch_dtype = torch.float16
-
-# Define model init arguments
-model_kwargs = dict(
-    dtype=torch_dtype, # What torch dtype to use
-    device_map="auto", # Let torch decide how to load the model
-)
+    dtype = "float16"
 
 # BitsAndBytesConfig: Enables 4-bit quantization to reduce model size/memory usage
-model_kwargs["quantization_config"] = BitsAndBytesConfig(
+quantization_config = BitsAndBytesConfig(
     load_in_4bit=True,
     bnb_4bit_use_double_quant=True,
     bnb_4bit_quant_type='nf4',
-    bnb_4bit_compute_dtype=torch_dtype,
-    bnb_4bit_quant_storage=torch_dtype,
+    bnb_4bit_compute_dtype=dtype,
+    bnb_4bit_quant_storage=dtype,
 )
 
-# Load model and processor
-model = AutoModelForMultimodalLM.from_pretrained(model_id, **model_kwargs)
-processor = AutoProcessor.from_pretrained("google/gemma-4-E2B-it") # Load the Instruction Processor to use the official Gemma template
-
-# NOTE: You should call the prepare_model_for_kbit_training() function to preprocess the quantized model for training.
-# On T4, we are skipping this step purely due to VRAM limitation and for a quick demonstration.
-if (torch.cuda.get_device_properties(0).total_memory/1024**3) > 16:
-    model = prepare_model_for_kbit_training(model)
+# The base model ships no chat template, so load the tokenizer of the instruction-tuned model
+tokenizer = AutoTokenizer.from_pretrained("google/gemma-4-E2B-it")
 ```
 
 The `SFTTrainer` supports a built-in integration with `peft`, which makes it straightforward to efficiently tune LLMs using QLoRA. You only need to create a `LoraConfig` and provide it to the trainer.
@@ -204,12 +193,10 @@ peft_config = LoraConfig(
 Before you can start your training, you need to define the hyperparameter you want to use in a `SFTConfig` instance.
 
 ```python { .notebook-cell }
-import torch
 from trl import SFTConfig
 
 args = SFTConfig(
     output_dir="gemma-text-to-sql",         # directory to save and repository id
-    max_length=512,                         # max length for model and packing of the dataset
     num_train_epochs=3,                     # number of training epochs
     per_device_train_batch_size=1,          # batch size per device during training
     per_device_eval_batch_size=1,           # batch size per device during evaluation
@@ -218,83 +205,13 @@ args = SFTConfig(
     save_strategy="epoch",                  # save checkpoint every epoch
     eval_strategy="epoch",                  # evaluate checkpoint every epoch
     learning_rate=2e-4,                     # learning rate
-    fp16=True if torch_dtype == torch.float16 else False,  # use float16 precision
-    bf16=True if torch_dtype == torch.bfloat16 else False, # use bfloat16 precision
+    fp16=dtype == "float16",                # use float16 precision
+    bf16=dtype == "bfloat16",               # use bfloat16 precision
+    model_init_kwargs={"dtype": dtype},     # dtype of the weights that are not quantized
     lr_scheduler_type="constant",           # use constant learning rate scheduler
     push_to_hub=True,                       # push model to hub
     report_to="tensorboard",                # report metrics to tensorboard
-    dataset_kwargs={"skip_prepare_dataset": True}, # important for collator
-    remove_unused_columns = False,                 # important for collator
 )
-
-# Data collator
-def collate_fn(examples):
-    texts = []
-
-    for example in examples:
-        full_text = processor.apply_chat_template(
-            example["messages"], add_generation_prompt=False, tokenize=False
-        )
-        texts.append(full_text.strip())
-
-    # Tokenize the texts and process the audios
-    batch = processor(text=texts, return_tensors="pt", padding=True)
-
-    # The labels are the input_ids, and we mask the padding tokens and audio tokens in the loss computation
-    labels = batch["input_ids"].clone()
-
-    target_tokens = [
-        processor.tokenizer.convert_tokens_to_ids("<|turn>"),
-        processor.tokenizer.convert_tokens_to_ids("model"),
-        processor.tokenizer.convert_tokens_to_ids("\n")
-    ]
-    target_len = len(target_tokens)
-
-    for i in range(labels.size(0)):
-        row_tokens = batch["input_ids"][i].tolist()
-
-        # Find where the assistant block begins
-        assistant_start_idx = None
-        for idx in range(len(row_tokens) - target_len + 1):
-            if row_tokens[idx : idx + target_len] == target_tokens:
-                # We want to keep loss calculation on the assistant transcription tokens,
-                # so we move the index right past the assistant header ('<|turn>\nmodel\n')
-                assistant_start_idx = idx + target_len
-                break
-
-        if assistant_start_idx is not None:
-            # Mask everything from index 0 up to the start of the actual Japanese text response
-            labels[i, :assistant_start_idx] = -100
-        else:
-            # Fallback safety: if template matching fails for an anomalous row, mask padding anyway
-            print("WARNING: maybe the sample is too long, try to increase `token_limit` value.")
-            labels[i, labels[i] == processor.tokenizer.pad_token_id] = -100
-
-        """
-        # --- DEBUG PRINT CODE ---
-        print(f"\n--- Example {i} (Split index: {assistant_start_idx}) ---")
-        debug_string = []
-        for token_id, label_id in zip(row_tokens, labels[i].tolist()):
-            # Decode token by token so we can see exactly what is masked
-            decoded_token = processor.tokenizer.decode([token_id])
-
-            if label_id == -100:
-                # Red text for masked tokens (ANSI Escape Code)
-                debug_string.append(f"\033[91m{decoded_token}\033[0m")
-            else:
-                # Green text for active loss tokens
-                debug_string.append(f"\033[92m{decoded_token}\033[0m")
-
-        print("".join(debug_string))
-        # ---
-        """
-
-
-    # Mask tokens for not being used in the loss computation
-    labels[labels == processor.tokenizer.pad_token_id] = -100
-
-    batch["labels"] = labels
-    return batch
 ```
 
 You now have every building block you need to create your `SFTTrainer` to start the training of your model.
@@ -304,13 +221,13 @@ from trl import SFTTrainer
 
 # Create Trainer object
 trainer = SFTTrainer(
-    model=model,
+    model=model_id,
     args=args,
     train_dataset=dataset["train"],
     eval_dataset=dataset["test"],
+    processing_class=tokenizer,
+    quantization_config=quantization_config,
     peft_config=peft_config,
-    processing_class=processor,
-    data_collator=collate_fn,
 )
 ```
 
@@ -338,7 +255,6 @@ Before you can test your model, make sure to free the memory.
 
 ```python { .notebook-cell }
 # free the memory again
-del model
 del trainer
 torch.cuda.empty_cache()
 ```
@@ -416,16 +332,16 @@ rand_idx = randint(0, len(dataset["test"]))
 test_sample = dataset["test"][rand_idx]
 
 # Convert as test example into a prompt with the Gemma template
-prompt = processor.tokenizer.apply_chat_template(test_sample["messages"][:2], tokenize=False, add_generation_prompt=True)
+prompt = processor.tokenizer.apply_chat_template(test_sample["prompt"], tokenize=False, add_generation_prompt=True)
 print(prompt)
 
 # Generate our SQL query.
 outputs = pipe(text_inputs=prompt, generation_config=config)
 
 # Extract the user query and original answer
-print(f"Context:\n", re.search(r'<SCHEMA>\n(.*?)\n</SCHEMA>', test_sample['messages'][1]['content'], re.DOTALL).group(1).strip())
-print(f"Query:\n", re.search(r'<USER_QUERY>\n(.*?)\n</USER_QUERY>', test_sample['messages'][1]['content'], re.DOTALL).group(1).strip())
-print(f"Original Answer:\n{test_sample['messages'][2]['content']}")
+print(f"Context:\n", re.search(r'<SCHEMA>\n(.*?)\n</SCHEMA>', test_sample['prompt'][1]['content'], re.DOTALL).group(1).strip())
+print(f"Query:\n", re.search(r'<USER_QUERY>\n(.*?)\n</USER_QUERY>', test_sample['prompt'][1]['content'], re.DOTALL).group(1).strip())
+print(f"Original Answer:\n{test_sample['completion'][0]['content']}")
 print(f"Generated Answer:\n{outputs[0]['generated_text'][len(prompt):].strip().removesuffix("<turn|>")}")
 ```
 

@@ -114,30 +114,6 @@ Map:   0%|          | 0/25 [00:00<?, ? examples/s]
 
 You are now ready to fine-tune your model. Hugging Face TRL [SFTTrainer](https://huggingface.co/docs/trl/sft_trainer) makes it straightforward to supervise fine-tune open LLMs. The `SFTTrainer` is a subclass of the `Trainer` from the `transformers` library and supports all the same features,
 
-The following code loads the Gemma model and tokenizer from Hugging Face.
-
-```python { .notebook-cell }
-import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
-
-# Load model and tokenizer
-model = AutoModelForCausalLM.from_pretrained(
-    base_model,
-    torch_dtype="auto",
-    device_map="auto",
-    attn_implementation="eager"
-)
-tokenizer = AutoTokenizer.from_pretrained(base_model)
-
-print(f"Device: {model.device}")
-print(f"DType: {model.dtype}")
-```
-
-```{ .no-copy .output }
-Device: cuda:0
-DType: torch.bfloat16
-```
-
 ## Before fine-tune
 
 The output below shows that the out-of-the-box capabilities may not be good enough for this use case.
@@ -148,8 +124,8 @@ from transformers import pipeline
 from random import randint
 import re
 
-# Load the model and tokenizer into the pipeline
-pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
+# Load the base model into the pipeline
+pipe = pipeline("text-generation", model=base_model, dtype="auto")
 
 # Load a random sample from the test dataset
 rand_idx = randint(0, len(dataset["test"])-1)
@@ -231,29 +207,21 @@ Before you can start your training, you need to define the hyperparameters you w
 ```python { .notebook-cell }
 from trl import SFTConfig
 
-torch_dtype = model.dtype
-
 args = SFTConfig(
     output_dir=checkpoint_dir,              # directory to save and repository id
     max_length=512,                         # max sequence length for model and packing of the dataset
     packing=False,                          # Groups multiple samples in the dataset into a single sequence
     num_train_epochs=5,                     # number of training epochs
     per_device_train_batch_size=4,          # batch size per device during training
-    gradient_checkpointing=False,           # Caching is incompatible with gradient checkpointing
+    gradient_checkpointing=False,           # the model is small, so skip gradient checkpointing for speed
     optim="adamw_torch_fused",              # use fused adamw optimizer
     logging_steps=1,                        # log every step
     save_strategy="epoch",                  # save checkpoint every epoch
     eval_strategy="epoch",                  # evaluate checkpoint every epoch
     learning_rate=learning_rate,            # learning rate
-    fp16=True if torch_dtype == torch.float16 else False,   # use float16 precision
-    bf16=True if torch_dtype == torch.bfloat16 else False,  # use bfloat16 precision
     lr_scheduler_type="constant",           # use constant learning rate scheduler
     push_to_hub=True,                       # push model to hub
     report_to="tensorboard",                # report metrics to tensorboard
-    dataset_kwargs={
-        "add_special_tokens": False, # Template with special tokens
-        "append_concat_token": True, # Add EOS token as separator token between examples
-    }
 )
 ```
 
@@ -264,11 +232,10 @@ from trl import SFTTrainer
 
 # Create Trainer object
 trainer = SFTTrainer(
-    model=model,
+    model=base_model,
     args=args,
     train_dataset=dataset['train'],
     eval_dataset=dataset['test'],
-    processing_class=tokenizer,
 )
 ```
 
@@ -345,28 +312,13 @@ After the training is done, you'll want to evaluate and test your model. You can
 
 For this particular use case, the best model is a matter of preference. Interestingly, what we'd normally call 'overfitting' can be very useful for a game NPC. It forces the model to forget general information and instead lock onto the specific persona and characteristics it was trained on, ensuring it stays consistently in character.
 
-```python { .notebook-cell }
-from transformers import AutoTokenizer, AutoModelForCausalLM
-
-model_id = checkpoint_dir
-
-# Load Model
-model = AutoModelForCausalLM.from_pretrained(
-    model_id,
-    torch_dtype="auto",
-    device_map="auto",
-    attn_implementation="eager"
-)
-tokenizer = AutoTokenizer.from_pretrained(model_id)
-```
-
-Let's load all questions from the test dataset and generate outputs.
+Let's load the fine-tuned model, then generate outputs for all questions from the test dataset.
 
 ```python { .notebook-cell }
 from transformers import pipeline
 
-# Load the model and tokenizer into the pipeline
-pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
+# Load the fine-tuned model into the pipeline
+pipe = pipeline("text-generation", model=checkpoint_dir, dtype="auto")
 
 def test(test_sample):
   # Convert as test example into a prompt with the Gemma template
