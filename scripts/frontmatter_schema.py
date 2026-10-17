@@ -58,7 +58,7 @@ DESCRIPTION_MAX = 200
 MODEL_SEPARATOR = "/"
 
 # Theme and authoring keys Zensical itself consumes. Allowed, not validated by us.
-THEME_KEYS = frozenset({"template", "hide", "cards", "search", "icon", "subtitle"})
+THEME_KEYS = frozenset({"template", "hide", "cards", "search", "icon", "subtitle", "image"})
 
 # Reserved for the Step 3.2 build hook. Authoring one is an error: a hand-written token
 # count is wrong the moment the page is edited.

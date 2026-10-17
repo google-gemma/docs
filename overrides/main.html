@@ -1,0 +1,103 @@
+{#-
+  Copyright 2026 Google LLC
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-#}
+
+{% import "partials/language.html" as lang with context %}
+{% extends "base.html" %}
+
+{% block site_meta %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  {% if page and page.meta and page.meta.title %}
+    {% set social_title = page.meta.title ~ " - " ~ config.site_name %}
+  {% elif page and page.title and not page.is_homepage %}
+    {% set social_title = (page.title | striptags) ~ " - " ~ config.site_name %}
+  {% else %}
+    {% set social_title = config.site_name %}
+  {% endif %}
+  {% if page and page.meta and page.meta.description %}
+    {% set raw_description = page.meta.description %}
+  {% else %}
+    {% set raw_description = config.site_description %}
+  {% endif %}
+  {% if raw_description %}
+    {% if (raw_description | length) > 155 %}
+      {% set meta_description = raw_description[:152] ~ "..." %}
+    {% else %}
+      {% set meta_description = raw_description %}
+    {% endif %}
+    {% if (raw_description | length) > 125 %}
+      {% set social_description = raw_description[:122] ~ "..." %}
+    {% else %}
+      {% set social_description = raw_description %}
+    {% endif %}
+    <meta name="description" content="{{ meta_description | e }}">
+  {% endif %}
+  {% if page and page.meta and page.meta.author %}
+    <meta name="author" content="{{ page.meta.author | e }}">
+  {% elif config.site_author %}
+    <meta name="author" content="{{ config.site_author | e }}">
+  {% endif %}
+  {% if page and page.canonical_url %}
+    <link rel="canonical" href="{{ page.canonical_url }}">
+  {% endif %}
+  {% if page and page.previous_page %}
+    <link rel="prev" href="{{ page.previous_page.url | url }}">
+  {% endif %}
+  {% if page and page.next_page %}
+    <link rel="next" href="{{ page.next_page.url | url }}">
+  {% endif %}
+  {% if config.extra.alternate is iterable %}
+    {% for alt in config.extra.alternate %}
+      <link rel="alternate" href="{{ alt.link | url }}" hreflang="{{ alt.lang | d(lang.t('language')) }}">
+    {% endfor %}
+  {% endif %}
+  {% set href = config.theme.favicon | d("assets/images/favicon.png") %}
+  <link rel="icon" href="{{ href | url }}">
+  <meta name="generator" content="{{ generator }}">
+  {% set social_image_path = "assets/gemma-4/gemma4_banner.png" %}
+  {% if page and page.meta and page.meta.image %}
+    {% set social_image_path = page.meta.image %}
+  {% elif page and page.meta and page.meta.models and "embeddinggemma" in page.meta.models %}
+    {% set social_image_path = "assets/embeddinggemma/embeddinggemma2_banner.png" %}
+  {% endif %}
+  {% if config.site_url %}
+    {% set social_image_url = (config.site_url | trim("/")) ~ "/" ~ (social_image_path | trim("/")) %}
+  {% else %}
+    {% set social_image_url = social_image_path | url %}
+  {% endif %}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ config.site_name | e }}">
+  <meta property="og:title" content="{{ social_title | e }}">
+  {% if social_description %}
+    <meta property="og:description" content="{{ social_description | e }}">
+  {% endif %}
+  {% if page and page.canonical_url %}
+    <meta property="og:url" content="{{ page.canonical_url }}">
+  {% elif config.site_url %}
+    <meta property="og:url" content="{{ config.site_url }}">
+  {% endif %}
+  <meta property="og:image" content="{{ social_image_url }}">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="{{ social_title | e }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@googlegemma">
+  <meta name="twitter:title" content="{{ social_title | e }}">
+  {% if social_description %}
+    <meta name="twitter:description" content="{{ social_description | e }}">
+  {% endif %}
+  <meta name="twitter:image" content="{{ social_image_url }}">
+  <meta name="twitter:image:alt" content="{{ social_title | e }}">
+{% endblock %}

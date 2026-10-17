@@ -1,6 +1,6 @@
 ---
 title: Google Gemma 4 Open Models
-description: Official technical documentation portal for Google Gemma 4 open-weight AI models. Explore multimodal capabilities, interactive WebGPU playgrounds, and partner integrations.
+description: Official documentation for Google Gemma 4 open-weight AI models, multimodal capabilities, deployment, and fine-tuning.
 name: gemma-home
 frameworks: [pytorch, jax, keras, webgpu, llamacpp]
 prerequisites: []

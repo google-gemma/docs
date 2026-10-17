@@ -5,7 +5,7 @@ Start with Gemma 4 unless a page or the user's request names another generation.
 Follow the Markdown links below to read canonical page content without cloning the repository.
 
 ## Home
-- [Google Gemma 4 Open Models](https://gemma.ai/index.md): Official technical documentation portal for Google Gemma 4 open-weight AI models. Explore multimodal capabilities, interactive WebGPU playgrounds, and partner integrations.
+- [Google Gemma 4 Open Models](https://gemma.ai/index.md): Official documentation for Google Gemma 4 open-weight AI models, multimodal capabilities, deployment, and fine-tuning.
 
 ## Get started
 - [Quickstart](https://gemma.ai/get-started.md): Run your first Gemma 4 generation in one command, then pick the engine, model size and checkpoint that fit your hardware.
