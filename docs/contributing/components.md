@@ -337,6 +337,7 @@ Two kinds of item sit on the line, and keeping them apart is the design:
 | `Uses` | `frameworks` frontmatter | Primary tools the page teaches. Links out to each project. |
 | `Examples` | the page's own code | What **you** want the commands to target. A preference. |
 | `Colab` | `colab` frontmatter | Direct link to Colab notebook; dynamically updates to target the selected model. |
+| `View as markdown` | `page.url` | Direct link to the generated raw `.md.txt` route so the browser displays the Markdown inline. |
 
 Pairs are separated by a 1px rule, values all share one weight, and labels are muted — 16px of
 space alone was not enough to stop `Frameworks Sentence Transformers` reading as a single run

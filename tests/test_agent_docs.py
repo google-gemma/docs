@@ -50,6 +50,13 @@ class AgentDocsTests(unittest.TestCase):
         self.assertIn("| **E2B** |", rendered)
         self.assertNotIn("{% for", rendered)
 
+    def test_raw_targets_include_inline_text_routes(self):
+        site_dir = Path("/tmp/site")
+        targets = {path.relative_to(site_dir).as_posix() for path, _ in agent_docs.raw_targets(site_dir)}
+        self.assertIn("get-started.md", targets)
+        self.assertIn("get-started.md.txt", targets)
+        self.assertIn("get-started/best-practices.md.txt", targets)
+
 
 if __name__ == "__main__":
     unittest.main()

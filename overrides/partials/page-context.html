@@ -21,6 +21,7 @@
 {%- set requires = page.meta.requires if page.meta and page.meta.requires else "" -%}
 {%- set frameworks = page.meta.frameworks if page.meta and page.meta.frameworks else [] -%}
 {%- set colab = page.meta.colab if page.meta and page.meta.colab else "" -%}
+{%- set markdown_url = ("/" ~ (page.url | trim("/")) ~ ".md.txt") if page and page.url else "" -%}
 {%- set ns = namespace(families=[]) -%}
 {%- for id in models -%}
   {%- set family = id | split("/") | first -%}
@@ -28,7 +29,7 @@
     {%- set ns.families = ns.families + [family] -%}
   {%- endif -%}
 {%- endfor -%}
-{%- if models or frameworks or colab %}
+{%- if models or frameworks or colab or markdown_url %}
 <div class="page-context" data-requires="{{ requires }}">
   {%- if ns.families %}
   <span class="page-context__item">
@@ -61,6 +62,20 @@
     <a class="page-context__value page-context__value--link page-context__colab" href="{{ colab }}" target="_blank" rel="noopener" title="Open in Google Colab" aria-label="Open in Google Colab">
       <img src="https://www.tensorflow.org/images/colab_logo_32px.png" alt="" width="16" height="16">
       <span>Colab</span>
+    </a>
+  </span>
+  {%- endif %}
+  {%- if markdown_url %}
+  <span class="page-context__item page-context__item--markdown">
+    <a class="page-context__value page-context__value--link page-context__markdown" href="{{ markdown_url }}" target="_blank" rel="noopener" title="View as markdown" aria-label="View as markdown">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
+        <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+        <path d="M10 9H8"/>
+        <path d="M16 13H8"/>
+        <path d="M16 17H8"/>
+      </svg>
+      <span>View as markdown</span>
     </a>
   </span>
   {%- endif %}

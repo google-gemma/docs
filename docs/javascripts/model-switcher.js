@@ -226,8 +226,8 @@
 
     picker.append(trigger, menu);
     item.append(label, picker);
-    const colabItem = strip.querySelector(".page-context__item--colab");
-    if (colabItem) strip.insertBefore(item, colabItem);
+    const trailingItem = strip.querySelector(".page-context__item--colab, .page-context__item--markdown");
+    if (trailingItem) strip.insertBefore(item, trailingItem);
     else strip.appendChild(item);
     choose(picker, initial);
   };

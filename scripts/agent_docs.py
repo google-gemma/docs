@@ -184,6 +184,7 @@ def raw_targets(site_dir: Path) -> Iterable[tuple[Path, str]]:
         clean_target = site_dir / clean_route
         if clean_target != source_shape:
             yield clean_target, content
+        yield Path(f"{clean_target}.txt"), content
 
 
 def generated_outputs() -> tuple[tuple[Path, str], ...]:

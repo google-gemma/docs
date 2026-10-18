@@ -68,13 +68,15 @@
   text-decoration: underline;
 }
 
-.md-typeset .page-context__colab {
+.md-typeset .page-context__colab,
+.md-typeset .page-context__markdown {
   display: inline-flex;
   align-items: center;
   gap: var(--gemma-space-1);
 }
 
-.page-context__colab img {
+.page-context__colab img,
+.page-context__markdown svg {
   display: block;
   width: 1rem;
   height: 1rem;
