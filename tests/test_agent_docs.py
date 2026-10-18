@@ -52,6 +52,18 @@ class AgentDocsTests(unittest.TestCase):
         self.assertNotIn("{% for", rendered)
         self.assertNotIn("glossary.md", rendered)
         self.assertNotIn("## What's next", rendered)
+        self.assertIn("https://gemma.ai/assets/gemma-mark.png", rendered)
+
+    def test_raw_markdown_resolves_relative_asset_paths(self):
+        rendered = agent_docs.render_raw(
+            "models/embeddinggemma/fine-tuning-multimodal.md",
+            {"title": "Fine-Tune Multimodal"},
+            "![Shin Yunbok](../../assets/embeddinggemma/ink-wash-1.png)\n",
+        )
+        self.assertIn(
+            "![Shin Yunbok](https://gemma.ai/assets/embeddinggemma/ink-wash-1.png)",
+            rendered,
+        )
 
     def test_raw_targets_include_inline_text_routes(self):
         site_dir = Path("/tmp/site")

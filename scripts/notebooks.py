@@ -35,6 +35,7 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parent.parent
 NOTEBOOKS_DIR = REPO_ROOT / "docs" / "notebooks"
 MODELS_DATA = REPO_ROOT / "data" / "models.yml"
+SITE_URL = "https://gemma.ai"
 
 DEFAULT_SOURCE = REPO_ROOT / "docs" / "get-started" / "capabilities" / "thinking.md"
 DEFAULT_MODEL = "gemma-4/e2b"
@@ -114,6 +115,9 @@ OUTPUT_VIDEO = re.compile(
     r"|(?:(?!</video>).)*?\bsrc=(?:\"(?:[^\"\n]*/)?output_[^/\"\n]*\"|'(?:[^'\n]*/)?output_[^/'\n]*'))"
     r"[^>]*>.*?</video>[ \t]*\n?",
     re.DOTALL | re.IGNORECASE,
+)
+RELATIVE_ASSET = re.compile(
+    r"(?P<prefix>\]\(|(?:\b(?:src|href)=[\"']))(?:\.\.?/|/)*(?P<path>assets/[^)\s\"']+)"
 )
 # In Markdown tables, Jupyter/Colab table parsers split cells on unescaped `|` even inside inline
 # code spans (`<|turn>`). Escaping `|` as `\|` inside inline code spans on table rows keeps table
@@ -256,6 +260,7 @@ def notebook_markdown(text: str) -> str:
     text = OUTPUT_IMAGE.sub("", text)
     text = OUTPUT_AUDIO.sub("", text)
     text = OUTPUT_VIDEO.sub("", text)
+    text = RELATIVE_ASSET.sub(rf"\g<prefix>{SITE_URL}/\g<path>", text)
     lines = []
     for line in text.splitlines(keepends=True):
         if line.lstrip().startswith("|"):

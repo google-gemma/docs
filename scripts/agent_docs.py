@@ -53,6 +53,9 @@ WHATS_NEXT_SECTION = re.compile(
     r"^##\s+What['’]s\s+next[ \t]*$(?:\n(?!#{1,2}\s).*)*\n?",
     re.IGNORECASE | re.MULTILINE,
 )
+RELATIVE_ASSET = re.compile(
+    r"(?P<prefix>\]\(|(?:\b(?:src|href)=[\"']))(?:\.\.?/|/)*(?P<path>assets/[^)\s\"']+)"
+)
 
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -184,6 +187,7 @@ def render_raw(relative: str, metadata: dict, body: str) -> str:
     rendered = environment.from_string(body).render(**context)
     rendered = WHATS_NEXT_SECTION.sub("", rendered)
     rendered = SNIPPET_INCLUDE.sub("", rendered).strip() + "\n"
+    rendered = RELATIVE_ASSET.sub(rf"\g<prefix>{SITE_URL}/\g<path>", rendered)
     if not H1.search(rendered):
         rendered = f"# {metadata['title']}\n\n{rendered}"
     return rendered

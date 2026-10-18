@@ -180,6 +180,19 @@ After"""
         self.assertNotIn(".token-think", rendered)
         self.assertNotIn("data-model", rendered)
 
+    def test_relative_asset_paths_are_resolved(self):
+        body = "![Shin Yunbok](../../assets/embeddinggemma/ink-wash-1.png)\n![](../assets/deployment/thali-indian-plate.jpg)"
+        cells = notebooks.export_cells(body)
+        rendered = "".join(cells[0]["source"])
+        self.assertIn(
+            "![Shin Yunbok](https://gemma.ai/assets/embeddinggemma/ink-wash-1.png)",
+            rendered,
+        )
+        self.assertIn(
+            "![](https://gemma.ai/assets/deployment/thali-indian-plate.jpg)",
+            rendered,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
