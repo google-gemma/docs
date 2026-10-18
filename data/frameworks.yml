@@ -120,7 +120,7 @@ frameworks:
     pinned: gemma-4
     blurb: Try Gemma in the browser, no key or setup.
     mark: AI
-    icon: simple/google
+    icon: simple/aistudio
 
   - id: transformers
     name: Hugging Face Transformers
@@ -137,6 +137,7 @@ frameworks:
     page: deployment/unsloth.md
     blurb: Dynamic-quant GGUFs and 2x faster fine-tuning.
     mark: Un
+    icon: simple/unsloth
 
   - id: keras
     name: Keras
