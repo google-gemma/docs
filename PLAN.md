@@ -16,9 +16,13 @@ history; durable authoring instructions belong in `README.md`, `docs/contributin
 - Twenty-three Markdown-first tutorials export 66 Jupyter notebooks (`docs/notebooks/*.ipynb`) with
   Apache 2.0 license headers, including model-specific variants for `.model-swap` pages and dynamic
   Colab link switching in the browser.
-- Two interactive demos (FunctionGemma physics playground HF Space and AIventure web game), a
-  task-first Learn hub, visual guides (`tutorials/visual-guides/`), and the 6-part Gemma Explained
-  series (`tutorials/gemma-explained/`) demonstrate richer documentation experiences.
+- Three interactive demos (FunctionGemma physics playground HF Space, AIventure web game, and
+  Embedding Draw Challenge), a task-first Learn hub, visual guides (`tutorials/visual-guides/`),
+  and the 6-part Gemma Explained series (`tutorials/gemma-explained/`) demonstrate richer
+  documentation experiences.
+- Google Analytics 4 (`G-CWMC2KTTGQ`) and cookie-consent management are configured in
+  `zensical.toml` (with `GA_MEASUREMENT_ID` override support in `scripts/build_docs.py`) and
+  verified by `tests/test_analytics.py`.
 - All 65 imported pages in `scripts/importers/sources.toml` are frozen (`frozen = true`) and
   hand-maintained across 97 total documentation pages.
 - The lint baseline (`.lintbaseline.json`) is empty (`0 new, 0 known` across all 15 checks).
@@ -31,12 +35,6 @@ Deferred demos and interactive tools are not POC merge blockers.
 
 Keep this list short. These tasks materially affect production cutover or repository maintenance;
 broader product ideas belong in the deferred roadmap.
-
-### Analytics cutover
-
-- [ ] Configure the production `GA_MEASUREMENT_ID` repository variable or secret in GitHub Actions.
-- [ ] Rename `tests/skip_test_analytics.py` to `tests/test_analytics.py` once the final measurement
-      ID is in place to enable GA4 and cookie-consent verification in CI.
 
 ### Generated notebooks (optional CI publishing)
 
@@ -154,8 +152,7 @@ These remain supported because more official Markdown and notebook content is ex
 
 Regression tests and converter fixtures belong in `tests/`, not beside executable maintenance
 commands. CI discovers `test_*.py` from this directory (`test_agent_docs.py`,
-`test_convert_notebook.py`, `test_notebooks.py`; `skip_test_analytics.py` awaits production
-`GA_MEASUREMENT_ID`).
+`test_analytics.py`, `test_convert_notebook.py`, `test_notebooks.py`).
 
 Removed from the maintained surface:
 

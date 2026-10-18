@@ -41,9 +41,9 @@ def inject_analytics_property(config_text: str, measurement_id: str) -> str:
 
 
 @contextmanager
-def build_config(measurement_id: str) -> Iterator[Path | None]:
+def build_config(measurement_id: str | None) -> Iterator[Path | None]:
     """Yield a temporary Zensical config path with GA4 measurement ID injected if set."""
-    if not measurement_id:
+    if measurement_id is None:
         yield None
         return
 
@@ -85,7 +85,8 @@ def hidden_docs() -> Iterator[None]:
 
 def main() -> int:
     agent_docs.write_generated()
-    measurement_id = os.environ.get("GA_MEASUREMENT_ID", "").strip()
+    raw_measurement_id = os.environ.get("GA_MEASUREMENT_ID")
+    measurement_id = raw_measurement_id.strip() if raw_measurement_id is not None else None
     args = sys.argv[1:]
     site_dir = agent_docs.REPO_ROOT / "site"
     for prefix in agent_docs.HIDDEN_PREFIXES:
@@ -99,7 +100,7 @@ def main() -> int:
         result = subprocess.run(command, cwd=agent_docs.REPO_ROOT, check=False)
         if result.returncode:
             return result.returncode
-    agent_docs.publish(site_dir)
+        agent_docs.publish(site_dir)
     return 0
 
 

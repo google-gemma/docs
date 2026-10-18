@@ -14,6 +14,7 @@
 
 from __future__ import annotations
 
+import importlib.util
 import os
 import subprocess
 import sys
@@ -23,13 +24,19 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import build_docs
 
+HAS_ZENSICAL = importlib.util.find_spec("zensical") is not None
+
 
 class AnalyticsBuildTests(unittest.TestCase):
     def test_inject_analytics_property_updates_config(self):
         source = (build_docs.agent_docs.REPO_ROOT / "zensical.toml").read_text(encoding="utf-8")
+        self.assertIn('property = "G-CWMC2KTTGQ"', source)
         injected = build_docs.inject_analytics_property(source, "G-TEST123456")
         self.assertIn('property = "G-TEST123456"', injected)
+        cleared = build_docs.inject_analytics_property(source, "")
+        self.assertIn('property = ""', cleared)
 
+    @unittest.skipUnless(HAS_ZENSICAL, "zensical is required for full build tests")
     def test_build_without_measurement_id_omits_tracking_script(self):
         env = {**os.environ, "GA_MEASUREMENT_ID": ""}
         result = subprocess.run(
@@ -45,6 +52,7 @@ class AnalyticsBuildTests(unittest.TestCase):
         self.assertNotIn("googletagmanager.com/gtag/js", index_html)
         self.assertNotIn("Change cookie settings", index_html)
 
+    @unittest.skipUnless(HAS_ZENSICAL, "zensical is required for full build tests")
     def test_build_with_measurement_id_includes_ga4_and_consent(self):
         env = {**os.environ, "GA_MEASUREMENT_ID": "G-TEST123456"}
         result = subprocess.run(

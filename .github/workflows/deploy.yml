@@ -38,7 +38,7 @@ jobs:
 
       - name: Build docs
         env:
-          GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID || secrets.GA_MEASUREMENT_ID }}
+          GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID || secrets.GA_MEASUREMENT_ID || 'G-CWMC2KTTGQ' }}
         run: |
           uv run --frozen python scripts/build_docs.py
 

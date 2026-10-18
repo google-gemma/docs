@@ -261,12 +261,11 @@ name = "Gemma 4 on Kaggle"
 # ============================================================================
 # ANALYTICS & CONSENT
 # ============================================================================
-# Google Analytics 4 (GA4) Measurement ID is injected at build time via the
-# GA_MEASUREMENT_ID environment variable in scripts/build_docs.py so local and
-# pull-request previews remain untracked.
+# Google Analytics 4 (GA4) Measurement ID. Can also be overridden at build time
+# via the GA_MEASUREMENT_ID environment variable in scripts/build_docs.py.
 [project.extra.analytics]
 provider = "google"
-property = ""
+property = "G-CWMC2KTTGQ"
 
 [project.extra.consent]
 title = "Cookie consent"

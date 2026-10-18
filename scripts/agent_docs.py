@@ -211,7 +211,8 @@ def generated_outputs() -> tuple[tuple[Path, str], ...]:
 
 def write_generated() -> None:
     for path, content in generated_outputs():
-        path.write_text(content, encoding="utf-8")
+        if not path.exists() or path.read_text(encoding="utf-8") != content:
+            path.write_text(content, encoding="utf-8")
         print(f"wrote {path.relative_to(REPO_ROOT)}")
 
 
