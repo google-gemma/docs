@@ -42,6 +42,7 @@ frameworks:
     page: deployment/llamacpp.md
     blurb: Fast GGUF inference on CPU and Apple silicon.
     mark: lc
+    icon: simple/llamacpp
 
   - id: lmstudio
     name: LM Studio

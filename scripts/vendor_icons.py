@@ -126,15 +126,15 @@ def main() -> int:
     copied = 0
     for name in sorted(wanted):
         target = VENDOR_DIR / f"{name}.svg"
+        if target.is_file():
+            continue
         origin = source / f"{name}.svg"
         if not origin.is_file():
             print(f"  NOT IN ZENSICAL: {name}")
             continue
-        text = origin.read_text(encoding="utf-8")
-        if not target.is_file() or target.read_text(encoding="utf-8") != text:
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(text, encoding="utf-8")
-            copied += 1
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(origin.read_text(encoding="utf-8"), encoding="utf-8")
+        copied += 1
 
     removed = 0
     if args.prune and VENDOR_DIR.is_dir():
