@@ -50,6 +50,7 @@ class AgentDocsTests(unittest.TestCase):
         rendered = agent_docs.render_raw("get-started/index.md", metadata, body)
         self.assertIn("| **E2B** |", rendered)
         self.assertNotIn("{% for", rendered)
+        self.assertNotIn("glossary.md", rendered)
 
     def test_raw_targets_include_inline_text_routes(self):
         site_dir = Path("/tmp/site")
