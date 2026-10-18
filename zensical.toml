@@ -218,10 +218,6 @@ nav = [
       { "Vision token budget" = "resources/vision-token-budget.md" },
       { "Embedding Draw Challenge" = "resources/embedding-draw-challenge.md" },
     ]},
-    { "Contribute" = [
-      { "Components" = "contributing/components.md" },
-      { "Conventions" = "contributing/conventions.md" },
-    ]},
     { "Legal" = [
       { "Gemma 4 license" = "resources/apache-2.md" },
       { "Terms of use" = "resources/terms.md" },

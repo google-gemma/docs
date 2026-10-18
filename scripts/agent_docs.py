@@ -45,6 +45,7 @@ from main import icon as _icon  # noqa: E402
 
 LLMS_TARGET = DOCS_DIR / "llms.txt"
 SITE_URL = "https://gemma.ai"
+HIDDEN_PREFIXES = ("contributing/",)
 
 H1 = re.compile(r"^#\s+", re.MULTILINE)
 
@@ -62,10 +63,16 @@ def split_frontmatter(text: str) -> tuple[dict, str]:
     raise ValueError("unterminated frontmatter")
 
 
+def is_hidden_page(relative: str) -> bool:
+    return relative.startswith(HIDDEN_PREFIXES)
+
+
 def source_pages() -> dict[str, tuple[Path, dict, str]]:
     pages = {}
     for path in sorted(DOCS_DIR.rglob("*.md")):
         relative = path.relative_to(DOCS_DIR).as_posix()
+        if is_hidden_page(relative):
+            continue
         metadata, body = split_frontmatter(path.read_text(encoding="utf-8"))
         pages[relative] = (path, metadata, body)
     return pages

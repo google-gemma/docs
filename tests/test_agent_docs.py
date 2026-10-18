@@ -42,6 +42,7 @@ class AgentDocsTests(unittest.TestCase):
         self.assertTrue(rendered.startswith("# Gemma Documentation\n"))
         self.assertIn("https://gemma.ai/get-started.md", rendered)
         self.assertNotIn("llms-full", rendered)
+        self.assertNotIn("/contributing/", rendered)
 
     def test_raw_markdown_renders_model_macros(self):
         pages = agent_docs.source_pages()
@@ -56,6 +57,7 @@ class AgentDocsTests(unittest.TestCase):
         self.assertIn("get-started.md", targets)
         self.assertIn("get-started.md.txt", targets)
         self.assertIn("get-started/best-practices.md.txt", targets)
+        self.assertFalse(any(target.startswith("contributing/") for target in targets))
 
 
 if __name__ == "__main__":

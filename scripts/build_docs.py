@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import os
 import re
+import shutil
 import subprocess
 import sys
 from contextlib import contextmanager
@@ -56,18 +57,49 @@ def build_config(measurement_id: str) -> Iterator[Path | None]:
         temp_config.unlink(missing_ok=True)
 
 
+@contextmanager
+def hidden_docs() -> Iterator[None]:
+    """Temporarily move hidden documentation directories out of docs/ during the Zensical build."""
+    moved: list[tuple[Path, Path]] = []
+    stash_root = agent_docs.REPO_ROOT / ".zensical.hidden"
+    try:
+        for prefix in agent_docs.HIDDEN_PREFIXES:
+            rel = prefix.strip("/")
+            source = agent_docs.DOCS_DIR / rel
+            if source.exists():
+                target = stash_root / rel
+                if target.exists():
+                    shutil.rmtree(target)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                source.rename(target)
+                moved.append((source, target))
+        yield
+    finally:
+        for source, target in reversed(moved):
+            if target.exists():
+                source.parent.mkdir(parents=True, exist_ok=True)
+                target.rename(source)
+        if stash_root.exists():
+            shutil.rmtree(stash_root, ignore_errors=True)
+
+
 def main() -> int:
     agent_docs.write_generated()
     measurement_id = os.environ.get("GA_MEASUREMENT_ID", "").strip()
     args = sys.argv[1:]
-    with build_config(measurement_id) as temp_config:
+    site_dir = agent_docs.REPO_ROOT / "site"
+    for prefix in agent_docs.HIDDEN_PREFIXES:
+        stale = site_dir / prefix.strip("/")
+        if stale.exists():
+            shutil.rmtree(stale)
+    with hidden_docs(), build_config(measurement_id) as temp_config:
         if temp_config and "-f" not in args and "--config-file" not in args:
             args = ["-f", str(temp_config), *args]
         command = [sys.executable, "-m", "zensical", "build", *args]
         result = subprocess.run(command, cwd=agent_docs.REPO_ROOT, check=False)
         if result.returncode:
             return result.returncode
-    agent_docs.publish(agent_docs.REPO_ROOT / "site")
+    agent_docs.publish(site_dir)
     return 0
 
 

@@ -3,6 +3,8 @@ title: Components
 models: [gemma-4]
 frameworks: [ollama]
 description: The reusable building blocks these docs are made from, with live examples and the markup to copy.
+search:
+  exclude: true
 ---
 
 # Components

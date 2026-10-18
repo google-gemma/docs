@@ -1,6 +1,8 @@
 ---
 title: Conventions
 description: How this documentation stays consistent — where facts live, what is generated, and what the linter enforces.
+search:
+  exclude: true
 ---
 
 # Conventions

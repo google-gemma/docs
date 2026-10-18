@@ -493,13 +493,19 @@ def check_frontmatter(ctx: Context) -> Iterable[Finding]:
             )
 
 
+HIDDEN_PREFIXES = ("contributing/",)
+
+
 def check_orphans(ctx: Context) -> Iterable[Finding]:
     """Nav and filesystem must agree."""
     nav = set(ctx.nav_entries)
-    for rel in sorted(ctx.page_paths - nav):
+    visible_pages = {rel for rel in ctx.page_paths if not rel.startswith(HIDDEN_PREFIXES)}
+    for rel in sorted(visible_pages - nav):
         yield Finding("orphans", f"docs/{rel}", 0, "page exists but is not in nav")
     for rel in sorted(nav - ctx.page_paths):
         yield Finding("orphans", "zensical.toml", 0, f"nav entry has no file: {rel}")
+    for rel in sorted(nav & (ctx.page_paths - visible_pages)):
+        yield Finding("orphans", "zensical.toml", 0, f"hidden page must not be in nav: {rel}")
     seen: set[str] = set()
     for rel in ctx.nav_entries:
         if rel in seen:
