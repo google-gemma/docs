@@ -106,13 +106,17 @@ html {
   .md-sidebar--primary .md-sidebar__inner {
     padding-right: var(--gemma-space-2);
   }
+
+  /* At desktop widths .md-content owns horizontal padding and
+     .md-content__inner is zeroed out; zero the breadcrumb's 1.2rem
+     (19px) margin here too so both start on the same edge. */
+  .md-content .md-path {
+    margin-inline: 0;
+    padding-inline: 0;
+  }
 }
 
-/* The breadcrumb carries its own inset, which left it 19px off the heading
-   it sits above. Both now start on the same edge. */
 .md-content .md-path {
-  margin-inline: 0;
-  padding-inline: 0;
   font-size: 0.75rem;
 }
 
