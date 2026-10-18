@@ -62,7 +62,7 @@ option below runs the same weights, so you can move between them later.
 Hosted endpoints. No download, no GPU — useful for evaluating a model before committing
 hardware to it.
 
-{{ engines(["ai-studio", "openrouter", "cerebras"]) }}
+{{ engines(["ai-studio", "openrouter"]) }}
 
 ### Run it on your own machine
 
