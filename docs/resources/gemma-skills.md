@@ -11,11 +11,11 @@ coding agent working knowledge of Gemma — current model names, the APIs to rea
 steps a task actually takes. Install one and the agent stops guessing.
 
 <div class="card-grid">
-<a class="card" href="https://github.com/google-gemma/gemma-skills/tree/main/skills" target="_blank" rel="noopener">
+<a class="card" href="https://github.com/google-gemma/gemma-skills/tree/main/skills/gemma-dev/SKILL.md" target="_blank" rel="noopener">
   <div class="card-title">gemma-dev <span class="card-ext">↗</span></div>
   <p class="card-desc">Building applications with Gemma, and general questions about the models.</p>
 </a>
-<a class="card" href="https://github.com/google-gemma/gemma-skills/tree/main/skills" target="_blank" rel="noopener">
+<a class="card" href="https://github.com/google-gemma/gemma-skills/tree/main/skills/gemma-trainer/SKILL.md" target="_blank" rel="noopener">
   <div class="card-title">gemma-trainer <span class="card-ext">↗</span></div>
   <p class="card-desc">Training and adapting Gemma on local hardware — SFT, DPO, RLHF and reward modeling.</p>
 </a>
@@ -26,7 +26,11 @@ steps a task actually takes. Install one and the agent stops guessing.
 === "skills CLI"
 
     ```bash
-    npx skills add google-gemma/gemma-skills
+    # Interactively browse and install skills.
+    npx skills add google-gemma/gemma-skills --list
+
+    # Install a specific skill (e.g., gemma-dev).
+    npx skills add google-gemma/gemma-skills --skill gemma-dev
     ```
 
 === "Antigravity CLI"
