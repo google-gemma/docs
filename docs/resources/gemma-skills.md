@@ -26,17 +26,15 @@ steps a task actually takes. Install one and the agent stops guessing.
 === "skills CLI"
 
     ```bash
-    npx skills add google-gemma/gemma-skills --skill gemma-dev --global
+    npx skills add google-gemma/gemma-skills
     ```
 
-=== "Context7 CLI"
+=== "Antigravity CLI"
 
     ```bash
-    npx ctx7 skills install /google-gemma/gemma-skills gemma-dev
+    # Install it directly
+    agy plugin install https://github.com/google-gemma/gemma-skills
     ```
-
-Swap `gemma-dev` for `gemma-trainer`, or browse them interactively with
-`npx skills add google-gemma/gemma-skills --list`.
 
 !!! note
     The repository is Apache-2.0 licensed and is not an officially supported Google product.
