@@ -46,6 +46,7 @@ licensed for responsible [commercial use][gemma-terms], allowing you to
 fine tune and deploy it in your own projects and applications.
 
 [Formatting and best practices](formatting.md)
+
 [Try FunctionGemma](inference.md)
 
 [Fine-tune FunctionGemma](fine-tuning.md)
