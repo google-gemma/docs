@@ -49,6 +49,10 @@ HIDDEN_PREFIXES = ("contributing/",)
 
 H1 = re.compile(r"^#\s+", re.MULTILINE)
 SNIPPET_INCLUDE = re.compile(r'^-{2,}8<-{2,}[ \t]+"[^"]+"[ \t]*$\n?', re.MULTILINE)
+WHATS_NEXT_SECTION = re.compile(
+    r"^##\s+What['’]s\s+next[ \t]*$(?:\n(?!#{1,2}\s).*)*\n?",
+    re.IGNORECASE | re.MULTILINE,
+)
 
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -178,6 +182,7 @@ def render_raw(relative: str, metadata: dict, body: str) -> str:
     context["frameworkdata"] = framework_data()
     context["icon"] = _icon
     rendered = environment.from_string(body).render(**context)
+    rendered = WHATS_NEXT_SECTION.sub("", rendered)
     rendered = SNIPPET_INCLUDE.sub("", rendered).strip() + "\n"
     if not H1.search(rendered):
         rendered = f"# {metadata['title']}\n\n{rendered}"
