@@ -218,7 +218,14 @@ body:not([data-md-color-scheme="slate"]) .md-logo .gemma-logo-dark,
 
 .md-nav__list .md-nav__list {
   margin-left: var(--gemma-space-2);
-  padding-left: var(--gemma-space-2);
+  padding-left: 0;
+}
+
+/* Keep one step of indent under section headers on desktop where Material zeroes margin-left. */
+@media screen and (min-width: 76.25em) {
+  .md-nav__item--section > .md-nav[data-md-level="2"] > .md-nav__list {
+    padding-left: var(--gemma-space-2);
+  }
 }
 
 /* -------------------------------------------------------------------

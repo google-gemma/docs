@@ -116,6 +116,31 @@ html {
   }
 }
 
+/* Material sizes the <76.25em slide-out drawer at 12.1rem assuming 1rem = 20px
+   (242px). With html { font-size: 100% } (1rem = 16px) that shrinks to 193px,
+   truncating nested nav labels. Match the 17rem desktop rail width. */
+@media screen and (max-width: 76.234375em) {
+  [dir="ltr"] .md-sidebar--primary {
+    left: -17rem;
+  }
+
+  [dir="rtl"] .md-sidebar--primary {
+    right: -17rem;
+  }
+
+  .md-sidebar--primary {
+    width: 17rem;
+  }
+
+  [data-md-toggle="drawer"]:checked ~ .md-container .md-sidebar--primary {
+    transform: translateX(17.4rem);
+  }
+
+  [dir="rtl"] [data-md-toggle="drawer"]:checked ~ .md-container .md-sidebar--primary {
+    transform: translateX(-17.4rem);
+  }
+}
+
 .md-content .md-path {
   font-size: 0.75rem;
 }
