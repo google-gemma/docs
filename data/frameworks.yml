@@ -112,13 +112,6 @@ frameworks:
     mark: OR
     icon: simple/openrouter
 
-  - id: cerebras
-    name: Cerebras
-    url: https://inference-docs.cerebras.ai/models/gemma-4-31b
-    pinned: gemma-4
-    blurb: Very high token throughput on Cerebras hardware.
-    mark: CB
-
   - id: ai-studio
     name: Google AI Studio
     short_name: AI Studio
