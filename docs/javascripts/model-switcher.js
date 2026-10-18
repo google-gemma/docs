@@ -317,7 +317,53 @@
     for (const picker of document.querySelectorAll(".page-context__picker")) {
       if (!picker.contains(event.target)) closePicker(picker);
     }
+    const selectBtn = event.target.closest?.(".md-code__button[data-md-type=select]");
+    if (selectBtn) {
+      window.getSelection()?.removeAllRanges();
+      const pre = selectBtn.closest("pre");
+      if (pre) {
+        for (const hll of pre.querySelectorAll(".hll")) {
+          hll.replaceWith(...hll.childNodes);
+        }
+      }
+      if (window.location.hash.startsWith("#__codelineno-")) {
+        window.history.replaceState(
+          window.history.state,
+          "",
+          window.location.pathname + window.location.search
+        );
+      }
+    }
   });
+
+  document.addEventListener(
+    "mousedown",
+    (event) => {
+      if (event.button !== 0 || event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) return;
+      const lineSpan = event.target.closest?.(".md-code__content > span[id^='__span']");
+      if (!lineSpan) return;
+      const code = lineSpan.parentElement;
+      const pre = code?.closest("pre");
+      const selectBtn = pre?.querySelector(".md-code__button[data-md-type=select]");
+      if (!selectBtn?.classList.contains("md-code__button--active")) return;
+      const selected = code.querySelectorAll(":scope > span[id^='__span']:has(.hll:not(.select))");
+      if (selected.length === 1 && selected[0] === lineSpan) {
+        event.preventDefault();
+        event.stopPropagation();
+        for (const hll of code.querySelectorAll(".hll")) {
+          hll.replaceWith(...hll.childNodes);
+        }
+        if (window.location.hash.startsWith("#__codelineno-")) {
+          window.history.replaceState(
+            window.history.state,
+            "",
+            window.location.pathname + window.location.search
+          );
+        }
+      }
+    },
+    true
+  );
 
   window.addEventListener("keydown", (event) => {
     if (((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") || event.key === "/") {

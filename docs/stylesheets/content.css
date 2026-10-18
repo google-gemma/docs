@@ -177,6 +177,11 @@
   border: 0;
 }
 
+/* When lines are highlighted via "Toggle line selection", copy only those lines. */
+.highlight code[data-md-copying]:has(.hll:not(.select)) > span[id^="__span"]:not(:has(.hll:not(.select))) {
+  display: none;
+}
+
 .md-typeset a code {
   color: var(--gemma-accent);
   border-color: color-mix(in srgb, var(--gemma-accent) 30%, transparent);
