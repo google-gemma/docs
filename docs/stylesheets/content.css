@@ -218,7 +218,47 @@
   border-left: 2px solid var(--gemma-border);
 }
 
-/* Output blocks read as results, not as source to copy. */
+/* Notebook cells (.notebook-cell) and output blocks (.output). */
+.md-typeset :is(.notebook-cell, .output) > pre > code {
+  padding-top: 2.2rem;
+}
+
+.md-typeset :is(.notebook-cell, .output) > pre::before {
+  position: absolute;
+  top: 0.45rem;
+  left: var(--gemma-space-4);
+  z-index: 1;
+  padding: 0.1rem 0.45rem;
+  font-family: var(--md-text-font-family);
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--gemma-radius-sm);
+  pointer-events: none;
+  user-select: none;
+}
+
+.md-typeset .notebook-cell > pre::before {
+  content: "Code";
+  color: var(--gemma-cat-turn-fg);
+  background-color: var(--gemma-cat-turn-bg);
+  border: 1px solid var(--gemma-cat-turn-border);
+}
+
+.md-typeset .notebook-cell code {
+  border-left: 3px solid var(--gemma-accent);
+}
+
+.md-typeset .output > pre::before {
+  content: "Output";
+  color: var(--gemma-cat-tool-fg);
+  background-color: var(--gemma-cat-tool-bg);
+  border: 1px solid var(--gemma-cat-tool-border);
+}
+
 .md-typeset .output code {
   background-color: var(--gemma-output-bg);
+  border-left: 3px solid var(--gemma-status-success);
 }
