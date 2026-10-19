@@ -52,16 +52,18 @@ generation at higher speeds.
 
 ### DiffusionGemma
 
-\| **Total Parameters** \| 25.2B \|
-\| **Active Parameters** \| 3.8B \|
-\| **Layers** \| 30 \|
-\| **Sliding Window** \| 1024 tokens \|
-\| **Context Length** \| Up to 256K tokens \|
-\| **Canvas Length** \| 256 \|
-\| **Vocabulary Size** \| 262K \|
-\| **Expert Count** \| 8 active / 128 total and 1 shared \|
-\| **Supported Modalities** \| Text, Image \|
-\| **Vision Encoder Parameters** \| \~550M \|
+| Property | DiffusionGemma 26B A4B |
+| :---- | :---- |
+| **Total Parameters** | 25.2B |
+| **Active Parameters** | 3.8B |
+| **Layers** | 30 |
+| **Sliding Window** | 1024 tokens |
+| **Context Length** | Up to 256K tokens |
+| **Canvas Length** | 256 |
+| **Vocabulary Size** | 262K |
+| **Expert Count** | 8 active / 128 total and 1 shared |
+| **Supported Modalities** | Text, Image |
+| **Vision Encoder Parameters** | ~550M |
 
 ## **Benchmark Results**
 
