@@ -136,7 +136,7 @@ report that includes evaluations against external datasets.
 
 **Internal Benchmark Evaluation Results**
 
-| Model | Sexually Explicit | Dangerous Content | Violence \& Gore |
+| Model | Sexually Explicit | Dangerous Content | Violence & Gore |
 |---|---|---|---|
 | LlavaGuard 7B | 47.6/93.1/63.0 | 67.8/47.2/55.7 | 36.8/100.0/53.8 |
 | GPT-4o mini | 68.3/97.7/80.3 | 84.4/99.0/91.0 | 40.2/100.0/57.3 |

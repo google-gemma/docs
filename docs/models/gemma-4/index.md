@@ -55,7 +55,7 @@ information, see [Previous Gemma models](index.md#previous-gemma-models).
   modes](../../get-started/capabilities/thinking.md).
 - **Extended Multimodalities:** Processes Text, [Image](../../get-started/capabilities/image.md) with variable aspect ratio and resolution support (all models), [Video](../../get-started/capabilities/video.md), and [Audio](../../get-started/capabilities/audio.md) (featured natively on the E2B, E4B and 12B models).
 - **Increased Context Window:** Small models feature a 128K context window, while the medium models support 256K.
-- **Enhanced Coding \& Agentic Capabilities:** Achieves notable improvements in coding benchmarks alongside built-in [function-calling
+- **Enhanced Coding & Agentic Capabilities:** Achieves notable improvements in coding benchmarks alongside built-in [function-calling
   support](../../get-started/capabilities/function-calling.md), powering highly capable autonomous agents.
 - **Native System Prompt Support:** Gemma 4 introduces built-in support for the system role, enabling more structured and controllable conversations.
 - **[Multi-Token Prediction](../../get-started/capabilities/mtp.md):** All Gemma 4 models (E2B, E4B, 12B, 31B, and 26B A4B) include a dedicated draft model for speculative decoding, enabling significantly faster inference with no quality loss.

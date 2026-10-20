@@ -143,7 +143,7 @@ function. The lifecycle follows this sequence:
 1. **User Inquiry**: The user asks a question.
 2. **Internal Reasoning**: The model thinks privately in the thought channel.
 3. **Tool Request**: The model halts generation to request a tool call.
-4. **Execution \& Injection**: The application executes the tool and appends the response.
+4. **Execution & Injection**: The application executes the tool and appends the response.
 5. **Final Response**: The model reads the response and generates the final answer.
 
 The following example demonstrates a model using a weather tool:

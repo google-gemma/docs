@@ -105,7 +105,7 @@ capabilities include:
 - **Video Understanding** -- Analyzes and describes video content by processing sequences of frames.
 - **Interleaved Multimodal Input** -- Mix images, video, and text within a single prompt for context-heavy reasoning.
 - **Function Calling** -- Native support for structured tool use, enabling agentic workflows.
-- **Coding \& Reasoning** -- Capable of code generation, completion, and step-by-step logical reasoning.
+- **Coding & Reasoning** -- Capable of code generation, completion, and step-by-step logical reasoning.
 - **Multilingual** -- Out-of-the-box support for 35+ languages, pre-trained on 140+ languages.
 
 ## **Best Practices**

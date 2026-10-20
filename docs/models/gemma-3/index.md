@@ -135,7 +135,7 @@ metrics to cover different aspects of text generation. Evaluation results marked
 with **IT** are for instruction-tuned models. Evaluation results marked with
 **PT** are for pre-trained models.
 
-#### Gemma 3 1B, 4B, 12B \& 27B
+#### Gemma 3 1B, 4B, 12B & 27B
 
 ##### Reasoning and factuality
 
@@ -279,7 +279,7 @@ governance decision making. They are conducted separately from the model
 development team, to inform decision making about release. High level findings
 are fed back to the model team, but prompt sets are held-out to prevent
 overfitting and preserve the results' ability to inform decision making.
-Assurance evaluation results are reported to our Responsibility \& Safety Council
+Assurance evaluation results are reported to our Responsibility & Safety Council
 as part of release review.
 
 ### Evaluation Results

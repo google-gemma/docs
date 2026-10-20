@@ -212,7 +212,7 @@ governance decision making. They are conducted separately from the model
 development team, to inform decision making about release. High level findings
 are fed back to the model team, but prompt sets are held-out to prevent
 overfitting and preserve the results' ability to inform decision making. Notable
-assurance evaluation results are reported to our Responsibility \& Safety Council
+assurance evaluation results are reported to our Responsibility & Safety Council
 as part of release review.
 
 ### Evaluation Results
