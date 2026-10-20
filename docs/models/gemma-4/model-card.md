@@ -40,7 +40,7 @@ Gemma 4 introduces key **capability and architectural advancements**:
   ratio and resolution support (all models), Video, and Audio (featured
   natively on the E2B, E4B, and 12B models).
 
-- **Diverse \& Efficient Architectures** -- Offers Dense and Mixture-of-Experts
+- **Diverse & Efficient Architectures** -- Offers Dense and Mixture-of-Experts
   (MoE) variants of different sizes for scalable deployment.
 
 - **Optimized for On-Device** -- Smaller models are specifically designed for
@@ -49,7 +49,7 @@ Gemma 4 introduces key **capability and architectural advancements**:
 - **Increased Context Window** -- The small models feature a 128K context
   window, while the medium models support 256K.
 
-- **Enhanced Coding \& Agentic Capabilities** -- Achieves notable improvements
+- **Enhanced Coding & Agentic Capabilities** -- Achieves notable improvements
   in coding benchmarks alongside native function-calling support, powering
   highly capable autonomous agents.
 
