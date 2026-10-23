@@ -107,6 +107,30 @@
     }
   };
 
+  const positionMenu = (picker) => {
+    const menu = picker.querySelector(".page-context__picker-menu");
+    const strip = picker.closest(".page-context");
+    if (!menu || menu.hidden || !strip) return;
+    menu.style.left = "";
+    menu.style.right = "";
+    const stripRect = strip.getBoundingClientRect();
+    const pickerRect = picker.getBoundingClientRect();
+    const menuRect = menu.getBoundingClientRect();
+    if (menuRect.right > stripRect.right) {
+      if (pickerRect.right - menuRect.width >= stripRect.left) {
+        menu.style.left = "auto";
+        menu.style.right = "0";
+      } else {
+        const offset = Math.max(
+          stripRect.left - pickerRect.left,
+          stripRect.right - pickerRect.left - menuRect.width
+        );
+        menu.style.left = `${offset}px`;
+        menu.style.right = "auto";
+      }
+    }
+  };
+
   const closePicker = (picker, returnFocus = false) => {
     const trigger = picker.querySelector(".page-context__picker-trigger");
     const menu = picker.querySelector(".page-context__picker-menu");
@@ -209,6 +233,7 @@
       document.querySelectorAll(".page-context__picker").forEach((other) => closePicker(other));
       menu.hidden = !opening;
       trigger.setAttribute("aria-expanded", String(opening));
+      if (opening) positionMenu(picker);
     });
     trigger.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
@@ -220,6 +245,7 @@
       event.preventDefault();
       menu.hidden = false;
       trigger.setAttribute("aria-expanded", "true");
+      positionMenu(picker);
       const options = [...menu.querySelectorAll("[role=option]")];
       (event.key === "ArrowDown" ? options[0] : options.at(-1))?.focus();
     });
@@ -371,7 +397,10 @@
       setTimeout(initSearchModalDefaults, 150);
     }
   });
-  window.addEventListener("resize", syncTabIndicator);
+  window.addEventListener("resize", () => {
+    syncTabIndicator();
+    document.querySelectorAll(".page-context__picker").forEach(positionMenu);
+  });
 
   const DEFAULT_SEARCH_TOPICS = [
     {
