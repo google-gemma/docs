@@ -231,23 +231,26 @@ def load_context() -> Context:
     return Context(pages=load_pages(), nav_entries=list(walk_nav(nav)), config=config)
 
 
+FENCE_OPEN = re.compile(r"^(\s*)(`{3,}|~{3,})(.*)$")
+
+
 def iter_code_blocks(page: Page) -> Iterator[tuple[int, str, str]]:
     """Yield (start line, info string, block content) for each fenced code block."""
-    fence = re.compile(r"^(\s*)```(.*)$")
     open_at: int | None = None
+    active_fence = ""
     info = ""
     buf: list[str] = []
     for lineno, line in page.body_lines():
-        m = fence.match(line)
-        if not m:
-            if open_at is not None:
-                buf.append(line)
-            continue
+        m = FENCE_OPEN.match(line)
         if open_at is None:
-            open_at, info, buf = lineno, m.group(2).strip(), []
-        else:
+            if m:
+                open_at, active_fence, info, buf = lineno, m.group(2), m.group(3).strip(), []
+            continue
+        if m and m.group(2) == active_fence and not m.group(3).strip():
             yield open_at, info, "\n".join(buf)
             open_at = None
+        else:
+            buf.append(line)
 
 
 INLINE_CODE = re.compile(r"`+[^`]*`+")
@@ -264,13 +267,17 @@ def strip_inline_code(line: str) -> str:
 
 def outside_code(page: Page) -> Iterator[tuple[int, str]]:
     """Yield body lines that are not inside a fenced code block, with code spans blanked."""
-    in_fence = False
+    active_fence: str | None = None
     for lineno, line in page.body_lines():
-        if line.lstrip().startswith("```"):
-            in_fence = not in_fence
-            continue
-        if not in_fence:
+        m = FENCE_OPEN.match(line)
+        if active_fence is None:
+            if m:
+                active_fence = m.group(2)
+                continue
             yield lineno, strip_inline_code(line)
+        elif m and m.group(2) == active_fence and not m.group(3).strip():
+            active_fence = None
+            continue
 
 
 # --- Checks -----------------------------------------------------------------------------------
