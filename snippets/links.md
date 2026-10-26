@@ -2,7 +2,7 @@
 
 [responsible-ai]: https://ai.google.dev/responsible
 [gemma-terms]: /resources/terms
-[prohibited-use]: /resources/prohibited_use_policy
+[prohibited-use]: /resources/prohibited-use
 [hf-gemma4]: https://huggingface.co/collections/google/gemma-4
 [gemma4-hf-collection]: https://huggingface.co/collections/google/gemma-4
 [kaggle-gemma4]: https://www.kaggle.com/models/google/gemma-4

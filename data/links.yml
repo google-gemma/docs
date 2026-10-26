@@ -25,7 +25,7 @@ links:
   gemma-terms:
     url: /resources/terms
   prohibited-use:
-    url: /resources/prohibited_use_policy
+    url: /resources/prohibited-use
 
   # --- Weights and collections -----------------------------------------------------------
   hf-gemma4:

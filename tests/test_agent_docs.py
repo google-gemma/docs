@@ -141,7 +141,7 @@ class AgentDocsTests(unittest.TestCase):
         _path, metadata, body = pages["models/gemma-3/index.md"]
         rendered = agent_docs.render_raw("models/gemma-3/index.md", metadata, body)
         self.assertIn(
-            "[Gemma Prohibited Use Policy](/resources/prohibited_use_policy)",
+            "[Gemma Prohibited Use Policy](/resources/prohibited-use)",
             rendered,
         )
         self.assertNotIn("[prohibited-use]", rendered)
