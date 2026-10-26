@@ -12,7 +12,7 @@ source_url: "https://ai.google.dev/gemma/docs/diffusiongemma/model_card.md.txt"
 [Documentation](index.md)
 
 
-**License** : [Apache 2.0](https://ai.google.dev/gemma/apache_2) \| **Authors** : [Google DeepMind](https://deepmind.google/models/gemma/)
+**License** : [Apache 2.0](https://gemma.ai/resources/apache-2) \| **Authors** : [Google DeepMind](https://deepmind.google/models/gemma/)
 
 DiffusionGemma is a generative model built by Google DeepMind. Based on the 26B
 A4B Mixture-of-Experts (MoE) Gemma 4 architecture, DiffusionGemma generates
