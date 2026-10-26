@@ -35,7 +35,7 @@
 [recurrentgemma-release-hf-collection]: https://huggingface.co/collections/google/recurrentgemma-release
 [codegemma-release-hf-collection]: https://huggingface.co/collections/google/codegemma-release
 [gemmaverse]: https://deepmind.google/models/gemma/gemmaverse/
-[gemma-cookbook]: https://github.com/google-gemma/gemma-cookbook
+[gemma-cookbook]: https://github.com/google-gemma/cookbook
 [gemma-skills-repo]: https://github.com/google-gemma/gemma-skills
 [awesome-gemma]: https://github.com/google-gemma/awesome-gemma
 [gemma-translator]: https://github.com/google-gemma/gemma-translator

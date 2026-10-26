@@ -608,7 +608,7 @@ Now that you have a fine-tuned model, consider the following steps to move towar
   <div class="card-title">Fine-tune Gemma</div>
   <p class="card-desc">QLoRA, full fine-tunes and distributed training.</p>
 </a>
-<a class="card" href="https://github.com/google-gemma/cookbook/blob/main/FunctionGemma/%5BFunctionGemma%5DFinetune_FunctionGemma_270M_for_Mobile_Actions_with_Hugging_Face.ipynb" target="_blank" rel="noopener" data-model="functiongemma">
+<a class="card" href="https://github.com/google-gemma/cookbook/tree/main/.archive/FunctionGemma" target="_blank" rel="noopener" data-model="functiongemma">
   <div class="card-title">Mobile Actions notebook <span class="card-ext">↗</span></div>
   <p class="card-desc">Fine-tune FunctionGemma 270M for on-device actions.</p>
 </a>
