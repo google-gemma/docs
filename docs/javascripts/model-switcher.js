@@ -107,6 +107,52 @@
     node.nodeValue = next;
   };
 
+  const applyRequires = (target) => {
+    const inputs = models[target]?.inputs || [];
+    const article = document.querySelector(".md-content__inner");
+    if (article) {
+      const walker = document.createTreeWalker(article, NodeFilter.SHOW_COMMENT);
+      const startRe = /^\s*notebook:requires-start\s+([a-z0-9_-]+)\s*$/i;
+      const endRe = /^\s*notebook:requires-end\s*$/i;
+      const starts = [];
+      let comment;
+      while ((comment = walker.nextNode())) {
+        const match = comment.nodeValue.match(startRe);
+        if (match) starts.push({ node: comment, modality: match[1].toLowerCase() });
+      }
+      for (const { node, modality } of starts) {
+        const supported = inputs.includes(modality);
+        let cur = node.nextSibling;
+        while (cur) {
+          if (cur.nodeType === Node.COMMENT_NODE && endRe.test(cur.nodeValue)) break;
+          if (cur.nodeType === Node.ELEMENT_NODE) {
+            cur.hidden = !supported;
+            cur.style.display = supported ? "" : "none";
+            if (cur.id && /^H[1-6]$/.test(cur.tagName)) {
+              const targetHash = `#${cur.id}`;
+              for (const link of document.querySelectorAll(".md-nav--secondary a.md-nav__link")) {
+                if (link.hash !== targetHash) continue;
+                const item = link.closest(".md-nav__item");
+                if (item) {
+                  item.hidden = !supported;
+                  item.style.display = supported ? "" : "none";
+                }
+              }
+            }
+          }
+          cur = cur.nextSibling;
+        }
+      }
+    }
+    for (const el of document.querySelectorAll("[data-requires]:not(.page-context)")) {
+      const modality = el.dataset.requires?.trim().toLowerCase();
+      if (!modality) continue;
+      const supported = inputs.includes(modality);
+      el.hidden = !supported;
+      el.style.display = supported ? "" : "none";
+    }
+  };
+
   const apply = (target) => {
     if (!models[target]) return;
     for (const block of blocks()) {
@@ -114,6 +160,7 @@
       let node;
       while ((node = walker.nextNode())) rewriteNode(node, target);
     }
+    applyRequires(target);
   };
 
   const positionMenu = (picker) => {
