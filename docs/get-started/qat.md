@@ -29,7 +29,7 @@ Names follow `google/gemma-4-{SIZE}-it{SUFFIX}`, for example:
 
 ```bash { .model-swap }
 # Local, via llama.cpp
-llama-cli -hf google/gemma-4-12B-it-qat-q4_0-gguf
+llama cli -hf google/gemma-4-12B-it-qat-q4_0-gguf
 ```
 
 ```bash { .model-fixed }

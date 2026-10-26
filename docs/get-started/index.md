@@ -51,7 +51,7 @@ and move up without rewriting anything.
     Install [`llama.cpp`](https://llama.app/), then run:
 
     ```bash { .model-swap }
-    llama-cli -hf google/gemma-4-E2B-it-qat-q4_0-gguf --prompt "Write a poem about the Kraken."
+    llama cli -hf google/gemma-4-E2B-it-qat-q4_0-gguf --prompt "Write a poem about the Kraken."
     ```
 
 === "Ollama"
