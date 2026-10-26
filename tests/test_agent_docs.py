@@ -65,6 +65,26 @@ class AgentDocsTests(unittest.TestCase):
             rendered,
         )
 
+    def test_raw_markdown_resolves_shared_reference_links(self):
+        pages = agent_docs.source_pages()
+        _path, metadata, body = pages["models/gemma-4/index.md"]
+        rendered = agent_docs.render_raw("models/gemma-4/index.md", metadata, body)
+        self.assertIn(
+            "[Hugging Face](https://huggingface.co/collections/google/gemma-4)",
+            rendered,
+        )
+        self.assertIn("[commercial use](/resources/terms)", rendered)
+        self.assertNotIn("[hf-gemma4]", rendered)
+        self.assertNotIn("[gemma-terms]", rendered)
+
+        _path, metadata, body = pages["models/gemma-3/index.md"]
+        rendered = agent_docs.render_raw("models/gemma-3/index.md", metadata, body)
+        self.assertIn(
+            "[Gemma Prohibited Use Policy](/resources/prohibited_use_policy)",
+            rendered,
+        )
+        self.assertNotIn("[prohibited-use]", rendered)
+
     def test_raw_targets_include_inline_text_routes(self):
         site_dir = Path("/tmp/site")
         targets = {path.relative_to(site_dir).as_posix() for path, _ in agent_docs.raw_targets(site_dir)}

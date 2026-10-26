@@ -26,6 +26,7 @@ import argparse
 import re
 import sys
 import tomllib
+from functools import lru_cache
 from pathlib import Path
 from typing import Iterable
 
@@ -37,6 +38,7 @@ DOCS_DIR = REPO_ROOT / "docs"
 CONFIG_FILE = REPO_ROOT / "zensical.toml"
 MODELS_FILE = REPO_ROOT / "data" / "models.yml"
 FRAMEWORKS_FILE = REPO_ROOT / "data" / "frameworks.yml"
+LINKS_FILE = REPO_ROOT / "data" / "links.yml"
 
 # Pages call `icon()`; the macros extension provides it during a Zensical build, but these raw
 # routes are rendered here, in a Jinja environment of our own. Same source, same output.
@@ -56,6 +58,7 @@ WHATS_NEXT_SECTION = re.compile(
 RELATIVE_ASSET = re.compile(
     r"(?P<prefix>\]\(|(?:\b(?:src|href)=[\"']))(?:\.\.?/|/)*(?P<path>assets/[^)\s\"']+)"
 )
+REFERENCE_LINK = re.compile(r"\[([^\]]+)\]\[([a-z0-9][a-z0-9-]*)\]")
 
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -139,6 +142,12 @@ def framework_data() -> dict:
     return yaml.safe_load(FRAMEWORKS_FILE.read_text(encoding="utf-8"))
 
 
+@lru_cache(maxsize=1)
+def shared_links() -> dict[str, str]:
+    data = yaml.safe_load(LINKS_FILE.read_text(encoding="utf-8"))
+    return {name: str(entry["url"]) for name, entry in (data.get("links") or {}).items()}
+
+
 def render_llms() -> str:
     pages = source_pages()
     data = model_data()
@@ -185,6 +194,12 @@ def render_raw(relative: str, metadata: dict, body: str) -> str:
     context["frameworkdata"] = framework_data()
     context["icon"] = _icon
     rendered = environment.from_string(body).render(**context)
+
+    def resolve_reference(match: re.Match) -> str:
+        url = shared_links().get(match.group(2))
+        return f"[{match.group(1)}]({url})" if url else match.group(0)
+
+    rendered = REFERENCE_LINK.sub(resolve_reference, rendered)
     rendered = WHATS_NEXT_SECTION.sub("", rendered)
     rendered = SNIPPET_INCLUDE.sub("", rendered).strip() + "\n"
     rendered = RELATIVE_ASSET.sub(rf"\g<prefix>{SITE_URL}/\g<path>", rendered)
