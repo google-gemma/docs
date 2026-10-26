@@ -1,7 +1,7 @@
 ---
 title: ShieldGemma
 description: ShieldGemma is a set of instruction tuned models for evaluating the safety of text and images against a set of defined safety policies.
-models: [shieldgemma]
+models: [shieldgemma-2, shieldgemma]
 source_url: "https://ai.google.dev/gemma/docs/shieldgemma.md.txt"
 ---
 # ShieldGemma {: #hidden-title style="display: none;" }
@@ -21,7 +21,7 @@ for your specific use case.
 
 
 ShieldGemma 2 is a 4B parameter model built to label images for safety.
-ShieldGemma 1 is built on [Gemma 2](../gemma-4/index.md) in 2B, 9B, and 27B parameter sizes.
+ShieldGemma 1 is built on [Gemma 2](../gemma-2/index.md) in 2B, 9B, and 27B parameter sizes.
 
 
 - **Content safety evaluation** — Evaluate the safety of prompt input and output responses against a set of defined safety policies.

@@ -1,7 +1,7 @@
 ---
 title: Multimodal Embeddings with Sentence Transformers
 description: Generate unified image, audio, video, and interleaved multimodal embeddings with EmbeddingGemma 2 and Sentence Transformers.
-models: [embeddinggemma]
+models: [embeddinggemma-2]
 frameworks: [sentence-transformers, transformers]
 colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/embeddinggemma-multimodal.ipynb
 source_url: "https://ai.google.dev/gemma/docs/embeddinggemma/multimodal-embeddinggemma-with-sentence-transformers.md.txt"

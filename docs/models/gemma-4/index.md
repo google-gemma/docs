@@ -17,7 +17,7 @@ Gemma is a family of generative artificial intelligence models and you can
 use them in a wide variety of generation tasks, including question answering,
 summarization, and reasoning. Gemma models are provided with open weights and
 permit responsible
-[commercial use][gemma-terms],
+[commercial use](../../resources/apache-2.md),
 allowing you to tune and deploy them in your own projects and applications.
 
 Gemma 4 model family spans four distinct architectures tailored for specific

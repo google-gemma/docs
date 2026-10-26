@@ -12,7 +12,7 @@ colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs
 Generating text, summarizing, and analysing content are just some of the tasks you can accomplish with Gemma open models. This tutorial shows you how to get started running Gemma using Hugging Face Transformers using both text and image input to generate text content. The Transformers Python library provides a API for accessing pre-trained generative AI models, including Gemma. For more information, see the [Transformers](https://huggingface.co/docs/transformers/en/index) documentation.
 
 !!! Note
-    Gemma 3 and later models support input of both images and text. Earlier versions of Gemma only support text input, except for some variants, including [PaliGemma](../get-started/index.md).
+    Gemma 3 and later models support input of both images and text. Earlier versions of Gemma only support text input, except for some variants, including [PaliGemma](../models/paligemma/index.md).
 
 
 ### Install Python packages
@@ -143,6 +143,7 @@ You can include multiple images in your prompt by including additional `"type": 
     Do not use `<|image|>`{.token-multi}, `<start_of_image>`{.token-multi} or `<image_soft_token>`{.token-multi} tokens in text portion of a prompt template as this approach creates redundant tokens and processing errors.
     
 
+<!-- notebook:requires-start audio -->
 ## Generate text from audio data
 
 With [Gemma 4](../models/gemma-4/index.md) and [Gemma 3n](../models/gemma-3n/index.md), you can use audio data as part of your prompt. This section shows how to use the Transformers library to load and configure a Gemma model to use audio data and text input to generate text output.
@@ -151,7 +152,7 @@ With [Gemma 4](../models/gemma-4/index.md) and [Gemma 3n](../models/gemma-3n/ind
 
 When generating content with audio, use a prompt template to structure your request. A prompt template allows you to specify input from specific roles, such as `user`{.token-role} or `model`{.token-role}, and is a required format for managing multi-turn chat interactions with Gemma models. The following example code shows how to constuct a prompt template for Gemma with audio data input:
 
-```python { .notebook-cell }
+```python { .notebook-cell data-requires="audio" }
 from transformers import GenerationConfig
 config = GenerationConfig.from_pretrained(MODEL_ID)
 config.max_new_tokens = 512
@@ -183,6 +184,7 @@ You can include multiple audio files in your prompt by including additional `"ty
 !!! Note
     Do not use `<|audio|>`{.token-multi} or `<audio_soft_token>`{.token-multi} tokens in text portion of a prompt template as this approach creates redundant tokens and processing errors.
     
+<!-- notebook:requires-end -->
 
 ## Next steps
 

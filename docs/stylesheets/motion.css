@@ -44,11 +44,11 @@
 
 .md-content__inner,
 .gemma-stage {
-  animation: gemmaPageReveal 260ms var(--gemma-ease) both;
+  animation: gemmaPageReveal 260ms var(--gemma-ease) backwards;
 }
 
 .md-sidebar--primary .md-nav--primary > .md-nav__list {
-  animation: gemmaPageReveal 220ms var(--gemma-ease) both;
+  animation: gemmaPageReveal 220ms var(--gemma-ease) backwards;
 }
 
 /* -------------------------------------------------------------------

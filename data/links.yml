@@ -25,7 +25,7 @@ links:
   gemma-terms:
     url: /resources/terms
   prohibited-use:
-    url: /resources/prohibited_use_policy
+    url: /resources/prohibited-use
 
   # --- Weights and collections -----------------------------------------------------------
   hf-gemma4:
@@ -122,7 +122,7 @@ links:
   gemmaverse:
     url: https://deepmind.google/models/gemma/gemmaverse/
   gemma-cookbook:
-    url: https://github.com/google-gemma/gemma-cookbook
+    url: https://github.com/google-gemma/cookbook
   gemma-skills-repo:
     url: https://github.com/google-gemma/gemma-skills
   awesome-gemma:

@@ -86,17 +86,19 @@ and both GGUF and MLX files are supported.
 
 ## llama.cpp
 
-Build `llama.cpp` first — set `-DGGML_CUDA=OFF` for CPU-only machines and for Apple silicon,
-where Metal is on by default:
+A few options to get `llama.cpp` installed on your machine:
 
-```bash
-git clone https://github.com/ggml-org/llama.cpp
-cmake llama.cpp -B llama.cpp/build \
-    -DBUILD_SHARED_LIBS=OFF -DGGML_CUDA=ON
-cmake --build llama.cpp/build --config Release -j --clean-first \
-    --target llama-cli llama-mtmd-cli llama-server llama-gguf-split
-cp llama.cpp/build/bin/llama-* llama.cpp
-```
+=== "curl"
+
+    ```bash
+    curl -LsSf https://llama.app/install.sh | sh
+    ```
+
+=== "powershell"
+
+    ```powershell
+    irm https://llama.app/install.ps1 | iex
+    ```
 
 Then pull and run a model straight from Hugging Face. There is no need to set a context length —
 llama.cpp uses exactly what is required.
@@ -104,8 +106,7 @@ llama.cpp uses exactly what is required.
 === "E2B"
 
     ```bash
-    export LLAMA_CACHE="unsloth/gemma-4-E2B-it-GGUF"
-    ./llama.cpp/llama-cli \
+    llama cli \
         -hf unsloth/gemma-4-E2B-it-GGUF:Q8_0 \
         --temp 1.0 --top-p 0.95 --top-k 64
     ```
@@ -113,8 +114,7 @@ llama.cpp uses exactly what is required.
 === "E4B"
 
     ```bash
-    export LLAMA_CACHE="unsloth/gemma-4-E4B-it-GGUF"
-    ./llama.cpp/llama-cli \
+    llama cli \
         -hf unsloth/gemma-4-E4B-it-GGUF:Q8_0 \
         --temp 1.0 --top-p 0.95 --top-k 64
     ```
@@ -122,8 +122,7 @@ llama.cpp uses exactly what is required.
 === "12B"
 
     ```bash
-    export LLAMA_CACHE="unsloth/gemma-4-12B-it-GGUF"
-    ./llama.cpp/llama-cli \
+    llama cli \
         -hf unsloth/gemma-4-12b-it-GGUF:UD-Q4_K_XL \
         --temp 1.0 --top-p 0.95 --top-k 64
     ```
@@ -131,8 +130,7 @@ llama.cpp uses exactly what is required.
 === "26B A4B"
 
     ```bash
-    export LLAMA_CACHE="unsloth/gemma-4-26B-A4B-it-GGUF"
-    ./llama.cpp/llama-cli \
+    llama cli \
         -hf unsloth/gemma-4-26B-A4B-it-GGUF:UD-Q4_K_XL \
         --temp 1.0 --top-p 0.95 --top-k 64
     ```
@@ -140,8 +138,7 @@ llama.cpp uses exactly what is required.
 === "31B"
 
     ```bash
-    export LLAMA_CACHE="unsloth/gemma-4-31B-it-GGUF"
-    ./llama.cpp/llama-cli \
+    llama cli \
         -hf unsloth/gemma-4-31B-it-GGUF:UD-Q4_K_XL \
         --temp 1.0 --top-p 0.95 --top-k 64
     ```
@@ -158,7 +155,7 @@ hf download unsloth/gemma-4-26B-A4B-it-GGUF \
 ```
 
 ```bash
-./llama.cpp/llama-cli \
+llama cli \
     --model unsloth/gemma-4-26B-A4B-it-GGUF/gemma-4-26B-A4B-it-UD-Q4_K_XL.gguf \
     --mmproj unsloth/gemma-4-26B-A4B-it-GGUF/mmproj-BF16.gguf \
     --temp 1.0 --top-p 0.95 --top-k 64
@@ -167,7 +164,7 @@ hf download unsloth/gemma-4-26B-A4B-it-GGUF \
 ### Server
 
 ```bash
-./llama.cpp/llama-server \
+llama server \
     --model unsloth/gemma-4-26B-A4B-it-GGUF/gemma-4-26B-A4B-it-UD-Q4_K_XL.gguf \
     --mmproj unsloth/gemma-4-26B-A4B-it-GGUF/mmproj-BF16.gguf \
     --temp 1.0 --top-p 0.95 --top-k 64 \

@@ -1,7 +1,7 @@
 ---
 title: Fine-Tune Multimodal EmbeddingGemma 2 with Sentence Transformers
 description: Adapt EmbeddingGemma 2 across text and visual inputs using contrastive multimodal triplet fine-tuning with Sentence Transformers.
-models: [embeddinggemma]
+models: [embeddinggemma-2]
 frameworks: [sentence-transformers, transformers]
 colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/embeddinggemma-fine-tuning-multimodal.ipynb
 source_url: "https://ai.google.dev/gemma/docs/embeddinggemma/fine-tuning-multimodal-embeddinggemma-with-sentence-transformers.md.txt"

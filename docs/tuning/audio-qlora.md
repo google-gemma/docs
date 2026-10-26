@@ -258,8 +258,8 @@ trainable params: 48,316,416 || all params: 5,152,613,920 || trainable%: 0.9377
 
 To ensure the model learns strictly to transcribe the audio rather than memorizing prompt tokens:
 
-- The following code parses <code><span class="token-turn"><|turn></span><span class="token-role">model</span>\n</code> in each sequence.
-- All tokens prior to <code><span class="token-turn"><|turn></span><span class="token-role">model</span>\n</code>  (including audio prefix markers and user instruction) are masked to `-100`.
+- The following code parses <code><span class="token-turn">&lt;|turn&gt;</span><span class="token-role">model</span>\n</code> in each sequence.
+- All tokens prior to <code><span class="token-turn">&lt;|turn&gt;</span><span class="token-role">model</span>\n</code>  (including audio prefix markers and user instruction) are masked to `-100`.
 - Only assistant response tokens contribute to the cross-entropy loss.
 
 

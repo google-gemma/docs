@@ -29,6 +29,11 @@
     }
   }
   index.sort((a, b) => b.text.length - a.text.length);
+  const byText = new Map(index.map((entry) => [entry.text, entry]));
+  const escapeRegExp = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const pattern = index.length
+    ? new RegExp(index.map((entry) => escapeRegExp(entry.text)).join("|"), "g")
+    : null;
 
   const blocks = () => document.querySelectorAll(".model-swap code, code.model-swap");
   const displayName = (id) => models[id]?.fullName || models[id]?.name || id;
@@ -59,9 +64,11 @@
 
   const enginesInUse = () => {
     const found = new Set();
+    if (!pattern) return found;
     for (const block of blocks()) {
-      for (const entry of index) {
-        if (block.textContent.includes(entry.text)) found.add(entry.engine);
+      for (const [match] of block.textContent.matchAll(pattern)) {
+        const entry = byText.get(match);
+        if (entry) found.add(entry.engine);
       }
     }
     return found;
@@ -78,24 +85,72 @@
   };
 
   const detect = () => {
+    if (!pattern) return null;
     for (const block of blocks()) {
-      const hit = index.find((entry) => block.textContent.includes(entry.text));
-      if (hit) return hit.model;
+      for (const [match] of block.textContent.matchAll(pattern)) {
+        const entry = byText.get(match);
+        if (entry) return entry.model;
+      }
     }
     return null;
   };
 
   const rewriteNode = (node, target) => {
+    if (!pattern) return;
     const original = node.__gemmaOriginal ?? node.nodeValue;
-    let next = original;
-    for (const entry of index) {
-      if (!next.includes(entry.text)) continue;
-      const replacement = models[target]?.ids?.[entry.engine];
-      if (replacement) next = next.split(entry.text).join(replacement);
-    }
+    const next = original.replace(pattern, (match) => {
+      const entry = byText.get(match);
+      return (entry && models[target]?.ids?.[entry.engine]) || match;
+    });
     if (next === node.nodeValue) return;
     node.__gemmaOriginal = original;
     node.nodeValue = next;
+  };
+
+  const applyRequires = (target) => {
+    const inputs = models[target]?.inputs || [];
+    const article = document.querySelector(".md-content__inner");
+    if (article) {
+      const walker = document.createTreeWalker(article, NodeFilter.SHOW_COMMENT);
+      const startRe = /^\s*notebook:requires-start\s+([a-z0-9_-]+)\s*$/i;
+      const endRe = /^\s*notebook:requires-end\s*$/i;
+      const starts = [];
+      let comment;
+      while ((comment = walker.nextNode())) {
+        const match = comment.nodeValue.match(startRe);
+        if (match) starts.push({ node: comment, modality: match[1].toLowerCase() });
+      }
+      for (const { node, modality } of starts) {
+        const supported = inputs.includes(modality);
+        let cur = node.nextSibling;
+        while (cur) {
+          if (cur.nodeType === Node.COMMENT_NODE && endRe.test(cur.nodeValue)) break;
+          if (cur.nodeType === Node.ELEMENT_NODE) {
+            cur.hidden = !supported;
+            cur.style.display = supported ? "" : "none";
+            if (cur.id && /^H[1-6]$/.test(cur.tagName)) {
+              const targetHash = `#${cur.id}`;
+              for (const link of document.querySelectorAll(".md-nav--secondary a.md-nav__link")) {
+                if (link.hash !== targetHash) continue;
+                const item = link.closest(".md-nav__item");
+                if (item) {
+                  item.hidden = !supported;
+                  item.style.display = supported ? "" : "none";
+                }
+              }
+            }
+          }
+          cur = cur.nextSibling;
+        }
+      }
+    }
+    for (const el of document.querySelectorAll("[data-requires]:not(.page-context)")) {
+      const modality = el.dataset.requires?.trim().toLowerCase();
+      if (!modality) continue;
+      const supported = inputs.includes(modality);
+      el.hidden = !supported;
+      el.style.display = supported ? "" : "none";
+    }
   };
 
   const apply = (target) => {
@@ -104,6 +159,31 @@
       const walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT);
       let node;
       while ((node = walker.nextNode())) rewriteNode(node, target);
+    }
+    applyRequires(target);
+  };
+
+  const positionMenu = (picker) => {
+    const menu = picker.querySelector(".page-context__picker-menu");
+    const strip = picker.closest(".page-context");
+    if (!menu || menu.hidden || !strip) return;
+    menu.style.left = "";
+    menu.style.right = "";
+    const stripRect = strip.getBoundingClientRect();
+    const pickerRect = picker.getBoundingClientRect();
+    const menuRect = menu.getBoundingClientRect();
+    if (menuRect.right > stripRect.right) {
+      if (pickerRect.right - menuRect.width >= stripRect.left) {
+        menu.style.left = "auto";
+        menu.style.right = "0";
+      } else {
+        const offset = Math.max(
+          stripRect.left - pickerRect.left,
+          stripRect.right - pickerRect.left - menuRect.width
+        );
+        menu.style.left = `${offset}px`;
+        menu.style.right = "auto";
+      }
     }
   };
 
@@ -209,6 +289,7 @@
       document.querySelectorAll(".page-context__picker").forEach((other) => closePicker(other));
       menu.hidden = !opening;
       trigger.setAttribute("aria-expanded", String(opening));
+      if (opening) positionMenu(picker);
     });
     trigger.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
@@ -220,6 +301,7 @@
       event.preventDefault();
       menu.hidden = false;
       trigger.setAttribute("aria-expanded", "true");
+      positionMenu(picker);
       const options = [...menu.querySelectorAll("[role=option]")];
       (event.key === "ArrowDown" ? options[0] : options.at(-1))?.focus();
     });
@@ -255,7 +337,7 @@
         : available[0];
 
     buildControl(strip, available, initial, requested && !available.includes(requested) ? requested : null);
-    if (requested && available.includes(requested)) apply(requested);
+    apply(initial);
   };
 
   let prevTabState = null;
@@ -371,7 +453,10 @@
       setTimeout(initSearchModalDefaults, 150);
     }
   });
-  window.addEventListener("resize", syncTabIndicator);
+  window.addEventListener("resize", () => {
+    syncTabIndicator();
+    document.querySelectorAll(".page-context__picker").forEach(positionMenu);
+  });
 
   const DEFAULT_SEARCH_TOPICS = [
     {

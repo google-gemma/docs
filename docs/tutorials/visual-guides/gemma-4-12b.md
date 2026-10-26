@@ -150,17 +150,17 @@ Gemma 4 12B is not just a model that fits nicely between E4B and 26B A4B, it doe
 ## What's next
 
 <div class="card-grid">
-<a class="card" href="mtp">
+<a class="card" href="mtp.md">
   <span class="card-icon">{{ icon('lucide/book-open') }}</span>
   <div class="card-title">A Visual Guide to MTP</div>
   <p class="card-desc">Drafter models and speculative decoding, illustrated.</p>
 </a>
-<a class="card" href="diffusiongemma">
+<a class="card" href="diffusiongemma.md">
   <span class="card-icon">{{ icon('lucide/book-open') }}</span>
   <div class="card-title">A Visual Guide to DiffusionGemma</div>
   <p class="card-desc">How denoising produces text instead of pixels.</p>
 </a>
-<a class="card" href="../../resources">
+<a class="card" href="../../resources/index.md">
   <span class="card-icon">{{ icon('lucide/library') }}</span>
   <div class="card-title">Resources</div>
   <p class="card-desc">Demos, tools and the repositories worth bookmarking.</p>

@@ -73,6 +73,16 @@ SKIP_REGION = re.compile(
     r"<!--\s*notebook:skip-start\s*-->.*?<!--\s*notebook:skip-end\s*-->",
     re.DOTALL,
 )
+REQUIRES_REGION = re.compile(
+    r"<!--\s*notebook:requires-start\s+(?P<modality>[a-z0-9_-]+)\s*-->[ \t]*\n?"
+    r"(?P<content>.*?)"
+    r"<!--\s*notebook:requires-end\s*-->[ \t]*\n?",
+    re.DOTALL,
+)
+REQUIRES_COMMENT = re.compile(
+    r"<!--\s*notebook:requires-(?:start\s+[a-z0-9_-]+|end)\s*-->[ \t]*\n?"
+)
+FENCE_REQUIRES = re.compile(r"\b(?:data-)?requires=[\"'](?P<modality>[a-z0-9_-]+)[\"']")
 ADMONITION = re.compile(
     r"^!!!\s+(?P<label>[A-Za-z]+)(?:\s+\"[^\"]*\")?\n(?P<body>(?:[ \t]+.*(?:\n|$))*)",
     re.MULTILINE,
@@ -196,13 +206,16 @@ def extract_swappable_blocks(body: str) -> list[str]:
 
 def detect_engines_in_use(body: str) -> set[str]:
     index = get_model_index()
+    if not index:
+        return set()
+    text_to_engine = {text: engine for text, engine, _ in index}
+    pattern = re.compile("|".join(re.escape(text) for text, _, _ in index))
     blocks = extract_swappable_blocks(body)
-    engines = set()
-    for block in blocks:
-        for text, engine, _ in index:
-            if text in block:
-                engines.add(engine)
-    return engines
+    return {
+        text_to_engine[match.group(0)]
+        for block in blocks
+        for match in pattern.finditer(block)
+    }
 
 
 def candidate_models(source: Path) -> list[str]:
@@ -238,8 +251,28 @@ def rewrite_block(block: str, target_model: str) -> str:
     return pattern.sub(repl, block)
 
 
+def model_supports_modality(model: str | None, modality: str) -> bool:
+    if not model:
+        return True
+    models = get_gemma4_models()
+    if model not in models:
+        return True
+    return modality in (models[model].get("inputs") or [])
+
+
+def filter_requires_regions(text: str, model: str | None = None) -> str:
+    def repl(match: re.Match) -> str:
+        if model_supports_modality(model, match.group("modality")):
+            return match.group("content")
+        return ""
+
+    text = REQUIRES_REGION.sub(repl, text)
+    return REQUIRES_COMMENT.sub("", text)
+
+
 def notebook_markdown(text: str) -> str:
     text = SKIP_REGION.sub("", text)
+    text = REQUIRES_COMMENT.sub("", text)
 
     def resolve_reference(match: re.Match) -> str:
         url = shared_links().get(match.group(2))
@@ -294,6 +327,7 @@ def code_cell(language: str, source: str) -> dict:
 
 def export_cells(body: str, model: str | None = None) -> list[dict]:
     body = SKIP_REGION.sub("", body)
+    body = filter_requires_regions(body, model=model)
     lines = body.splitlines(keepends=True)
     cells: list[dict] = []
     prose: list[str] = []
@@ -312,6 +346,10 @@ def export_cells(body: str, model: str | None = None) -> list[dict]:
             raise ValueError(f"unclosed code fence at line {index + 1}")
 
         attributes = match.group("attributes")
+        req_match = FENCE_REQUIRES.search(attributes)
+        if req_match and not model_supports_modality(model, req_match.group("modality")):
+            index = closing + 1
+            continue
         block = "".join(lines[index + 1 : closing])
         if model and ".model-swap" in attributes:
             block = rewrite_block(block, model)
@@ -387,7 +425,7 @@ def render(
     if target_name is None:
         stem = default_stem(source)
         if model:
-            target_name = f"{stem}-{model.replace('/', '-')}-it.ipynb"
+            target_name = f"{stem}-{model.replace('/', '-')}.ipynb"
         else:
             target_name = f"{stem}.ipynb"
 

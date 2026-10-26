@@ -94,8 +94,9 @@ KNOWN = frozenset(f.name for f in SCHEMA) | THEME_KEYS
 
 @cache
 def model_families() -> frozenset[str]:
-    """Every family id. Derived from `docs/models/`, so adding a model directory is enough."""
-    return frozenset(p.name for p in (DOCS_DIR / "models").iterdir() if p.is_dir())
+    """Every family id in data/models.yml."""
+    data = yaml.safe_load(MODELS_DATA.read_text(encoding="utf-8"))
+    return frozenset(str(family["id"]) for family in data.get("families", []))
 
 
 @cache

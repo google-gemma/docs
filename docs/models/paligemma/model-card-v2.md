@@ -1,7 +1,7 @@
 ---
 title: PaliGemma 2 model card
 description: PaliGemma 2 is an update of the PaliGemma vision-language model (VLM) which incorporates the capabilities of the Gemma 2 models.
-models: [paligemma]
+models: [paligemma-2]
 source_url: "https://ai.google.dev/gemma/docs/paligemma/model-card-2.md.txt"
 ---
 # Model card
@@ -38,7 +38,7 @@ PaliGemma 2 is the composition of a
 [Transformer decoder](https://arxiv.org/abs/1706.03762) and a
 [Vision Transformer image encoder](https://arxiv.org/abs/2010.11929).
 The text decoder is initialized from
-[Gemma 2](../gemma-4/index.md) in the 2B, 9B, and 27B
+[Gemma 2](../gemma-2/index.md) in the 2B, 9B, and 27B
 parameter sizes. The image encoder is initialized from
 [SigLIP-So400m/14](https://colab.research.google.com/github/google-research/big_vision/blob/main/big_vision/configs/proj/image_text/SigLIP_demo.ipynb).
 Similar to the original PaliGemma model, PaliGemma 2 is trained following the

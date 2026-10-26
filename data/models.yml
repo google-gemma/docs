@@ -304,8 +304,10 @@ gemma4:
         hf: google/gemma-4-E2B-it
         hf_base: google/gemma-4-E2B
         hf_qat: google/gemma-4-E2B-it-qat-w4a16-ct
-        gguf: google/gemma-4-E2B-it-qat-q4_0-gguf
+        gguf: ggml-org/gemma-4-E2B-it-GGUF
         gguf_qat: google/gemma-4-E2B-it-qat-q4_0-gguf
+        gguf_file: gemma-4-E2B-it-Q4_0.gguf
+        gguf_mmproj: mmproj-gemma-4-E2B-it-Q8_0.gguf
         ollama: gemma4:e2b
         mlx: mlx-community/gemma-4-E2B-it-qat-4bit
         lmstudio: google/gemma-4-e2b
@@ -313,6 +315,7 @@ gemma4:
         keras_base: gemma4_2b
         keras_assistant: gemma4_instruct_2b_assistant
         litert: litert-community/gemma-4-E2B-it-litert-lm
+        litert_file: gemma-4-E2B-it.litertlm
       memory:                          # GB, static weights + ~20% overhead
         bf16: 11.4
         sfp8: 5.7
@@ -335,8 +338,10 @@ gemma4:
         hf: google/gemma-4-E4B-it
         hf_base: google/gemma-4-E4B
         hf_qat: google/gemma-4-E4B-it-qat-w4a16-ct
-        gguf: google/gemma-4-E4B-it-qat-q4_0-gguf
+        gguf: ggml-org/gemma-4-E4B-it-GGUF
         gguf_qat: google/gemma-4-E4B-it-qat-q4_0-gguf
+        gguf_file: gemma-4-E4B-it-Q4_0.gguf
+        gguf_mmproj: mmproj-gemma-4-E4B-it-Q8_0.gguf
         ollama: gemma4:e4b
         mlx: mlx-community/gemma-4-E4B-it-qat-4bit
         lmstudio: google/gemma-4-e4b
@@ -344,6 +349,7 @@ gemma4:
         keras_base: gemma4_4b
         keras_assistant: gemma4_instruct_4b_assistant
         litert: litert-community/gemma-4-E4B-it-litert-lm
+        litert_file: gemma-4-E4B-it.litertlm
       memory:
         bf16: 17.9
         sfp8: 8.9
@@ -366,8 +372,10 @@ gemma4:
         hf: google/gemma-4-12B-it
         hf_base: google/gemma-4-12B
         hf_qat: google/gemma-4-12B-it-qat-w4a16-ct
-        gguf: google/gemma-4-12B-it-qat-q4_0-gguf
+        gguf: ggml-org/gemma-4-12B-it-GGUF
         gguf_qat: google/gemma-4-12B-it-qat-q4_0-gguf
+        gguf_file: gemma-4-12B-it-Q4_0.gguf
+        gguf_mmproj: mmproj-gemma-4-12B-it-Q8_0.gguf
         ollama: gemma4:12b
         mlx: mlx-community/gemma-4-12B-it-qat-4bit
         lmstudio: google/gemma-4-12b
@@ -391,8 +399,10 @@ gemma4:
       ids:                             # verified repo/tag strings; see PLAN.md
         hf: google/gemma-4-26B-A4B-it
         hf_base: google/gemma-4-26B-A4B
-        gguf: google/gemma-4-26B-A4B-it-qat-q4_0-gguf
+        gguf: ggml-org/gemma-4-26B-A4B-it-GGUF
         gguf_qat: google/gemma-4-26B-A4B-it-qat-q4_0-gguf
+        gguf_file: gemma-4-26B-A4B-it-Q4_0.gguf
+        gguf_mmproj: mmproj-gemma-4-26B-A4B-it-Q8_0.gguf
         ollama: gemma4:26b
         mlx: mlx-community/gemma-4-26B-A4B-it-qat-4bit
         lmstudio: google/gemma-4-26b-a4b
@@ -420,8 +430,10 @@ gemma4:
         hf: google/gemma-4-31B-it
         hf_base: google/gemma-4-31B
         hf_qat: google/gemma-4-31B-it-qat-w4a16-ct
-        gguf: google/gemma-4-31B-it-qat-q4_0-gguf
+        gguf: ggml-org/gemma-4-31B-it-GGUF
         gguf_qat: google/gemma-4-31B-it-qat-q4_0-gguf
+        gguf_file: gemma-4-31B-it-Q4_0.gguf
+        gguf_mmproj: mmproj-gemma-4-31B-it-Q8_0.gguf
         ollama: gemma4:31b
         mlx: mlx-community/gemma-4-31B-it-qat-4bit
         lmstudio: google/gemma-4-31b

@@ -231,23 +231,26 @@ def load_context() -> Context:
     return Context(pages=load_pages(), nav_entries=list(walk_nav(nav)), config=config)
 
 
+FENCE_OPEN = re.compile(r"^(\s*)(`{3,}|~{3,})(.*)$")
+
+
 def iter_code_blocks(page: Page) -> Iterator[tuple[int, str, str]]:
     """Yield (start line, info string, block content) for each fenced code block."""
-    fence = re.compile(r"^(\s*)```(.*)$")
     open_at: int | None = None
+    active_fence = ""
     info = ""
     buf: list[str] = []
     for lineno, line in page.body_lines():
-        m = fence.match(line)
-        if not m:
-            if open_at is not None:
-                buf.append(line)
-            continue
+        m = FENCE_OPEN.match(line)
         if open_at is None:
-            open_at, info, buf = lineno, m.group(2).strip(), []
-        else:
+            if m:
+                open_at, active_fence, info, buf = lineno, m.group(2), m.group(3).strip(), []
+            continue
+        if m and m.group(2) == active_fence and not m.group(3).strip():
             yield open_at, info, "\n".join(buf)
             open_at = None
+        else:
+            buf.append(line)
 
 
 INLINE_CODE = re.compile(r"`+[^`]*`+")
@@ -264,13 +267,17 @@ def strip_inline_code(line: str) -> str:
 
 def outside_code(page: Page) -> Iterator[tuple[int, str]]:
     """Yield body lines that are not inside a fenced code block, with code spans blanked."""
-    in_fence = False
+    active_fence: str | None = None
     for lineno, line in page.body_lines():
-        if line.lstrip().startswith("```"):
-            in_fence = not in_fence
-            continue
-        if not in_fence:
+        m = FENCE_OPEN.match(line)
+        if active_fence is None:
+            if m:
+                active_fence = m.group(2)
+                continue
             yield lineno, strip_inline_code(line)
+        elif m and m.group(2) == active_fence and not m.group(3).strip():
+            active_fence = None
+            continue
 
 
 # --- Checks -----------------------------------------------------------------------------------
@@ -558,9 +565,19 @@ def check_model_swap(ctx: Context) -> Iterable[Finding]:
     """A swappable engine must not also appear in unacknowledged static code blocks."""
     data = yaml.safe_load((REPO_ROOT / "data" / "models.yml").read_text(encoding="utf-8"))
     engines: dict[str, set[str]] = {}
+    index: list[tuple[str, str, str]] = []
     for size in data.get("gemma4", {}).get("sizes", []):
+        size_id = str(size["id"])
         for engine, identifier in size.get("ids", {}).items():
             engines.setdefault(str(engine), set()).add(str(identifier))
+            index.append((str(identifier), str(engine), size_id))
+    index.sort(key=lambda item: len(item[0]), reverse=True)
+    pattern = re.compile("|".join(re.escape(text) for text, _, _ in index))
+    by_text = {text: (engine, size_id) for text, engine, size_id in index}
+    unrewritten_re = re.compile(
+        r"\bgemma[-_]?4[-_:(](?:e2b|e4b|12b|26b(?:[-_]a4b)?|31b)[\w.-]*",
+        re.IGNORECASE,
+    )
 
     for page in ctx.pages:
         blocks = list(iter_code_blocks(page))
@@ -568,12 +585,40 @@ def check_model_swap(ctx: Context) -> Iterable[Finding]:
         if not marked:
             continue
 
-        active = {
-            engine
-            for _, _, code in marked
-            for engine, identifiers in engines.items()
-            if any(identifier in code for identifier in identifiers)
-        }
+        active: set[str] = set()
+        page_default_size: str | None = None
+        for line, _, code in marked:
+            matches = [m.group(0) for m in pattern.finditer(code)]
+            if not matches:
+                yield Finding(
+                    "model-swap",
+                    page.repo_rel,
+                    line,
+                    ".model-swap block contains no swappable model identifier from data/models.yml",
+                )
+                continue
+            for match in matches:
+                engine, size_id = by_text[match]
+                active.add(engine)
+                if page_default_size is None:
+                    page_default_size = size_id
+                elif size_id != page_default_size:
+                    yield Finding(
+                        "model-swap",
+                        page.repo_rel,
+                        line,
+                        f".model-swap identifier '{match}' targets '{size_id}' "
+                        f"but page default is '{page_default_size}'",
+                    )
+            remainder = pattern.sub("", code)
+            for leftover in unrewritten_re.finditer(remainder):
+                yield Finding(
+                    "model-swap",
+                    page.repo_rel,
+                    line,
+                    f"unrewritten model identifier '{leftover.group(0)}' inside .model-swap block",
+                )
+
         for line, info, code in blocks:
             if ".model-swap" in info or ".model-fixed" in info or ".output" in info:
                 continue

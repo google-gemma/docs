@@ -38,7 +38,7 @@ Read about the new architecture, training data, and capabilities of Gemma Scope 
 
 Access the weights, code, and documentation for the Gemma 3 interpretability suite.
 
-### [Run in Colab](https://colab.sandbox.google.com/drive/1NhWjg7n0nhfW--CjtsOdw5A5J_-Bzn4r?usp=sharing)
+### [Run in Colab](https://colab.research.google.com/drive/1NhWjg7n0nhfW--CjtsOdw5A5J_-Bzn4r?usp=sharing)
 
 Try the interactive tutorial to visualize features and modify model behavior.
 
