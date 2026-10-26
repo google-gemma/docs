@@ -32,19 +32,19 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [Gemma 3n model card](https://gemma.ai/models/gemma-3n/model-card.md): Model card for Gemma 3n: on-device inputs and outputs, training data, evaluation results, and intended use.
 - [DiffusionGemma model overview](https://gemma.ai/models/diffusiongemma.md): DiffusionGemma is an experimental open model that explores text diffusion, an exceptionally fast approach to text generation.
 - [DiffusionGemma model card](https://gemma.ai/models/diffusiongemma/model-card.md): DiffusionGemma is a generative model built by Google DeepMind.
-- [Diffusion in Text Generation Explained](https://gemma.ai/models/diffusiongemma/explained.md): To understand DiffusionGemma, it helps to examine the core limitations of standard language models and how text-based diffusion differs.
-- [Generate output](https://gemma.ai/models/diffusiongemma/inference.md): Generate text with DiffusionGemma using Hugging Face Transformers, including the GPU memory the model requires.
+- [DiffusionGemma — Diffusion in Text Generation Explained](https://gemma.ai/models/diffusiongemma/explained.md): To understand DiffusionGemma, it helps to examine the core limitations of standard language models and how text-based diffusion differs.
+- [DiffusionGemma — Generate output](https://gemma.ai/models/diffusiongemma/inference.md): Generate text with DiffusionGemma using Hugging Face Transformers, including the GPU memory the model requires.
 - [FunctionGemma model overview](https://gemma.ai/models/functiongemma.md): FunctionGemma is a specialized version of our Gemma 3 270M model tuned for function calling.
 - [FunctionGemma model card](https://gemma.ai/models/functiongemma/model-card.md): Model card for FunctionGemma: function-calling inputs and outputs, training data, evaluation results, and intended use.
 - [FunctionGemma formatting and best practices](https://gemma.ai/models/functiongemma/formatting.md): FunctionGemma is a specialized version of the Gemma 3 270M model, trained specifically for function calling (i.e., tool use).
-- [Function calling with Hugging Face Transformers](https://gemma.ai/models/functiongemma/inference.md): Call functions with FunctionGemma in Hugging Face Transformers, passing tools as manual JSON schemas or as raw Python functions.
+- [FunctionGemma — Function calling with Hugging Face Transformers](https://gemma.ai/models/functiongemma/inference.md): Call functions with FunctionGemma in Hugging Face Transformers, passing tools as manual JSON schemas or as raw Python functions.
 - [Full function calling sequence with FunctionGemma](https://gemma.ai/models/functiongemma/full-sequence.md): The complete FunctionGemma tool-calling cycle: the model's call, the developer's execution, and the final response built from the tool's output.
 - [Fine-tuning with FunctionGemma](https://gemma.ai/models/functiongemma/fine-tuning.md): This guide demonstrates how to fine-tune FunctionGemma for tool calling.
 - [EmbeddingGemma model overview](https://gemma.ai/models/embeddinggemma.md): EmbeddingGemma 2 is a lightweight, open-source 740M parameter model designed for unified multimodal embeddings.
 - [EmbeddingGemma model card](https://gemma.ai/models/embeddinggemma/model-card-v1.md): Model card for EmbeddingGemma: embedding inputs and outputs, training data, evaluation results, and intended use.
 - [EmbeddingGemma 2 model card](https://gemma.ai/models/embeddinggemma/model-card-v2.md): Model card for EmbeddingGemma 2: architecture, multimodal capabilities, benchmarks, best practices, training data, and intended use.
-- [Generate Embeddings with Sentence Transformers](https://gemma.ai/models/embeddinggemma/inference.md): Generate text embeddings, compute semantic similarity, apply task prompts, and build RAG and zero-shot classifiers with EmbeddingGemma 2 and Sentence Transformers.
-- [Multimodal Embeddings with Sentence Transformers](https://gemma.ai/models/embeddinggemma/multimodal.md): Generate unified image, audio, video, and interleaved multimodal embeddings with EmbeddingGemma 2 and Sentence Transformers.
+- [EmbeddingGemma — Generate Embeddings with Sentence Transformers](https://gemma.ai/models/embeddinggemma/inference.md): Generate text embeddings, compute semantic similarity, apply task prompts, and build RAG and zero-shot classifiers with EmbeddingGemma 2 and Sentence Transformers.
+- [EmbeddingGemma — Multimodal Embeddings with Sentence Transformers](https://gemma.ai/models/embeddinggemma/multimodal.md): Generate unified image, audio, video, and interleaved multimodal embeddings with EmbeddingGemma 2 and Sentence Transformers.
 - [Fine-tune EmbeddingGemma with Sentence Transformers](https://gemma.ai/models/embeddinggemma/fine-tuning.md): Adapt EmbeddingGemma 2 to specialized domain terminology using contrastive triplet fine-tuning with Sentence Transformers.
 - [Fine-Tune Multimodal EmbeddingGemma 2 with Sentence Transformers](https://gemma.ai/models/embeddinggemma/fine-tuning-multimodal.md): Adapt EmbeddingGemma 2 across text and visual inputs using contrastive multimodal triplet fine-tuning with Sentence Transformers.
 - [PaliGemma](https://gemma.ai/models/paligemma.md): PaliGemma 2 and PaliGemma are lightweight open vision-language models (VLM) inspired by PaLI-3, and based on open components like the SigLIP vision model and the Gemma language model.
@@ -59,14 +59,14 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [RecurrentGemma](https://gemma.ai/models/recurrentgemma.md): RecurrentGemma is an open model based on Griffin, a hybrid model architecture that mixes gated linear recurrences with local sliding window attention.
 - [RecurrentGemma model card](https://gemma.ai/models/recurrentgemma/model-card.md): RecurrentGemma is a family of open language models built on a novel recurrent architecture developed at Google.
 - [Inference with RecurrentGemma using JAX and Flax](https://gemma.ai/models/recurrentgemma/inference.md): Run sampling and inference with RecurrentGemma 2B Instruct using Google DeepMind's recurrentgemma library and JAX.
-- [Fine-tuning using JAX and Flax](https://gemma.ai/models/recurrentgemma/fine-tuning.md): Fine-tune RecurrentGemma 2B Instruct for English-French translation using JAX, Flax, and the MTNT noisy-text dataset.
+- [RecurrentGemma — Fine-tuning using JAX and Flax](https://gemma.ai/models/recurrentgemma/fine-tuning.md): Fine-tune RecurrentGemma 2B Instruct for English-French translation using JAX, Flax, and the MTNT noisy-text dataset.
 - [DataGemma](https://gemma.ai/models/datagemma.md): DataGemma is a research tool that lets users ask questions in plain language and receive answers based on publicly available statistical data in the Data Commons repository.
 - [Gemma Scope](https://gemma.ai/models/gemma-scope.md): Gemma Scope 2 is a comprehensive, open suite of interpretability tools designed for the Gemma 3 model collection.
 - [Gemma for abstractive proposition segmentation (APS)](https://gemma.ai/models/gemma-aps.md): Abstractive proposition segmentation (APS) is an analysis technique that breaks down text information into component parts.
 - [Releases](https://gemma.ai/models/releases.md): Dated release history for every Gemma model, from Gemma 1 through Gemma 4 and the specialized variants.
 
 ## Run
-- [Gemma 4 — Overview](https://gemma.ai/deployment.md): Choose an execution framework and a Gemma variant for your hardware, then run your first generation request.
+- [Overview](https://gemma.ai/deployment.md): Choose an execution framework and a Gemma variant for your hardware, then run your first generation request.
 - [Ollama](https://gemma.ai/deployment/ollama.md): Run Gemma 4 locally with Ollama — model tags, image input, and the OpenAI-compatible server.
 - [llama.cpp](https://gemma.ai/deployment/llamacpp.md): Run Gemma 4 with llama.cpp — GGUF repos for every size, image/audio/video input, and the OpenAI-compatible server.
 - [LM Studio](https://gemma.ai/deployment/lmstudio.md): Run Gemma 4 with LM Studio — desktop app, lms CLI, and the OpenAI-compatible local server.

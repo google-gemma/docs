@@ -124,13 +124,24 @@ def markdown_route_for(relative: str) -> str:
     return "/index.md" if route == "/" else f"{route.rstrip('/')}.md"
 
 
-def display_title(metadata: dict, family_names: dict[str, str]) -> str:
+def display_title(
+    metadata: dict,
+    family_names: dict[str, str],
+    relative: str = "",
+) -> str:
     title = str(metadata.get("title", "Untitled"))
+    if not relative.startswith("models/"):
+        return title
     models = metadata.get("models") or []
-    if title.lower() in {"model card", "overview"} and len(models) == 1:
-        family = str(models[0]).split("/", 1)[0]
-        if family in family_names:
-            return f"{family_names[family]} — {title}"
+    parts = Path(relative).parts
+    family = (
+        parts[1]
+        if len(parts) > 2 and parts[1] in family_names
+        else (str(models[0]).split("/", 1)[0] if len(models) == 1 else "")
+    )
+    family_name = family_names.get(family)
+    if family_name and not all(part in title.lower() for part in family_name.lower().split()):
+        return f"{family_name} — {title}"
     return title
 
 
@@ -168,7 +179,7 @@ def render_llms() -> str:
         for relative in entries:
             seen.add(relative)
             _path, metadata, _body = pages[relative]
-            title = display_title(metadata, family_names)
+            title = display_title(metadata, family_names, relative)
             description = " ".join(str(metadata.get("description", "")).split())
             url = f"{SITE_URL}{markdown_route_for(relative)}"
             suffix = f": {description}" if description else ""
