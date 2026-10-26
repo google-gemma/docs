@@ -124,7 +124,7 @@ capable of generalizing across multiple tasks. This is specially suitable for
 foundation models, including large language models like these ones.
 
 Together, JAX and ML Pathways are used as described in the
-[paper about the Gemini family of models](https://goo.gle/gemma2report){ data-model="gemma-2" }:
+[paper about the Gemini family of models](https://arxiv.org/abs/2312.11805):
 *"the 'single controller' programming model of Jax and Pathways allows a single
 Python process to orchestrate the entire training run, dramatically simplifying
 the development workflow."*
