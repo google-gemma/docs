@@ -11,7 +11,7 @@ source_url: https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-diffu
     Originally published on
     [Exploring Language Models](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-diffusiongemma){ data-model="diffusiongemma" }.
 
-Following the release of [Gemma 4 12B](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-gemma-4-12b){ data-model="gemma-4" } there is yet another innovative model that I can introduce to you all, [DiffusionGemma](https://huggingface.co/google/diffusiongemma-26B-A4B-it){ data-model="diffusiongemma" }!
+Following the release of [Gemma 4 12B](gemma-4-12b.md){ data-model="gemma-4" } there is yet another innovative model that I can introduce to you all, [DiffusionGemma](https://huggingface.co/google/diffusiongemma-26B-A4B-it){ data-model="diffusiongemma" }!
 
 This is one I’m especially excited about because it’s a different way of approaching text generation, yet uses many of the great things we have with existing “regular” LLMs. We are going to explore the old, the new, and how they live side-by-side.
 
@@ -198,7 +198,7 @@ So how can we have the benefits of Uniform State Diffusion without the downsides
 ## Architecture of DiffusionGemma
 **DiffusionGemma** applies Uniform State Diffusion that we explore thus far. However, the downsides of training this entirely from scratch still remains. The solution was simply not to train from scratch but to use an existing checkpoint as a start instead, namely the Gemma 4 26B A4B model.
 
-Gemma 4 26B A4B, as covered in [A Visual Guide to Gemma 4](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-gemma-4){ data-model="gemma-4" }, is a Mixture of Experts (MoE) model that already went through extensive training and has great performance. There is one problem though…
+Gemma 4 26B A4B, as covered in [A Visual Guide to Gemma 4](gemma-4.md){ data-model="gemma-4" }, is a Mixture of Experts (MoE) model that already went through extensive training and has great performance. There is one problem though…
 
 Gemma 4 26B A4B is a *decoder-only* model and meant to generate text one by one whilst diffusion generally needs an *encoder* and a *denoiser*. This is where an elegant solution comes in, the **Encoder-Denoiser** patch!
 
