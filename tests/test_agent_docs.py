@@ -134,7 +134,7 @@ class AgentDocsTests(unittest.TestCase):
             "[Hugging Face](https://huggingface.co/collections/google/gemma-4)",
             rendered,
         )
-        self.assertIn("[commercial use](/resources/terms)", rendered)
+        self.assertIn("[commercial use](../../resources/apache-2.md)", rendered)
         self.assertNotIn("[hf-gemma4]", rendered)
         self.assertNotIn("[gemma-terms]", rendered)
 
