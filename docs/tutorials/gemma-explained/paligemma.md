@@ -135,7 +135,7 @@ It takes as input the multi-modal representation from the projector and generate
 
 For the text input, each checkpoint was trained with various sequence lengths. For example, paligemma-3b-mix-224 was trained with sequence length 256 (input text + output text tokenized by Gemma’s tokenizer).
 
-PaliGemma uses the Gemma tokenizer with 256000 tokens, but extends its vocabulary with 1024 entries that represent coordinates in normalized image-space (<loc0000>...<loc1023>), and another with 128 entries (<seg000>...<seg127>) that are codewords used by a lightweight referring-expression segmentation [vector-quantized variational auto-encoder (VQ-VAE)](https://arxiv.org/abs/2301.02229). (256000 + 1024 + 128 = 257216)
+PaliGemma uses the Gemma tokenizer with 256000 tokens, but extends its vocabulary with 1024 entries that represent coordinates in normalized image-space (`<loc0000>`...`<loc1023>`), and another with 128 entries (`<seg000>`...`<seg127>`) that are codewords used by a lightweight referring-expression segmentation [vector-quantized variational auto-encoder (VQ-VAE)](https://arxiv.org/abs/2301.02229). (256000 + 1024 + 128 = 257216)
 
 ## Object Segmentation Example
 
