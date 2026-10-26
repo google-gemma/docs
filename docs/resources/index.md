@@ -14,7 +14,7 @@ and the model collections worth bookmarking.
   <div class="card-title">Gemmaverse <span class="card-ext">↗</span></div>
   <p class="card-desc">Explore the interactive ecosystem of Gemma models, visual explainers, and research.</p>
 </a>
-<a class="card" href="https://github.com/google-gemma/gemma-cookbook" target="_blank" rel="noopener">
+<a class="card" href="https://github.com/google-gemma/cookbook" target="_blank" rel="noopener">
   <span class="card-icon">{{ icon('lucide/notebook-pen') }}</span>
   <div class="card-title">Gemma Cookbook <span class="card-ext">↗</span></div>
   <p class="card-desc">Official Jupyter notebooks covering inference, fine-tuning, RAG and function calling.</p>
