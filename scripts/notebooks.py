@@ -425,7 +425,7 @@ def render(
     if target_name is None:
         stem = default_stem(source)
         if model:
-            target_name = f"{stem}-{model.replace('/', '-')}-it.ipynb"
+            target_name = f"{stem}-{model.replace('/', '-')}.ipynb"
         else:
             target_name = f"{stem}.ipynb"
 
