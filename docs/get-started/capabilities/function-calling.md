@@ -264,7 +264,7 @@ if calls:
 !!! Note
     For optimal results, append the tool execution result to your message history using the specific format below. This ensures the chat template correctly generates the required token structure (e.g., `response:get_current_weather{temperature:15,weather:<|"|>sunny<|"|>}`).
 
-```python { .notebook-cell }
+```python
 "tool_responses": [
   {
     "name": function_name,
@@ -275,7 +275,7 @@ if calls:
 
 In case of multiple independent requests:
 
-```python { .notebook-cell }
+```python
 "tool_responses": [
   {
     "name": function_name_1,
