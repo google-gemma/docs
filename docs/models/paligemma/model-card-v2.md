@@ -1,7 +1,7 @@
 ---
 title: PaliGemma 2 model card
 description: PaliGemma 2 is an update of the PaliGemma vision-language model (VLM) which incorporates the capabilities of the Gemma 2 models.
-models: [paligemma]
+models: [paligemma-2]
 source_url: "https://ai.google.dev/gemma/docs/paligemma/model-card-2.md.txt"
 ---
 # Model card

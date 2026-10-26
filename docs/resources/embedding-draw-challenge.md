@@ -1,7 +1,7 @@
 ---
 title: Embedding Draw Challenge
 description: Sketch target objects on an interactive canvas and see how EmbeddingGemma 2 scores cross-modal image-to-text similarity in real time.
-models: [embeddinggemma]
+models: [embeddinggemma-2]
 hide:
   - toc
 ---

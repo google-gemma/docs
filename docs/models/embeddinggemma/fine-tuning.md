@@ -1,7 +1,7 @@
 ---
 title: Fine-tune EmbeddingGemma with Sentence Transformers
 description: Adapt EmbeddingGemma 2 to specialized domain terminology using contrastive triplet fine-tuning with Sentence Transformers.
-models: [embeddinggemma]
+models: [embeddinggemma-2]
 frameworks: [sentence-transformers, transformers]
 colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/embeddinggemma-fine-tuning.ipynb
 source_url: "https://ai.google.dev/gemma/docs/embeddinggemma/fine-tuning-embeddinggemma-with-sentence-transformers.md.txt"

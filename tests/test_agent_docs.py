@@ -154,6 +154,20 @@ class AgentDocsTests(unittest.TestCase):
         self.assertIn("get-started/best-practices.md.txt", targets)
         self.assertFalse(any(target.startswith("contributing/") for target in targets))
 
+    def test_variant_generation_ids_accepted_in_frontmatter(self):
+        import frontmatter_schema
+
+        for family_id in ("embeddinggemma-2", "paligemma-2", "shieldgemma-2"):
+            self.assertIn(family_id, frontmatter_schema.model_families())
+            problems = frontmatter_schema.validate(
+                {
+                    "title": "Test Page",
+                    "description": "A valid description string that is between forty and two hundred characters.",
+                    "models": [family_id],
+                }
+            )
+            self.assertEqual(problems, [])
+
 
 if __name__ == "__main__":
     unittest.main()

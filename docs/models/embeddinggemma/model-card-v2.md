@@ -1,7 +1,7 @@
 ---
 title: EmbeddingGemma 2 model card
 description: "Model card for EmbeddingGemma 2: architecture, multimodal capabilities, benchmarks, best practices, training data, and intended use."
-models: [embeddinggemma]
+models: [embeddinggemma-2]
 source_url: "https://ai.google.dev/gemma/docs/embeddinggemma/model_card_2.md.txt"
 ---
 # EmbeddingGemma 2 model card

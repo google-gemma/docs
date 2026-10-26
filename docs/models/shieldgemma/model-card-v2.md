@@ -1,7 +1,7 @@
 ---
 title: ShieldGemma 2 model card
 description: ShieldGemma 2 is a model trained on Gemma 3's 4B IT checkpoint for image safety classification across key categories that takes in images and outputs safety labels per policy.
-models: [shieldgemma]
+models: [shieldgemma-2]
 source_url: "https://ai.google.dev/gemma/docs/shieldgemma/model_card_2.md.txt"
 ---
 # ShieldGemma model card

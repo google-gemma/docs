@@ -1,7 +1,7 @@
 ---
 title: EmbeddingGemma model overview
 description: EmbeddingGemma 2 is a lightweight, open-source 740M parameter model designed for unified multimodal embeddings.
-models: [embeddinggemma]
+models: [embeddinggemma-2, embeddinggemma]
 source_url: "https://ai.google.dev/gemma/docs/embeddinggemma.md.txt"
 ---
 # EmbeddingGemma model overview {: #hidden-title style="display: none;" }

@@ -1,7 +1,7 @@
 ---
 title: PaliGemma prompt and system instructions
 description: This page describes prompt formatting and system instructions for PaliGemma models.
-models: [paligemma]
+models: [paligemma-2, paligemma]
 source_url: "https://ai.google.dev/gemma/docs/paligemma/prompt-system-instructions.md.txt"
 ---
 # PaliGemma prompt and system instructions
