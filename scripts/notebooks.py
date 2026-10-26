@@ -196,13 +196,16 @@ def extract_swappable_blocks(body: str) -> list[str]:
 
 def detect_engines_in_use(body: str) -> set[str]:
     index = get_model_index()
+    if not index:
+        return set()
+    text_to_engine = {text: engine for text, engine, _ in index}
+    pattern = re.compile("|".join(re.escape(text) for text, _, _ in index))
     blocks = extract_swappable_blocks(body)
-    engines = set()
-    for block in blocks:
-        for text, engine, _ in index:
-            if text in block:
-                engines.add(engine)
-    return engines
+    return {
+        text_to_engine[match.group(0)]
+        for block in blocks
+        for match in pattern.finditer(block)
+    }
 
 
 def candidate_models(source: Path) -> list[str]:

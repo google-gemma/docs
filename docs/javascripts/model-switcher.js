@@ -29,6 +29,11 @@
     }
   }
   index.sort((a, b) => b.text.length - a.text.length);
+  const byText = new Map(index.map((entry) => [entry.text, entry]));
+  const escapeRegExp = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const pattern = index.length
+    ? new RegExp(index.map((entry) => escapeRegExp(entry.text)).join("|"), "g")
+    : null;
 
   const blocks = () => document.querySelectorAll(".model-swap code, code.model-swap");
   const displayName = (id) => models[id]?.fullName || models[id]?.name || id;
@@ -59,9 +64,11 @@
 
   const enginesInUse = () => {
     const found = new Set();
+    if (!pattern) return found;
     for (const block of blocks()) {
-      for (const entry of index) {
-        if (block.textContent.includes(entry.text)) found.add(entry.engine);
+      for (const [match] of block.textContent.matchAll(pattern)) {
+        const entry = byText.get(match);
+        if (entry) found.add(entry.engine);
       }
     }
     return found;
@@ -78,21 +85,23 @@
   };
 
   const detect = () => {
+    if (!pattern) return null;
     for (const block of blocks()) {
-      const hit = index.find((entry) => block.textContent.includes(entry.text));
-      if (hit) return hit.model;
+      for (const [match] of block.textContent.matchAll(pattern)) {
+        const entry = byText.get(match);
+        if (entry) return entry.model;
+      }
     }
     return null;
   };
 
   const rewriteNode = (node, target) => {
+    if (!pattern) return;
     const original = node.__gemmaOriginal ?? node.nodeValue;
-    let next = original;
-    for (const entry of index) {
-      if (!next.includes(entry.text)) continue;
-      const replacement = models[target]?.ids?.[entry.engine];
-      if (replacement) next = next.split(entry.text).join(replacement);
-    }
+    const next = original.replace(pattern, (match) => {
+      const entry = byText.get(match);
+      return (entry && models[target]?.ids?.[entry.engine]) || match;
+    });
     if (next === node.nodeValue) return;
     node.__gemmaOriginal = original;
     node.nodeValue = next;
@@ -281,7 +290,7 @@
         : available[0];
 
     buildControl(strip, available, initial, requested && !available.includes(requested) ? requested : null);
-    if (requested && available.includes(requested)) apply(requested);
+    apply(initial);
   };
 
   let prevTabState = null;

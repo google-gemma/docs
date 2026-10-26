@@ -13,41 +13,29 @@ most capable local runtime for Gemma 4 — **image, audio and video input all wo
 
 ## Install
 
-=== "macOS / Linux"
+=== "curl"
 
     ```bash
-    brew install llama.cpp
+    curl -LsSf https://llama.app/install.sh | sh
     ```
 
-=== "Windows"
+=== "powershell"
 
-    ```bash
-    winget install llama.cpp
-    ```
-
-=== "conda"
-
-    ```bash
-    conda install -c conda-forge llama.cpp
-    ```
-
-=== "Nix"
-
-    ```bash
-    nix profile install nixpkgs#llama-cpp
+    ```powershell
+    irm https://llama.app/install.ps1 | iex
     ```
 
 ## Run
 
 ```bash { .model-swap }
-llama-cli -hf ggml-org/gemma-4-E2B-it-GGUF --prompt "Write a poem about the Kraken."
+llama cli -hf ggml-org/gemma-4-E2B-it-GGUF --prompt "Write a poem about the Kraken."
 ```
 
 `-hf` downloads the weights on first use, including the multimodal projector. With a system
 prompt:
 
 ```bash { .model-swap }
-llama-cli -hf ggml-org/gemma-4-E2B-it-GGUF -sys "You are Hong Gildong." -p "Who are you?"
+llama cli -hf ggml-org/gemma-4-E2B-it-GGUF -sys "You are Hong Gildong." -p "Who are you?"
 ```
 
 ## Model repositories
@@ -64,7 +52,7 @@ For 4-bit, prefer Google's [QAT](../get-started/qat.md) weights — trained with
 than compressed afterwards:
 
 ```bash { .model-swap }
-llama-cli -hf google/gemma-4-12B-it-qat-q4_0-gguf -p "Explain PLE in one paragraph"
+llama cli -hf google/gemma-4-E2B-it-qat-q4_0-gguf -p "Explain gravity in one paragraph"
 ```
 
 Available as `google/gemma-4-{E2B,E4B,12B,26B-A4B,31B}-it-qat-q4_0-gguf`.
@@ -72,13 +60,13 @@ Available as `google/gemma-4-{E2B,E4B,12B,26B-A4B,31B}-it-qat-q4_0-gguf`.
 ## Multimodal
 
 ```bash { .model-swap }
-llama-mtmd-cli -hf ggml-org/gemma-4-E2B-it-GGUF
+llama cli -hf ggml-org/gemma-4-E2B-it-GGUF --image "image.png" -p "Describe this image."
 ```
 
 With local files, pass the projector explicitly:
 
-```bash
-llama-server -m gemma-4-12B-it-Q4_K_M.gguf --mmproj mmproj-gemma-4-12B-it.gguf
+```bash { .model-swap }
+llama cli -m gemma-4-E2B-it-Q4_0.gguf --mm mmproj-gemma-4-E2B-it-Q8_0.gguf
 ```
 
 !!! note
@@ -88,7 +76,7 @@ llama-server -m gemma-4-12B-it-Q4_K_M.gguf --mmproj mmproj-gemma-4-12B-it.gguf
 ## Server
 
 ```bash { .model-swap }
-llama-server -hf ggml-org/gemma-4-E2B-it-GGUF
+llama server -hf ggml-org/gemma-4-E2B-it-GGUF
 ```
 
 Browser UI at `http://localhost:8080`, OpenAI-compatible API at `http://localhost:8080/v1`.

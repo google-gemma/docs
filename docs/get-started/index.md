@@ -40,7 +40,7 @@ and move up without rewriting anything.
 
     pipe = pipeline(
         "text-generation",
-        model="google/gemma-4-12B-it",
+        model="google/gemma-4-E2B-it",
         device_map="auto"
     )
     output = pipe("Explain quantum computing simply:", max_new_tokens=150)
@@ -51,14 +51,14 @@ and move up without rewriting anything.
     Install [`llama.cpp`](https://llama.app/), then run:
 
     ```bash { .model-swap }
-    llama-cli -hf google/gemma-4-12B-it-qat-q4_0-gguf --prompt "Write a poem about the Kraken."
+    llama-cli -hf google/gemma-4-E2B-it-qat-q4_0-gguf --prompt "Write a poem about the Kraken."
     ```
 
 === "Ollama"
     Install [`ollama`](https://ollama.com/download), then run:
 
     ```bash { .model-swap }
-    ollama run gemma4:12b "Explain quantum computing simply:"
+    ollama run gemma4:e2b "Explain quantum computing simply:"
     ```
 
 === "Apple MLX"
@@ -66,7 +66,7 @@ and move up without rewriting anything.
     Install [`MLX LM`](https://github.com/ml-explore/mlx-lm), then run:
 
     ```bash { .model-swap }
-    mlx_lm.generate --model mlx-community/gemma-4-12B-it-qat-4bit \
+    mlx_lm.generate --model mlx-community/gemma-4-E2B-it-qat-4bit \
         --prompt "Explain quantum computing simply:"
     ```
 
@@ -75,14 +75,14 @@ and move up without rewriting anything.
     Install [`vLLM`](https://docs.vllm.ai/en/latest/getting_started/installation/), then run:
 
     ```bash { .model-swap }
-    vllm serve google/gemma-4-26B-A4B-it
+    vllm serve google/gemma-4-E2B-it
     ```
 
 === "LMStudio"
     Install [`LMStudio`](https://lmstudio.ai/), then run:
 
     ```bash { .model-swap }
-    lms chat google/gemma-4-12b
+    lms chat google/gemma-4-e2b
     ```
 
 !!! example "Using a coding agent?"
