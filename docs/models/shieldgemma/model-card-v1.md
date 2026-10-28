@@ -94,7 +94,7 @@ filtering).
 
 ### Citation
 
-```python
+```bibtex
 @misc{zeng2024shieldgemmagenerativeaicontent,
     title={ShieldGemma: Generative AI Content Moderation Based on Gemma},
     author={Wenjun Zeng and Yuchi Liu and Ryan Mullins and Ludovic Peran and Joe Fernandez and Hamza Harkous and Karthik Narasimhan and Drew Proud and Piyush Kumar and Bhaktipriya Radharapu and Olivia Sturman and Oscar Wahltinez},

@@ -41,7 +41,7 @@ state of the art AI models and helping foster innovation for everyone.
 
 ### Citation
 
-```python
+```bibtex
 @article{gemma_2024,
     title={Gemma},
     url={https://www.kaggle.com/m/3301},

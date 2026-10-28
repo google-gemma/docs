@@ -51,7 +51,7 @@ Similar to the original PaliGemma model, PaliGemma 2 is trained following the
 
 #### Citation
 
-```python
+```bibtex
 @article{
     title={PaliGemma 2: A Family of Versatile VLMs for Transfer},
     author={Andreas Steiner and André Susano Pinto and Michael Tschannen and Daniel Keysers and Xiao Wang and Yonatan Bitton and Alexey Gritsenko and Matthias Minderer and Anthony Sherbondy and Shangbang Long and Siyang Qin and Reeve Ingle and Emanuele Bugliarello and Sahar Kazemzadeh and Thomas Mesnard and Ibrahim Alabdulmohsin and Lucas Beyer and Xiaohua Zhai},

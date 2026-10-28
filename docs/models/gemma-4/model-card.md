@@ -375,7 +375,7 @@ responsible AI development compared to similarly sized models.
 
 If you find our work helpful, please consider citing it:
 
-```python
+```bibtex
 @misc{gemmateam2026gemma4,
       title={Gemma 4 Technical Report},
       author={Gemma Team},

@@ -4,16 +4,19 @@ description: "Model card for EmbeddingGemma 2: architecture, multimodal capabili
 models: [embeddinggemma-2]
 source_url: "https://ai.google.dev/gemma/docs/embeddinggemma/model_card_2.md.txt"
 ---
-# EmbeddingGemma 2 model card
+<div class="model-card-header" markdown>
 
 ![EmbeddingGemma 2 banner](../../assets/embeddinggemma/embeddinggemma2_banner.png)
 
-[Hugging Face](https://huggingface.co/google/embeddinggemma-2) |
-[GitHub](https://github.com/google-gemma) |
-[Launch Blog](https://blog.google/innovation-and-ai/technology/developers-tools/embeddinggemma-2) |
-[Documentation](index.md)
+[Hugging Face](https://huggingface.co/google/embeddinggemma-2) \|
+[GitHub](https://github.com/google-gemma) \|
+[Launch Blog](https://blog.google/innovation-and-ai/technology/developers-tools/embeddinggemma-2) \|
+[Documentation](index.md) \|
+[Technical Report](https://arxiv.org/abs/2610.37364)
 
-**License** : [Apache 2.0](../../resources/apache-2.md) | **Authors** : [Google DeepMind](https://deepmind.google/models/gemma/)
+**License** : [Apache 2.0](https://gemma.ai/resources/apache-2) \| **Authors** : [Google DeepMind](https://deepmind.google/models/gemma/)
+
+</div>
 
 **EmbeddingGemma 2** is an open multimodal embedding model built by Google DeepMind which maps text (incl. code), images, video, and audio inputs---and combinations thereof---into a single, unified 768-dimensional vector space. The model has 740M total parameters, combining a 270M parameter text model with modular vision (170M) and audio (300M) encoders.
 
@@ -316,4 +319,19 @@ EmbeddingGemma 2 is among the strongest multimodal embedding models under 1B par
 
 The model is designed from the ground up for responsible AI development, like other Gemma-family models.
 
+## **Citation**
+
+If you find our work helpful, please consider citing it:
+
+```bibtex
+@misc{embeddinggemma2_2026,
+    title={EmbeddingGemma 2: Unified and Efficient Multimodal Representations},
+    author={Schechter Vera, Henrique and Dua, Sahil and Team, EmbeddingGemma},
+    year={2026},
+    eprint={2610.37364},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG},
+    url={https://arxiv.org/abs/2610.37364}
+}
+```
 --8<-- "glossary.md"

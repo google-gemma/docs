@@ -54,7 +54,7 @@ page.
 
 ### Citation
 
-```python
+```bibtex
 @article{gemma_3n_2025,
     title={Gemma 3n},
     url={https://ai.google.dev/gemma/docs/gemma-3n},

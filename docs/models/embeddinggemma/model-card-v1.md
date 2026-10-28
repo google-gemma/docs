@@ -51,7 +51,7 @@ For more technical details, refer to our paper:
 
 ### Citation
 
-```python
+```bibtex
 @article{embedding_gemma_2025,
     title={EmbeddingGemma: Powerful and Lightweight Text Representations},
     publisher={Google DeepMind},
