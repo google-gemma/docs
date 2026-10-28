@@ -33,8 +33,9 @@ EmbeddingGemma 2 builds upon the architectural and capability advancements of Ge
 
 ### Model Overview
 
-| Parameters | Total | 740M |
+| | | |
 |---|---|---|
+| **Parameters** | **Total** | 740M |
 | | **Backbone** | 130M |
 | | **Embedder** | 140M |
 | | **Modality Encoders** | *Vision:* 170M *Audio:* 300M |
