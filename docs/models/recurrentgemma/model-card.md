@@ -39,7 +39,7 @@ Gemma and achieves faster inference when generating long sequences.
 
 #### Citation
 
-```python
+```bibtex
 @article{recurrentgemma_2024,
     title={RecurrentGemma},
     url={},

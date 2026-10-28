@@ -74,7 +74,7 @@ Does the image violate the above policy? Your Answer must start with 'Yes' or 'N
 
 ### Citation
 
-```python
+```bibtex
 @misc{zeng2025shieldgemma2robusttractable,
       title={ShieldGemma 2: Robust and Tractable Image Content Moderation},
       author={Wenjun Zeng and Dana Kurniawan and Ryan Mullins and Yuchi Liu and Tamoghna Saha and Dirichi Ike-Njoku and Jindong Gu and Yiwen Song and Cai Xu and Jingjing Zhou and Aparna Joshi and Shravan Dheep and Mani Malek and Hamid Palangi and Joon Baek and Rick Pereira and Karthik Narasimhan},

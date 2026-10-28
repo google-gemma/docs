@@ -50,7 +50,7 @@ for everyone.
 
 ### Citation
 
-```python
+```bibtex
 @article{gemma_2025,
     title={Gemma 3},
     url={https://arxiv.org/abs/2503.19786},
