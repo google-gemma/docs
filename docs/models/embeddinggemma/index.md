@@ -48,7 +48,7 @@ EmbeddingGemma 2 introduces major improvements over EmbeddingGemma:
 - **Extended context length** : Supports up to **8,192 tokens** for text and source code across over 100 languages.
 
 !!! tip
-    **Tip:** Deploy EmbeddingGemma 2 with Gemma 4 E2B to build contextually relevant mobile-first Retrieval Augmented Generation (RAG) pipelines and chatbots. See our [quickstart RAG notebook](https://github.com/google-gemma/cookbook/blob/main/tutorials/RAG_with_EmbeddingGemma.ipynb){ data-model="embeddinggemma-2" } to get started.
+    Deploy EmbeddingGemma 2 with Gemma 4 E2B to build contextually relevant mobile-first Retrieval Augmented Generation (RAG) pipelines and chatbots. See our [quickstart RAG notebook](https://github.com/google-gemma/cookbook/blob/main/tutorials/RAG_with_EmbeddingGemma.ipynb){ data-model="embeddinggemma-2" } to get started.
 
 ## Previous Versions
 
