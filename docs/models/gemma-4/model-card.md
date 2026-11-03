@@ -1,6 +1,6 @@
 ---
-title: Model card
-description: Gemma is a family of open models built by Google DeepMind.
+title: Gemma 4 model card
+description: "Model card for Gemma 4 (E2B, E4B, 12B, 26B A4B, and 31B): architecture, multimodal inputs and outputs, training data, and evaluation benchmarks."
 models: [gemma-4]
 source_url: "https://ai.google.dev/gemma/docs/core/model_card_4.md.txt"
 ---

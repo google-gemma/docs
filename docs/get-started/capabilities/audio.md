@@ -1,6 +1,6 @@
 ---
 title: Audio understanding
-description: Starting with Gemma 3n, you can use audio directly into your prompts and workflows.
+description: "Process and transcribe speech, music, and sound inputs with Gemma 4 and Gemma 3n multimodal audio understanding."
 models: [gemma-4]
 requires: audio
 frameworks: [transformers]
@@ -185,7 +185,7 @@ messages = [
         "role": "user",
         "content": [
             {"type": "text", "text": "Transcribe the following speech segment in English, then translate it into Korean. When formatting the answer, first output the transcription in English, then one newline, then output the string 'Korean: ', then the translation in Korean."},
-            {"type": "audio", "audio": "https://ai.google.dev/gemma/docs/audio/roses-are.wav"},
+            {"type": "audio", "audio": "https://gemma.ai/assets/capabilities/roses-are.wav"},
         ]
     }
 ]

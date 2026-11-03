@@ -1,10 +1,10 @@
 ---
-title: Gemma 4
-description: Gemma is a family of generative artificial intelligence models and you can use them in a wide variety of generation tasks, including question answering, summarization, and reasoning.
+title: Gemma 4 model overview
+description: "Overview of Google's Gemma 4 open-weight multimodal models (E2B, E4B, 12B, 26B A4B, and 31B): capabilities, context windows, VRAM, and QAT checkpoints."
 models: [gemma-4]
 source_url: "https://ai.google.dev/gemma/docs/core.md.txt"
 ---
-# Gemma 4 {: #hidden-title style="display: none;" }
+# Gemma 4 model overview
 
 <div class="video-embed">
   <iframe src="https://www.youtube.com/embed/jZVBoFOJK-Q"

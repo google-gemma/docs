@@ -1,6 +1,6 @@
 ---
 title: Video understanding
-description: Video data is a rich source of information that can help you accomplish tasks and understand the world around you.
+description: "Analyze video clips and interleaved frame sequences with Gemma 4 multimodal vision-language models."
 models: [gemma-4]
 frameworks: [transformers]
 colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/video-gemma-4-e2b.ipynb

@@ -1,6 +1,6 @@
 ---
 title: Run Gemma with Hugging Face Transformers
-description: Generating text, summarizing, and analysing content are just some of the tasks you can accomplish with Gemma open models.
+description: "Run Gemma 4 with Hugging Face Transformers in Python for text, image, audio, and multi-turn chat generation."
 models: [gemma-4, gemma-3, gemma-3n]
 frameworks: [transformers]
 source_url: "https://ai.google.dev/gemma/docs/core/huggingface_inference.md.txt"
@@ -163,7 +163,7 @@ messages = [
         "role": "user",
         "content": [
             {"type": "text", "text": "Transcribe the following speech segment in its original language. Follow these specific instructions for formatting the answer:\n* Only output the transcription, with no newlines.\n* When transcribing numbers, write the digits, i.e. write 1.7 and not one point seven, and write 3 instead of three."},
-            {"type": "audio", "audio": "https://ai.google.dev/gemma/docs/audio/roses-are.wav"},
+            {"type": "audio", "audio": "https://gemma.ai/assets/capabilities/roses-are.wav"},
         ]
     }
 ]
@@ -176,7 +176,7 @@ pipe(text=messages, return_full_text=False, generate_kwargs=gen_kwargs)
     'content': [{'type': 'text',
       'text': 'Transcribe the following speech segment in its original language. Follow these specific instructions for formatting the answer:\n* Only output the transcription, with no newlines.\n* When transcribing numbers, write the digits, i.e. write 1.7 and not one point seven, and write 3 instead of three.'},
      {'type': 'audio',
-      'audio': 'https://ai.google.dev/gemma/docs/audio/roses-are.wav'}]}],
+      'audio': 'https://gemma.ai/assets/capabilities/roses-are.wav'}]}],
   'generated_text': 'Roses are red, violets are blue.<turn|>'}]
 ```
 

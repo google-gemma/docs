@@ -1,6 +1,6 @@
 ---
 title: DiffusionGemma model card
-description: DiffusionGemma is a generative model built by Google DeepMind.
+description: "Model card for DiffusionGemma (26B A4B MoE): discrete text diffusion architecture, multimodal inputs, training data, and evaluation benchmarks."
 models: [diffusiongemma]
 source_url: "https://ai.google.dev/gemma/docs/diffusiongemma/model_card.md.txt"
 ---

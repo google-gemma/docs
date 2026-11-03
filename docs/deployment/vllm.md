@@ -1,5 +1,5 @@
 ---
-title: vLLM
+title: Serve Gemma with vLLM
 description: Serve Gemma 4 with vLLM — install, vllm serve, model repositories, and the OpenAI-compatible API.
 models: [gemma-4]
 frameworks: [vllm]

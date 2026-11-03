@@ -491,13 +491,38 @@ def check_frontmatter(ctx: Context) -> Iterable[Finding]:
         # `<h1 id="__skip">`). On those pages the title is visible content, not just metadata,
         # so it has to say what the page already said. Where the page *has* an H1, the title
         # only reaches the browser tab and llms.txt and may be more specific than the heading.
-        if first_heading(page) is None and "title" not in page.frontmatter:
+        h1 = first_heading(page)
+        title = str(page.frontmatter.get("title", ""))
+        if h1 is None and "title" not in page.frontmatter:
             yield Finding(
                 "frontmatter",
                 page.repo_rel,
                 0,
                 "page has no H1, so `title` is rendered as the heading -- it must be set",
             )
+        if h1 and "gemma" in h1.lower() and "gemma" not in title.lower():
+            yield Finding(
+                "frontmatter",
+                page.repo_rel,
+                0,
+                "frontmatter `title` drops 'Gemma' from the page's H1 -- keep the full title in "
+                "frontmatter and shorten the sidebar label in zensical.toml instead",
+            )
+        if "model-card" in page.rel and "gemma" not in title.lower():
+            yield Finding(
+                "frontmatter",
+                page.repo_rel,
+                0,
+                "model card `title` must include the model name (e.g. 'Gemma 4 model card')",
+            )
+        for lineno, line in outside_code(page):
+            if line.startswith("# ") and ("hidden-title" in line or re.search(r"display\s*:\s*none", line)):
+                yield Finding(
+                    "frontmatter",
+                    page.repo_rel,
+                    lineno,
+                    "H1 is hidden with display:none -- keep H1 visible for search indexing",
+                )
 
 
 HIDDEN_PREFIXES = ("contributing/",)

@@ -168,6 +168,23 @@ class AgentDocsTests(unittest.TestCase):
             )
             self.assertEqual(problems, [])
 
+    def test_placeholder_visual_walkthrough_description_rejected(self):
+        import frontmatter_schema
+
+        problems = frontmatter_schema.validate(
+            {
+                "title": "A Visual Guide to Gemma 4",
+                "description": "A Visual Guide to Gemma 4 — a visual walkthrough.",
+                "models": ["gemma-4"],
+            }
+        )
+        self.assertTrue(any("visual walkthrough" in p.message for p in problems))
+
+    def test_robots_txt_references_sitemap(self):
+        robots = (agent_docs.DOCS_DIR / "robots.txt").read_text(encoding="utf-8")
+        self.assertIn("User-agent: *", robots)
+        self.assertIn("Sitemap: https://gemma.ai/sitemap.xml", robots)
+
 
 if __name__ == "__main__":
     unittest.main()

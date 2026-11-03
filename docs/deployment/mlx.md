@@ -1,5 +1,5 @@
 ---
-title: Apple MLX
+title: Run Gemma with MLX
 description: Run Gemma 4 on Apple silicon with MLX — text and vision generation, model repos, and the OpenAI-compatible server.
 models: [gemma-4]
 frameworks: [mlx]

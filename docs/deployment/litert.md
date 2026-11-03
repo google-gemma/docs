@@ -1,5 +1,5 @@
 ---
-title: LiteRT-LM
+title: Run Gemma on-device with LiteRT-LM
 description: Run Gemma 4 on-device with LiteRT-LM — CLI install, prebuilt .litertlm weights, and exporting your own fine-tune.
 models: [gemma-4]
 frameworks: [litert]

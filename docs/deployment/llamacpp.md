@@ -1,5 +1,5 @@
 ---
-title: llama.cpp
+title: Run Gemma with llama.cpp
 description: Run Gemma 4 with llama.cpp — GGUF repos for every size, image/audio/video input, and the OpenAI-compatible server.
 models: [gemma-4]
 frameworks: [llamacpp]

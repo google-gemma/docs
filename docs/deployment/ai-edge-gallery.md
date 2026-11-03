@@ -1,5 +1,5 @@
 ---
-title: AI Edge Gallery
+title: Try Gemma on your phone with AI Edge Gallery
 description: Run Gemma 4 on an Android or iOS phone with no code — chat, vision, audio transcription and benchmarking, fully offline.
 models: [gemma-4]
 frameworks: [litert, android, ios]

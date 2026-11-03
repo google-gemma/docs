@@ -1,6 +1,6 @@
 ---
 title: Image understanding
-description: You can use Gemma 3 and later models to analyze and understand the content of images.
+description: "Analyze images with Gemma 4 using variable aspect ratios, configurable vision token budgets, and multi-image prompts."
 models: [gemma-4]
 frameworks: [transformers]
 colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/image-gemma-4-e2b.ipynb
@@ -103,8 +103,8 @@ config.max_new_tokens = 512
 gen_kwargs = dict(generation_config=config)
 
 img_urls = [
-    "https://ai.google.dev/gemma/docs/capabilities/vision/images/surprise.png",
-    "https://ai.google.dev/gemma/docs/capabilities/vision/images/kitchen.jpg",
+    "https://gemma.ai/assets/capabilities/surprise.png",
+    "https://gemma.ai/assets/capabilities/kitchen.jpg",
 ]
 for img in img_urls:
     display(Image.open(requests.get(img, stream=True).raw))
@@ -196,7 +196,7 @@ config = GenerationConfig.from_pretrained(MODEL_ID)
 config.max_new_tokens = 512
 gen_kwargs = dict(generation_config=config)
 
-img_url = "https://ai.google.dev/gemma/docs/capabilities/vision/images/cat.png"
+img_url = "https://gemma.ai/assets/capabilities/cat.png"
 input_image = Image.open(requests.get(img_url, stream=True).raw)
 display(input_image)
 

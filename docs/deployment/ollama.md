@@ -1,5 +1,5 @@
 ---
-title: Ollama
+title: Run Gemma with Ollama
 description: Run Gemma 4 locally with Ollama — model tags, image input, and the OpenAI-compatible server.
 models: [gemma-4]
 frameworks: [ollama]

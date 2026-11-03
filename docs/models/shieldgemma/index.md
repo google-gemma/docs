@@ -4,7 +4,7 @@ description: ShieldGemma is a set of instruction tuned models for evaluating the
 models: [shieldgemma-2, shieldgemma]
 source_url: "https://ai.google.dev/gemma/docs/shieldgemma.md.txt"
 ---
-# ShieldGemma {: #hidden-title style="display: none;" }
+# ShieldGemma
 
 <div class="video-embed">
   <iframe src="https://www.youtube.com/embed/BgWO2iVPlyw"

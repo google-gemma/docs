@@ -1,6 +1,6 @@
 ---
 title: A Visual Guide to Gemma 4 12B
-description: A Visual Guide to Gemma 4 12B — a visual walkthrough.
+description: "How Gemma 4 12B achieves fast, unified multimodal understanding of text, images, and audio using an encoder-free architecture with linear projections."
 models: [gemma-4/12b]
 source_url: https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-gemma-4-12b
 ---
