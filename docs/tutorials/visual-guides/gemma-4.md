@@ -1,6 +1,6 @@
 ---
 title: A Visual Guide to Gemma 4
-description: A Visual Guide to Gemma 4 — a visual walkthrough.
+description: "Illustrated guide to the Gemma 4 architecture: dense and 26B A4B MoE models, Per-Layer Embeddings (E2B/E4B), vision and audio encoders, and KV cache."
 models: [gemma-4]
 source_url: https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-gemma-4
 ---

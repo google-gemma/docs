@@ -4,7 +4,7 @@ description: FunctionGemma is a specialized version of our Gemma 3 270M model tu
 models: [functiongemma]
 source_url: "https://ai.google.dev/gemma/docs/functiongemma.md.txt"
 ---
-# FunctionGemma model overview {: #hidden-title style="display: none;" }
+# FunctionGemma model overview
 
 <div class="video-embed">
   <iframe src="https://www.youtube.com/embed/-Tgc_9uYJLI"

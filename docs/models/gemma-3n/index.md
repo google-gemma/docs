@@ -4,7 +4,7 @@ description: Gemma 3n is a generative AI model optimized for use in everyday dev
 models: [gemma-3n]
 source_url: "https://ai.google.dev/gemma/docs/gemma-3n.md.txt"
 ---
-# Gemma 3n model overview {: #hidden-title style="display: none;" }
+# Gemma 3n model overview
 
 <div class="video-embed">
   <iframe src="https://www.youtube.com/embed/eJFJRyXEHZ0"

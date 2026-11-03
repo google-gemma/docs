@@ -1,6 +1,6 @@
 ---
 title: A Visual Guide to DiffusionGemma
-description: A Visual Guide to DiffusionGemma — a visual walkthrough.
+description: "How DiffusionGemma uses discrete text diffusion, block-autoregressive multi-canvas sampling, and a 26B A4B MoE architecture to generate tokens in parallel."
 models: [diffusiongemma]
 source_url: https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-diffusiongemma
 ---

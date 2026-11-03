@@ -1,6 +1,6 @@
 ---
 title: Run Gemma with Keras
-description: Generating content, summarizing, and analysing content are just some of the tasks you can accomplish with Gemma open models.
+description: "Run Gemma 4 inference with Keras and KerasHub for text and multimodal image generation in Python."
 models: [gemma-4]
 frameworks: [keras]
 source_url: "https://ai.google.dev/gemma/docs/core/keras_inference.md.txt"
@@ -269,7 +269,7 @@ Load the image and format the data so the model can process it. Use `read_image(
 from matplotlib import pyplot as plt
 
 image = read_image(
-    "https://ai.google.dev/gemma/docs/images/thali-indian-plate.jpg"
+    "https://gemma.ai/assets/deployment/thali-indian-plate.jpg"
 )
 plt.imshow(image)
 ```

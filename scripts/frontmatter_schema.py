@@ -188,6 +188,13 @@ def validate(frontmatter: dict, *, page_paths: set[str] | None = None) -> list[P
             )
         if "](" in description or description.startswith("#"):
             problems.append(Problem("description", "description contains markdown syntax"))
+        if "visual walkthrough" in description.lower():
+            problems.append(
+                Problem(
+                    "description",
+                    "description uses placeholder 'visual walkthrough' -- summarize what the page covers",
+                )
+            )
     elif description is not None:
         problems.append(Problem("description", "description must be a string"))
 

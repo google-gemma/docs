@@ -1,5 +1,5 @@
 ---
-title: Gemini API
+title: Run Gemma with the Gemini API
 description: Call hosted Gemma 4 models through the Gemini API instead of running and serving your own instance.
 models: [gemma-4]
 frameworks: [gemini-api]

@@ -12,26 +12,26 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [Best practices](https://gemma.ai/get-started/best-practices.md): Sampling parameters, thinking-mode tokens, modality order and image token budgets that get the best results out of Gemma 4.
 - [Inference](https://gemma.ai/get-started/capabilities/text.md): Basic text inference with Gemma 4 in Hugging Face Transformers: single-turn prompts, multi-turn conversations, and system instructions.
 - [Reasoning](https://gemma.ai/get-started/capabilities/thinking.md): Use Gemma 4's thinking mode to reason before answering, for text and image prompts, and parse the reasoning apart from the answer.
-- [Tool calling](https://gemma.ai/get-started/capabilities/function-calling.md): When using a generative artificial intelligence (AI) model such as Gemma, you may want to use the model to operate programming interfaces in order to complete tasks or answer questions.
+- [Tool calling](https://gemma.ai/get-started/capabilities/function-calling.md): Build agentic workflows with Gemma 4 native tool calling and structured function schemas in Hugging Face Transformers.
 - [Vision overview](https://gemma.ai/get-started/capabilities/vision.md): Prepare and pass visual data to Gemma 4 for object detection, OCR, visual question answering, captioning, and multi-image reasoning.
-- [Image understanding](https://gemma.ai/get-started/capabilities/image.md): You can use Gemma 3 and later models to analyze and understand the content of images.
-- [Video understanding](https://gemma.ai/get-started/capabilities/video.md): Video data is a rich source of information that can help you accomplish tasks and understand the world around you.
-- [Audio understanding](https://gemma.ai/get-started/capabilities/audio.md): Starting with Gemma 3n, you can use audio directly into your prompts and workflows.
+- [Image understanding](https://gemma.ai/get-started/capabilities/image.md): Analyze images with Gemma 4 using variable aspect ratios, configurable vision token budgets, and multi-image prompts.
+- [Video understanding](https://gemma.ai/get-started/capabilities/video.md): Analyze video clips and interleaved frame sequences with Gemma 4 multimodal vision-language models.
+- [Audio understanding](https://gemma.ai/get-started/capabilities/audio.md): Process and transcribe speech, music, and sound inputs with Gemma 4 and Gemma 3n multimodal audio understanding.
 - [Prompt Formatting](https://gemma.ai/get-started/prompt-formatting.md): The control tokens Gemma 4 uses to structure a prompt, and the older start_of_turn format used by Gemma 1 to 3.
 - [Speed-up Gemma 4 with Multi-Token Prediction](https://gemma.ai/get-started/capabilities/mtp.md): In Gemma 4, Multi-Token Prediction (MTP) is the specific architecture used to enable highly efficient Speculative Decoding.
 - [Quantization-Aware Training](https://gemma.ai/get-started/qat.md): Which Gemma 4 quantized weights to download for each engine, and why QAT beats post-training quantization at 4-bit.
 
 ## Models
 - [Gemma Model Family](https://gemma.ai/models.md): What Gemma is, how the generations relate, and which variant was built from which base model.
-- [Gemma 4](https://gemma.ai/models/gemma-4.md): Gemma is a family of generative artificial intelligence models and you can use them in a wide variety of generation tasks, including question answering, summarization, and reasoning.
-- [Gemma 4 — Model card](https://gemma.ai/models/gemma-4/model-card.md): Gemma is a family of open models built by Google DeepMind.
+- [Gemma 4 model overview](https://gemma.ai/models/gemma-4.md): Overview of Google's Gemma 4 open-weight multimodal models (E2B, E4B, 12B, 26B A4B, and 31B): capabilities, context windows, VRAM, and QAT checkpoints.
+- [Gemma 4 model card](https://gemma.ai/models/gemma-4/model-card.md): Model card for Gemma 4 (E2B, E4B, 12B, 26B A4B, and 31B): architecture, multimodal inputs and outputs, training data, and evaluation benchmarks.
 - [Gemma 3 model card](https://gemma.ai/models/gemma-3.md): Model card for the multimodal Gemma 3 models: 128K context, 140+ languages, inputs and outputs, training data, and evaluation.
 - [Gemma 2 model card](https://gemma.ai/models/gemma-2.md): Model card for Gemma 2 text-to-text models: description, inputs and outputs, training data, and evaluation.
 - [Gemma model card](https://gemma.ai/models/gemma-1.md): Model card for the first-generation Gemma text-to-text models: description, inputs and outputs, training data, and evaluation.
 - [Gemma 3n model overview](https://gemma.ai/models/gemma-3n.md): Gemma 3n is a generative AI model optimized for use in everyday devices, such as phones, laptops, and tablets.
 - [Gemma 3n model card](https://gemma.ai/models/gemma-3n/model-card.md): Model card for Gemma 3n: on-device inputs and outputs, training data, evaluation results, and intended use.
 - [DiffusionGemma model overview](https://gemma.ai/models/diffusiongemma.md): DiffusionGemma is an experimental open model that explores text diffusion, an exceptionally fast approach to text generation.
-- [DiffusionGemma model card](https://gemma.ai/models/diffusiongemma/model-card.md): DiffusionGemma is a generative model built by Google DeepMind.
+- [DiffusionGemma model card](https://gemma.ai/models/diffusiongemma/model-card.md): Model card for DiffusionGemma (26B A4B MoE): discrete text diffusion architecture, multimodal inputs, training data, and evaluation benchmarks.
 - [DiffusionGemma — Diffusion in Text Generation Explained](https://gemma.ai/models/diffusiongemma/explained.md): To understand DiffusionGemma, it helps to examine the core limitations of standard language models and how text-based diffusion differs.
 - [DiffusionGemma — Generate output](https://gemma.ai/models/diffusiongemma/inference.md): Generate text with DiffusionGemma using Hugging Face Transformers, including the GPU memory the model requires.
 - [FunctionGemma model overview](https://gemma.ai/models/functiongemma.md): FunctionGemma is a specialized version of our Gemma 3 270M model tuned for function calling.
@@ -67,20 +67,20 @@ Follow the Markdown links below to read canonical page content without cloning t
 
 ## Run
 - [Overview](https://gemma.ai/deployment.md): Choose an execution framework and a Gemma variant for your hardware, then run your first generation request.
-- [Ollama](https://gemma.ai/deployment/ollama.md): Run Gemma 4 locally with Ollama — model tags, image input, and the OpenAI-compatible server.
-- [llama.cpp](https://gemma.ai/deployment/llamacpp.md): Run Gemma 4 with llama.cpp — GGUF repos for every size, image/audio/video input, and the OpenAI-compatible server.
-- [LM Studio](https://gemma.ai/deployment/lmstudio.md): Run Gemma 4 with LM Studio — desktop app, lms CLI, and the OpenAI-compatible local server.
-- [Apple MLX](https://gemma.ai/deployment/mlx.md): Run Gemma 4 on Apple silicon with MLX — text and vision generation, model repos, and the OpenAI-compatible server.
-- [Run Gemma with Hugging Face Transformers](https://gemma.ai/deployment/huggingface.md): Generating text, summarizing, and analysing content are just some of the tasks you can accomplish with Gemma open models.
-- [Run Gemma with Keras](https://gemma.ai/deployment/keras.md): Generating content, summarizing, and analysing content are just some of the tasks you can accomplish with Gemma open models.
-- [LiteRT-LM](https://gemma.ai/deployment/litert.md): Run Gemma 4 on-device with LiteRT-LM — CLI install, prebuilt .litertlm weights, and exporting your own fine-tune.
-- [AI Edge Gallery](https://gemma.ai/deployment/ai-edge-gallery.md): Run Gemma 4 on an Android or iOS phone with no code — chat, vision, audio transcription and benchmarking, fully offline.
-- [vLLM](https://gemma.ai/deployment/vllm.md): Serve Gemma 4 with vLLM — install, vllm serve, model repositories, and the OpenAI-compatible API.
-- [SGLang](https://gemma.ai/deployment/sglang.md): Serve Gemma 4 with SGLang — install, launch_server, model repositories, and the OpenAI-compatible API.
-- [Gemini API](https://gemma.ai/deployment/gemini-api.md): Call hosted Gemma 4 models through the Gemini API instead of running and serving your own instance.
-- [Google Cloud](https://gemma.ai/deployment/google-cloud.md): Deploy, serve, and fine-tune Gemma 4 on Google Cloud: Cloud Run, GKE, the Agent Development Kit, vLLM on TPUs, MaxText, and Sovereign Cloud.
+- [Run Gemma with Ollama](https://gemma.ai/deployment/ollama.md): Run Gemma 4 locally with Ollama — model tags, image input, and the OpenAI-compatible server.
+- [Run Gemma with llama.cpp](https://gemma.ai/deployment/llamacpp.md): Run Gemma 4 with llama.cpp — GGUF repos for every size, image/audio/video input, and the OpenAI-compatible server.
+- [Run Gemma with LM Studio](https://gemma.ai/deployment/lmstudio.md): Run Gemma 4 with LM Studio — desktop app, lms CLI, and the OpenAI-compatible local server.
+- [Run Gemma with MLX](https://gemma.ai/deployment/mlx.md): Run Gemma 4 on Apple silicon with MLX — text and vision generation, model repos, and the OpenAI-compatible server.
+- [Run Gemma with Hugging Face Transformers](https://gemma.ai/deployment/huggingface.md): Run Gemma 4 with Hugging Face Transformers in Python for text, image, audio, and multi-turn chat generation.
+- [Run Gemma with Keras](https://gemma.ai/deployment/keras.md): Run Gemma 4 inference with Keras and KerasHub for text and multimodal image generation in Python.
+- [Run Gemma on-device with LiteRT-LM](https://gemma.ai/deployment/litert.md): Run Gemma 4 on-device with LiteRT-LM — CLI install, prebuilt .litertlm weights, and exporting your own fine-tune.
+- [Try Gemma on your phone with AI Edge Gallery](https://gemma.ai/deployment/ai-edge-gallery.md): Run Gemma 4 on an Android or iOS phone with no code — chat, vision, audio transcription and benchmarking, fully offline.
+- [Serve Gemma with vLLM](https://gemma.ai/deployment/vllm.md): Serve Gemma 4 with vLLM — install, vllm serve, model repositories, and the OpenAI-compatible API.
+- [Serve Gemma with SGLang](https://gemma.ai/deployment/sglang.md): Serve Gemma 4 with SGLang — install, launch_server, model repositories, and the OpenAI-compatible API.
+- [Run Gemma with the Gemini API](https://gemma.ai/deployment/gemini-api.md): Call hosted Gemma 4 models through the Gemini API instead of running and serving your own instance.
+- [Gemma on Google Cloud](https://gemma.ai/deployment/google-cloud.md): Deploy, serve, and fine-tune Gemma 4 on Google Cloud: Cloud Run, GKE, the Agent Development Kit, vLLM on TPUs, MaxText, and Sovereign Cloud.
 - [Get started with Gemma and LangChain](https://gemma.ai/deployment/langchain.md): This tutorial shows you how to get started with Gemma and LangChain, running in Google Cloud or in your Colab environment.
-- [Unsloth](https://gemma.ai/deployment/unsloth.md): Run Gemma 4 with Unsloth — the desktop Studio app, dynamic-quant GGUFs for llama.cpp, and 2x faster fine-tuning.
+- [Run Gemma with Unsloth](https://gemma.ai/deployment/unsloth.md): Run Gemma 4 with Unsloth — the desktop Studio app, dynamic-quant GGUFs for llama.cpp, and 2x faster fine-tuning.
 
 ## Fine-tune
 - [Gemma model fine-tuning](https://gemma.ai/tuning.md): Fine-tuning a generative artificial intelligence (AI) model such as Gemma modifies the behavior of the model.
@@ -92,10 +92,10 @@ Follow the Markdown links below to read canonical page content without cloning t
 
 ## Learn
 - [Learn](https://gemma.ai/learn.md): Illustrated walkthroughs of how the Gemma models work, from the architecture down to individual mechanisms.
-- [A Visual Guide to Gemma 4](https://gemma.ai/tutorials/visual-guides/gemma-4.md): A Visual Guide to Gemma 4 — a visual walkthrough.
-- [A Visual Guide to Gemma 4 12B](https://gemma.ai/tutorials/visual-guides/gemma-4-12b.md): A Visual Guide to Gemma 4 12B — a visual walkthrough.
+- [A Visual Guide to Gemma 4](https://gemma.ai/tutorials/visual-guides/gemma-4.md): Illustrated guide to the Gemma 4 architecture: dense and 26B A4B MoE models, Per-Layer Embeddings (E2B/E4B), vision and audio encoders, and KV cache.
+- [A Visual Guide to Gemma 4 12B](https://gemma.ai/tutorials/visual-guides/gemma-4-12b.md): How Gemma 4 12B achieves fast, unified multimodal understanding of text, images, and audio using an encoder-free architecture with linear projections.
 - [A Visual Guide to MTP](https://gemma.ai/tutorials/visual-guides/mtp.md): How multi-token prediction and speculative decoding make Gemma 4 faster — drafter models, shared KV cache, and the clustered LM head.
-- [A Visual Guide to DiffusionGemma](https://gemma.ai/tutorials/visual-guides/diffusiongemma.md): A Visual Guide to DiffusionGemma — a visual walkthrough.
+- [A Visual Guide to DiffusionGemma](https://gemma.ai/tutorials/visual-guides/diffusiongemma.md): How DiffusionGemma uses discrete text diffusion, block-autoregressive multi-canvas sampling, and a 26B A4B MoE architecture to generate tokens in parallel.
 - [Overview of Gemma Architectures](https://gemma.ai/tutorials/gemma-explained/overview.md): Text-to-text models and specialization for coding.
 - [What’s New in Gemma 2](https://gemma.ai/tutorials/gemma-explained/gemma-2.md): Updated architecture with knowledge distillation for 2B and 9B models.
 - [RecurrentGemma Architecture](https://gemma.ai/tutorials/gemma-explained/recurrentgemma.md): The Griffin architecture mixing local attention and linear recurrences for fast long-sequence inference.

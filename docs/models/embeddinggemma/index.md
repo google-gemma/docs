@@ -4,7 +4,7 @@ description: EmbeddingGemma 2 is a lightweight, open-source 740M parameter model
 models: [embeddinggemma-2, embeddinggemma]
 source_url: "https://ai.google.dev/gemma/docs/embeddinggemma.md.txt"
 ---
-# EmbeddingGemma model overview {: #hidden-title style="display: none;" }
+# EmbeddingGemma model overview
 
 <div class="video-embed">
   <iframe src="https://www.youtube.com/embed/anPsS6huQk0"

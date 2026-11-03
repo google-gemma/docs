@@ -18,12 +18,32 @@
 {% extends "base.html" %}
 
 {% block site_meta %}
+  {% include "partials/model-names.html" %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   {% if page and page.meta and page.meta.title %}
-    {% set social_title = page.meta.title ~ " - " ~ config.site_name %}
+    {% set raw_title = page.meta.title %}
   {% elif page and page.title and not page.is_homepage %}
-    {% set social_title = (page.title | striptags) ~ " - " ~ config.site_name %}
+    {% set raw_title = page.title | striptags %}
+  {% else %}
+    {% set raw_title = "" %}
+  {% endif %}
+  {% set seo_title = raw_title %}
+  {% if page and not page.is_homepage and raw_title and "gemma" not in (raw_title | lower) %}
+    {% if page.meta and page.meta.models %}
+      {% set first_family = (page.meta.models | first) | split("/") | first %}
+      {% set family_name = gemma_model_names[first_family] | default("") %}
+      {% if family_name and (family_name | lower) not in (raw_title | lower) %}
+        {% if page.url and (page.url | trim("/") | split("/") | first) == "models" %}
+          {% set seo_title = family_name ~ " — " ~ raw_title %}
+        {% else %}
+          {% set seo_title = raw_title ~ " — " ~ family_name %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  {% if seo_title %}
+    {% set social_title = seo_title ~ " - " ~ config.site_name %}
   {% else %}
     {% set social_title = config.site_name %}
   {% endif %}
@@ -44,6 +64,11 @@
       {% set social_description = raw_description %}
     {% endif %}
     <meta name="description" content="{{ meta_description | e }}">
+  {% endif %}
+  {% if page and page.meta and page.meta.search and page.meta.search.exclude %}
+    <meta name="robots" content="noindex, nofollow">
+  {% else %}
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   {% endif %}
   {% if page and page.meta and page.meta.author %}
     <meta name="author" content="{{ page.meta.author | e }}">
@@ -78,7 +103,7 @@
   {% else %}
     {% set social_image_url = social_image_path | url %}
   {% endif %}
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="{{ 'website' if (not page or page.is_homepage) else 'article' }}">
   <meta property="og:site_name" content="{{ config.site_name | e }}">
   <meta property="og:title" content="{{ social_title | e }}">
   {% if social_description %}
@@ -100,4 +125,40 @@
   {% endif %}
   <meta name="twitter:image" content="{{ social_image_url }}">
   <meta name="twitter:image:alt" content="{{ social_title | e }}">
+  {% set site_root = ((config.site_url | trim("/")) ~ "/") if config.site_url else "https://gemma.ai/" %}
+  {% if page and page.is_homepage %}
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":{{ config.site_name | tojson }},"alternateName":["Gemma Docs","Google Gemma Documentation","Gemma AI","gemma.ai"],"url":{{ (page.canonical_url or site_root) | tojson }},"description":{{ (meta_description or config.site_description) | tojson }},"publisher":{"@type":"Organization","name":{{ (config.site_author or "Google DeepMind") | tojson }},"url":"https://deepmind.google/models/gemma/"}}</script>
+  {% elif page and page.canonical_url %}
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":{{ (seo_title or config.site_name) | tojson }},"description":{{ (meta_description or config.site_description) | tojson }},"url":{{ page.canonical_url | tojson }},"image":{{ social_image_url | tojson }},"author":{"@type":"Organization","name":{{ (config.site_author or "Google DeepMind") | tojson }},"url":"https://deepmind.google/models/gemma/"},"publisher":{"@type":"Organization","name":{{ (config.site_author or "Google DeepMind") | tojson }},"url":"https://deepmind.google/models/gemma/"},"isPartOf":{"@type":"WebSite","name":{{ config.site_name | tojson }},"url":{{ site_root | tojson }}}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":{{ site_root | tojson }}},{"@type":"ListItem","position":2,"name":{{ (seo_title or config.site_name) | tojson }},"item":{{ page.canonical_url | tojson }}}]}]}</script>
+  {% endif %}
+{% endblock %}
+
+{% block htmltitle %}
+  {% include "partials/model-names.html" %}
+  {% if page and page.meta and page.meta.title %}
+    {% set raw_title = page.meta.title %}
+  {% elif page and page.title and not page.is_homepage %}
+    {% set raw_title = page.title | striptags %}
+  {% else %}
+    {% set raw_title = "" %}
+  {% endif %}
+  {% set seo_title = raw_title %}
+  {% if page and not page.is_homepage and raw_title and "gemma" not in (raw_title | lower) %}
+    {% if page.meta and page.meta.models %}
+      {% set first_family = (page.meta.models | first) | split("/") | first %}
+      {% set family_name = gemma_model_names[first_family] | default("") %}
+      {% if family_name and (family_name | lower) not in (raw_title | lower) %}
+        {% if page.url and (page.url | trim("/") | split("/") | first) == "models" %}
+          {% set seo_title = family_name ~ " — " ~ raw_title %}
+        {% else %}
+          {% set seo_title = raw_title ~ " — " ~ family_name %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  {% if seo_title %}
+    <title>{{ (seo_title ~ " - " ~ config.site_name) | e }}</title>
+  {% else %}
+    <title>{{ config.site_name | e }}</title>
+  {% endif %}
 {% endblock %}

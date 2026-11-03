@@ -1,5 +1,5 @@
 ---
-title: LM Studio
+title: Run Gemma with LM Studio
 description: Run Gemma 4 with LM Studio — desktop app, lms CLI, and the OpenAI-compatible local server.
 models: [gemma-4]
 frameworks: [lmstudio]

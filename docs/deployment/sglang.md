@@ -1,5 +1,5 @@
 ---
-title: SGLang
+title: Serve Gemma with SGLang
 description: Serve Gemma 4 with SGLang — install, launch_server, model repositories, and the OpenAI-compatible API.
 models: [gemma-4]
 frameworks: [sglang]

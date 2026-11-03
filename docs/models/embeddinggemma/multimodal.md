@@ -214,7 +214,7 @@ Pass audio inputs as `{"audio": <source>}`. Supported audio sources include loca
 ```python { .notebook-cell }
 from IPython.display import display, Audio
 
-aud_url = "https://ai.google.dev/gemma/docs/audio/roses-are.wav"
+aud_url = "https://gemma.ai/assets/capabilities/roses-are.wav"
 
 print("Input Audio:")
 display(Audio(aud_url))
@@ -363,7 +363,7 @@ EmbeddingGemma 2 supports rich, mixed-modality inputs within a single query pass
 ```python { .notebook-cell }
 img_url = "https://raw.githubusercontent.com/google-gemma/cookbook/refs/heads/main/apps/sample-data/GoldenGate.png"
 example_img_url = "https://raw.githubusercontent.com/google-gemma/cookbook/refs/heads/main/apps/sample-data/kitchen_painting.jpg"
-aud_url = "https://ai.google.dev/gemma/docs/audio/roses-are.wav"
+aud_url = "https://gemma.ai/assets/capabilities/roses-are.wav"
 vid_url = "https://github.com/bebechien/gemma/raw/refs/heads/main/videos/cat_dozing.mp4"
 
 # 1. Multimodal query combining text, multiple images, and audio
