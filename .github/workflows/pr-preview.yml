@@ -1,0 +1,170 @@
+name: PR Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    if: >-
+      github.event.repository.private == true &&
+      vars.ENABLE_PR_PREVIEWS == 'true' &&
+      vars.PAGES_PREVIEW_ORIGIN != '' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
+    permissions:
+      contents: write # Update gh-pages-previews branch.
+      pages: write # Deploy GitHub Pages bundle.
+      id-token: write # Mint OIDC token for actions/deploy-pages.
+      pull-requests: write # Post sticky preview link on PR.
+    environment:
+      name: github-pages
+      url: ${{ steps.comment.outputs.preview_url }}
+    steps:
+      - if: github.event.action != 'closed'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - if: github.event.action != 'closed'
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+
+      - name: Build preview
+        if: github.event.action != 'closed'
+        env:
+          SITE_URL: "${{ vars.PAGES_PREVIEW_ORIGIN }}/pr-${{ github.event.pull_request.number }}"
+          COLAB_REPO: ${{ github.repository }}
+          COLAB_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: uv run --frozen python scripts/build_docs.py
+
+      - name: Update preview branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          EVENT_ACTION: ${{ github.event.action }}
+        run: |
+          set -euo pipefail
+          [[ "${PR_NUMBER}" =~ ^[1-9][0-9]*$ ]]
+          [[ "${GH_REPO}" =~ ^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$ ]]
+
+          OPEN_PRS="$(gh api --paginate "repos/${GH_REPO}/pulls?state=open&per_page=100" --jq '.[].number')"
+          AUTH_B64="$(printf 'x-access-token:%s' "${GH_TOKEN}" | base64 -w0)"
+          export GIT_TERMINAL_PROMPT=0
+          export GIT_CONFIG_COUNT=1
+          export GIT_CONFIG_KEY_0="http.https://github.com/.extraheader"
+          export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic ${AUTH_B64}"
+          REMOTE="https://github.com/${GH_REPO}.git"
+
+          rm -rf _pages
+          if ! git clone --depth=1 --single-branch --branch gh-pages-previews "${REMOTE}" _pages 2>/dev/null; then
+            rm -rf _pages
+            git init _pages
+            git -C _pages remote add origin "${REMOTE}"
+            git -C _pages checkout --orphan gh-pages-previews
+          fi
+
+          for dir in _pages/pr-*; do
+            [[ -d "${dir}" ]] || continue
+            num="${dir#_pages/pr-}"
+            if ! [[ "${num}" =~ ^[1-9][0-9]*$ ]] || [[ "${num}" == "${PR_NUMBER}" ]] || ! grep -Fxq -- "${num}" <<<"${OPEN_PRS}"; then
+              rm -rf -- "${dir}"
+            fi
+          done
+          if [[ "${EVENT_ACTION}" != "closed" ]]; then
+            mv site "_pages/pr-${PR_NUMBER}"
+          fi
+
+          {
+            printf '<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex,nofollow">'
+            printf '<title>PR Previews</title><h1>PR Previews (%s)</h1><ul>' "${GH_REPO}"
+            found=0
+            for dir in _pages/pr-*; do
+              [[ -d "${dir}" ]] || continue
+              num="${dir#_pages/pr-}"
+              [[ "${num}" =~ ^[1-9][0-9]*$ ]] || continue
+              printf '<li><a href="./pr-%s/">PR #%s</a></li>' "${num}" "${num}"
+              found=1
+            done
+            [[ "${found}" -eq 1 ]] || printf '<li>None</li>'
+            printf '</ul>\n'
+          } > _pages/index.html
+          : > _pages/.nojekyll
+          printf 'User-agent: *\nDisallow: /\n' > _pages/robots.txt
+
+          git -C _pages config user.name "github-actions[bot]"
+          git -C _pages config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C _pages add -A
+          if [[ -n "$(git -C _pages status --porcelain)" ]]; then
+            git -C _pages commit -m "PR #${PR_NUMBER} (${EVENT_ACTION})"
+            git -C _pages push origin HEAD:refs/heads/gh-pages-previews
+          fi
+          rm -rf _pages/.git
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        with:
+          path: _pages
+
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5
+
+      - name: Update PR comment
+        id: comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          EVENT_ACTION: ${{ github.event.action }}
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess
+
+          pr_num = int(os.environ["PR_NUMBER"])
+          action = os.environ["EVENT_ACTION"].strip()
+          gh_repo = os.environ["GH_REPO"].strip()
+          base_url = os.environ["PAGE_URL"].strip().rstrip("/")
+          preview_url = f"{base_url}/pr-{pr_num}/"
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
+              fh.write(f"preview_url={preview_url if action != 'closed' else base_url + '/'}\n")
+
+          marker = "<!-- docs-pr-preview -->"
+          if action == "closed":
+              body = f"{marker}\nPreview `/pr-{pr_num}/` removed (PR closed)."
+          else:
+              sha = os.environ["HEAD_SHA"].strip()[:7]
+              pages_raw = subprocess.check_output(
+                  ["gh", "api", "--paginate", "--slurp", f"repos/{gh_repo}/pulls/{pr_num}/files?per_page=100"],
+                  text=True,
+              )
+              routes = []
+              for f in (item for p in (json.loads(pages_raw) if pages_raw.strip() else []) for item in p):
+                  name = str(f.get("filename", ""))
+                  if f.get("status") == "removed" or not name.startswith("docs/") or not name.endswith(".md") or name.startswith("docs/contributing/"):
+                      continue
+                  rel = name[5:-3]
+                  route = "" if rel == "index" else (f"{rel[:-6]}/" if rel.endswith("/index") else f"{rel}/")
+                  routes.append(f"- `{name}` → {preview_url}{route}")
+              lines = [marker, f"**PR Preview:** {preview_url} (`{sha}`)"]
+              if routes:
+                  lines.extend(["", "**Modified pages:**", *routes[:20]])
+                  if len(routes) > 20:
+                      lines.append(f"- *…and {len(routes) - 20} more*")
+              body = "\n".join(lines)
+
+          comments_raw = subprocess.check_output(
+              ["gh", "api", "--paginate", "--slurp", f"repos/{gh_repo}/issues/{pr_num}/comments?per_page=100"],
+              text=True,
+          )
+          comments = [c for p in (json.loads(comments_raw) if comments_raw.strip() else []) for c in p]
+          cid = next((c["id"] for c in comments if isinstance(c, dict) and marker in str(c.get("body", ""))), None)
+          endpoint = f"repos/{gh_repo}/issues/comments/{cid}" if cid else f"repos/{gh_repo}/issues/{pr_num}/comments"
+          subprocess.run(["gh", "api", "--method", "PATCH" if cid else "POST", endpoint, "--input", "-"], input=json.dumps({"body": body}), text=True, check=True)
+          PY

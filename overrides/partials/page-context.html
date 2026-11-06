@@ -21,7 +21,7 @@
 {%- set requires = page.meta.requires if page.meta and page.meta.requires else "" -%}
 {%- set frameworks = page.meta.frameworks if page.meta and page.meta.frameworks else [] -%}
 {%- set colab = page.meta.colab if page.meta and page.meta.colab else "" -%}
-{%- set markdown_url = ("/" ~ (page.url | trim("/")) ~ ".md.txt") if page and page.url else "" -%}
+{%- set markdown_url = (((page.url | trim("/")) ~ ".md.txt") | url) if page and page.url else "" -%}
 {%- set ns = namespace(families=[]) -%}
 {%- for id in models -%}
   {%- set family = id | split("/") | first -%}
@@ -37,7 +37,8 @@
     {%- for family in ns.families %}
     {%- set url = gemma_model_urls[family] | default("") %}
     {%- if url %}
-    <a class="page-context__value page-context__value--link" href="{{ url }}">{{ gemma_model_names[family] | default(family) }}</a>
+    {%- set resolved_url = (((url | trim("/")) ~ "/") | url) if url[:1] == "/" else url %}
+    <a class="page-context__value page-context__value--link" href="{{ resolved_url }}">{{ gemma_model_names[family] | default(family) }}</a>
     {%- else %}
     <span class="page-context__value">{{ gemma_model_names[family] | default(family) }}</span>
     {%- endif %}

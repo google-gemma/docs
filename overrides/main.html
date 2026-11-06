@@ -65,7 +65,7 @@
     {% endif %}
     <meta name="description" content="{{ meta_description | e }}">
   {% endif %}
-  {% if page and page.meta and page.meta.search and page.meta.search.exclude %}
+  {% if (page and page.meta and page.meta.search and page.meta.search.exclude) or (config.site_url and (config.site_url | trim("/")) != "https://gemma.ai") %}
     <meta name="robots" content="noindex, nofollow">
   {% else %}
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
