@@ -1,0 +1,89 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_branch:
+        description: "Source branch name"
+        required: true
+        type: string
+      commit_message:
+        description: "Commit message"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.event.repository.private == true
+    runs-on: ubuntu-latest
+    environment: publish
+    steps:
+      - uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        id: app-token
+        with:
+          client-id: ${{ vars.PUBLISHER_APP_CLIENT_ID }}
+          private-key: ${{ secrets.PUBLISHER_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: "docs,${{ github.event.repository.name }}"
+          permission-contents: write
+          permission-pull-requests: write
+
+      - name: Verify approval and push squashed commit
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          SOURCE_REPO: ${{ github.repository }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          SOURCE_BRANCH: ${{ inputs.source_branch }}
+          COMMIT_MESSAGE: ${{ inputs.commit_message }}
+          ACTOR_LOGIN: ${{ github.actor }}
+          ACTOR_ID: ${{ github.actor_id }}
+        run: |
+          set -euo pipefail
+          [[ "${SOURCE_REPO}" =~ ^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$ && "${SOURCE_REPO}" != "google-gemma/docs" ]]
+          [[ "${SOURCE_BRANCH}" != "main" && "${SOURCE_BRANCH}" =~ ^[A-Za-z0-9_./-]+$ ]]
+          git check-ref-format --branch "${SOURCE_BRANCH}" >/dev/null
+          [[ -n "${COMMIT_MESSAGE// /}" ]]
+
+          git init repo && cd repo
+          AUTH_B64="$(printf 'x-access-token:%s' "${GH_TOKEN}" | base64 -w0)"
+          git config "http.https://github.com/.extraheader" "AUTHORIZATION: basic ${AUTH_B64}"
+          git remote add upstream https://github.com/google-gemma/docs.git
+          git remote add origin "https://github.com/${SOURCE_REPO}.git"
+          git fetch --no-tags upstream main
+          git fetch --no-tags origin "refs/heads/${SOURCE_BRANCH}:refs/remotes/origin/target"
+          UPSTREAM_SHA="$(git rev-parse refs/remotes/upstream/main)"
+          TARGET_SHA="$(git rev-parse refs/remotes/origin/target)"
+          git merge-base --is-ancestor "${UPSTREAM_SHA}" "${TARGET_SHA}"
+          [[ "$(git rev-parse "${TARGET_SHA}^{tree}")" != "$(git rev-parse "${UPSTREAM_SHA}^{tree}")" ]]
+
+          PR_JSON="$(gh api -X GET "repos/${SOURCE_REPO}/pulls" -f state=open -f base=main -f "head=${REPO_OWNER}:${SOURCE_BRANCH}")"
+          PR_NUMBER="$(printf '%s' "${PR_JSON}" | jq -r '.[0].number // empty')"
+          PR_AUTHOR="$(printf '%s' "${PR_JSON}" | jq -r '.[0].user.login // empty')"
+          PR_HEAD="$(printf '%s' "${PR_JSON}" | jq -r '.[0].head.sha // empty')"
+          [[ -n "${PR_NUMBER}" && "${PR_HEAD}" == "${TARGET_SHA}" ]]
+
+          REVIEWS_JSON="$(gh api --paginate --slurp "repos/${SOURCE_REPO}/pulls/${PR_NUMBER}/reviews?per_page=100")"
+          APPROVERS="$(printf '%s' "${REVIEWS_JSON}" | jq -r --arg a "${PR_AUTHOR}" \
+            'flatten | map(select(.user.login != null and .user.login != $a and (.state == "APPROVED" or .state == "CHANGES_REQUESTED" or .state == "DISMISSED"))) | group_by(.user.login) | map(sort_by(.id) | last) | .[] | select(.state == "APPROVED") | .user.login')"
+          VALID_LGTM=0
+          for reviewer in ${APPROVERS}; do
+            perm="$(gh api "repos/${SOURCE_REPO}/collaborators/${reviewer}/permission" --jq '.permission')"
+            case "${perm}" in admin|maintain|write) VALID_LGTM=1; break ;; esac
+          done
+          [[ "${VALID_LGTM}" -ge 1 ]]
+
+          export GIT_AUTHOR_NAME="${ACTOR_LOGIN}"
+          export GIT_AUTHOR_EMAIL="${ACTOR_ID}+${ACTOR_LOGIN}@users.noreply.github.com"
+          export GIT_COMMITTER_NAME="${GIT_AUTHOR_NAME}"
+          export GIT_COMMITTER_EMAIL="${GIT_AUTHOR_EMAIL}"
+          SQUASH_SHA="$(git commit-tree "${TARGET_SHA}^{tree}" -p "${UPSTREAM_SHA}" -m "${COMMIT_MESSAGE}")"
+          git push upstream "${SQUASH_SHA}:refs/heads/main" --ff-only
+          git push origin "${SQUASH_SHA}:refs/heads/main" --ff-only
+          gh api -X PATCH "repos/${SOURCE_REPO}/pulls/${PR_NUMBER}" -f state=closed

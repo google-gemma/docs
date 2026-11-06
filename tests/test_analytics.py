@@ -18,6 +18,7 @@ import importlib.util
 import os
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -35,6 +36,46 @@ class AnalyticsBuildTests(unittest.TestCase):
         self.assertIn('property = "G-TEST123456"', injected)
         cleared = build_docs.inject_analytics_property(source, "")
         self.assertIn('property = ""', cleared)
+
+    def test_inject_site_url_updates_config(self):
+        source = (build_docs.agent_docs.REPO_ROOT / "zensical.toml").read_text(encoding="utf-8")
+        self.assertIn('site_url = "https://gemma.ai"', source)
+        injected = build_docs.inject_site_url(source, "https://example.invalid//pr-42")
+        self.assertIn('site_url = "https://example.invalid/pr-42"', injected)
+
+    def test_rewrite_colab_links_handles_simple_and_compound_branches(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            site_dir = Path(tmp)
+            page = site_dir / "page" / "index.html"
+            page.parent.mkdir(parents=True)
+            sample_html = (
+                '<a href="https://colab.research.google.com/github/google-gemma/docs/blob/main/'
+                'docs/notebooks/notebook.ipynb">Colab</a>\n'
+                '<a href="https://colab.research.google.com/github/google-gemma/cookbook/blob/main/'
+                'demo.ipynb">External</a>\n'
+            )
+            page.write_text(sample_html, encoding="utf-8")
+            md_txt = site_dir / "page.md.txt"
+            md_txt.write_text(sample_html, encoding="utf-8")
+
+            count = build_docs.rewrite_colab_links(site_dir, "org/repo", "sub/branch")
+            self.assertEqual(count, 1)
+            rewritten = page.read_text(encoding="utf-8")
+            self.assertIn(
+                "https://colab.research.google.com/github/org/repo/blob/"
+                "sub%2Fbranch/docs/notebooks/notebook.ipynb",
+                rewritten,
+            )
+            self.assertIn(
+                "https://colab.research.google.com/github/google-gemma/cookbook/blob/main/demo.ipynb",
+                rewritten,
+            )
+            self.assertEqual(md_txt.read_text(encoding="utf-8"), sample_html)
+
+            with self.assertRaises(ValueError):
+                build_docs.rewrite_colab_links(site_dir, "bad repo", "main")
+            with self.assertRaises(ValueError):
+                build_docs.rewrite_colab_links(site_dir, "org/repo", "../bad")
 
     @unittest.skipUnless(HAS_ZENSICAL, "zensical is required for full build tests")
     def test_build_without_measurement_id_omits_tracking_script(self):
@@ -72,6 +113,28 @@ class AnalyticsBuildTests(unittest.TestCase):
         self.assertIn("Change cookie settings", index_html)
         # Ensure temporary config file is cleaned up
         self.assertFalse((build_docs.agent_docs.REPO_ROOT / ".zensical.build.toml").exists())
+
+    @unittest.skipUnless(HAS_ZENSICAL, "zensical is required for full build tests")
+    def test_non_prod_site_url_disables_analytics_and_sets_noindex(self):
+        env = {
+            **os.environ,
+            "GA_MEASUREMENT_ID": "G-TEST123456",
+            "SITE_URL": "https://example.invalid/pr-1",
+        }
+        result = subprocess.run(
+            [sys.executable, "scripts/build_docs.py"],
+            cwd=build_docs.agent_docs.REPO_ROOT,
+            env=env,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+        index_html = (build_docs.agent_docs.REPO_ROOT / "site" / "index.html").read_text(encoding="utf-8")
+        self.assertNotIn("googletagmanager.com/gtag/js", index_html)
+        self.assertNotIn("G-TEST123456", index_html)
+        self.assertNotIn("G-CWMC2KTTGQ", index_html)
+        self.assertIn('<meta name="robots" content="noindex, nofollow">', index_html)
 
 
 if __name__ == "__main__":
