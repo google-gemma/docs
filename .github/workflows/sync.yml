@@ -39,4 +39,4 @@ jobs:
           AUTH_B64="$(printf 'x-access-token:%s' "${GH_APP_TOKEN}" | base64 -w0)"
           git config "http.https://github.com/.extraheader" "AUTHORIZATION: basic ${AUTH_B64}"
           git fetch --no-tags https://github.com/google-gemma/docs.git main:refs/remotes/upstream/main
-          git push "https://github.com/${TARGET_REPO}.git" refs/remotes/upstream/main:refs/heads/main --ff-only
+          git push "https://github.com/${TARGET_REPO}.git" refs/remotes/upstream/main:refs/heads/main

@@ -84,6 +84,6 @@ jobs:
           export GIT_COMMITTER_NAME="${GIT_AUTHOR_NAME}"
           export GIT_COMMITTER_EMAIL="${GIT_AUTHOR_EMAIL}"
           SQUASH_SHA="$(git commit-tree "${TARGET_SHA}^{tree}" -p "${UPSTREAM_SHA}" -m "${COMMIT_MESSAGE}")"
-          git push upstream "${SQUASH_SHA}:refs/heads/main" --ff-only
-          git push origin "${SQUASH_SHA}:refs/heads/main" --ff-only
+          git push upstream "${SQUASH_SHA}:refs/heads/main"
+          git push origin "${SQUASH_SHA}:refs/heads/main"
           gh api -X PATCH "repos/${SOURCE_REPO}/pulls/${PR_NUMBER}" -f state=closed
