@@ -46,28 +46,44 @@ jobs:
           ACTOR_ID: ${{ github.actor_id }}
         run: |
           set -euo pipefail
-          [[ "${SOURCE_REPO}" =~ ^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$ && "${SOURCE_REPO}" != "google-gemma/docs" ]]
-          [[ "${SOURCE_BRANCH}" != "main" && "${SOURCE_BRANCH}" =~ ^[A-Za-z0-9_./-]+$ ]]
-          git check-ref-format --branch "${SOURCE_BRANCH}" >/dev/null
-          [[ -n "${COMMIT_MESSAGE// /}" ]]
+          fail() {
+            printf '::error::%s\n' "$1"
+            exit 1
+          }
+
+          [[ "${SOURCE_REPO}" =~ ^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$ && "${SOURCE_REPO}" != "google-gemma/docs" ]] || \
+            fail "Invalid source repository '${SOURCE_REPO}' (must be an owner/repo other than google-gemma/docs)."
+          [[ "${SOURCE_BRANCH}" != "main" && "${SOURCE_BRANCH}" =~ ^[A-Za-z0-9_./-]+$ ]] || \
+            fail "Invalid source branch '${SOURCE_BRANCH}' (cannot be 'main' and must match ^[A-Za-z0-9_./-]+$)."
+          git check-ref-format --branch "${SOURCE_BRANCH}" >/dev/null || \
+            fail "Source branch '${SOURCE_BRANCH}' is not a valid git branch name."
+          [[ -n "${COMMIT_MESSAGE// /}" ]] || \
+            fail "Commit message must not be empty or whitespace-only."
 
           git init repo && cd repo
           AUTH_B64="$(printf 'x-access-token:%s' "${GH_TOKEN}" | base64 -w0)"
           git config "http.https://github.com/.extraheader" "AUTHORIZATION: basic ${AUTH_B64}"
           git remote add upstream https://github.com/google-gemma/docs.git
           git remote add origin "https://github.com/${SOURCE_REPO}.git"
-          git fetch --no-tags upstream main
-          git fetch --no-tags origin "refs/heads/${SOURCE_BRANCH}:refs/remotes/origin/target"
+          git fetch --no-tags upstream main || \
+            fail "Failed to fetch 'main' from upstream (google-gemma/docs)."
+          git fetch --no-tags origin "refs/heads/${SOURCE_BRANCH}:refs/remotes/origin/target" || \
+            fail "Failed to fetch branch '${SOURCE_BRANCH}' from origin (${SOURCE_REPO})."
           UPSTREAM_SHA="$(git rev-parse refs/remotes/upstream/main)"
           TARGET_SHA="$(git rev-parse refs/remotes/origin/target)"
-          git merge-base --is-ancestor "${UPSTREAM_SHA}" "${TARGET_SHA}"
-          [[ "$(git rev-parse "${TARGET_SHA}^{tree}")" != "$(git rev-parse "${UPSTREAM_SHA}^{tree}")" ]]
+          git merge-base --is-ancestor "${UPSTREAM_SHA}" "${TARGET_SHA}" || \
+            fail "Branch '${SOURCE_BRANCH}' (${TARGET_SHA}) is behind upstream main (${UPSTREAM_SHA}). Merge or rebase main into '${SOURCE_BRANCH}' before publishing."
+          [[ "$(git rev-parse "${TARGET_SHA}^{tree}")" != "$(git rev-parse "${UPSTREAM_SHA}^{tree}")" ]] || \
+            fail "Branch '${SOURCE_BRANCH}' (${TARGET_SHA}) has no tree differences compared to upstream main (${UPSTREAM_SHA})."
 
           PR_JSON="$(gh api -X GET "repos/${SOURCE_REPO}/pulls" -f state=open -f base=main -f "head=${REPO_OWNER}:${SOURCE_BRANCH}")"
           PR_NUMBER="$(printf '%s' "${PR_JSON}" | jq -r '.[0].number // empty')"
           PR_AUTHOR="$(printf '%s' "${PR_JSON}" | jq -r '.[0].user.login // empty')"
           PR_HEAD="$(printf '%s' "${PR_JSON}" | jq -r '.[0].head.sha // empty')"
-          [[ -n "${PR_NUMBER}" && "${PR_HEAD}" == "${TARGET_SHA}" ]]
+          [[ -n "${PR_NUMBER}" ]] || \
+            fail "No open pull request found from '${REPO_OWNER}:${SOURCE_BRANCH}' into 'main' in ${SOURCE_REPO}."
+          [[ "${PR_HEAD}" == "${TARGET_SHA}" ]] || \
+            fail "Open PR #${PR_NUMBER} head SHA (${PR_HEAD}) does not match branch '${SOURCE_BRANCH}' (${TARGET_SHA})."
 
           REVIEWS_JSON="$(gh api --paginate --slurp "repos/${SOURCE_REPO}/pulls/${PR_NUMBER}/reviews?per_page=100")"
           APPROVERS="$(printf '%s' "${REVIEWS_JSON}" | jq -r --arg a "${PR_AUTHOR}" \
@@ -77,7 +93,8 @@ jobs:
             perm="$(gh api "repos/${SOURCE_REPO}/collaborators/${reviewer}/permission" --jq '.permission')"
             case "${perm}" in admin|maintain|write) VALID_LGTM=1; break ;; esac
           done
-          [[ "${VALID_LGTM}" -ge 1 ]]
+          [[ "${VALID_LGTM}" -ge 1 ]] || \
+            fail "PR #${PR_NUMBER} has no valid approving review from a non-author collaborator with admin, maintain, or write permission."
 
           export GIT_AUTHOR_NAME="${ACTOR_LOGIN}"
           export GIT_AUTHOR_EMAIL="${ACTOR_ID}+${ACTOR_LOGIN}@users.noreply.github.com"
