@@ -97,6 +97,8 @@
     {% set social_image_path = page.meta.image %}
   {% elif page and page.meta and page.meta.models and "embeddinggemma" in page.meta.models %}
     {% set social_image_path = "assets/embeddinggemma/embeddinggemma2_banner.png" %}
+  {% elif page and page.meta and page.meta.models and "diffusiongemma" in page.meta.models %}
+    {% set social_image_path = "assets/diffusiongemma/diffusiongemma_banner.png" %}
   {% endif %}
   {% if config.site_url %}
     {% set social_image_url = (config.site_url | trim("/")) ~ "/" ~ (social_image_path | trim("/")) %}
