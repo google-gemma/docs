@@ -82,14 +82,21 @@ def _frontmatter(text: str):
     return None
 
 
+OVERRIDES_DIR = REPO_ROOT / "overrides"
+TEMPLATE_ICON = re.compile(r"\.icons/([a-z0-9]+/[a-z0-9-]+)\.svg")
+
+
 def referenced_icons() -> set[str]:
-    """Every icon name the docs ask for, from pages and from data/frameworks.yml."""
+    """Every icon name the docs ask for, from pages, templates and data/frameworks.yml."""
     names: set[str] = set()
     for path in DOCS_DIR.rglob("*.md"):
         text = path.read_text(encoding="utf-8")
         for call in ICON_CALL.findall(text):
             names |= set(ICON_NAME.findall(call))
         names |= set(_yaml_icon_values(_frontmatter(text)))
+    if OVERRIDES_DIR.is_dir():
+        for path in OVERRIDES_DIR.rglob("*.html"):
+            names |= set(TEMPLATE_ICON.findall(path.read_text(encoding="utf-8")))
     names |= set(_yaml_icon_values(yaml.safe_load(FRAMEWORKS.read_text(encoding="utf-8"))))
     return names
 

@@ -26,12 +26,19 @@ extra_css = [
   "stylesheets/page-context.css?v=2",# the applicability bar above every H1
   "stylesheets/tokens.css?v=2",      # chat-token badges
   "stylesheets/home.css?v=3",        # landing page: chrome, backdrop, hero
+  "stylesheets/llm-tutorial.css",    # interactive "How LLMs work" tutorial widgets
+  "stylesheets/llm-animations.css",  # keyframes & motion choreography for LLM tutorial widgets
+  "stylesheets/llm-shell.css?v=1",   # interactive tour shell: viewport lock, stage rail, hero
+  "stylesheets/llm-stage.css?v=1",   # interactive tour stage: glass stage cards and nav buttons
+  "stylesheets/llm-terminal.css?v=1",# interactive tour drawer: bottom reading terminal
   "stylesheets/motion.css?v=2",      # transitions + reduced-motion opt-out
 ]
 # Order matters: the generated data must load before the switcher that reads it.
 extra_javascript = [
   "javascripts/model-data.js?v=2",     # GENERATED from data/models.yml -- do not edit
   "javascripts/model-switcher.js?v=2", # page context strip selector + code rewriting
+  "javascripts/llm-tutorial.js",        # interactive "How LLMs work" tutorial widgets
+  "javascripts/llm-ascii-shell.js?v=1", # interactive tour shell: ASCII canvas, stage rail, terminal
   "javascripts/mathjax.js",
   "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js",
 ]
@@ -189,6 +196,9 @@ nav = [
 
   { "Learn" = [
     { "Overview" = "learn/index.md" },
+    { "Interactive guides" = [
+       { "How LLMs work" = "learn/how-llms-work.md" },
+    ]},
     { "Visual guides" = [
       { "Gemma 4" = "tutorials/visual-guides/gemma-4.md" },
       { "Gemma 4 12B" = "tutorials/visual-guides/gemma-4-12b.md" },

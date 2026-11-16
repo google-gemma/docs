@@ -11,6 +11,18 @@ why a design choice was made, and where a model's behaviour comes from.
 
 Read them in any order. Nothing here is a prerequisite for using Gemma.
 
+## Interactive guide
+
+<div class="card-grid">
+<a class="card" href="how-llms-work.md">
+  <span class="card-icon">{{ icon('lucide/play') }}</span>
+  <div class="card-title">How LLMs work</div>
+  <p class="card-desc">Tokenize text, explore embedding space, inspect attention
+, tune Temperature, Top-K and Top-P, and stream a chat with thinking and tool ca
+lls.</p>
+</a>
+</div>
+
 ## What's next
 
 <div class="card-grid">

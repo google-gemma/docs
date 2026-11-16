@@ -281,6 +281,9 @@ families:
         hf: google/gemma-7b-aps-it
 
 gemma4:
+  vocab_size: 262144
+  memory_overhead: 1.2     # published memory figures are static weights + ~20% overhead
+
   context_windows:
     small: 128K      # E2B, E4B
     medium: 256K     # 12B, 26B A4B, 31B
@@ -294,6 +297,9 @@ gemma4:
       full_name: Gemma 4 E2B
       parameters: 2B effective
       architecture: efficient          # Per-Layer Embeddings (PLE)
+      hidden_size: 1536
+      layers: 35
+      ple_dim: 256
       context: 128K
       platform: Mobile devices
       platform_short: Mobile devices
@@ -328,6 +334,9 @@ gemma4:
       full_name: Gemma 4 E4B
       parameters: 4B effective
       architecture: efficient
+      hidden_size: 2560
+      layers: 42
+      ple_dim: 256
       context: 128K
       platform: Mobile devices and laptops
       platform_short: Mobile and laptops
@@ -362,6 +371,8 @@ gemma4:
       full_name: Gemma 4 12B
       parameters: 12B
       architecture: unified            # encoder-free; linear projections of the input
+      hidden_size: 3840
+      layers: 48
       context: 256K
       platform: Laptops, desktop computers and small servers
       platform_short: Laptops and desktops
@@ -389,6 +400,11 @@ gemma4:
       full_name: Gemma 4 26B A4B
       parameters: 26B (4B active)
       architecture: moe                # all 26B must be resident; 4B active per token
+      hidden_size: 2816
+      layers: 30
+      experts: 128
+      expert_dim: 704
+      lora_rank1_params: 1161600       # rank-1 all-linear LoRA on shared attention + shared MLP
       context: 256K
       platform: Desktop computers and small servers
       platform_short: Desktops and servers
@@ -420,6 +436,8 @@ gemma4:
       full_name: Gemma 4 31B
       parameters: 31B
       architecture: dense
+      hidden_size: 5376
+      layers: 60
       context: 256K
       platform: Large servers or server clusters
       platform_short: Servers

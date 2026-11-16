@@ -123,7 +123,8 @@ system instruction.
 Here is an example dialogue:
 
 <pre><code><span class="token-turn">&lt;|turn&gt;</span><span class="token-role">system</span>
-<span class="token-think">&lt;|think|&gt;</span><span class="token-turn">&lt;turn|&gt;</span>
+<span class="token-think">&lt;|think|&gt;</span>
+<span class="token-turn">&lt;turn|&gt;</span>
 <span class="token-turn">&lt;|turn&gt;</span><span class="token-role">user</span>
 What is the water formula?<span class="token-turn">&lt;turn|&gt;</span>
 <span class="token-turn">&lt;|turn&gt;</span><span class="token-role">model</span>
@@ -149,7 +150,8 @@ function. The lifecycle follows this sequence:
 The following example demonstrates a model using a weather tool:
 
 <pre><code><span class="token-turn">&lt;|turn&gt;</span><span class="token-role">system</span>
-<span class="token-think">&lt;|think|&gt;</span>You are a helpful assistant.<span class="token-tool">&lt;|tool&gt;</span>declaration:get_current_temperature{...}<span class="token-tool">&lt;tool|&gt;</span><span class="token-turn">&lt;turn|&gt;</span>
+<span class="token-think">&lt;|think|&gt;</span>
+You are a helpful assistant.<span class="token-tool">&lt;|tool&gt;</span>declaration:get_current_temperature{...}<span class="token-tool">&lt;tool|&gt;</span><span class="token-turn">&lt;turn|&gt;</span>
 <span class="token-turn">&lt;|turn&gt;</span><span class="token-role">user</span>
 What's the temperature in London?<span class="token-turn">&lt;turn|&gt;</span>
 <span class="token-turn">&lt;|turn&gt;</span><span class="token-role">model</span>

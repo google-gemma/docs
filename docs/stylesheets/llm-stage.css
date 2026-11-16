@@ -1,0 +1,144 @@
+/**
+ * Copyright 2026 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* ===================================================================
+   LLM STAGE — the per-stage panels of the interactive tour shell.
+
+   Owns: the scrolling stage between the rail and the terminal, the
+   panel card (header, widget body, prev/next footer) and its buttons.
+   Frame, rail and hero live in llm-shell.css; the drawer in
+   llm-terminal.css.
+   =================================================================== */
+
+.llm-shell__stage {
+  position: absolute;
+  z-index: 3;
+  inset: var(--llm-rail-h) 0 var(--llm-terminal-h) 0;
+  overflow: hidden;
+  transition: bottom 260ms var(--gemma-ease);
+}
+
+.llm-shell.is-dragging :is(.llm-shell__stage, .llm-shell__hero, .llm-terminal) { transition: none; }
+.llm-shell__panel { position: absolute; inset: 0; padding: 0.25rem 1rem 1.25rem; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.llm-shell__panel[hidden] { display: none; }
+
+.llm-shell__card {
+  width: min(100%, 62rem);
+  margin: 0 auto;
+  border: 1px solid var(--gemma-border);
+  border-radius: 1.1rem;
+  background: color-mix(in srgb, var(--gemma-surface) 97%, transparent);
+  box-shadow: var(--gemma-shadow-lg);
+  animation: gemmaPageReveal 260ms var(--gemma-ease) both;
+}
+
+/* Wide screens: keep the card left so the mark stays visible on the right. */
+@media screen and (min-width: 80em) { .llm-shell__card { margin-left: clamp(1rem, 4vw, 3rem); } }
+
+/* -------------------------------------------------------------------
+   Card header
+   ------------------------------------------------------------------- */
+.llm-shell__panel-head { padding: 1.1rem 1.5rem 0.4rem; }
+.llm-shell__panel-meta { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.55rem; }
+
+.llm-shell__stage-no {
+  font-family: var(--md-code-font-family, monospace);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gemma-accent);
+}
+
+.llm-shell__chapter-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--gemma-text-muted) !important;
+  text-decoration: none !important;
+}
+
+.llm-shell__chapter-link:hover { color: var(--gemma-accent) !important; }
+.llm-shell__icon { display: inline-flex; flex-shrink: 0; width: 1em; height: 1em; }
+.llm-shell__icon svg { width: 100%; height: 100%; }
+.llm-shell__icon--title { width: 1.5rem; height: 1.5rem; margin-right: 0.55rem; color: var(--gemma-accent); }
+
+.llm-shell__panel-title {
+  display: flex;
+  align-items: center;
+  margin: 0 0 0.4rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--md-default-fg-color);
+}
+
+.llm-shell__panel-lede { max-width: 52rem; margin: 0; font-size: 0.86rem; line-height: 1.55; color: var(--gemma-text-secondary); }
+
+/* -------------------------------------------------------------------
+   Card body and footer
+   ------------------------------------------------------------------- */
+.llm-shell__panel-body { padding: 0.8rem 1.5rem 0; }
+.md-typeset .llm-shell__panel-body .llm-widget { margin: 0; border-radius: var(--gemma-radius-lg); }
+
+.llm-shell__panel-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  padding: 0.85rem 1.5rem;
+  border-top: 1px solid var(--gemma-border);
+}
+
+.llm-shell__nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 2.2rem;
+  padding: 0 1rem;
+  border: 1px solid var(--gemma-border-strong);
+  border-radius: var(--gemma-radius-pill);
+  background: var(--gemma-surface);
+  color: var(--gemma-text-secondary) !important;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: border-color var(--gemma-duration) var(--gemma-ease), color var(--gemma-duration) var(--gemma-ease), background-color var(--gemma-duration) var(--gemma-ease);
+}
+
+.llm-shell__nav-btn:hover { border-color: var(--gemma-accent); color: var(--gemma-accent) !important; }
+.llm-shell__nav-btn--read { font-family: var(--md-code-font-family, monospace); font-size: 0.74rem; }
+.llm-shell__nav-btn--next, .llm-shell__nav-btn--next:hover { border-color: var(--gemma-accent-fill); background: var(--gemma-accent-fill); color: var(--gemma-white) !important; }
+.llm-shell__nav-btn--next:hover { border-color: var(--gemma-blue-hover); background: var(--gemma-blue-hover); }
+.llm-shell__nav-btn:focus-visible { outline: 2px solid var(--gemma-accent); outline-offset: 2px; }
+
+@media screen and (max-width: 48em) {
+  .llm-shell__panel { padding: 0.25rem 0.5rem 1rem; }
+  .llm-shell__panel-head, .llm-shell__panel-body, .llm-shell__panel-foot { padding-inline: 0.9rem; }
+  .llm-shell__panel-title { font-size: 1.1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .llm-shell__card { animation: none; }
+  .llm-shell__stage, .llm-shell__nav-btn { transition: none; }
+}

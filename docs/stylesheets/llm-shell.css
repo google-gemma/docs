@@ -1,0 +1,230 @@
+/**
+ * Copyright 2026 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* ===================================================================
+   LLM SHELL — the single-screen interactive tour shell.
+
+   Owns: the full-viewport stage (same chrome as the landing page), the
+   ASCII canvas layer, the stage rail, the hero and the per-stage panels.
+   The docked reading terminal lives in llm-terminal.css.
+   Driven by llm-ascii-shell.js.
+   =================================================================== */
+
+.llm-shell {
+  --llm-rail-h: 3.6rem;
+  --llm-terminal-bar-h: 2.75rem;
+  --llm-terminal-open-h: clamp(14rem, 44%, 34rem);
+  --llm-terminal-h: var(--llm-terminal-bar-h);
+  position: relative;
+  width: calc(100% - 2.5rem);
+  height: calc(100vh - 6.85rem);
+  height: calc(100dvh - 6.85rem);
+  margin: 0.35rem auto 1.15rem;
+  border-radius: 1.75rem;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 42%, var(--gemma-n0) 0%, var(--gemma-home-bg-raised) 58%, var(--gemma-home-bg-mid) 100%);
+  animation: gemmaPageReveal 260ms var(--gemma-ease) both;
+}
+
+.llm-shell.is-terminal-open { --llm-terminal-h: var(--llm-terminal-open-h); }
+.llm-shell.is-terminal-max { --llm-terminal-h: calc(100% - var(--llm-rail-h)); }
+body[data-md-color-scheme="slate"] .llm-shell {
+  background: radial-gradient(circle at 50% 42%, var(--gemma-surface) 0%, var(--gemma-home-bg-deep) 68%, var(--gemma-surface-sunken) 100%);
+}
+
+/* The page is an app, not an article: no document scroll, no footer. */
+html:has(.llm-shell),
+body:has(.llm-shell),
+body:has(.llm-shell) .md-container,
+body:has(.llm-shell) .md-main { height: 100%; max-height: 100vh; margin: 0; overflow: hidden; background-color: var(--gemma-surface); }
+body[data-md-color-scheme="slate"]:has(.llm-shell),
+body[data-md-color-scheme="slate"]:has(.llm-shell) .md-container,
+body[data-md-color-scheme="slate"]:has(.llm-shell) .md-main { background-color: var(--gemma-surface-sunken); }
+body:has(.llm-shell) .md-footer { display: none !important; }
+body:has(.llm-shell) :is(.md-header, .md-tabs) { background-color: var(--gemma-surface); border-bottom: 0; }
+body[data-md-color-scheme="slate"]:has(.llm-shell) :is(.md-header, .md-tabs) { background-color: var(--gemma-surface-sunken); }
+
+.llm-shell__canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+
+/* -------------------------------------------------------------------
+   Stage rail (tabs)
+   ------------------------------------------------------------------- */
+.llm-shell__rail {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--llm-rail-h);
+  padding: 0 0.75rem;
+  pointer-events: none;
+}
+
+.llm-shell__tabs {
+  display: flex;
+  gap: 0.25rem;
+  max-width: 100%;
+  padding: 0.3rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border: 1px solid color-mix(in srgb, var(--gemma-border) 85%, transparent);
+  border-radius: var(--gemma-radius-pill);
+  background: color-mix(in srgb, var(--gemma-surface) 80%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--gemma-shadow-sm);
+  pointer-events: auto;
+}
+
+.llm-shell__tabs::-webkit-scrollbar { display: none; }
+
+.llm-shell__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 2.1rem;
+  padding: 0 0.85rem 0 0.55rem;
+  border: 0;
+  border-radius: var(--gemma-radius-pill);
+  background: transparent;
+  color: var(--gemma-text-muted);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--gemma-duration) var(--gemma-ease), color var(--gemma-duration) var(--gemma-ease);
+}
+
+.llm-shell__tab-no {
+  padding: 0.14rem 0.38rem;
+  border-radius: var(--gemma-radius-sm);
+  background: color-mix(in srgb, var(--gemma-ink) 6%, transparent);
+  font-family: var(--md-code-font-family, monospace);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+body[data-md-color-scheme="slate"] .llm-shell__tab-no { background: color-mix(in srgb, var(--gemma-white) 9%, transparent); }
+.llm-shell__tab:hover { color: var(--md-default-fg-color); background: color-mix(in srgb, var(--gemma-ink) 5%, transparent); }
+body[data-md-color-scheme="slate"] .llm-shell__tab:hover { background: color-mix(in srgb, var(--gemma-white) 7%, transparent); }
+.llm-shell__tab.is-active, .llm-shell__tab.is-active:hover { color: var(--gemma-white); background: var(--gemma-accent-fill); }
+.llm-shell__tab.is-active .llm-shell__tab-no { background: color-mix(in srgb, var(--gemma-white) 18%, transparent); }
+.llm-shell__tab:focus-visible { outline: 2px solid var(--gemma-accent); outline-offset: 2px; }
+
+/* -------------------------------------------------------------------
+   Hero (overview)
+   ------------------------------------------------------------------- */
+.llm-shell__hero {
+  position: absolute;
+  z-index: 4;
+  inset: var(--llm-rail-h) 0 var(--llm-terminal-h) 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  pointer-events: none;
+  transition: opacity 320ms var(--gemma-ease), bottom 260ms var(--gemma-ease), visibility 0s linear 0s;
+}
+
+.llm-shell:not([data-step="overview"]) .llm-shell__hero {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 180ms var(--gemma-ease), visibility 0s linear 180ms;
+}
+
+.llm-shell__hero-inner { position: relative; width: min(92%, 44rem); text-align: center; }
+
+/* Soft halo so the title reads over the glyph field. */
+.llm-shell__hero-inner::before {
+  content: "";
+  position: absolute;
+  inset: -18% -12%;
+  z-index: -1;
+  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--gemma-surface) 88%, transparent) 0%, color-mix(in srgb, var(--gemma-surface) 55%, transparent) 48%, transparent 74%);
+  pointer-events: none;
+}
+
+.llm-shell__eyebrow {
+  margin: 0 0 0.7rem;
+  font-family: var(--md-code-font-family, monospace);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gemma-accent);
+}
+
+.llm-shell__title {
+  margin: 0 0 0.35em;
+  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--gemma-ink);
+}
+
+body[data-md-color-scheme="slate"] .llm-shell__title { color: var(--gemma-white); }
+.llm-shell__tagline { max-width: 36rem; margin: 0 auto; font-size: clamp(0.95rem, 1.35vw, 1.1rem); line-height: 1.5; color: var(--gemma-n700); }
+body[data-md-color-scheme="slate"] .llm-shell__tagline { color: var(--gemma-n300); }
+.llm-shell__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; margin-top: 1.5rem; pointer-events: auto; }
+.llm-shell__actions .gemma-btn { border: 0; padding: 0.74rem 1.4rem; font-size: 0.9rem; cursor: pointer; }
+.llm-shell__keys { margin: 1.1rem 0 0; font-family: var(--md-code-font-family, monospace); font-size: 0.68rem; color: var(--gemma-text-muted); }
+
+.llm-shell__keys kbd {
+  display: inline-block;
+  min-width: 1.4em;
+  margin: 0 0.1rem;
+  padding: 0.05rem 0.3rem;
+  border: 1px solid var(--gemma-border-strong);
+  border-radius: var(--gemma-radius-sm);
+  background: var(--gemma-surface);
+  font: inherit;
+  line-height: 1.3;
+  text-align: center;
+  box-shadow: none;
+}
+
+/* Wide screens: copy on the left, the mark on the right (the script reads
+   text-align to pick the matching pose), so the star never sits under the title. */
+@media screen and (min-width: 64em) {
+  .llm-shell__hero { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); justify-items: start; padding-left: clamp(2rem, 6vw, 6rem); }
+  .llm-shell__hero-inner { width: min(100%, 36rem); text-align: left; }
+  .llm-shell__hero-inner::before { display: none; }
+  .llm-shell__tagline { margin: 0; }
+  .llm-shell__actions { justify-content: flex-start; }
+}
+
+/* Below this width Zensical hides the tab bar, so the header is shorter. */
+@media screen and (max-width: 76.234375em) {
+  .llm-shell { height: calc(100vh - 4.5rem); height: calc(100dvh - 4.5rem); }
+}
+
+@media screen and (max-width: 48em) {
+  .llm-shell { --llm-rail-h: 3.2rem; --llm-terminal-open-h: 56%; width: calc(100% - 1rem); height: calc(100vh - 4rem); height: calc(100dvh - 4rem); margin: 0.25rem auto 0.5rem; border-radius: 1rem; }
+  .llm-shell__rail { justify-content: flex-start; }
+  .llm-shell__tab { height: 1.9rem; padding-right: 0.7rem; font-size: 0.74rem; }
+  .llm-shell__keys { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .llm-shell { animation: none; }
+  .llm-shell__hero, .llm-shell__tab { transition: none; }
+}

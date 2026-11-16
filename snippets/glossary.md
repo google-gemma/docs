@@ -22,3 +22,5 @@
 *[VQA]: Visual Question Answering — answering questions about visual content in an image
 *[OCR]: Optical Character Recognition — extracting written or printed text directly from images
 *[RLHF]: Reinforcement Learning from Human Feedback — aligning model behavior with human preferences
+*[FFN]: Feed-forward Network — sub-layer that processes the token and produces the output vector for the layer
+*[RoPE]: Rotary Position Encoding — method of encoding the absolute and relative position of tokens in the sequence

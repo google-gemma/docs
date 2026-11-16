@@ -130,19 +130,42 @@ def render() -> str:
 
 
 def render_js() -> str:
-    """The switcher's data: per-engine identifiers, so it can rewrite a snippet's model."""
+    """The switcher's data: per-engine identifiers, so it can rewrite a snippet's model.
+
+    Also carries each size's parameter label, architecture, structural dimensions and published
+    memory figures, which the tuning lab (docs/javascripts/tuning-lab.js) turns into its parameter
+    and VRAM estimates -- so those numbers come from data/models.yml rather than JavaScript.
+    """
     data = yaml.safe_load(MODELS_DATA.read_text(encoding="utf-8"))
-    payload = {
-        f"gemma-4/{size['id']}": {
+    gemma4 = data["gemma4"]
+    vocab_size = gemma4["vocab_size"]
+    memory_overhead = gemma4["memory_overhead"]
+    payload = {}
+    for size in gemma4["sizes"]:
+        entry: dict[str, object] = {
             "name": size["name"],
             "fullName": size["full_name"],
             "context": size["context"],
             "platform": size["platform_short"],
-            "ids": size.get("ids", {}),
-            "inputs": size["modalities"]["input"],
+            "parameters": size["parameters"],
+            "architecture": size.get("architecture", ""),
+            "vocabSize": vocab_size,
+            "memoryOverhead": memory_overhead,
+            "hiddenSize": size["hidden_size"],
+            "layers": size["layers"],
         }
-        for size in data["gemma4"]["sizes"]
-    }
+        for yaml_key, js_key in (
+            ("ple_dim", "pleDim"),
+            ("experts", "experts"),
+            ("expert_dim", "expertDim"),
+            ("lora_rank1_params", "loraRank1Params"),
+        ):
+            if yaml_key in size:
+                entry[js_key] = size[yaml_key]
+        entry["memory"] = size.get("memory", {})
+        entry["ids"] = size.get("ids", {})
+        entry["inputs"] = size["modalities"]["input"]
+        payload[f"gemma-4/{size['id']}"] = entry
     body = json.dumps(payload, indent=2, sort_keys=False)
     return (
         "/**\n"

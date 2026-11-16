@@ -27,6 +27,20 @@ window.GEMMA_MODELS = {
     "fullName": "Gemma 4 E2B",
     "context": "128K",
     "platform": "Mobile devices",
+    "parameters": "2B effective",
+    "architecture": "efficient",
+    "vocabSize": 262144,
+    "memoryOverhead": 1.2,
+    "hiddenSize": 1536,
+    "layers": 35,
+    "pleDim": 256,
+    "memory": {
+      "bf16": 11.4,
+      "sfp8": 5.7,
+      "q4_0": 2.9,
+      "mobile": 1.1,
+      "mobile_text_only": 0.84
+    },
     "ids": {
       "hf": "google/gemma-4-E2B-it",
       "hf_base": "google/gemma-4-E2B",
@@ -56,6 +70,20 @@ window.GEMMA_MODELS = {
     "fullName": "Gemma 4 E4B",
     "context": "128K",
     "platform": "Mobile and laptops",
+    "parameters": "4B effective",
+    "architecture": "efficient",
+    "vocabSize": 262144,
+    "memoryOverhead": 1.2,
+    "hiddenSize": 2560,
+    "layers": 42,
+    "pleDim": 256,
+    "memory": {
+      "bf16": 17.9,
+      "sfp8": 8.9,
+      "q4_0": 4.5,
+      "mobile": 2.5,
+      "mobile_text_only": 2.2
+    },
     "ids": {
       "hf": "google/gemma-4-E4B-it",
       "hf_base": "google/gemma-4-E4B",
@@ -85,6 +113,17 @@ window.GEMMA_MODELS = {
     "fullName": "Gemma 4 12B",
     "context": "256K",
     "platform": "Laptops and desktops",
+    "parameters": "12B",
+    "architecture": "unified",
+    "vocabSize": 262144,
+    "memoryOverhead": 1.2,
+    "hiddenSize": 3840,
+    "layers": 48,
+    "memory": {
+      "bf16": 26.7,
+      "sfp8": 13.4,
+      "q4_0": 6.7
+    },
     "ids": {
       "hf": "google/gemma-4-12B-it",
       "hf_base": "google/gemma-4-12B",
@@ -109,6 +148,20 @@ window.GEMMA_MODELS = {
     "fullName": "Gemma 4 26B A4B",
     "context": "256K",
     "platform": "Desktops and servers",
+    "parameters": "26B (4B active)",
+    "architecture": "moe",
+    "vocabSize": 262144,
+    "memoryOverhead": 1.2,
+    "hiddenSize": 2816,
+    "layers": 30,
+    "experts": 128,
+    "expertDim": 704,
+    "loraRank1Params": 1161600,
+    "memory": {
+      "bf16": 57.7,
+      "sfp8": 28.8,
+      "q4_0": 14.4
+    },
     "ids": {
       "hf": "google/gemma-4-26B-A4B-it",
       "hf_base": "google/gemma-4-26B-A4B",
@@ -135,6 +188,17 @@ window.GEMMA_MODELS = {
     "fullName": "Gemma 4 31B",
     "context": "256K",
     "platform": "Servers",
+    "parameters": "31B",
+    "architecture": "dense",
+    "vocabSize": 262144,
+    "memoryOverhead": 1.2,
+    "hiddenSize": 5376,
+    "layers": 60,
+    "memory": {
+      "bf16": 69.9,
+      "sfp8": 34.9,
+      "q4_0": 17.5
+    },
     "ids": {
       "hf": "google/gemma-4-31B-it",
       "hf_base": "google/gemma-4-31B",

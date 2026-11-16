@@ -1,0 +1,202 @@
+{#-
+Copyright 2026 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-#}
+
+{#-
+Single-screen shell for the "How LLMs work (with Gemma 4)" interactive tour.
+
+Three layers, back to front:
+1. a canvas running the ASCII rendition of the Gemma mark (javascripts/llm-ascii-shell.js),
+2. the stage: one panel per pipeline stage, each mounting the chapter's existing widget
+through `data-llm-widget` (javascripts/llm-tutorial.js), and
+3. a collapsible terminal docked at the bottom that shows the page body
+(learn/how-llms-work.md): one <section class="llm-doc"> "file" per stage.
+
+  `anchor` is the slug of the stage's chapter heading in learn/how-llms-work.md; keep the two in
+  step. Presentation lives in stylesheets/llm-shell.css, llm-stage.css and llm-terminal.css.
+  -#}
+
+  {% extends "main.html" %}
+
+  {% set llm_steps = [
+  {
+  "id": "tokenization", "no": "01", "widget": "tokenizer", "icon": "type",
+  "short": "Tokenization", "title": "Tokenization: From text to numbers",
+  "file": "01-tokenization.md", "anchor": "1-tokenization-from-text-to-numbers",
+  "lede": "Click a preset or type your own text to watch Gemma 4 split words, digits, code indentation, and control
+  markers into integer IDs from its 262,144-token vocabulary."
+  },
+  {
+  "id": "embeddings", "no": "02", "widget": "embeddings", "icon": "boxes",
+  "short": "Embeddings", "title": "Embeddings: Turning IDs into meaning",
+  "file": "02-embeddings.md", "anchor": "2-embeddings-turning-ids-into-meaning",
+  "lede": "Explore O(1) row lookup, cosine similarity, and vector analogies in Tab A, or trace Flash-offloaded Per-Layer Embeddings (PLE) and gated layer injection in Tab B."
+  },
+  {
+  "id": "attention", "no": "03", "widget": "attention", "icon": "brain",
+  "short": "Attention", "title": "Attention &amp; layers: Connecting context",
+  "file": "03-attention.md", "anchor": "3-attention-layers-connecting-context",
+  "lede": "Trace causal Q·K·V attention into the GeGLU FFN in Tab A, or inspect Local/Global layers, KV sharing, and FFN/MoE circuits in Tab B."
+  },
+  {
+  "id": "sampling", "no": "04", "widget": "sampling", "icon": "sliders-horizontal",
+  "short": "Sampling", "title": "Sampling: Predicting the next token",
+  "file": "04-sampling.md", "anchor": "4-sampling-predicting-the-next-token",
+  "lede": "Drag Temperature, Top-K and Top-P to reshape the distribution, then roll the dice, or auto-generate a
+  sequence with Gemma 4's MTP speculative decoding."
+  },
+  {
+  "id": "putting-it-together", "no": "05", "widget": "playground", "icon": "sparkles",
+  "short": "Chat &amp; tools", "title": "Putting it together: Chat, thinking &amp; tools",
+  "file": "05-putting-it-together.md", "anchor": "5-putting-it-together-chat-thinking-tools",
+  "lede": "Toggle Thinking Mode, switch between the formatted assistant view and the raw token stream, and play a full
+  generation through all four stages."
+  }
+  ] %}
+
+  {% block container %}
+  <section class="llm-shell" id="llm-shell" data-llm-shell data-step="overview"
+    aria-label="How LLMs work with Gemma 4: interactive guide">
+    <canvas class="llm-shell__canvas" data-llm-canvas aria-hidden="true"></canvas>
+
+    {#- Stage rail. Tabs pattern: arrow keys move between stages once a tab has focus. -#}
+    <nav class="llm-shell__rail" aria-label="Pipeline stages">
+      <div class="llm-shell__tabs" role="tablist" aria-label="Pipeline stages">
+        <button type="button" class="llm-shell__tab is-active" role="tab" id="llm-tab-overview" aria-selected="true"
+          aria-controls="llm-panel-overview" data-llm-step="overview" data-llm-file="00-overview.md"
+          data-llm-label="Overview">
+          <span class="llm-shell__tab-no">00</span><span class="llm-shell__tab-label">Overview</span>
+        </button>
+        {% for step in llm_steps %}
+        <button type="button" class="llm-shell__tab" role="tab" id="llm-tab-{{ step.id }}" tabindex="-1"
+          aria-selected="false" aria-controls="llm-panel-{{ step.id }}" data-llm-step="{{ step.id }}"
+          data-llm-file="{{ step.file }}" data-llm-label="{{ step.short | striptags }}">
+          <span class="llm-shell__tab-no">{{ step.no }}</span><span class="llm-shell__tab-label">{{ step.short }}</span>
+        </button>
+        {% endfor %}
+      </div>
+    </nav>
+
+    {#- Overview: the hero sits over the canvas; the mark is drawn around it. -#}
+    <div class="llm-shell__hero" id="llm-panel-overview" role="tabpanel" aria-labelledby="llm-tab-overview"
+      data-llm-hero>
+      <div class="llm-shell__hero-inner" data-llm-hero-text>
+        <p class="llm-shell__eyebrow">Learn &middot; Interactive guide</p>
+        <h1 class="llm-shell__title">How LLMs work</h1>
+        <p class="llm-shell__tagline">Five stages turn a prompt into Gemma 4's next token: tokenization, embeddings,
+          attention, sampling, and the chat loop that ties them together. Walk through each one with a live demo.</p>
+        <div class="llm-overview-slot" data-llm-widget="overview"></div>
+        <div class="llm-shell__actions">
+          <button type="button" class="gemma-btn gemma-btn--primary" data-llm-step="tokenization">
+            <span>Start the tour</span>
+            <svg class="gemma-btn__icon gemma-btn__icon--slide" width="16" height="16" viewBox="0 0 16 16" fill="none"
+              aria-hidden="true">
+              <path d="M3.25 8H12.75M12.75 8L8.5 3.75M12.75 8L8.5 12.25" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button type="button" class="gemma-btn gemma-btn--glass" data-llm-terminal-open>
+            <span>Read the overview</span>
+          </button>
+        </div>
+        <p class="llm-shell__keys" aria-hidden="true"><kbd>&larr;</kbd><kbd>&rarr;</kbd> stages &middot; <kbd>T</kbd>
+          terminal &middot; <kbd>Esc</kbd> close</p>
+      </div>
+    </div>
+
+    {#- One panel per stage. Panels mount the chapter widgets; only the active one is shown. -#}
+    <div class="llm-shell__stage" data-llm-stage>
+      {% for step in llm_steps %}
+      {% set prev = llm_steps[loop.index0 - 1] if loop.index0 > 0 else none %}
+      {% set next = llm_steps[loop.index0 + 1] if loop.index0 + 1 < llm_steps | length else none %} <section
+        class="llm-shell__panel" id="llm-panel-{{ step.id }}" role="tabpanel" aria-labelledby="llm-tab-{{ step.id }}"
+        data-llm-panel="{{ step.id }}" hidden>
+        <div class="llm-shell__card">
+          <header class="llm-shell__panel-head">
+            <div class="llm-shell__panel-meta">
+              <span class="llm-shell__stage-no">Stage {{ step.no }} <span aria-hidden="true">/</span> 05</span>
+              <a class="llm-shell__chapter-link" href="#{{ step.anchor }}" data-llm-terminal-open>
+                <span class="llm-shell__icon" aria-hidden="true">{% include ".icons/lucide/book-open.svg" %}</span>
+                <span>Read the chapter</span>
+              </a>
+            </div>
+            <h2 class="llm-shell__panel-title">
+              <span class="llm-shell__icon llm-shell__icon--title" aria-hidden="true">{% include ".icons/lucide/" ~
+                step.icon ~ ".svg" %}</span>
+              <span>{{ step.title }}</span>
+            </h2>
+            <p class="llm-shell__panel-lede">{{ step.lede }}</p>
+          </header>
+          <div class="llm-shell__panel-body md-typeset">
+            <div class="llm-widget" data-llm-widget="{{ step.widget }}"></div>
+          </div>
+          <footer class="llm-shell__panel-foot">
+            {% if prev %}
+            <button type="button" class="llm-shell__nav-btn" data-llm-step="{{ prev.id }}">&larr; {{ prev.no }} {{
+              prev.short }}</button>
+            {% else %}
+            <button type="button" class="llm-shell__nav-btn" data-llm-step="overview">&larr; 00 Overview</button>
+            {% endif %}
+            <button type="button" class="llm-shell__nav-btn llm-shell__nav-btn--read" data-llm-terminal-open>
+              <span aria-hidden="true">&gt;_</span> Read the details
+            </button>
+            {% if next %}
+            <button type="button" class="llm-shell__nav-btn llm-shell__nav-btn--next" data-llm-step="{{ next.id }}">{{
+              next.no }} {{ next.short }} &rarr;</button>
+            {% else %}
+            <a class="llm-shell__nav-btn llm-shell__nav-btn--next" href="{{ 'get-started/' | url }}">Run Gemma 4
+              yourself &rarr;</a>
+            {% endif %}
+          </footer>
+        </div>
+  </section>
+  {% endfor %}
+  </div>
+
+  {#- Reading terminal. The body is the rendered page: a lead paragraph, then one .llm-doc per stage. -#}
+  <aside class="llm-terminal" data-llm-terminal aria-label="Reading terminal">
+    <div class="llm-terminal__handle" data-llm-terminal-handle aria-hidden="true"></div>
+    <div class="llm-terminal__bar" data-llm-terminal-bar>
+      <span class="llm-terminal__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="llm-terminal__path">gemma@docs:~/how-llms-work</span>
+      <span class="llm-terminal__cmd" aria-hidden="true">$ cat <span data-llm-terminal-file>00-overview.md</span></span>
+      <span class="llm-terminal__hint" data-llm-terminal-hint></span>
+      <button type="button" class="llm-terminal__btn" data-llm-terminal-max aria-pressed="false"
+        title="Maximize terminal" aria-label="Maximize terminal">
+        <span class="llm-shell__icon llm-terminal__icon-expand" aria-hidden="true">{% include ".icons/lucide/expand.svg" %}</span>
+        <span class="llm-shell__icon llm-terminal__icon-shrink" aria-hidden="true">{% include ".icons/lucide/shrink.svg" %}</span>
+      </button>
+      <button type="button" class="llm-terminal__btn llm-terminal__toggle" data-llm-terminal-toggle
+        aria-expanded="false" aria-controls="llm-terminal-body">
+        <span data-llm-terminal-toggle-label>Expand</span>
+        <span class="llm-terminal__chevron" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="llm-terminal__body" id="llm-terminal-body" data-llm-terminal-body>
+      <div class="llm-terminal__screen md-typeset" data-llm-terminal-screen>
+        <p class="llm-terminal__prompt" aria-hidden="true">$ cat <span data-llm-terminal-file>00-overview.md</span></p>
+        {#- data-md-component="content": the theme renders Mermaid, adds code copy buttons, wraps
+        tables and mounts tooltips only inside this component, and this template replaces the
+        stock .md-content container that normally carries it. -#}
+        <div class="llm-terminal__content" data-llm-terminal-content data-md-component="content">
+          {{ page.content }}
+        </div>
+        <p class="llm-terminal__prompt llm-terminal__prompt--end" aria-hidden="true">$ <span
+            class="llm-terminal__caret"></span></p>
+      </div>
+    </div>
+  </aside>
+</section>
+{% endblock %}
