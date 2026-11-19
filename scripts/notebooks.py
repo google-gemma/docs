@@ -66,6 +66,12 @@ SOURCES: tuple[Path | tuple[Path, str], ...] = (
     REPO_ROOT / "docs" / "tuning" / "audio-qlora.md",
     REPO_ROOT / "docs" / "tuning" / "vision-qlora.md",
     REPO_ROOT / "docs" / "tuning" / "full-finetune.md",
+    REPO_ROOT / "docs" / "tuning" / "moe-finetune.md",
+    REPO_ROOT / "docs" / "tuning" / "continued-pretraining.md",
+    REPO_ROOT / "docs" / "tuning" / "custom-chat-template.md",
+    REPO_ROOT / "docs" / "tuning" / "unused-tokens.md",
+    REPO_ROOT / "docs" / "tuning" / "preference-alignment.md",
+    REPO_ROOT / "docs" / "tuning" / "reinforcement-learning.md",
 )
 
 FENCE_OPEN = re.compile(r"^(?P<fence>`{3,})(?P<language>[\w+-]*)(?P<attributes>.*)$")
@@ -133,6 +139,15 @@ RELATIVE_ASSET = re.compile(
 # code spans (`<|turn>`). Escaping `|` as `\|` inside inline code spans on table rows keeps table
 # cells intact.
 INLINE_CODE = re.compile(r"(`+)([^`\n]+?)\1")
+# Pages showing literal Hugging Face Jinja2 templates wrap them in `{% raw %}...{% endraw %}` so
+# Zensical's macro pass leaves them intact; unwrap those guards when exporting `.ipynb` cells.
+JINJA_RAW_INLINE = re.compile(r"\{%-?\s*raw\s*-?%\}([^\n]*?)\{%-?\s*endraw\s*-?%\}")
+JINJA_RAW_LINE = re.compile(r"^[ \t]*\{%-?\s*(?:raw|endraw)\s*-?%\}[ \t]*\r?\n?", re.MULTILINE)
+
+
+def unwrap_jinja_raw(text: str) -> str:
+    text = JINJA_RAW_INLINE.sub(r"\1", text)
+    return JINJA_RAW_LINE.sub("", text)
 
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -225,8 +240,14 @@ def candidate_models(source: Path) -> list[str]:
         return []
     models = get_gemma4_models()
     requires = metadata.get("requires", "")
+    raw_models = metadata.get("models") or []
+    explicit_gemma4 = {
+        str(m) for m in raw_models if str(m).startswith("gemma-4/")
+    }
     candidates = []
     for mid, model in models.items():
+        if explicit_gemma4 and mid not in explicit_gemma4:
+            continue
         if requires and requires not in (model.get("inputs") or []):
             continue
         if all(engine in model.get("ids", {}) for engine in engines):
@@ -326,6 +347,7 @@ def code_cell(language: str, source: str) -> dict:
 
 
 def export_cells(body: str, model: str | None = None) -> list[dict]:
+    body = unwrap_jinja_raw(body)
     body = SKIP_REGION.sub("", body)
     body = filter_requires_regions(body, model=model)
     lines = body.splitlines(keepends=True)

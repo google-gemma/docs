@@ -328,6 +328,12 @@ gemma4:
         q4_0: 2.9
         mobile: 1.1
         mobile_text_only: 0.84
+      training_memory:                 # GB, seq_len=2048, batch=1-2, grad_ckpt=True
+        qlora_unsloth: "~7 GB"
+        qlora_hf: "~10 GB"
+        lora_bf16: "~13 GB"
+        full_bf16: "~32 GB"
+        recommended_gpu: "Colab T4 (16 GB), RTX 3090/4090"
 
     - id: e4b
       name: E4B
@@ -365,6 +371,12 @@ gemma4:
         q4_0: 4.5
         mobile: 2.5
         mobile_text_only: 2.2
+      training_memory:
+        qlora_unsloth: "~9 GB"
+        qlora_hf: "~14 GB"
+        lora_bf16: "~19 GB"
+        full_bf16: "~42 GB"
+        recommended_gpu: "Colab T4 (QLoRA), L4 (24 GB), A100 (40/80 GB)"
 
     - id: 12b
       name: 12B
@@ -394,6 +406,12 @@ gemma4:
         bf16: 26.7
         sfp8: 13.4
         q4_0: 6.7
+      training_memory:
+        qlora_unsloth: "~11 GB"
+        qlora_hf: "~18 GB"
+        lora_bf16: "~28 GB"
+        full_bf16: "~80 GB"
+        recommended_gpu: "RTX 4090 / L4 (QLoRA), A100/H100 80 GB"
 
     - id: 26b-a4b
       name: 26B A4B
@@ -430,6 +448,12 @@ gemma4:
         bf16: 57.7
         sfp8: 28.8
         q4_0: 14.4
+      training_memory:
+        qlora_unsloth: "~21 GB"
+        qlora_hf: "~26 GB"
+        lora_bf16: "~56 GB"
+        full_bf16: "~160 GB"
+        recommended_gpu: "RTX 4090 / L4 (QLoRA), A100/H100 80 GB"
 
     - id: 31b
       name: 31B
@@ -463,3 +487,9 @@ gemma4:
         bf16: 69.9
         sfp8: 34.9
         q4_0: 17.5
+      training_memory:
+        qlora_unsloth: "~22 GB"
+        qlora_hf: "~34 GB"
+        lora_bf16: "~66 GB"
+        full_bf16: "~200 GB"
+        recommended_gpu: "RTX 4090 / L4 (QLoRA), 1x–8x H100 80 GB"

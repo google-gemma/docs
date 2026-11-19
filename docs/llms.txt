@@ -83,12 +83,23 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [Run Gemma with Unsloth](https://gemma.ai/deployment/unsloth.md): Run Gemma 4 with Unsloth — the desktop Studio app, dynamic-quant GGUFs for llama.cpp, and 2x faster fine-tuning.
 
 ## Fine-tune
-- [Gemma model fine-tuning](https://gemma.ai/tuning.md): Fine-tuning a generative artificial intelligence (AI) model such as Gemma modifies the behavior of the model.
-- [Fine-Tune Gemma using Hugging Face Transformers and QloRA](https://gemma.ai/tuning/qlora.md): This guide walks you through how to fine-tune Gemma on a custom text-to-sql dataset using Hugging Face Transformers and TRL.
-- [Fine-Tune Gemma for Audio Tasks using Unsloth and QLoRA](https://gemma.ai/tuning/audio-qlora.md): This guide walks you through how to fine-tune Gemma on a custom audio dataset for a audio task (generating transcription of Kumamoto dialect Japanese) using Unsloth.
-- [Fine-Tune Gemma for Vision Tasks using Hugging Face Transformers and QLoRA](https://gemma.ai/tuning/vision-qlora.md): This guide walks you through how to fine-tune Gemma on a custom image and text dataset for a vision task (generating product descriptions) using Hugging Face Transformers and TRL.
-- [Full Model Fine-Tune using Hugging Face Transformers](https://gemma.ai/tuning/full-finetune.md): This guide walks you through how to fine-tune Gemma on a mobile game NPC dataset using Hugging Face Transformers and TRL.
-- [Master Local Fine-Tuning with gemma-trainer](https://gemma.ai/tuning/gemma-trainer.md): Take control of your AI models with our newest skill, designed to make local fine-tuning efficient.
+- [Fine-tuning overview](https://gemma.ai/tuning.md): Pick a training stage, a method, a GPU budget, and a base checkpoint before you fine-tune Gemma 4.
+- [Best practices](https://gemma.ai/tuning/best-practices.md): Practical guidelines, model architectures, hyperparameter tables, and loss curve tips for all five Gemma 4 models.
+- [Dataset formatting](https://gemma.ai/tuning/datasets-formatting.md): Format single-turn, multi-turn, thinking, and tool-calling datasets for Gemma 4 with completion-only loss masking and thought stripping.
+- [Continued pre-training](https://gemma.ai/tuning/continued-pretraining.md): Adapt Gemma 4 to unlabeled domain text and new languages using sequence packing, vocabulary extension, and separate embedding learning rates.
+- [Custom chat templates](https://gemma.ai/tuning/custom-chat-template.md): Turn a pre-trained Gemma 4 base model into a multi-turn chat assistant using a ChatML template and QLoRA.
+- [(Q)LoRA](https://gemma.ai/tuning/qlora.md): Fine-tune Gemma 4 with LoRA and 4-bit QLoRA on a single GPU, from dataset to merged model.
+- [Full fine-tuning](https://gemma.ai/tuning/full-finetune.md): Run full-parameter bfloat16 fine-tuning on Gemma 4 using Hugging Face Transformers, TRL, cosine warmup schedules, and 8-bit AdamW.
+- [MoE fine-tuning](https://gemma.ai/tuning/moe-finetune.md): Fine-tune Gemma 4 26B A4B's 128-expert Mixture-of-Experts (MoE) architecture without router collapse using LoRA, PEFT target_parameters, and grouped GEMM.
+- [Unused tokens](https://gemma.ai/tuning/unused-tokens.md): Turn Gemma 4's 6,227 reserved token slots into single-token routing tags, source tags, and domain terms without resizing the vocabulary.
+- [Vision fine-tuning](https://gemma.ai/tuning/vision-qlora.md): Fine-tune Gemma 4 on custom image-text datasets using QLoRA, selectable vision token budgets, and completion-only multimodal loss masking.
+- [Audio fine-tuning](https://gemma.ai/tuning/audio-qlora.md): Fine-tune Gemma 4 E2B, E4B, and 12B on custom speech transcription, low-resource languages, and spoken QA datasets with LoRA, Transformers, and TRL.
+- [Preference optimization](https://gemma.ai/tuning/preference-alignment.md): Train Gemma 4 on pairs of chosen and rejected answers using DPO, ORPO, and KTO in Hugging Face TRL.
+- [Verifiable rewards](https://gemma.ai/tuning/reinforcement-learning.md): Train Gemma 4 step-by-step reasoning and native thinking tokens using Group Relative Policy Optimization, verifiable rewards, TRL, PEFT, and vLLM.
+- [Scaling](https://gemma.ai/tuning/scaling.md): Scale Gemma 4 training across multi-GPU clusters with PyTorch FSDP2, and recover 4-bit accuracy after custom fine-tuning with TorchAO quantization-aware training.
+- [Export](https://gemma.ai/tuning/export.md): Export and serve fine-tuned Gemma 4 checkpoints across vLLM, GGUF (llama.cpp and Ollama), and LiteRT-LM.
+- [Unsloth](https://gemma.ai/tuning/unsloth.md): Swap Unsloth's FastVisionModel or FastModel into any single-GPU Gemma 4 tutorial for faster LoRA, QLoRA, and GGUF export.
+- [Gemma trainer skill](https://gemma.ai/tuning/gemma-trainer.md): Install the gemma-trainer agent skill to automate dataset validation, hyperparameter sizing, fine-tuning, evaluation, and export across Gemma 4.
 
 ## Learn
 - [Learn](https://gemma.ai/learn.md): Illustrated walkthroughs of how the Gemma models work, from the architecture down to individual mechanisms.

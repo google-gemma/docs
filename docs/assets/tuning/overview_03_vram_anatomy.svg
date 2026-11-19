@@ -1,0 +1,53 @@
+<svg width="880" height="344" viewBox="0 0 880 344" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      text, tspan { font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+    </style>
+      </defs>
+  <rect id="canvas_bg" width="880" height="344" fill="#FFFFFF"/>
+  <g id="layer_backdrops">
+    <g id="backdrops_01"><line x1="246.40" y1="34" x2="246.40" y2="334" stroke="#505050" stroke-width="1.8" stroke-dasharray="6 5"/></g>
+  </g>
+  <g id="layer_nodes">
+    <g id="box_01"><rect x="40.00" y="62.00" width="206.40" height="46.00" rx="0.0" fill="#C98BFF" stroke="#272727" stroke-width="1.40"/></g>
+    <g id="box_02"><rect x="246.40" y="62.00" width="206.40" height="46.00" rx="0.0" fill="#E3C0FF" stroke="#272727" stroke-width="1.40"/></g>
+    <g id="box_03"><rect x="452.80" y="62.00" width="206.40" height="46.00" rx="0.0" fill="#F2E3FF" stroke="#272727" stroke-width="1.40"/></g>
+    <g id="box_04"><rect x="659.20" y="62.00" width="107.50" height="46.00" rx="0.0" fill="#E2E2E2" stroke="#272727" stroke-width="1.40"/></g>
+    <g id="box_05"><rect x="40.00" y="162.00" width="206.40" height="46.00" rx="0.0" fill="#A9C6EC" stroke="#272727" stroke-width="1.40"/></g>
+    <g id="box_06"><rect x="246.40" y="162.00" width="15.48" height="46.00" rx="0.0" fill="#C98BFF" stroke="#272727" stroke-width="1.40"/></g>
+    <g id="box_07"><rect x="261.88" y="162.00" width="29.24" height="46.00" rx="0.0" fill="#E2E2E2" stroke="#272727" stroke-width="1.40"/></g>
+    <g id="box_08"><rect x="40.00" y="266.00" width="60.20" height="46.00" rx="0.0" fill="#A9C6EC" stroke="#272727" stroke-width="1.40"/></g>
+    <g id="box_09"><rect x="100.20" y="266.00" width="15.48" height="46.00" rx="0.0" fill="#C98BFF" stroke="#272727" stroke-width="1.40"/></g>
+    <g id="box_10"><rect x="115.68" y="266.00" width="29.24" height="46.00" rx="0.0" fill="#E2E2E2" stroke="#272727" stroke-width="1.40"/></g>
+  </g>
+  <g id="layer_annotations">
+    <text id="txt_01" x="246.40" y="24.90" font-family="Inter" font-size="14.0" font-weight="400" fill="#272727" text-anchor="middle"><tspan font-weight="700">24 GB GPU</tspan></text>
+    <text id="txt_02" x="40.00" y="51.77" font-family="Inter" font-size="16.5" font-weight="400" fill="#272727" text-anchor="start"><tspan font-weight="700">Full fine-tuning</tspan></text>
+    <text id="txt_03" x="143.20" y="90.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#3D0B66" text-anchor="middle"><tspan font-weight="700">Weights</tspan><tspan> 24 GB</tspan></text>
+    <text id="txt_04" x="349.60" y="90.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#3D0B66" text-anchor="middle"><tspan font-weight="700">Gradients</tspan><tspan> 24 GB</tspan></text>
+    <text id="txt_05" x="556.00" y="90.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#3D0B66" text-anchor="middle"><tspan font-weight="700">Optimizer</tspan><tspan> 24 GB</tspan></text>
+    <text id="txt_06" x="712.95" y="90.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#272727" text-anchor="middle"><tspan font-weight="700">Activations</tspan></text>
+    <text id="txt_07" x="778.70" y="90.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#272727" text-anchor="start"><tspan font-weight="700">80+ GB</tspan></text>
+    <text id="txt_08" x="40.00" y="151.78" font-family="Inter" font-size="16.5" font-weight="400" fill="#272727" text-anchor="start"><tspan font-weight="700">LoRA</tspan></text>
+    <text id="txt_09" x="143.20" y="195.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#0B2A5B" text-anchor="middle"><tspan font-weight="700">Frozen weights</tspan><tspan> 24 GB</tspan></text>
+    <g id="annotations_01"><path d="M 254.14 160.00 L 254.14 149.00 L 264.14 149.00" fill="none" stroke="#3D0B66" stroke-width="1.5"/></g>
+    <text id="txt_10" x="268.14" y="152.90" font-family="Inter" font-size="14.0" font-weight="400" fill="#3D0B66" text-anchor="start"><tspan font-weight="700">Adapters</tspan></text>
+    <g id="annotations_02"><path d="M 276.50 210.00 L 276.50 221.00 L 286.50 221.00" fill="none" stroke="#505050" stroke-width="1.5"/></g>
+    <text id="txt_11" x="290.50" y="225.90" font-family="Inter" font-size="14.0" font-weight="400" fill="#505050" text-anchor="start">Activations</text>
+    <text id="txt_12" x="303.12" y="190.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#272727" text-anchor="start"><tspan font-weight="700">~28 GB</tspan></text>
+    <text id="txt_13" x="40.00" y="255.78" font-family="Inter" font-size="16.5" font-weight="400" fill="#272727" text-anchor="start"><tspan font-weight="700">QLoRA</tspan></text>
+    <text id="txt_14" x="70.10" y="299.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#0B2A5B" text-anchor="middle"><tspan font-weight="700">4-bit</tspan></text>
+    <g id="annotations_03"><path d="M 107.94 264.00 L 107.94 253.00 L 117.94 253.00" fill="none" stroke="#3D0B66" stroke-width="1.5"/></g>
+    <text id="txt_15" x="121.94" y="256.90" font-family="Inter" font-size="14.0" font-weight="400" fill="#3D0B66" text-anchor="start"><tspan font-weight="700">Adapters</tspan></text>
+    <g id="annotations_04"><path d="M 130.30 314.00 L 130.30 325.00 L 140.30 325.00" fill="none" stroke="#505050" stroke-width="1.5"/></g>
+    <text id="txt_16" x="144.30" y="329.90" font-family="Inter" font-size="14.0" font-weight="400" fill="#505050" text-anchor="start">Activations</text>
+    <text id="txt_17" x="156.92" y="294.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#272727" text-anchor="start"><tspan font-weight="700">~11 GB</tspan></text>
+  </g>
+  <g id="layer_overlays">
+    <g id="icon_01"><g transform="translate(22.00,85.00) scale(2.222) translate(-124.0,-61.5)"><path d="M 120.7 64.9837 C 121.31 65.5968 121.741 65.8018 122.616 66 C 122.616 66 121.926 64.8654 122.084 64.1199 C 122.218 63.4888 122.771 63.3378 123.042 62.748 C 123.258 62.2761 123.414 61.4777 123.414 61.4777 C 124.131 61.8781 124.404 62.2299 124.744 63.002 L 125.01 62.2907 C 125.01 62.2907 125.734 62.9187 125.915 63.4594 C 126.085 63.9698 126.085 64.3209 125.915 64.8313 C 125.734 65.372 125.01 66 125.01 66 C 125.01 66 125.579 65.8539 125.915 65.6951 C 126.666 65.3396 127.082 65.0112 127.511 64.3232 C 127.989 63.5576 128.026 62.978 127.99 62.0874 C 127.941 60.8759 127.596 60.1498 126.819 59.1911 C 126.576 58.8913 126.234 58.5305 126.128 58.4797 C 126.021 58.4289 125.983 58.6245 125.915 58.7338 C 125.753 58.9948 125.906 59.2288 125.755 59.496 C 125.636 59.7063 125.329 59.9533 125.329 59.9533 C 125.329 59.9533 125.447 59.4331 125.01 58.937 C 124.574 58.4409 123.627 57.3618 123.893 57.6667 C 124.159 57.9716 123.372 57.1072 122.829 57.0061 C 122.698 56.9819 122.616 57.0221 122.616 57.2602 V 57.87 C 122.616 57.87 122.722 57.87 121.818 59.496 C 120.913 61.122 120.253 61.8992 120.168 62.0874 C 119.814 63.5819 120.032 64.1508 120.7 64.9837 Z" fill="#FF0000"/><circle cx="124.1" cy="63.8" r="1.55" fill="#FF9900"/></g></g>
+    <g id="frozen_overlay_01"><g transform="translate(42.00,162.70) scale(4.1771,0.5180) translate(-20,-120.045)"><path d="M20.4106 130.013L20 120.045H68.4545L66.812 137.133L64.7589 135.709L61.8844 147.101L59.4206 134.285L56.9569 138.557L53.6718 131.437H51.6186L48.7442 146.627L45.8698 130.963L42.5847 129.064L40.5316 133.811L37.6572 129.064L35.1934 143.304L31.9083 128.589L27.802 149L24.9276 135.235L23.2851 141.88L20.4106 130.013Z" fill="#CAE6FC"/></g></g>
+    <g id="icon_02"><circle cx="22.00" cy="185.00" r="10.00" fill="#157AC3"/><g transform="translate(22.00,185.00) scale(2.500) translate(-20,-68)"><path d="M19.9999 65.1333V69.7282M19.9999 69.7282V70.8769M19.9999 69.7282L20.6153 70.5897M19.9999 69.7282L19.3845 70.5897M20.6153 65.4205L19.9999 66.2821L19.3845 65.4205" stroke="#FFFFFF" stroke-width="0.36" stroke-linecap="round"/><path d="M17.5151 66.5602L18.5091 67.1382M18.5091 67.1382L21.4908 68.8721M18.5091 67.1382L18.194 65.9539M18.5091 67.1382L17.3333 67.4555M21.4908 68.8721L22.4847 69.4501M21.4908 68.8721L22.6666 68.5548M21.4908 68.8721L21.8058 70.0564" stroke="#FFFFFF" stroke-width="0.36" stroke-linecap="round"/><path d="M22.4847 66.5602L21.4908 67.1382M21.4908 67.1382L18.5091 68.8721M21.4908 67.1382L21.8058 65.9539M21.4908 67.1382L22.6666 67.4555M18.5091 68.8721L17.5151 69.4501M18.5091 68.8721L17.3333 68.5548M18.5091 68.8721L18.194 70.0564" stroke="#FFFFFF" stroke-width="0.36" stroke-linecap="round"/></g></g>
+    <g id="frozen_overlay_02"><g transform="translate(42.00,266.70) scale(1.1599,0.5180) translate(-20,-120.045)"><path d="M20.4106 130.013L20 120.045H68.4545L66.812 137.133L64.7589 135.709L61.8844 147.101L59.4206 134.285L56.9569 138.557L53.6718 131.437H51.6186L48.7442 146.627L45.8698 130.963L42.5847 129.064L40.5316 133.811L37.6572 129.064L35.1934 143.304L31.9083 128.589L27.802 149L24.9276 135.235L23.2851 141.88L20.4106 130.013Z" fill="#CAE6FC"/></g></g>
+    <g id="icon_03"><circle cx="22.00" cy="289.00" r="10.00" fill="#157AC3"/><g transform="translate(22.00,289.00) scale(2.500) translate(-20,-68)"><path d="M19.9999 65.1333V69.7282M19.9999 69.7282V70.8769M19.9999 69.7282L20.6153 70.5897M19.9999 69.7282L19.3845 70.5897M20.6153 65.4205L19.9999 66.2821L19.3845 65.4205" stroke="#FFFFFF" stroke-width="0.36" stroke-linecap="round"/><path d="M17.5151 66.5602L18.5091 67.1382M18.5091 67.1382L21.4908 68.8721M18.5091 67.1382L18.194 65.9539M18.5091 67.1382L17.3333 67.4555M21.4908 68.8721L22.4847 69.4501M21.4908 68.8721L22.6666 68.5548M21.4908 68.8721L21.8058 70.0564" stroke="#FFFFFF" stroke-width="0.36" stroke-linecap="round"/><path d="M22.4847 66.5602L21.4908 67.1382M21.4908 67.1382L18.5091 68.8721M21.4908 67.1382L21.8058 65.9539M21.4908 67.1382L22.6666 67.4555M18.5091 68.8721L17.5151 69.4501M18.5091 68.8721L17.3333 68.5548M18.5091 68.8721L18.194 70.0564" stroke="#FFFFFF" stroke-width="0.36" stroke-linecap="round"/></g></g>
+  </g>
+</svg>

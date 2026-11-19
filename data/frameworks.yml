@@ -165,7 +165,15 @@ frameworks:
 
   - id: trl
     name: TRL
-    url: https://github.com/huggingface/trl
+    url: https://huggingface.co/docs/trl
+
+  - id: accelerate
+    name: Accelerate
+    url: https://huggingface.co/docs/accelerate
+
+  - id: torchao
+    name: TorchAO
+    url: https://github.com/pytorch/ao
 
   - id: langchain
     name: LangChain
@@ -204,67 +212,33 @@ frameworks:
 #   blurb      one line describing the path, not the framework.
 #   pinned     the generation the URL is hard-coded to, same meaning as above.
 tuning_paths:
-  - id: keras-lora
-    framework: keras
-    label: Keras + LoRA
-    url: https://colab.research.google.com/github/google-gemma/cookbook/blob/main/docs/core/lora_tuning.ipynb
-    blurb: Parameter-efficient tuning with KerasHub.
-
   - id: transformers-peft
     framework: transformers
-    label: Transformers + PEFT
-    url: https://huggingface.co/blog/gemma-peft
-    blurb: LoRA and QLoRA with the Hugging Face stack.
+    label: TRL
+    url: https://huggingface.co/docs/trl
+    blurb: SFT, DPO, GRPO, and multi-GPU training in Python.
 
-  - id: gemma-jax
-    framework: jax
-    label: Gemma library for JAX
-    mark: JX
-    url: https://gemma-llm.readthedocs.io/en/latest/colab_finetuning.html
-    blurb: The reference JAX implementation, with a tuning colab.
-
-  - id: unsloth-notebook
+  - id: unsloth-gemma4
     framework: unsloth
     label: Unsloth
-    url: https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_2%5DFinetune_with_Unsloth.ipynb
-    pinned: gemma-2
-    blurb: Cookbook notebook for single-GPU LoRA tuning.
+    page: tuning/unsloth.md
+    blurb: Swap FastVisionModel into any single-GPU tutorial for faster training and GGUF export.
 
   - id: axolotl
     label: Axolotl
     mark: Ax
-    url: https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_2%5DFinetune_with_Axolotl.ipynb
-    pinned: gemma-2
-    blurb: Cookbook notebook driven by a YAML config.
-
-  - id: llama-factory
-    label: LLaMA Factory
-    mark: LF
-    url: https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_1%5DFinetune_with_LLaMA_Factory.ipynb
-    pinned: gemma-1
-    blurb: Cookbook notebook with a no-code tuning UI.
-
-  - id: xtuner
-    label: XTuner
-    mark: XT
-    url: https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_1%5DFinetune_with_XTuner.ipynb
-    pinned: gemma-1
-    blurb: Cookbook notebook for the XTuner toolkit.
-
-  - id: keras-distributed
-    framework: keras
-    label: Keras distributed
-    url: https://colab.research.google.com/github/google-gemma/cookbook/blob/main/docs/core/distributed_tuning.ipynb
-    blurb: Model-parallel tuning across TPU or GPU pods.
-
-  - id: gke
-    framework: google-cloud
-    label: Google Cloud GKE
-    url: https://cloud.google.com/kubernetes-engine/docs/tutorials/finetune-gemma-gpu
-    blurb: Multi-GPU tuning on Kubernetes with Transformers.
+    url: https://docs.axolotl.ai/docs/models/gemma4.html
+    pinned: gemma-4
+    blurb: YAML-configured fine-tuning for single and multi-GPU runs.
 
   - id: vertex-ai
     framework: google-cloud
     label: Vertex AI
     url: https://cloud.google.com/vertex-ai/generative-ai/docs/models/open-model-tuning
-    blurb: Managed tuning jobs, with no cluster to operate.
+    blurb: Managed fine-tuning jobs on Google Cloud.
+
+  - id: gke
+    framework: google-cloud
+    label: Google Cloud GKE
+    url: https://cloud.google.com/kubernetes-engine/docs/tutorials/finetune-gemma-gpu
+    blurb: Multi-GPU fine-tuning on Kubernetes.

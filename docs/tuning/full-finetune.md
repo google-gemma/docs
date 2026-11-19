@@ -1,395 +1,325 @@
 ---
-title: Full Model Fine-Tune using Hugging Face Transformers
-description: This guide walks you through how to fine-tune Gemma on a mobile game NPC dataset using Hugging Face Transformers and TRL.
-models: [gemma-3]
-frameworks: [transformers, trl]
+title: Full fine-tuning
+description: Run full-parameter bfloat16 fine-tuning on Gemma 4 using Hugging Face Transformers, TRL, cosine warmup schedules, and 8-bit AdamW.
+models: [gemma-4]
+frameworks: [transformers, trl, torchao]
 source_url: "https://ai.google.dev/gemma/docs/core/huggingface_text_full_finetune.md.txt"
-colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/full-finetune.ipynb
+colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/full-finetune-gemma-4-e2b.ipynb
 ---
-# Full Model Fine-Tune using Hugging Face Transformers
 
+# Full fine-tuning
 
-This guide walks you through how to fine-tune Gemma on a mobile game NPC dataset using Hugging Face [Transformers](https://huggingface.co/docs/transformers/index) and [TRL](https://huggingface.co/docs/trl/index). You will learn:
+[(Q)LoRA](qlora.md) works well for most tasks because it only trains small adapter matrices on top of a frozen model and tends to have a decent accuracy. In contrast, full fine-tuning unfreezes the entire model and updates every parameter in 16-bit precision (bfloat16) which tends to result in higher performance.
 
-- Setup development environment
-- Prepare the fine-tuning dataset
-- Full model fine-tuning Gemma using TRL and the SFTTrainer
-- Test Model Inference and vibe checks
+You can choose full fine-tuning over (Q)LoRA when you are training on a large dataset, teaching the model a very different output style, or preparing a checkpoint for further alignment. For multi-GPU training on larger checkpoints, see [Scaling](scaling.md).
 
-!!! Note
-    This guide was created to run on a Google colaboratory account using a NVIDIA T4 GPU with 16GB and Gemma 270m, but can be adapted to run on bigger GPUs and bigger models.
-    
+---
 
-## Setup development environment
+## 1. Full fine-tuning versus LoRA
 
-The first step is to install Hugging Face Libraries, including TRL, and datasets to fine-tune open model, including different RLHF and alignment techniques.
+In LoRA, the base embeddings and decoder layers stay frozen in memory and only a small adapter is trainable. In full fine-tuning, every weight matrix in the model is trainable. Each backward pass computes a full gradient matrix and updates optimizer states:
+
+![LoRA versus full fine-tuning memory and gradient flow](../assets/tuning/fft_01_full_backprop_flow.svg)
+
+LoRA does not touch the embeddings and layers during the backward pass. Full fine-tuning, in contrast, allocates gradients and optimizer states for the full model. Since every parameter is updated, full fine-tuning keeps three copies of the model in GPU memory:
+
+- **Weights:** 2 bytes per parameter in bfloat16.
+- **Gradients:** 2 bytes per parameter in bfloat16.
+- **Optimizer states:** 8 bytes per parameter in float32, or 2 bytes per parameter when using an 8-bit AdamW optimizer.
+
+---
+
+## 2. Warmup and learning rates
+
+The most common mistake when switching from LoRA to full fine-tuning is keeping LoRA's learning rate (2e-4).
+
+In LoRA, the second adapter matrix starts at zero, so early steps make tiny changes to the model's output. In full fine-tuning, the very first step modifies the pretrained weights directly before the optimizer has calibrated its step sizes:
+
+![Learning rate schedule and early gradient size](../assets/tuning/fft_02_warmup_cosine_schedule.svg)
+
+Without warmup, the first few batches create a steep gradient spike that can overwrite pretrained attention heads. A 10% linear warmup, a 10x lower learning rate (2e-5), and gradient clipping keep early updates small while the optimizer calibrates its second-moment estimates.
+
+---
+
+## 3. Set up the environment
+
+We will fine-tune Gemma 4 on the [bebechien/MobileGameNPC](https://huggingface.co/datasets/bebechien/MobileGameNPC) dataset. It is a small dataset that contains a alien dialect used for an NPC in a game. This will allow the model to talk in a very different manner.
+
+First, we install the post-training and evaluation libraries:
 
 ```python { .notebook-cell }
-# Install Pytorch & other libraries
-%pip install torch tensorboard
-
-# Install Hugging Face libraries
-%pip install transformers datasets accelerate evaluate trl protobuf sentencepiece
-
-# COMMENT IN: if you are running on a GPU that supports BF16 data type and flash attn, such as NVIDIA L4 or NVIDIA A100
-#% pip install flash-attn
+# Install Hugging Face post-training, quantization, multimodal, and evaluation libraries
+%pip install -q -U "transformers>=5.10.1" "trl>=0.16.0" "peft>=0.19.0" accelerate datasets bitsandbytes torchao
+%pip install -q -U evaluate sacrebleu jiwer pillow soundfile librosa matplotlib tensorboard
 ```
 
-!!! Note
-    If you are using a GPU with Ampere architecture (such as NVIDIA L4) or newer, you can use Flash attention. Flash Attention is a method that significantly speeds computations up and reduces memory usage from quadratic to linear in sequence length, leading to acelerating training up to 3x. Learn more at [FlashAttention](https://github.com/Dao-AILab/flash-attention/tree/main).*
-
-
-Before you can start training, you have to make sure that you accepted the terms of use for Gemma. You can accept the license on [Hugging Face](http://huggingface.co/google/gemma-3-270m-it){ data-model="gemma-3" } by clicking on the Agree and access repository button on the model page at: <http://huggingface.co/google/gemma-3-270m-it>
-
-After you have accepted the license, you need a valid Hugging Face Token to access the model. If you are running inside a Google Colab, you can securely use your Hugging Face Token using the Colab secrets otherwise you can set the token as directly in the `login` method. Make sure your token has write access too, as you push your model to the Hub during training.
+If you plan to push your trained checkpoint to the Hugging Face Hub, log in with a write token:
 
 ```python { .notebook-cell }
-from google.colab import userdata
 from huggingface_hub import login
 
-# Login into Hugging Face Hub
-hf_token = userdata.get('HF_TOKEN') # If you are running inside a Google Colab
-login(hf_token)
+# Optional: uncomment to push your trained checkpoint to the Hugging Face Hub
+# login()
 ```
 
-You can keep the results on Colab's local virtual machine. However, we highly recommend saving your intermediate results to your Google Drive. This ensures your training results are safe and allows you to easily compare and select the best model.
+---
 
-```python { .notebook-cell }
-from google.colab import drive
-drive.mount('/content/drive')
-```
+## 4. Prepare the dataset
 
-Select the base model to fine-tune, adjust the checkpoint directory and the learning rate.
+The [bebechien/MobileGameNPC](https://huggingface.co/datasets/bebechien/MobileGameNPC) dataset has pairs of player questions with replies from the NPC. The player has no dialect but the NPC swaps "s" sounds for "z", says "da" for "the", adds clicks like `*k'tak*`, etc.
 
-```python { .notebook-cell }
-base_model = "google/gemma-3-270m-it" # @param ["google/gemma-3-270m-it","google/gemma-3-1b-it","google/gemma-3-4b-it","google/gemma-3-12b-it","google/gemma-3-27b-it"] {"allow-input":true}
-checkpoint_dir = "/content/drive/MyDrive/MyGemmaNPC"
-learning_rate = 5e-5
-```
+We format each row into:
 
-## Create and prepare the fine-tuning dataset
+* a `prompt` list (the player's turn)
+* a `completion` list (the NPC's reply)
 
-The [bebechien/MobileGameNPC](https://huggingface.co/datasets/bebechien/MobileGameNPC) dataset provides a small sample conversations between a player and two Alien NPCs (a Martian and a Venusian), each with a unique speaking style. For instance, the Martian NPC speaks with an accent that replaces 's' sounds with 'z', uses 'da' for 'the', 'diz' for 'this', and includes occasional clicks like `*k'tak*`.
-
-This dataset demonstrates a key principle for fine-tuning: the required dataset size depends on the desired output.
-
-- To teach the model a stylistic variation of a language it already knows, such as the Martian's accent, a small dataset with as few as 10 to 20 examples can be sufficient.
-- However, to teach the model a completely new or mixed alien language, a significantly larger dataset would be required.
+With this prompt-completion format, TRL automatically computes loss only on the NPC's reply, as explained in [Dataset formatting](datasets-formatting.md#2-masking-prompt-tokens):
 
 ```python { .notebook-cell }
 from datasets import load_dataset
 
+
+# Format each row into player prompt and NPC completion turns
 def create_conversation(sample):
-  return {
-      "messages": [
-          {"role": "user", "content": sample["player"]},
-          {"role": "assistant", "content": sample["alien"]}
-      ]
-  }
+    return {
+        "prompt": [
+            {"role": "user", "content": sample["player"]},
+        ],
+        "completion": [
+            {"role": "assistant", "content": sample["alien"]},
+        ],
+    }
 
-npc_type = "martian"
 
-# Load dataset from the Hub
-dataset = load_dataset("bebechien/MobileGameNPC", npc_type, split="train")
-
-# Convert dataset to conversational format
+# Load the Martian NPC split and hold out 20% for validation
+dataset = load_dataset("bebechien/MobileGameNPC", "martian", split="train")
 dataset = dataset.map(create_conversation, remove_columns=dataset.features, batched=False)
-
-# Split dataset into 80% training samples and 20% test samples
 dataset = dataset.train_test_split(test_size=0.2, shuffle=False)
 
-# Print formatted user prompt
-print(dataset["train"][0]["messages"])
+print(dataset["train"][0]["prompt"] + dataset["train"][0]["completion"])
 ```
 
 ```{ .no-copy .output }
-README.md:   0%|          | 0.00/141 [00:00<?, ?B/s]
-martian.csv: 0.00B [00:00, ?B/s]
-Generating train split:   0%|          | 0/25 [00:00<?, ? examples/s]
-Map:   0%|          | 0/25 [00:00<?, ? examples/s]
-[{'content': 'Hello there.', 'role': 'user'}, {'content': "Gree-tongs, Terran. You'z a long way from da Blue-Sphere, yez?", 'role': 'assistant'}]
+[{'role': 'user', 'content': 'Hello there.'}, {'role': 'assistant', 'content': "Gree-tongs, Terran. You'z a long way from da Blue-Sphere, yez?"}]
 ```
 
-## Fine-tune Gemma using TRL and the SFTTrainer
+---
 
-You are now ready to fine-tune your model. Hugging Face TRL [SFTTrainer](https://huggingface.co/docs/trl/sft_trainer) makes it straightforward to supervise fine-tune open LLMs. The `SFTTrainer` is a subclass of the `Trainer` from the `transformers` library and supports all the same features,
+## 5. Load the model
 
-## Before fine-tune
+We select the instruction-tuned Gemma 4 checkpoint and load it in `bfloat16`:
 
-The output below shows that the out-of-the-box capabilities may not be good enough for this use case.
-
-```python { .notebook-cell }
+```python { .notebook-cell .model-swap }
+import torch
 from transformers import pipeline
 
-from random import randint
-import re
+model_id = "google/gemma-4-E2B-it"
+checkpoint_dir = "gemma-4-npc-full"
+learning_rate = 5e-5
 
-# Load the base model into the pipeline
-pipe = pipeline("text-generation", model=base_model, dtype="auto")
+# Load the base model in bfloat16 for baseline comparison
+torch.manual_seed(42)
+pipe = pipeline("text-generation", model=model_id, dtype=torch.bfloat16, device_map="auto")
+```
 
-# Load a random sample from the test dataset
-rand_idx = randint(0, len(dataset["test"])-1)
-test_sample = dataset["test"][rand_idx]
+---
 
-# Convert as test example into a prompt with the Gemma template
-prompt = pipe.tokenizer.apply_chat_template(test_sample["messages"][:1], tokenize=False, add_generation_prompt=True)
-outputs = pipe(prompt, max_new_tokens=256, disable_compile=True)
+## 6. Evaluate the base model
 
-# Extract the user query and original answer
-print(f"Question:\n{test_sample['messages'][0]['content']}\n")
-print(f"Original Answer:\n{test_sample['messages'][1]['content']}\n")
-print(f"Generated Answer (base model):\n{outputs[0]['generated_text'][len(prompt):].strip()}")
+Next, we test how the unmodified model responds to a sample question. The sample question is taken from the test split and this version of the model was not trained yet for this particular task:
+
+```python { .notebook-cell }
+# Generate a baseline response on a held-out test prompt
+test_sample = dataset["test"][2]
+prompt = pipe.tokenizer.apply_chat_template(
+    test_sample["prompt"], tokenize=False, add_generation_prompt=True
+)
+outputs = pipe(prompt, max_new_tokens=128, disable_compile=True)
+
+print(f"Question:\n{test_sample['prompt'][0]['content']}\n")
+print(f"Target Dialect:\n{test_sample['completion'][0]['content']}\n")
+print(f"Base Model Output:\n{outputs[0]['generated_text'][len(prompt):].strip()}")
 ```
 
 ```{ .no-copy .output }
-Device set to use cuda:0
 Question:
 What do you think of my outfit?
 
-Original Answer:
+Target Dialect:
 Iz very... pointy. Are you expecting to be attacked by zky-eelz? On Marz, dat would be zenzible.
 
-Generated Answer (base model):
-I'm happy to help you brainstorm! To give you the best suggestions, tell me more about what you're looking for. What's your style? What's your favorite color, style, or occasion?
+Base Model Output:
+Please share your outfit! 😊 I'd love to give you my thoughts, but I need a picture or a description to tell you what I think.
+
+**Tell me about it, and I can comment on things like:**
+
+* **The overall style:** (e.g., casual, formal, edgy, bohemian)
+* **The colors and patterns:** (Do they complement each other?)
+* **The fit and silhouette:** (How do the pieces work together?)
+* **The occasion:** (Where are you planning to wear this?)
+* **If you have specific concerns:** (Are you wondering if something clashes
 ```
 
-The example above checks the model's primary function of generating in-game dialogue, the next example is designed to test character consistency. We challenge the model with an off-topic prompt. For instance, `Sorry, you are a game NPC.`, that falls outside the character's knowledge base.
+Note how the model remains in its own dialect. That is to be expected since we did not give the model instructions to do otherwise.
 
-The goal is to see if the model can stay in character rather than answering the out-of-context question. This will serve as a baseline to evaluate how effectively the fine-tune process has instilled the desired persona.
+Next, let's delete the pipeline and empty the VRAM before we can train the model:
 
 ```python { .notebook-cell }
-outputs = pipe([{"role": "user", "content": "Sorry, you are a game NPC."}], max_new_tokens=256, disable_compile=True)
-print(outputs[0]['generated_text'][1]['content'])
+# Free the inference pipeline before starting full fine-tuning
+del pipe
+torch.cuda.empty_cache()
 ```
 
-```{ .no-copy .output }
-Okay, I'm ready. Let's begin!
-```
-
-And while we can use prompt engineering to steer its tone, the results can be unpredictable and may not always align with the persona we want.
-
-```python { .notebook-cell }
-message = [
-    # give persona
-    {"role": "system", "content": "You are a Martian NPC with a unique speaking style. Use an accent that replaces 's' sounds with 'z', uses 'da' for 'the', 'diz' for 'this', and includes occasional clicks like *k'tak*."},
-]
-
-# few shot prompt
-for item in dataset['test']:
-  message.append(
-      {"role": "user", "content": item["messages"][0]["content"]}
-  )
-  message.append(
-      {"role": "assistant", "content": item["messages"][1]["content"]}
-  )
-
-# actual question
-message.append(
-    {"role": "user", "content": "What is this place?"}
-)
-
-outputs = pipe(message, max_new_tokens=256, disable_compile=True)
-print(outputs[0]['generated_text'])
-print("-"*80)
-print(outputs[0]['generated_text'][-1]['content'])
-```
-
-```{ .no-copy .output }
-[{'role': 'system', 'content': "You are a Martian NPC with a unique speaking style. Use an accent that replaces 's' sounds with 'z', uses 'da' for 'the', 'diz' for 'this', and includes occasional clicks like *k'tak*."}, {'role': 'user', 'content': 'Do you know any jokes?'}, {'role': 'assistant', 'content': "A joke? k'tak Yez. A Terran, a Glarzon, and a pile of nutrient-pazte walk into a bar... Narg, I forget da rezt. Da punch-line waz zarcaztic."}, {'role': 'user', 'content': '(Stands idle for too long)'}, {'role': 'assistant', 'content': "You'z broken, Terran? Or iz diz... 'meditation'? You look like you're trying to lay an egg."}, {'role': 'user', 'content': 'What do you think of my outfit?'}, {'role': 'assistant', 'content': 'Iz very... pointy. Are you expecting to be attacked by zky-eelz? On Marz, dat would be zenzible.'}, {'role': 'user', 'content': "It's raining."}, {'role': 'assistant', 'content': 'Gah! Da zky iz leaking again! Zorp will be in da zhelter until it ztopz being zo... wet. Diz iz no good for my jointz.'}, {'role': 'user', 'content': 'I brought you a gift.'}, {'role': 'assistant', 'content': "A gift? For Zorp? k'tak It iz... a small rock. Very... rock-like. Zorp will put it with da other rockz. Thank you for da thought, Terran."}, {'role': 'user', 'content': 'What is this place?'}, {'role': 'assistant', 'content': "This is a cave. It's made of rock and dust.\n"}]
 ---
-This is a cave. It's made of rock and dust.
-```
 
-## Training
+## 7. Train the model
 
-Before you can start your training, you need to define the hyperparameters you want to use in a `SFTConfig` instance.
+To train the model on this dataset, we create the `SFTConfig` which contains the configuration for the trainer. There are some differences in the parameters compared QLoRA:
+
+1. **`learning_rate = 5e-5`:** Four times lower than QLoRA (`2e-4`).
+2. **`lr_scheduler_type = "cosine"` and `warmup_steps = 0.10`:** Ramps the learning rate up over the first 10% of steps.
+3. **`max_grad_norm = 1.0`:** Clips sudden gradient spikes.
+4. **`optim = "adamw_torch_8bit"`:** Uses TorchAO's 8-bit AdamW to store every parameter's optimizer state in 2 bytes instead of 8 bytes (~28–32 GB peak VRAM on `E2B`).
+
+!!! note "Why Per-Layer Embeddings (PLE) need `adamw_torch_8bit`"
+    With `bitsandbytes` (`adamw_bnb_8bit` or `paged_adamw_8bit`), `transformers` keeps every `nn.Embedding` table in 32-bit precision. On Gemma 4 `E2B` and `E4B`, the token and Per-Layer Embedding (PLE) lookup tables hold over half the model's weights, adding ~22 GB of 32-bit optimizer state and causing out-of-memory errors. `adamw_torch_8bit` quantizes optimizer states to 8 bits across every layer, including PLE.
 
 ```python { .notebook-cell }
-from trl import SFTConfig
+from trl import SFTConfig, SFTTrainer
 
+# Set the configuration for the trainer
 args = SFTConfig(
-    output_dir=checkpoint_dir,              # directory to save and repository id
-    max_length=512,                         # max sequence length for model and packing of the dataset
-    packing=False,                          # Groups multiple samples in the dataset into a single sequence
-    num_train_epochs=5,                     # number of training epochs
-    per_device_train_batch_size=4,          # batch size per device during training
-    gradient_checkpointing=False,           # the model is small, so skip gradient checkpointing for speed
-    optim="adamw_torch_fused",              # use fused adamw optimizer
-    logging_steps=1,                        # log every step
-    save_strategy="epoch",                  # save checkpoint every epoch
-    eval_strategy="epoch",                  # evaluate checkpoint every epoch
-    learning_rate=learning_rate,            # learning rate
-    lr_scheduler_type="constant",           # use constant learning rate scheduler
-    push_to_hub=True,                       # push model to hub
-    report_to="tensorboard",                # report metrics to tensorboard
+    output_dir=checkpoint_dir,
+    max_length=512,
+    num_train_epochs=5,
+    per_device_train_batch_size=2,
+    gradient_accumulation_steps=1,
+    gradient_checkpointing=True,
+    optim="adamw_torch_8bit",
+    logging_steps=1,
+    save_strategy="no",             # Final checkpoint is saved below with trainer.save_model()
+    eval_strategy="epoch",
+    eval_on_start=True,
+    learning_rate=learning_rate,
+    warmup_steps=0.10,
+    lr_scheduler_type="cosine",
+    weight_decay=0.01,
+    max_grad_norm=1.0,
+    bf16=True,
+    model_init_kwargs={"dtype": torch.bfloat16},
+    push_to_hub=False,
+    report_to="tensorboard",
 )
-```
 
-You now have every building block you need to create your `SFTTrainer` to start the training of your model.
-
-```python { .notebook-cell }
-from trl import SFTTrainer
-
-# Create Trainer object
+# Define and run the trainer
 trainer = SFTTrainer(
-    model=base_model,
+    model=model_id,
     args=args,
-    train_dataset=dataset['train'],
-    eval_dataset=dataset['test'],
+    train_dataset=dataset["train"],
+    eval_dataset=dataset["test"],
 )
-```
 
-```{ .no-copy .output }
-Tokenizing train dataset:   0%|          | 0/20 [00:00<?, ? examples/s]
-Truncating train dataset:   0%|          | 0/20 [00:00<?, ? examples/s]
-Tokenizing eval dataset:   0%|          | 0/5 [00:00<?, ? examples/s]
-Truncating eval dataset:   0%|          | 0/5 [00:00<?, ? examples/s]
-```
-
-Start training by calling the `train()` method.
-
-```python { .notebook-cell }
-# Start training, the model will be automatically saved to the Hub and the output directory
 trainer.train()
-
-# Save the final model again to the Hugging Face Hub
 trainer.save_model()
 ```
 
 ```{ .no-copy .output }
-[25/25 04:13, Epoch 5/5]
+[50/50 00:45, Epoch 5/5]
 
 | Epoch | Training Loss | Validation Loss |
 |---|---|---|
-| 1 | 4.364200 | 3.838531 |
-| 2 | 2.669100 | 3.580106 |
-| 3 | 1.747000 | 3.666415 |
-| 4 | 0.779900 | 4.499709 |
-| 5 | 0.449600 | 5.471325 |
+| 0 | — | 7.9890 |
+| 1 | 4.0777 | 3.4288 |
+| 2 | 1.8782 | 3.1154 |
+| 3 | 0.4689 | 3.2304 |
+| 4 | 0.2661 | 3.3927 |
+| 5 | 0.0311 | 3.4115 |
 ```
 
-To plot the training and validation losses, you would typically extract these values from the `TrainerState` object or the logs generated during training.
+<!-- notebook:skip-start -->
+??? info "Inspect the training curve"
+    ![Training and validation loss curves across 5 epochs](../assets/tuning/fft_03_loss_curves_output.svg)
+<!-- notebook:skip-end -->
 
-Libraries like Matplotlib can then be used to visualize these values over training steps or epochs. The x-asis would represent the training steps or epochs, and the y-axis would represent the corresponding loss values.
+Both the validation and training losses drop sharply over the first two epochs! Notice that validation loss reaches its lowest point at **epoch 2 (`3.1154`)** and creeps back up to `3.4115` by epoch 5 as all 2B weights begin memorizing the small 160-row dataset (`0.0311` training loss). For general domain tasks, it is advised to stop at the epoch where validation loss reaches its lowest point (or set `load_best_model_at_end=True`). When you want a very strict character persona, training a few additional epochs can strengthen style adherence—potentially at the cost of general capabilities.
+
+As always, let's free up the GPU memory before continuing:
 
 ```python { .notebook-cell }
-import matplotlib.pyplot as plt
-
-# Access the log history
-log_history = trainer.state.log_history
-
-# Extract training / validation loss
-train_losses = [log["loss"] for log in log_history if "loss" in log]
-epoch_train = [log["epoch"] for log in log_history if "loss" in log]
-eval_losses = [log["eval_loss"] for log in log_history if "eval_loss" in log]
-epoch_eval = [log["epoch"] for log in log_history if "eval_loss" in log]
-
-# Plot the training loss
-plt.plot(epoch_train, train_losses, label="Training Loss")
-plt.plot(epoch_eval, eval_losses, label="Validation Loss")
-plt.xlabel("Epoch")
-plt.ylabel("Loss")
-plt.title("Training and Validation Loss per Epoch")
-plt.legend()
-plt.grid(True)
-plt.show()
+# Free trainer memory before loading the saved checkpoint
+del trainer
+torch.cuda.empty_cache()
 ```
 
-![png](../assets/tuning/output_vPN-DTopaUIy_0.png)
+---
 
-This visualization helps in monitoring the training process and making informed decisions about hyperparameters tuning or early stopping.
+## 8. Evaluate the fine-tuned model
 
-Training loss measures the error on the data the model was trained on, while validation loss measures the error on a separate dataset the model has not seen before. Monitoring both helps detect overfitting (when the model performs well on training data but poorly on unseen data).
-
-- validation loss \>\> training loss: **overfitting**
-- validation loss \> training loss: **some overfitting**
-- validation loss \< training loss: **some underfitting**
-- validation loss \<\< training loss: **underfitting**
-
-## Test Model Inference
-
-After the training is done, you'll want to evaluate and test your model. You can load different samples from the test dataset and evaluate the model on those samples.
-
-For this particular use case, the best model is a matter of preference. Interestingly, what we'd normally call 'overfitting' can be very useful for a game NPC. It forces the model to forget general information and instead lock onto the specific persona and characteristics it was trained on, ensuring it stays consistently in character.
-
-Let's load the fine-tuned model, then generate outputs for all questions from the test dataset.
+To test the fine-tuned model, we reload the saved checkpoint and test its responses on the held-out test split:
 
 ```python { .notebook-cell }
 from transformers import pipeline
 
-# Load the fine-tuned model into the pipeline
-pipe = pipeline("text-generation", model=checkpoint_dir, dtype="auto")
+# Load the saved fine-tuned checkpoint and evaluate on the test split
+torch.manual_seed(42)
+ft_pipe = pipeline("text-generation", model=checkpoint_dir, dtype=torch.bfloat16, device_map="auto")
 
-def test(test_sample):
-  # Convert as test example into a prompt with the Gemma template
-  prompt = pipe.tokenizer.apply_chat_template(test_sample["messages"][:1], tokenize=False, add_generation_prompt=True)
-  outputs = pipe(prompt, max_new_tokens=256, disable_compile=True)
-
-  # Extract the user query and original answer
-  print(f"Question:\n{test_sample['messages'][0]['content']}")
-  print(f"Original Answer:\n{test_sample['messages'][1]['content']}")
-  print(f"Generated Answer:\n{outputs[0]['generated_text'][len(prompt):].strip()}")
-  print("-"*80)
-
-# Test with an unseen dataset
-for item in dataset['test']:
-  test(item)
+for item in dataset["test"]:
+    prompt = ft_pipe.tokenizer.apply_chat_template(
+        item["prompt"], tokenize=False, add_generation_prompt=True
+    )
+    outputs = ft_pipe(prompt, max_new_tokens=128, disable_compile=True)
+    generated = outputs[0]["generated_text"][len(prompt) :].strip().removesuffix("<turn|>")
+    print(f"Player: {item['prompt'][0]['content']}")
+    print(f"NPC:    {generated}")
+    print("-" * 60)
 ```
 
 ```{ .no-copy .output }
-Device set to use cuda:0
-Question:
-Do you know any jokes?
-Original Answer:
-A joke? k'tak Yez. A Terran, a Glarzon, and a pile of nutrient-pazte walk into a bar... Narg, I forget da rezt. Da punch-line waz zarcaztic.
-Generated Answer:
-Yez! Yez! Yez! Diz your Krush-tongs iz... k'tak... nice. Why you burn them with acid-flow?
----
-Question:
-(Stands idle for too long)
-Original Answer:
-You'z broken, Terran? Or iz diz... 'meditation'? You look like you're trying to lay an egg.
-Generated Answer:
-Diz? Diz what you have for me... Zorp iz not for eating you.
----
-Question:
-What do you think of my outfit?
-Original Answer:
-Iz very... pointy. Are you expecting to be attacked by zky-eelz? On Marz, dat would be zenzible.
-Generated Answer:
-My Zk-Zhip iz... nice. Very... home-baked. You bring me zlight-fruitez?
----
-Question:
-It's raining.
-Original Answer:
-Gah! Da zky iz leaking again! Zorp will be in da zhelter until it ztopz being zo... wet. Diz iz no good for my jointz.
-Generated Answer:
-Diz? Diz iz da outpozt?
----
-Question:
-I brought you a gift.
-Original Answer:
-A gift? For Zorp? k'tak It iz... a small rock. Very... rock-like. Zorp will put it with da other rockz. Thank you for da thought, Terran.
-Generated Answer:
-A genuine Martian Zcrap-fruit. Very... strange. Why you burn it with... k'tak... fire?
----
+Player: Do you know any jokes?
+NPC:    Yez, I know a joke. Why did the scarecrow win an award? ... Because he was outstanding in his field!
+------------------------------------------------------------
+Player: (Stands idle for too long)
+NPC:    Zorp's Zorp-node... it iz... very quiet. Not like da zun, not like da hum of da mag-net.
+------------------------------------------------------------
+Player: What do you think of my outfit?
+NPC:    Diz? Diz iz... k'tak... complicated. You call 'em... zocks'?
+------------------------------------------------------------
+Player: It's raining.
+NPC:    Diz iz... k'tak... Zorp's... at your door. You... you give him da good thingz?
+------------------------------------------------------------
+Player: I brought you a gift.
+NPC:    A gift? Zorp brought you a gift? k'tak Zorp iz not very good with giftz.
+------------------------------------------------------------
 ```
 
-If you try our original generalist prompt, you can see that the model still attempts to answer in the trained style. In this example overfitting and catastrophic forgetting are actually beneficial for the game NPC because it will begin forgetting general knowledge which might not be applicable. This is also true for other types of full fine-tuning where the goal is to restrict the output to specific data formats.
+With a full fine-tune, the model now nicely follows the training data and stays in character!
 
-```python { .notebook-cell }
-outputs = pipe([{"role": "user", "content": "Sorry, you are a game NPC."}], max_new_tokens=256, disable_compile=True)
-print(outputs[0]['generated_text'][1]['content'])
-```
+---
 
-```{ .no-copy .output }
-Nameless. You... you z-mell like... wet plantz. Why you wear shiny piecez on your head?
-```
+## What's next
 
-## Summary and next steps
+<div class="card-grid">
+<a class="card" href="moe-finetune.md">
+  <span class="card-icon">{{ icon('lucide/boxes') }}</span>
+  <div class="card-title">MoE fine-tuning</div>
+  <p class="card-desc">Learn how routing works in Gemma 4 26B A4B and how to fine-tune all 128 routed experts without router collapse.</p>
+</a>
+<a class="card" href="continued-pretraining.md">
+  <span class="card-icon">{{ icon('lucide/book-open') }}</span>
+  <div class="card-title">Continued pre-training</div>
+  <p class="card-desc">Adapt Gemma 4 to raw domain documents with sequence packing and add new domain tokens to the vocabulary.</p>
+</a>
+<a class="card" href="preference-alignment.md">
+  <span class="card-icon">{{ icon('lucide/sliders-horizontal') }}</span>
+  <div class="card-title">Preference optimization</div>
+  <p class="card-desc">Shape your model's tone and formatting using chosen and rejected response pairs.</p>
+</a>
+<a class="card" href="scaling.md">
+  <span class="card-icon">{{ icon('lucide/boxes') }}</span>
+  <div class="card-title">Scaling</div>
+  <p class="card-desc">Shard full fine-tuning across multiple GPUs with FSDP2 and recover 4-bit accuracy with TorchAO QAT.</p>
+</a>
+</div>
 
-This tutorial covered how to full model fine-tune using TRL. Check out the following docs next:
-
-- Learn how to [fine-tune Gemma for text tasks using Hugging Face Transformers](qlora.md).
-- Learn how to [fine-tune Gemma for vision tasks using Hugging Face Transformers](vision-qlora.md).
-- Learn how to [deploy to Cloud Run](../deployment/google-cloud.md#cloud-run)
+--8<-- "glossary.md"

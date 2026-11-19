@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="652" height="246" viewBox="0 0 652 246" fill="none">
+  <defs>
+    <linearGradient id="paint-s03-target" x1="286.57" y1="101.92" x2="361.73" y2="156.64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3186FF" stop-opacity="0.5"/>
+      <stop offset="0.45" stop-color="#346BF1"/>
+      <stop offset="0.95" stop-color="#4FA0FF"/>
+    </linearGradient>
+    <linearGradient id="grad-1" x1="0.16" y1="0.87" x2="0.84" y2="0.13">
+      <stop offset="0" stop-color="#3186FF"/>
+      <stop offset="0.45" stop-color="#346BF1"/>
+      <stop offset="0.95" stop-color="#4FA0FF"/>
+    </linearGradient>
+  </defs>
+  <rect id="background" width="652" height="246" fill="#FFFFFF"/>
+  <g id="s03-scene">
+    <g id="s03-left-lead">
+      <g id="s03-ctx">
+        <g id="s03-ctx-0">
+          <path d="M 22.88 18.5 H 78.12 A 6.88 6.88 0 0 1 85 25.38 V 43.5 H 16 V 25.38 A 6.88 6.88 0 0 1 22.88 18.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="50.49" y="36">SELECT</tspan></text>
+        </g>
+        <g id="s03-ctx-1">
+          <path d="M 95.88 18.5 H 116.12 A 6.88 6.88 0 0 1 123 25.38 V 43.5 H 89 V 25.38 A 6.88 6.88 0 0 1 95.88 18.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="106" y="36">*</tspan></text>
+        </g>
+        <g id="s03-ctx-2">
+          <path d="M 133.88 18.5 H 171.12 A 6.88 6.88 0 0 1 178 25.38 V 43.5 H 127 V 25.38 A 6.88 6.88 0 0 1 133.88 18.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="152.51" y="36">FROM</tspan></text>
+        </g>
+      </g>
+      <g id="s03-draft">
+        <rect x="206" y="16" width="116" height="30" rx="5" fill="#EDEDED" stroke="#000000" stroke-width="2"/>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="263.99" y="36">Draft Model</tspan></text>
+      </g>
+    </g>
+    <g id="s03-verify-col">
+      <g id="s03-guesses">
+        <g id="g-0">
+          <path d="M 371.88 18.5 H 418.12 A 6.88 6.88 0 0 1 425 25.38 V 43.5 H 365 V 25.38 A 6.88 6.88 0 0 1 371.88 18.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="395" y="36">users</tspan></text>
+        </g>
+        <g id="g-1">
+          <path d="M 437.88 18.5 H 492.12 A 6.88 6.88 0 0 1 499 25.38 V 43.5 H 431 V 25.38 A 6.88 6.88 0 0 1 437.88 18.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="464.99" y="36">WHERE</tspan></text>
+        </g>
+        <g id="g-2">
+          <path d="M 511.88 18.5 H 544.12 A 6.88 6.88 0 0 1 551 25.38 V 43.5 H 505 V 25.38 A 6.88 6.88 0 0 1 511.88 18.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="528" y="36">id</tspan></text>
+        </g>
+        <g id="g-3">
+          <path d="M 563.88 18.5 H 592.12 A 6.88 6.88 0 0 1 599 25.38 V 43.5 H 557 V 25.38 A 6.88 6.88 0 0 1 563.88 18.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="578" y="36">=</tspan></text>
+        </g>
+      </g>
+      <g id="s03-target">
+        <rect x="356.72" y="76" width="250.55" height="36" rx="6" fill="url(#paint-s03-target)" fill-opacity="0.1" stroke="#000000" stroke-width="2"/>
+        <g id="s03-t-inner">
+          <text font-family="Inter, Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="-0.5" fill="url(#grad-1)" text-anchor="middle" id="s03-wm"><tspan x="403.69" y="100">Gemma</tspan></text>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="500" fill="#3186FF" text-anchor="middle" id="s03-sz"><tspan x="440.73" y="100">4</tspan></text>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#000000" text-anchor="middle" id="s03-vtxt"><tspan x="519.03" y="99">· </tspan><tspan font-weight="700">1 parallel verify pass</tspan></text>
+        </g>
+      </g>
+      <g id="s03-spans">
+        <g id="s03-spans-groups">
+          <g id="s03-sp-kept">
+            <g id="s03-kept-grp">
+              <g id="v-0-col">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="v-0-chk"><tspan x="357.99" y="153" font-weight="700" fill="#2B8D1E">✓</tspan></text>
+                <g id="v-0">
+                  <path d="M 334.88 158 H 381.12 A 6.88 6.88 0 0 1 388 164.88 V 183 H 328 V 164.88 A 6.88 6.88 0 0 1 334.88 158 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="358" y="175">users</tspan></text>
+                </g>
+              </g>
+              <g id="v-1-col">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="v-1-chk"><tspan x="427.99" y="153" font-weight="700" fill="#2B8D1E">✓</tspan></text>
+                <g id="v-1">
+                  <path d="M 400.88 158 H 455.12 A 6.88 6.88 0 0 1 462 164.88 V 183 H 394 V 164.88 A 6.88 6.88 0 0 1 400.88 158 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="427.99" y="175">WHERE</tspan></text>
+                </g>
+              </g>
+            </g>
+            <path d="M 328 188 L 328 194 L 462 194 L 462 188" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="s03-sp-kept-br"/>
+            <g id="s03-sp-kept-lbl">
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="s03-sp-kept-main"><tspan x="394.99" y="211" font-weight="700">2 kept</tspan></text>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="s03-sp-kept-sub"><tspan x="395" y="227">(from draft)</tspan></text>
+            </g>
+          </g>
+          <g id="s03-sp-corr">
+            <g id="s03-corr-grp">
+              <g id="v-rej-col">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="v-rej-x"><tspan x="497.99" y="153" font-weight="700" fill="#B83232">✗</tspan></text>
+                <g id="v-rej" opacity="0.35">
+                  <path d="M 482.88 158 H 513.12 A 6.88 6.88 0 0 1 520 164.88 V 183 H 476 V 164.88 A 6.88 6.88 0 0 1 482.88 158 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="498" y="175">id</tspan></text>
+                </g>
+              </g>
+              <g id="v-emit-col">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle" id="v-emit-tag"><tspan x="558" y="153" font-weight="700" fill="#743BBE">fix</tspan></text>
+                <g id="v-emit">
+                  <path d="M 532.88 158 H 583.12 A 6.88 6.88 0 0 1 590 164.88 V 183 H 526 V 164.88 A 6.88 6.88 0 0 1 532.88 158 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="557.99" y="175">active</tspan></text>
+                </g>
+              </g>
+              <g id="v-ign-col">
+                <g id="v-ign-tag" opacity="0.35">
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle"><tspan x="615.99" y="153">skip</tspan></text>
+                </g>
+                <g id="v-ign" opacity="0.35">
+                  <path d="M 602.88 158 H 629.12 A 6.88 6.88 0 0 1 636 164.88 V 183 H 596 V 164.88 A 6.88 6.88 0 0 1 602.88 158 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="616" y="175">=</tspan></text>
+                </g>
+              </g>
+            </g>
+            <path d="M 476 188 L 476 194 L 636 194 L 636 188" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="s03-sp-corr-br"/>
+            <g id="s03-sp-corr-lbl">
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="s03-sp-corr-main"><tspan x="555.99" y="211" font-weight="700">1 corrected</tspan></text>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="s03-sp-corr-sub"><tspan x="555.99" y="227">(exact quality)</tspan></text>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="arrows" fill="none">
+    <g id="a-s03-ctx">
+      <path d="M 183 31 L 192.8 31" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="200,31 192,35.62 192,26.38" fill="#000000"/>
+    </g>
+    <g id="a-s03-guess">
+      <path d="M 328 31 L 352.8 31" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="360,31 352,35.62 352,26.38" fill="#000000"/>
+    </g>
+    <g id="a-s03-ver">
+      <path d="M 482 51 L 482 62.8" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="482,70 477.38,62 486.62,62" fill="#000000"/>
+    </g>
+    <g id="a-s03-out">
+      <path d="M 481.99 118 L 481.99 127.8" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="481.99,135 477.37,127 486.61,127" fill="#000000"/>
+    </g>
+  </g>
+</svg>

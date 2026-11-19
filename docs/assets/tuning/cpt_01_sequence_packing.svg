@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="342" viewBox="0 0 640 342" fill="none">
+  <rect id="background" width="640" height="342" fill="#FFFFFF"/>
+  <g id="cpt01-contrast">
+    <g id="cpt01-contrast-pair">
+      <g id="cpt01-contrast-left">
+        <g id="cpt01-contrast-left-hdr">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="cpt01-contrast-left-title"><tspan x="319.99" y="34">Padded batch</tspan></text>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="cpt01-contrast-left-sub"><tspan x="319.99" y="51">(short documents padded to fixed length)</tspan></text>
+        </g>
+        <g id="padded-wrap">
+          <g id="padded-grid">
+            <g id="p-doc-a">
+              <g id="p-doc-a-lbl-slot">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#000000" text-anchor="middle" id="p-doc-a-lbl"><tspan x="55.09" y="81" font-weight="700">Doc A</tspan></text>
+              </g>
+              <g id="p-doc-a-slots">
+                <g id="p-doc-a-0">
+                  <path d="M 90.88 64 H 133.12 A 6.88 6.88 0 0 1 140 70.88 V 89 H 84 V 70.88 A 6.88 6.88 0 0 1 90.88 64 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="112.01" y="81">Patient</tspan></text>
+                </g>
+                <g id="p-doc-a-1">
+                  <path d="M 150.88 64 H 193.12 A 6.88 6.88 0 0 1 200 70.88 V 89 H 144 V 70.88 A 6.88 6.88 0 0 1 150.88 64 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="172" y="81">notes</tspan></text>
+                </g>
+                <g id="p-doc-a-2">
+                  <path d="M 210.88 64 H 253.12 A 6.88 6.88 0 0 1 260 70.88 V 89 H 204 V 70.88 A 6.88 6.88 0 0 1 210.88 64 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="232" y="81">&lt;eos&gt;</tspan></text>
+                </g>
+                <g id="p-doc-a-p0" opacity="0.35">
+                  <path d="M 270.88 64 H 313.12 A 6.88 6.88 0 0 1 320 70.88 V 89 H 264 V 70.88 A 6.88 6.88 0 0 1 270.88 64 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="292" y="81">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-a-p1" opacity="0.35">
+                  <path d="M 330.88 64 H 373.12 A 6.88 6.88 0 0 1 380 70.88 V 89 H 324 V 70.88 A 6.88 6.88 0 0 1 330.88 64 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="352" y="81">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-a-p2" opacity="0.35">
+                  <path d="M 390.88 64 H 433.12 A 6.88 6.88 0 0 1 440 70.88 V 89 H 384 V 70.88 A 6.88 6.88 0 0 1 390.88 64 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="412" y="81">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-a-p3" opacity="0.35">
+                  <path d="M 450.88 64 H 493.12 A 6.88 6.88 0 0 1 500 70.88 V 89 H 444 V 70.88 A 6.88 6.88 0 0 1 450.88 64 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="472" y="81">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-a-p4" opacity="0.35">
+                  <path d="M 510.88 64 H 553.12 A 6.88 6.88 0 0 1 560 70.88 V 89 H 504 V 70.88 A 6.88 6.88 0 0 1 510.88 64 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="532" y="81">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-a-p5" opacity="0.35">
+                  <path d="M 570.88 64 H 613.12 A 6.88 6.88 0 0 1 620 70.88 V 89 H 564 V 70.88 A 6.88 6.88 0 0 1 570.88 64 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="592" y="81">&lt;pad&gt;</tspan></text>
+                </g>
+              </g>
+            </g>
+            <g id="p-doc-b">
+              <g id="p-doc-b-lbl-slot">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#000000" text-anchor="middle" id="p-doc-b-lbl"><tspan x="55.66" y="113" font-weight="700">Doc B</tspan></text>
+              </g>
+              <g id="p-doc-b-slots">
+                <g id="p-doc-b-0">
+                  <path d="M 90.88 96 H 133.12 A 6.88 6.88 0 0 1 140 102.88 V 121 H 84 V 102.88 A 6.88 6.88 0 0 1 90.88 96 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="111.99" y="113">Trial</tspan></text>
+                </g>
+                <g id="p-doc-b-1">
+                  <path d="M 150.88 96 H 193.12 A 6.88 6.88 0 0 1 200 102.88 V 121 H 144 V 102.88 A 6.88 6.88 0 0 1 150.88 96 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="171.99" y="113">doses</tspan></text>
+                </g>
+                <g id="p-doc-b-2">
+                  <path d="M 210.88 96 H 253.12 A 6.88 6.88 0 0 1 260 102.88 V 121 H 204 V 102.88 A 6.88 6.88 0 0 1 210.88 96 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="232" y="113">&lt;eos&gt;</tspan></text>
+                </g>
+                <g id="p-doc-b-p0" opacity="0.35">
+                  <path d="M 270.88 96 H 313.12 A 6.88 6.88 0 0 1 320 102.88 V 121 H 264 V 102.88 A 6.88 6.88 0 0 1 270.88 96 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="292" y="113">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-b-p1" opacity="0.35">
+                  <path d="M 330.88 96 H 373.12 A 6.88 6.88 0 0 1 380 102.88 V 121 H 324 V 102.88 A 6.88 6.88 0 0 1 330.88 96 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="352" y="113">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-b-p2" opacity="0.35">
+                  <path d="M 390.88 96 H 433.12 A 6.88 6.88 0 0 1 440 102.88 V 121 H 384 V 102.88 A 6.88 6.88 0 0 1 390.88 96 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="412" y="113">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-b-p3" opacity="0.35">
+                  <path d="M 450.88 96 H 493.12 A 6.88 6.88 0 0 1 500 102.88 V 121 H 444 V 102.88 A 6.88 6.88 0 0 1 450.88 96 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="472" y="113">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-b-p4" opacity="0.35">
+                  <path d="M 510.88 96 H 553.12 A 6.88 6.88 0 0 1 560 102.88 V 121 H 504 V 102.88 A 6.88 6.88 0 0 1 510.88 96 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="532" y="113">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-b-p5" opacity="0.35">
+                  <path d="M 570.88 96 H 613.12 A 6.88 6.88 0 0 1 620 102.88 V 121 H 564 V 102.88 A 6.88 6.88 0 0 1 570.88 96 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="592" y="113">&lt;pad&gt;</tspan></text>
+                </g>
+              </g>
+            </g>
+            <g id="p-doc-c">
+              <g id="p-doc-c-lbl-slot">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#000000" text-anchor="middle" id="p-doc-c-lbl"><tspan x="55.06" y="145" font-weight="700">Doc C</tspan></text>
+              </g>
+              <g id="p-doc-c-slots">
+                <g id="p-doc-c-0">
+                  <path d="M 90.88 128 H 133.12 A 6.88 6.88 0 0 1 140 134.88 V 153 H 84 V 134.88 A 6.88 6.88 0 0 1 90.88 128 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="111.99" y="145">Clear</tspan></text>
+                </g>
+                <g id="p-doc-c-1">
+                  <path d="M 150.88 128 H 193.12 A 6.88 6.88 0 0 1 200 134.88 V 153 H 144 V 134.88 A 6.88 6.88 0 0 1 150.88 128 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="171.99" y="145">scan</tspan></text>
+                </g>
+                <g id="p-doc-c-2">
+                  <path d="M 210.88 128 H 253.12 A 6.88 6.88 0 0 1 260 134.88 V 153 H 204 V 134.88 A 6.88 6.88 0 0 1 210.88 128 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="232" y="145">&lt;eos&gt;</tspan></text>
+                </g>
+                <g id="p-doc-c-p0" opacity="0.35">
+                  <path d="M 270.88 128 H 313.12 A 6.88 6.88 0 0 1 320 134.88 V 153 H 264 V 134.88 A 6.88 6.88 0 0 1 270.88 128 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="292" y="145">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-c-p1" opacity="0.35">
+                  <path d="M 330.88 128 H 373.12 A 6.88 6.88 0 0 1 380 134.88 V 153 H 324 V 134.88 A 6.88 6.88 0 0 1 330.88 128 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="352" y="145">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-c-p2" opacity="0.35">
+                  <path d="M 390.88 128 H 433.12 A 6.88 6.88 0 0 1 440 134.88 V 153 H 384 V 134.88 A 6.88 6.88 0 0 1 390.88 128 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="412" y="145">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-c-p3" opacity="0.35">
+                  <path d="M 450.88 128 H 493.12 A 6.88 6.88 0 0 1 500 134.88 V 153 H 444 V 134.88 A 6.88 6.88 0 0 1 450.88 128 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="472" y="145">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-c-p4" opacity="0.35">
+                  <path d="M 510.88 128 H 553.12 A 6.88 6.88 0 0 1 560 134.88 V 153 H 504 V 134.88 A 6.88 6.88 0 0 1 510.88 128 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="532" y="145">&lt;pad&gt;</tspan></text>
+                </g>
+                <g id="p-doc-c-p5" opacity="0.35">
+                  <path d="M 570.88 128 H 613.12 A 6.88 6.88 0 0 1 620 134.88 V 153 H 564 V 134.88 A 6.88 6.88 0 0 1 570.88 128 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="592" y="145">&lt;pad&gt;</tspan></text>
+                </g>
+              </g>
+            </g>
+          </g>
+          <g id="pad-waste-row">
+            <g id="pad-waste-col">
+              <path d="M 264 159 L 264 165 L 620 165 L 620 159" fill="none" stroke="#767676" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="pad-waste-br"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle" id="pad-waste-lbl"><tspan x="442" y="181" font-weight="700">18 of 27 slots</tspan><tspan> wasted on &lt;pad&gt;</tspan></text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <line x1="23" y1="202.75" x2="617" y2="202.75" stroke="#8C8C8C" stroke-width="1.5" stroke-dasharray="3 3" id="cpt01-contrast-div"/>
+      <g id="cpt01-contrast-right">
+        <g id="cpt01-contrast-right-hdr">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="cpt01-contrast-right-title"><tspan x="319.98" y="236">Packed batch</tspan></text>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="cpt01-contrast-right-sub"><tspan x="319.99" y="252">(documents concatenated end-to-end with &lt;eos&gt;)</tspan></text>
+        </g>
+        <g id="packed-row-wrap">
+          <g id="pk-lbl-slot">
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#000000" text-anchor="middle" id="pk-lbl"><tspan x="55.67" y="282" font-weight="700">Row 1</tspan></text>
+          </g>
+          <g id="packed-spans">
+            <g id="packed-spans-groups">
+              <g id="pk-a">
+                <g id="pk-a-row">
+                  <g id="pk-a-0">
+                    <path d="M 90.88 265.5 H 133.12 A 6.88 6.88 0 0 1 140 272.38 V 290.5 H 84 V 272.38 A 6.88 6.88 0 0 1 90.88 265.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="112.01" y="283">Patient</tspan></text>
+                  </g>
+                  <g id="pk-a-1">
+                    <path d="M 150.88 265.5 H 193.12 A 6.88 6.88 0 0 1 200 272.38 V 290.5 H 144 V 272.38 A 6.88 6.88 0 0 1 150.88 265.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="172" y="283">notes</tspan></text>
+                  </g>
+                  <g id="pk-a-2">
+                    <path d="M 210.88 265.5 H 253.12 A 6.88 6.88 0 0 1 260 272.38 V 290.5 H 204 V 272.38 A 6.88 6.88 0 0 1 210.88 265.5 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="232" y="283">&lt;eos&gt;</tspan></text>
+                  </g>
+                </g>
+                <path d="M 84 295.5 L 84 301.5 L 260 301.5 L 260 295.5" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="pk-a-br"/>
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="pk-a-lbl"><tspan x="172" y="318" font-weight="700">Doc A</tspan></text>
+              </g>
+              <g id="pk-b">
+                <g id="pk-b-row">
+                  <g id="pk-b-0">
+                    <path d="M 270.88 265.5 H 313.12 A 6.88 6.88 0 0 1 320 272.38 V 290.5 H 264 V 272.38 A 6.88 6.88 0 0 1 270.88 265.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="291.99" y="283">Trial</tspan></text>
+                  </g>
+                  <g id="pk-b-1">
+                    <path d="M 330.88 265.5 H 373.12 A 6.88 6.88 0 0 1 380 272.38 V 290.5 H 324 V 272.38 A 6.88 6.88 0 0 1 330.88 265.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="351.99" y="283">doses</tspan></text>
+                  </g>
+                  <g id="pk-b-2">
+                    <path d="M 390.88 265.5 H 433.12 A 6.88 6.88 0 0 1 440 272.38 V 290.5 H 384 V 272.38 A 6.88 6.88 0 0 1 390.88 265.5 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="412" y="283">&lt;eos&gt;</tspan></text>
+                  </g>
+                </g>
+                <path d="M 264 295.5 L 264 301.5 L 440 301.5 L 440 295.5" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="pk-b-br"/>
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="pk-b-lbl"><tspan x="352" y="318" font-weight="700">Doc B</tspan></text>
+              </g>
+              <g id="pk-c">
+                <g id="pk-c-row">
+                  <g id="pk-c-0">
+                    <path d="M 450.88 265.5 H 493.12 A 6.88 6.88 0 0 1 500 272.38 V 290.5 H 444 V 272.38 A 6.88 6.88 0 0 1 450.88 265.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="471.99" y="283">Clear</tspan></text>
+                  </g>
+                  <g id="pk-c-1">
+                    <path d="M 510.88 265.5 H 553.12 A 6.88 6.88 0 0 1 560 272.38 V 290.5 H 504 V 272.38 A 6.88 6.88 0 0 1 510.88 265.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="531.99" y="283">scan</tspan></text>
+                  </g>
+                  <g id="pk-c-2">
+                    <path d="M 570.88 265.5 H 613.12 A 6.88 6.88 0 0 1 620 272.38 V 290.5 H 564 V 272.38 A 6.88 6.88 0 0 1 570.88 265.5 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="592" y="283">&lt;eos&gt;</tspan></text>
+                  </g>
+                </g>
+                <path d="M 444 295.5 L 444 301.5 L 620 301.5 L 620 295.5" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="pk-c-br"/>
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="pk-c-lbl"><tspan x="532" y="318" font-weight="700">Doc C</tspan></text>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

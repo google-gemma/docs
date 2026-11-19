@@ -1,687 +1,461 @@
 ---
-title: Fine-Tune Gemma for Audio Tasks using Unsloth and QLoRA
-description: This guide walks you through how to fine-tune Gemma on a custom audio dataset for a audio task (generating transcription of Kumamoto dialect Japanese) using Unsloth.
+title: Audio fine-tuning
+description: Fine-tune Gemma 4 E2B, E4B, and 12B on custom speech transcription, low-resource languages, and spoken QA datasets with LoRA, Transformers, and TRL.
 models: [gemma-4]
 requires: audio
-frameworks: [unsloth, peft]
+frameworks: [transformers, peft, trl]
 colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/audio-qlora-gemma-4-e2b.ipynb
 ---
-# Fine-Tune Gemma for Audio Task using Unsloth and QLoRA
 
-This guide walks you through how to fine-tune Gemma on a custom audio dataset for a audio task (generating transcription of [Kumamoto dialect Japanese](https://en.wikipedia.org/wiki/Kumamoto_dialect)) using Unsloth.
+# Audio fine-tuning
 
-## Overview & Objectives
-- **Base Model**: Gemma 4 PT multimodal foundation model
-- **Dataset**: [`federerjiang/dialect.kumamoto`](https://huggingface.co/datasets/federerjiang/dialect.kumamoto) on Hugging Face (1,300 speech recordings of Kumamoto dialect Japanese)
-- **Methodology**: **4-bit QLoRA** via Unsloth & PEFT, drastically reducing memory while fine-tuning language attention and MLP projections
-- **Target Metric**: **Text similarity > 80.0%**
+Three models in the Gemma 4 family (E2B, E4B, and 12B) understand audio natively alongside text and images. You can fine-tune these checkpoints on custom audio datasets for low-resource speech recognition, regional dialect adaptation, medical dictation, and spoken question answering.
 
-## 1. Environment Setup & Dependency Installation
+---
 
-You will install:
+## 1. Two architectures
 
-- `unsloth` for accelerated 4-bit QLoRA and memory optimization
-- `transformers`, `trl`, `peft`, `accelerate` from Hugging Face
-- `soundfile`, `librosa`, `jiwer` for audio processing and Character Error Rate (CER) evaluation
+Just like vision, Gemma 4 processes audio through either a dedicated audio encoder (E2B and E4B) or no encoder at all (12B). As with vision, note how everything is frozen except the adapters:
 
+![Conformer audio tower versus encoder-free Gemma 4 12B audio stem](../assets/tuning/audio_01_conformer_vs_12b_waveform.svg)
+
+In both cases, the audio is sliced into 40 ms windows (25 audio soft tokens per second). They are then processed differently depending on the model:
+
+1. **Audio encoder** *(E2B and E4B)*: It slices the 16 kHz audio into 40 ms segments and extracts features via the audio tokenizer. They are then passes through a frozen 12-layer audio encoder before being projected into the Gemma model.
+2. **Encoder-free** *(12B)*: Has no separate audio encoder. Instead, identical 40 ms audio segments pass through a frozen linear projection layer straight into the 12B model.
+
+
+As with the vision examples, it is advised to start by keeping the audio encoder frozen and only train LoRA adapters on the language layers.
+
+---
+
+## 2. Masking tokens
+
+When preparing audio datasets for Gemma 4, each clip is resampled to 16 kHz mono and expanded into a sequence of audio soft tokens wrapped between `<|audio|>`{.token-multi} and `<audio|>`{.token-multi} tokens. During training, every prompt and audio token before the assistant response is masked out of the loss calculation:
+
+![Completion-only masking for audio fine-tuning](../assets/tuning/audio_02_audio_soft_token_masking.svg)
+
+As with vision, this allows the model to focus all of its updates on the output rather than attempting to guess the input. 
+
+When training, here are some guidelines:
+
+1. **Resample to 16,000 Hz mono**: Gemma 4's audio processor expects 16 kHz single-channel waveforms. Resample 44.1 kHz or 48 kHz recordings to 16 kHz and average stereo channels to mono.
+2. **Keep clips to 30 seconds or less**: The audio encoders support a maximum of 30 seconds, so split longer recordings at silence boundaries into 10 to 30 second clips.
+3. **Mask prompt and audio tokens**: Exclude all system, user, and audio soft tokens from the training loss so the model only learns to predict the text transcript.
+
+---
+
+## 3. Set up the environment
+
+We will fine-tune Gemma 4 on the Welsh (`cy_gb`) split of [`google/fleurs`](https://huggingface.co/datasets/google/fleurs) so it can learn to recognize Welsh. This task is commonly referred to as automatic speech recognition (ASR).
+
+Install the Hugging Face post-training, quantization, multimodal, and evaluation libraries:
+
+```python { .notebook-cell }
+# Install Hugging Face post-training, quantization, multimodal, and evaluation libraries
+%pip install -q -U "transformers>=5.10.1" "trl>=0.16.0" "peft>=0.19.0" accelerate datasets bitsandbytes torchao
+%pip install -q -U evaluate sacrebleu jiwer pillow soundfile librosa matplotlib tensorboard
+```
+
+If you plan to push your trained adapter to the Hugging Face Hub, log in with a write token:
+
+```python { .notebook-cell }
+# Optional: Uncomment if using gated checkpoints or pushing to the Hub
+# from huggingface_hub import login
+# login()
+```
+
+---
+
+## 4. Prepare the dataset
+
+To load the data, we make use of the `librosa` and `soundfile` libraries to decode the waveforms and store it in memory. This prevents us from needing to write thousands of `.wav` files to disk.
 
 
 ```python { .notebook-cell }
-# Install Unsloth and required dependencies
-!pip install unsloth[colab-new] unsloth_zoo
-!pip install -U torch torchvision torchaudio transformers trl peft accelerate datasets bitsandbytes soundfile librosa jiwer
-```
-
-## 2. (Optional) Hugging Face Authentication
-
-You need a valid Hugging Face Token to publish your model. If you are running inside a Google Colab, you can securely use your Hugging Face Token using the Colab secrets otherwise you can set the token as directly in the `login` method. Make sure your token has write access too, as you push your model to the Hub during training.
-
-
-```python { .notebook-cell }
-# Login into Hugging Face Hub
-from huggingface_hub import login
-login()
-```
-
-## 3. Hardware & GPU Precision Verification
-
-
-
-```python { .notebook-cell }
-import torch
-
-device = "cuda" if torch.cuda.is_available() else "cpu"
-print(f"Device: {device}")
-if device == "cuda":
-    gpu_name = torch.cuda.get_device_name(0)
-    vram_gb = torch.cuda.get_device_properties(0).total_memory / (1024**3)
-    supports_bf16 = torch.cuda.is_bf16_supported()
-    print(f"GPU: {gpu_name} ({vram_gb:.2f} GB VRAM)")
-    print(f"Bfloat16 Supported: {supports_bf16}")
-    dtype = torch.bfloat16 if supports_bf16 else torch.float16
-else:
-    raise RuntimeError("GPU acceleration is required. In Colab: Runtime -> Change runtime type -> T4 GPU / A100.")
-
-```
-
-``` { .no-copy .output }
-Device: cuda
-GPU: NVIDIA L4 (22.03 GB VRAM)
-Bfloat16 Supported: True
-```
-
-## 4. Dataset Loading & Preparation (`federerjiang/dialect.kumamoto`)
-
-You will download the `federerjiang/dialect.kumamoto` dataset directly from Hugging Face.  
-
-The dataset contains:
-
-- `audio`: Audio waveform and sampling rate (16 kHz)
-- `sentence`: Ground-truth transcription in Kumamoto dialect (*Kumamoto-ben*)
-
-You will split the 1,300 samples into:
-
-- **Train split**: 1,170 samples (90%)
-- **Test split**: 130 samples (10%) with fixed random seed (`seed=42`)
-
-
-
-```python { .notebook-cell }
-import os
-import soundfile as sf
+import io
+import librosa
 import numpy as np
-from datasets import load_dataset
-from tqdm import tqdm
+import soundfile as sf
+from datasets import Audio, load_dataset
 
-print("Downloading dataset from Hugging Face...")
-raw_dataset = load_dataset("federerjiang/dialect.kumamoto", split="train")
-print(f"Loaded {len(raw_dataset)} total samples.")
 
-# Create local audio storage directory
-audio_dir = "./audios"
-os.makedirs(audio_dir, exist_ok=True)
+# Decode raw audio bytes or file paths into a 16 kHz mono float32 waveform (<= 30s)
+def decode_audio(audio_dict: dict) -> np.ndarray:
+    if audio_dict.get("bytes"):
+        waveform, sr = sf.read(io.BytesIO(audio_dict["bytes"]), dtype="float32")
+    else:
+        waveform, sr = sf.read(audio_dict["path"], dtype="float32")
+    if waveform.ndim > 1:
+        waveform = waveform.mean(axis=1)
+    if sr != 16000:
+        waveform = librosa.resample(waveform, orig_sr=sr, target_sr=16000)
+    return waveform[: 16000 * 30]
 
-# Split into 90% train (1170) and 10% test (130) with fixed seed
-split_ds = raw_dataset.train_test_split(test_size=0.1, seed=42)
-train_raw = split_ds["train"]
-test_raw = split_ds["test"]
 
-print(f"Train samples: {len(train_raw)}, Test samples: {len(test_raw)}")
+# Load the Welsh FLEURS split and disable eager audio decoding
+raw_dataset = load_dataset("google/fleurs", "cy_gb")
+train_dataset = raw_dataset["train"].cast_column("audio", Audio(decode=False))
+val_dataset = raw_dataset["validation"].select(range(100)).cast_column("audio", Audio(decode=False))
+test_dataset = raw_dataset["test"].select(range(100)).cast_column("audio", Audio(decode=False))
 
-def process_and_cache(raw_split, split_name):
-    items = []
-    instruction_text = "音声を聞いて、文字起こしをしてください。"
-    for idx, sample in enumerate(tqdm(raw_split, desc=f"Processing {split_name}")):
-        sample_id = f"kumamoto_{split_name}_{idx:04d}"
-        wav_path = os.path.join(audio_dir, f"{sample_id}.wav")
+sample0_wav = decode_audio(train_dataset[0]["audio"])
+print(f"Splits: train={len(train_dataset)}, val={len(val_dataset)}, test={len(test_dataset)}")
+print(f"Sample 0 duration: {len(sample0_wav) / 16000:.2f}s")
+print(f"Sample 0 transcript: {train_dataset[0]['raw_transcription']}")
+```
 
-        # Extract audio array and sampling rate
-        audio_info = sample["audio"]
-        audio_array = np.array(audio_info["array"], dtype=np.float32)
-        sr = audio_info["sampling_rate"]
+```{ .no-copy .output }
+Splits: train=3427, val=100, test=100
+Sample 0 duration: 12.06s
+Sample 0 transcript: Gellir ei wneud yn denau iawn, a'i lynu ar fetal arall. Gellir ei wneud mor denau fel ei fod weithiau'n cael ei ddefnyddio i addurno'r lluniau wedi'u paentio â llaw mewn llyfrau o'r enw "llawysgrifau addurnedig".
+```
 
-        # Resample to 16kHz if not already
-        if sr != 16000:
-            import librosa
-            audio_array = librosa.resample(audio_array, orig_sr=sr, target_sr=16000)
-            sr = 16000
+---
 
-        # Save audio file
-        sf.write(wav_path, audio_array, sr)
+## 5. Load the model
 
-        text = sample["sentence"].strip()
 
-        # Format into standard multi-turn conversation
+Load the instruction-tuned Gemma 4 checkpoint and multimodal processor in `bfloat16`:
+
+```python { .notebook-cell .model-swap }
+import torch
+from transformers import AutoModelForMultimodalLM, AutoProcessor
+
+model_id = "google/gemma-4-E2B-it"
+
+# Load the multimodal base model in bfloat16 alongside its audio-capable processor
+model = AutoModelForMultimodalLM.from_pretrained(
+    model_id,
+    dtype=torch.bfloat16,
+    device_map="cuda",
+)
+processor = AutoProcessor.from_pretrained(model_id)
+```
+
+!!! note "Why bfloat16 LoRA for audio?"
+    Uniform 4-bit NF4 quantization (`BitsAndBytesConfig(load_in_4bit=True)`) quantizes audio-critical projection layers and degrades speech recognition accuracy. Loading `E2B-it` in `bfloat16` with gradient checkpointing keeps audio projections at full precision and trains in ~11.9 GB of VRAM (for selective 4-bit quantization on smaller GPUs, see [Fine-tuning with Unsloth](unsloth.md)).
+
+---
+
+## 6. Evaluate the base model
+
+Before we actually start with training, let's perform baseline evaluation. We will use the commonly used normalized Word Error Rate (WER) and Character Error Rate (CER) across 100 held-out Welsh recordings:
+
+```python { .notebook-cell }
+import jiwer
+
+PROMPT_TEXT = (
+    "Transcribe the following speech segment in Welsh into Welsh text.\n\n"
+    "Follow these specific instructions for formatting the answer:\n"
+    "* Only output the transcription, with no newlines.\n"
+    "* When transcribing numbers, write the digits, i.e. write 1.7 and not one point seven, and write 3 instead of three."
+)
+
+asr_normalizer = jiwer.Compose(
+    [jiwer.ToLowerCase(), jiwer.RemovePunctuation(), jiwer.RemoveMultipleSpaces(), jiwer.Strip()]
+)
+
+
+# Evaluate corpus Word Error Rate (WER) and Character Error Rate (CER) on held-out audio
+def evaluate_welsh_asr(eval_model, eval_processor, dataset_split):
+    eval_model.eval()
+    stop_ids = [
+        eval_processor.tokenizer.eos_token_id,
+        eval_processor.tokenizer.convert_tokens_to_ids("<turn|>"),
+    ]
+    refs_raw, preds_raw = [], []
+
+    for idx in range(len(dataset_split)):
+        sample = dataset_split[idx]
+        ref = sample["raw_transcription"].strip()
         messages = [
             {
                 "role": "user",
                 "content": [
-                    {"type": "audio", "url": wav_path},
-                    {"type": "text", "text": instruction_text}
-                ]
-            },
-            {
-                "role": "assistant",
-                "content": [
-                    {"type": "text", "text": text}
-                ]
+                    {"type": "audio", "audio": "clip.wav"},
+                    {"type": "text", "text": PROMPT_TEXT},
+                ],
             }
         ]
+        prompt = eval_processor.apply_chat_template(
+            messages, tokenize=False, add_generation_prompt=True
+        )
+        inputs = eval_processor(
+            text=[prompt],
+            audio=[decode_audio(sample["audio"])],
+            sampling_rate=16000,
+            return_tensors="pt",
+            padding=True,
+        ).to(eval_model.device)
 
-        items.append({
-            "id": sample_id,
-            "audio_path": wav_path,
-            "sentence": text,
-            "messages": messages
-        })
-    return items
+        with torch.no_grad():
+            out = eval_model.generate(
+                **inputs,
+                max_new_tokens=128,
+                do_sample=False,
+                pad_token_id=eval_processor.tokenizer.pad_token_id,
+                eos_token_id=stop_ids,
+            )
 
-train_items = process_and_cache(train_raw, "train")
-test_items = process_and_cache(test_raw, "test")
+        pred = eval_processor.tokenizer.decode(
+            out[0][inputs.input_ids.shape[1] :], skip_special_tokens=True
+        )
+        pred = pred.split("<turn|>")[0].split("\n")[0].strip()
+        refs_raw.append(ref)
+        preds_raw.append(pred)
 
-import json
-os.makedirs("./data", exist_ok=True)
-with open("./data/train.json", "w", encoding="utf-8") as f:
-    json.dump(train_items, f, ensure_ascii=False, indent=2)
-with open("./data/test.json", "w", encoding="utf-8") as f:
-    json.dump(test_items, f, ensure_ascii=False, indent=2)
+    norm_refs = [asr_normalizer(r) for r in refs_raw]
+    norm_preds = [asr_normalizer(p) for p in preds_raw]
+    corpus_wer = jiwer.wer(norm_refs, norm_preds) * 100.0
+    corpus_cer = jiwer.cer(norm_refs, norm_preds) * 100.0
+    metrics = {
+        "wer_pct": round(corpus_wer, 2),
+        "cer_pct": round(corpus_cer, 2),
+    }
+    return metrics, refs_raw, preds_raw
 
-print("Dataset prepared and saved to ./data/train.json and ./data/test.json!")
 
+# Measure zero-shot Welsh transcription accuracy before LoRA training
+before_metrics, refs, before_preds = evaluate_welsh_asr(model, processor, test_dataset)
+print("Before LoRA (100 unseen Welsh clips):", before_metrics)
+print("Sample #0 ground truth :", refs[0])
+print("Sample #0 zero-shot    :", before_preds[0])
 ```
 
 ```{ .no-copy .output }
-Downloading dataset from Hugging Face...
-Loaded 1300 total samples.
-Train samples: 1170, Test samples: 130
-Processing train: 100%|██████████| 1170/1170 [00:23<00:00, 49.88it/s]
-Processing test: 100%|██████████| 130/130 [00:02<00:00, 53.72it/s]
-Dataset prepared and saved to ./data/train.json and ./data/test.json!
+Before LoRA (100 unseen Welsh clips): {'wer_pct': 71.21, 'cer_pct': 29.63}
+Sample #0 ground truth : Mae'r term saffari mewn defnydd cyffredinol yn cyfeirio at deithio dros dir i weld bywyd gwyllt syfrdanol Affrica, yn enwedig ar safana.
+Sample #0 zero-shot    : Mar ten swfary, mae'n ddefnyddiol yn cyfderio astaethiad ostod i wal bywyd gwll syfratonnol Africa yn ywedig ar sffana.
 ```
 
-## 5. Model Initialization with 4-bit QLoRA
+Without any fine-tuning, the model approximates Welsh phonetics and results in a **71.21%** Word Error Rate across the 100 unseen clips. Something we can improve upon!
 
-The following code loads the Gemma model and processor in 4-bit normal float (NF4) quantization using Unsloth.  
+---
 
-Key adaptations:
+## 7. Train the model
 
-1. **Audio Masked Scatter Patch**: PyTorch `masked_scatter` is patched to handle mismatched tensor dtypes when embedding audio representations alongside quantized weights.
-2. **LoRA Adapter Setup**:
-    - Rank ($r$): **32**
-    - Alpha ($\alpha$): **64** ($2 \times r$)
-    - Target Modules: Language model attention (`q_proj`, `k_proj`, `v_proj`, `o_proj`) and feed-forward MLP layers (`gate_proj`, `up_proj`, `down_proj`).
-    - Trainable parameters: **~48.3M** (only **~0.94%** of base model weights).
+Next, let's define the LoRA adapters and target the same layers as we always do (language layers) while freezing the audio encoder:
 
+```python { .notebook-cell }
+from peft import LoraConfig, get_peft_model
 
-
-```python { .notebook-cell .model-swap }
-# Patch torch masked_scatter for multimodal audio tensor compatibility in QLoRA
-_original_masked_scatter = torch.Tensor.masked_scatter
-def _patched_masked_scatter(self, mask, source):
-    if self.dtype != source.dtype:
-        source = source.to(self.dtype)
-    return _original_masked_scatter(self, mask, source)
-torch.Tensor.masked_scatter = _patched_masked_scatter
-
-import unsloth
-from unsloth import FastModel
-from unsloth.chat_templates import get_chat_template
-
-model_name = "google/gemma-4-E2B"
-max_seq_length = 2048
-
-print(f"Loading {model_name} in 4-bit NF4 (QLoRA)...")
-model, processor = FastModel.from_pretrained(
-    model_name=model_name,
-    max_seq_length=max_seq_length,
-    dtype=dtype,
-    load_in_4bit=True,
-    full_finetuning=False,
-    use_gradient_checkpointing="unsloth",
-)
-
-processor = get_chat_template(processor, chat_template="gemma-4")
-
-print("Attaching LoRA adapters...")
-model = FastModel.get_peft_model(
-    model,
-    finetune_vision_layers=False,
-    finetune_language_layers=True,
-    finetune_attention_modules=True,
-    finetune_mlp_modules=True,
+# Attach rank-32 LoRA adapters to the language layers while freezing audio/vision towers
+peft_config = LoraConfig(
     r=32,
     lora_alpha=64,
-    lora_dropout=0,
+    lora_dropout=0.0,
     bias="none",
+    target_modules=[
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj",
+    ],
+    exclude_modules=r"model\.(vision_tower|audio_tower)\..*",
+    task_type="CAUSAL_LM",
 )
-
+model = get_peft_model(model, peft_config)
 model.print_trainable_parameters()
-
 ```
 
-``` { .no-copy .output }
-🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
-🦥 Unsloth Zoo will now patch everything to make training faster!
-Loading google/gemma-4-E2B in 4-bit NF4 (QLoRA)...
-==((====))==  Unsloth 2026.9.4: Fast Gemma4 patching. Transformers: 5.17.0.
-   \\   /|    NVIDIA L4. Num GPUs = 1. Max memory: 22.034 GB. Platform: Linux.
-O^O/ \_/ \    Torch: 2.14.0+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.8.0
-\        /    Bfloat16 = TRUE. FA [Xformers = None. FA2 = False]
- "-____-"     Free license: http://github.com/unslothai/unsloth
-Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
-Loading weights:   0%|          | 0/1951 [00:00<?, ?it/s]
-Attaching LoRA adapters...
+```{ .no-copy .output }
 trainable params: 48,316,416 || all params: 5,152,613,920 || trainable%: 0.9377
 ```
 
-## 6. Audio Transcription Collator & Loss Masking
-
-To ensure the model learns strictly to transcribe the audio rather than memorizing prompt tokens:
-
-- The following code parses <code><span class="token-turn">&lt;|turn&gt;</span><span class="token-role">model</span>\n</code> in each sequence.
-- All tokens prior to <code><span class="token-turn">&lt;|turn&gt;</span><span class="token-role">model</span>\n</code>  (including audio prefix markers and user instruction) are masked to `-100`.
-- Only assistant response tokens contribute to the cross-entropy loss.
-
-
+One last thing before we can train: we need a data collator to create audio/text batches and apply the masking to the input prompts:
 
 ```python { .notebook-cell }
-def get_collate_fn(processor):
-    def collate_fn(examples):
-        texts = []
-        audios = []
-        for example in examples:
-            messages = example["messages"]
-            full_text = processor.apply_chat_template(messages, add_generation_prompt=False, tokenize=False)
-            texts.append(full_text.strip())
+target_tokens = processor.tokenizer.encode("<|turn>model\n", add_special_tokens=False)
+target_len = len(target_tokens)
+audio_token_ids = {256000, 258881, 258883}
 
-            audio_path = example.get("audio_path")
-            if not audio_path:
-                for m in messages:
-                    for b in m.get("content", []):
-                        if isinstance(b, dict) and b.get("type") == "audio":
-                            audio_path = b.get("audio") or b.get("url")
 
-            audio_arr, sr = sf.read(audio_path, dtype="float32")
-            if audio_arr.ndim > 1:
-                audio_arr = audio_arr.mean(axis=1)
-            audios.append(audio_arr)
+# Build audio-text batches and mask prompt, padding, and audio soft tokens from the loss
+def collate_fn(examples):
+    texts, audios = [], []
+    for example in examples:
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {"type": "audio", "audio": "clip.wav"},
+                    {"type": "text", "text": PROMPT_TEXT},
+                ],
+            },
+            {
+                "role": "assistant",
+                "content": [{"type": "text", "text": example["raw_transcription"].strip()}],
+            },
+        ]
+        full_text = processor.apply_chat_template(
+            messages, add_generation_prompt=False, tokenize=False
+        )
+        texts.append(full_text.strip())
+        audios.append(decode_audio(example["audio"]))
 
-        batch = processor(text=texts, audio=audios, return_tensors="pt", padding=True)
-        labels = batch["input_ids"].clone()
+    batch = processor(
+        text=texts,
+        audio=audios,
+        sampling_rate=16000,
+        return_tensors="pt",
+        padding=True,
+    )
+    labels = batch["input_ids"].clone()
 
-        target_phrase = "<|turn>model\n"
-        target_tokens = processor.tokenizer.encode(target_phrase, add_special_tokens=False)
-        target_len = len(target_tokens)
+    for i in range(labels.size(0)):
+        row_tokens = batch["input_ids"][i].tolist()
+        for idx in range(len(row_tokens) - target_len, -1, -1):
+            if row_tokens[idx : idx + target_len] == target_tokens:
+                labels[i, : idx + target_len] = -100
+                break
+        else:
+            labels[i, :] = -100
 
-        for i in range(labels.size(0)):
-            row_tokens = batch["input_ids"][i].tolist()
-            assistant_start_idx = None
-            for idx in range(len(row_tokens) - target_len + 1):
-                if row_tokens[idx : idx + target_len] == target_tokens:
-                    assistant_start_idx = idx + target_len
-                    break
-
-            if assistant_start_idx is not None:
-                labels[i, :assistant_start_idx] = -100
-            else:
-                labels[i, labels[i] == processor.tokenizer.pad_token_id] = -100
-
-        labels[labels == processor.tokenizer.pad_token_id] = -100
-        batch["labels"] = labels
-        return batch
-
-    return collate_fn
-
-collate_fn = get_collate_fn(processor)
-print("Collate function defined successfully!")
-
+    labels[labels == processor.tokenizer.pad_token_id] = -100
+    for tok_id in audio_token_ids:
+        labels[labels == tok_id] = -100
+    batch["labels"] = labels
+    return batch
 ```
 
-```{ .no-copy .output }
-Collate function defined successfully!
-```
-
-## 7. Fine-Tuning with TRL `SFTTrainer`
-
-### Training Hyperparameters
-| Parameter | Value |
-| :--- | :--- |
-| **Learning Rate** | `2.0e-4` with cosine decay |
-| **Warmup Ratio** | 3% of total steps (~18 steps) |
-| **Epochs** | 4 epochs (588 optimizer steps) |
-| **Batch Size** | 4 per device $\times$ 2 gradient accumulation = 8 effective |
-| **Precision** | `bfloat16` (or `float16` fallback) |
-| **Checkpoint Strategy** | Save every epoch, `load_best_model_at_end=True` based on `eval_loss` |
-
-
+We can train the model! Let's configure `SFTConfig` for two epochs:
 
 ```python { .notebook-cell }
-from trl import SFTTrainer, SFTConfig
-from datasets import load_dataset as hf_load_dataset
+from trl import SFTConfig, SFTTrainer
 
-train_dataset = hf_load_dataset("json", data_files="./data/train.json", split="train")
-test_dataset = hf_load_dataset("json", data_files="./data/test.json", split="train")
+output_dir = "gemma-4-welsh-asr"
 
-output_dir = "./checkpoints"
-os.makedirs(output_dir, exist_ok=True)
-
-batch_size = 4
-grad_accum = 2
-epochs = 4
-learning_rate = 2e-4
-total_steps = (len(train_dataset) // (batch_size * grad_accum)) * epochs
-warmup_steps = max(1, int(total_steps * 0.03))
-
+# Set the training hyperparameters for audio SFT
 sft_config = SFTConfig(
     output_dir=output_dir,
-    per_device_train_batch_size=batch_size,
-    per_device_eval_batch_size=batch_size,
-    gradient_accumulation_steps=grad_accum,
-    num_train_epochs=epochs,
-    learning_rate=learning_rate,
+    per_device_train_batch_size=4,
+    per_device_eval_batch_size=4,
+    gradient_accumulation_steps=2,
+    num_train_epochs=2,
+    learning_rate=1e-4,
     lr_scheduler_type="cosine",
-    warmup_steps=warmup_steps,
-    bf16=supports_bf16,
-    fp16=not supports_bf16,
+    warmup_steps=0.05,
+    bf16=True,
+    gradient_checkpointing=True,
+    gradient_checkpointing_kwargs={"use_reentrant": False},
+    max_length=2048,
     eval_strategy="epoch",
-    save_strategy="epoch",
-    save_total_limit=2,
-    load_best_model_at_end=True,
-    metric_for_best_model="eval_loss",
-    greater_is_better=False,
+    eval_on_start=True,
+    save_strategy="no",
     remove_unused_columns=False,
     dataset_kwargs={"skip_prepare_dataset": True},
-    max_length=max_seq_length,
-    logging_steps=10,
+    logging_steps=25,
     report_to="none",
 )
 
+# Initialize and run the audio trainer
 trainer = SFTTrainer(
     model=model,
     processing_class=processor,
     train_dataset=train_dataset,
-    eval_dataset=test_dataset,
+    eval_dataset=val_dataset,
     data_collator=collate_fn,
     args=sft_config,
 )
 
-print(f"Starting QLoRA training ({total_steps} steps across {epochs} epochs)...")
-train_result = trainer.train()
-print(f"Training completed! Stats: {train_result}")
+trainer.train()
 
-# Save final best model and processor
-final_model_path = os.path.join(output_dir, "final_model")
+final_model_path = f"{output_dir}/final_model"
 trainer.save_model(final_model_path)
-processor.save_pretrained(final_model_path)
-print(f"Fine-tuned QLoRA adapter saved to {final_model_path}!")
-
+AutoProcessor.from_pretrained(model_id).save_pretrained(final_model_path)
 ```
 
 ```{ .no-copy .output }
-Generating train split: 0 examples [00:00, ? examples/s]
-Generating train split: 0 examples [00:00, ? examples/s]
-The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': 2}.
-Starting QLoRA training (584 steps across 4 epochs)...
-==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
-   \\   /|    Num examples = 1,170 | Num Epochs = 4 | Total steps = 588
-O^O/ \_/ \    Batch size per device = 4 | Gradient accumulation steps = 2
-\        /    Data Parallel GPUs = 1 | Total batch size (4 x 2 x 1) = 8
- "-____-"     Trainable parameters = 48,316,416 of 5,152,613,920 (0.94% trained)
-Unsloth: Not an error, but Gemma4ForConditionalGeneration does not accept `num_items_in_batch`.
-Using gradient accumulation will be very slightly less accurate.
-Read more on gradient accumulation issues here: https://unsloth.ai/blog/gradient
+[858/858 30:25, Epoch 2/2]
 
-[588/588 18:18, Epoch 4/4]
-
-| Epoch | Training Loss | Validation Loss |
-|---|---|---|
-| 1 | 0.635206 | 0.630127 |
-| 2 | 0.279609 | 0.644313 |
-| 3 | 0.069598 | 0.765895 |
-| 4 | 0.014357 | 0.905066 |
-
-Unsloth: Restored added_tokens_decoder metadata in ./checkpoints/checkpoint-147/tokenizer_config.json.
-Unsloth: Restored added_tokens_decoder metadata in ./checkpoints/checkpoint-294/tokenizer_config.json.
-Unsloth: Restored added_tokens_decoder metadata in ./checkpoints/checkpoint-441/tokenizer_config.json.
-Unsloth: Restored added_tokens_decoder metadata in ./checkpoints/checkpoint-588/tokenizer_config.json.
-Training completed! Stats: TrainOutput(global_step=588, training_loss=0.3260592963217067, metrics={'train_runtime': 1196.9343, 'train_samples_per_second': 3.91, 'train_steps_per_second': 0.491, 'total_flos': 1.816203342288845e+16, 'train_loss': 0.3260592963217067, 'epoch': 4.0})
-Unsloth: Restored added_tokens_decoder metadata in ./checkpoints/final_model/tokenizer_config.json.
-Fine-tuned QLoRA adapter saved to ./checkpoints/final_model!
+| Epoch | Training Loss | Validation Loss | Mean Token Accuracy |
+|---|---|---|---|
+| 0 | — | 4.6640 | 0.5865 |
+| 1 | 1.2644 | 0.9693 | 0.7708 |
+| 2 | 0.7478 | 0.9296 | 0.7873 |
 ```
 
-## 8. Evaluation on Unseen Test Split (130 Samples)
+<!-- notebook:skip-start -->
+??? info "Inspect the training curve"
+    ![Training and validation loss across epochs](../assets/tuning/audio-qlora_loss.svg)
+<!-- notebook:skip-end -->
 
-You will evaluate the fine-tuned model on all **130 unseen test audio recordings** using greedy decoding.  
+---
 
-Metrics computed:
+## 8. Evaluate the fine-tuned model
 
-1. **SequenceMatcher Similarity** (`difflib.SequenceMatcher`): Character subsequence alignment ratio.
-2. **Levenshtein Similarity**: Normalized edit distance ratio ($1 - \frac{\text{dist}}{\max(L_1, L_2)}$).
-3. **Character Accuracy**: $1 - \text{CER}$ using `jiwer.cer`.
-4. **Exact Match Rate**: Percentage of exact character matches.
-
-> **Evaluation Goal**: Achieve > 80.0% text similarity.
-
-
+We free the pipeline from GPU memory and load in our trained checkpoint so we can evaluate it on the unseen recordings:
 
 ```python { .notebook-cell }
-import difflib
-import jiwer
-from tqdm import tqdm
+import gc
+from peft import PeftModel
 
-def compute_levenshtein(s1, s2):
-    if len(s1) < len(s2):
-        return compute_levenshtein(s2, s1)
-    if len(s2) == 0:
-        return len(s1)
-    prev = range(len(s2) + 1)
-    for i, c1 in enumerate(s1):
-        curr = [i + 1]
-        for j, c2 in enumerate(s2):
-            ins = prev[j + 1] + 1
-            dels = curr[j] + 1
-            subs = prev[j] + (c1 != c2)
-            curr.append(min(ins, dels, subs))
-        prev = curr
-    return prev[-1]
+# Free training memory and reload the saved LoRA adapter for inference
+del trainer, model
+gc.collect()
+torch.cuda.empty_cache()
 
-# Load fine-tuned adapter for inference
-print(f"Loading fine-tuned model for inference from {final_model_path}...")
-eval_model, eval_processor = FastModel.from_pretrained(
-    model_name=final_model_path,
-    max_seq_length=max_seq_length,
-    dtype=dtype,
-    load_in_4bit=True,
+base_model = AutoModelForMultimodalLM.from_pretrained(
+    model_id, dtype=torch.bfloat16, device_map="cuda"
 )
-eval_processor = get_chat_template(eval_processor, chat_template="gemma-4")
-FastModel.for_inference(eval_model)
-eval_device = next(eval_model.parameters()).device
+eval_model = PeftModel.from_pretrained(base_model, final_model_path)
+eval_processor = AutoProcessor.from_pretrained(final_model_path)
 
-similarities = []
-lev_sims = []
-char_accs = []
-cers = []
-exact_matches = 0
-results = []
+# Evaluate the fine-tuned adapter on the 100 unseen Welsh test clips
+after_metrics, _, after_preds = evaluate_welsh_asr(eval_model, eval_processor, test_dataset)
+print("Before LoRA (100 unseen Welsh clips):", before_metrics)
+print("After LoRA  (100 unseen Welsh clips):", after_metrics)
 
-print(f"Evaluating {len(test_items)} test samples...")
-for item in tqdm(test_items, desc="Evaluating"):
-    ref = item["sentence"].strip()
-    audio_path = item["audio_path"]
-    prompt_text = "音声を聞いて、文字起こしをしてください。"
-
-    audio_arr, sr = sf.read(audio_path, dtype="float32")
-    if audio_arr.ndim > 1:
-        audio_arr = audio_arr.mean(axis=1)
-
-    messages = [
-        {
-            "role": "user",
-            "content": [
-                {"type": "audio", "url": audio_path},
-                {"type": "text", "text": prompt_text}
-            ]
-        }
-    ]
-
-    prompt = eval_processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-    inputs = eval_processor(text=[prompt], audio=[audio_arr], return_tensors="pt", padding=True)
-    inputs = {k: v.to(eval_device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
-
-    with torch.no_grad():
-        output_ids = eval_model.generate(
-            **inputs,
-            max_new_tokens=80,
-            do_sample=False,
-            pad_token_id=eval_processor.tokenizer.pad_token_id,
-            eos_token_id=[1, 106],
-        )
-
-    input_len = inputs["input_ids"].shape[1]
-    pred = eval_processor.tokenizer.decode(output_ids[0][input_len:], skip_special_tokens=True).strip()
-    pred = pred.split("<turn|>")[0].split("\n")[0].strip()
-
-    # Metrics
-    sim = difflib.SequenceMatcher(None, ref, pred).ratio() * 100.0
-    max_l = max(len(ref), len(pred))
-    dist = compute_levenshtein(ref, pred)
-    lev_sim = ((max_l - dist) / max_l * 100.0) if max_l > 0 else 100.0
-    try:
-        cer = jiwer.cer(ref, pred)
-    except Exception:
-        cer = 1.0
-    char_acc = max(0.0, 1.0 - cer) * 100.0
-    is_exact = (ref == pred)
-
-    if is_exact:
-        exact_matches += 1
-
-    similarities.append(sim)
-    lev_sims.append(lev_sim)
-    char_accs.append(char_acc)
-    cers.append(cer * 100.0)
-
-    results.append({
-        "id": item["id"],
-        "reference": ref,
-        "prediction": pred,
-        "similarity": round(sim, 2),
-        "exact_match": is_exact
-    })
-
-mean_sim = sum(similarities) / len(similarities)
-mean_lev = sum(lev_sims) / len(lev_sims)
-mean_acc = sum(char_accs) / len(char_accs)
-mean_cer = sum(cers) / len(cers)
-exact_rate = (exact_matches / len(test_items)) * 100.0
-
-print("\n" + "="*50)
-print("QLoRA ASR EVALUATION SUMMARY")
-print("="*50)
-print(f"Total Test Samples:        {len(test_items)}")
-print(f"Mean Text Similarity:      {mean_sim:.2f}%")
-print(f"Mean Levenshtein Sim:      {mean_lev:.2f}%")
-print(f"Mean Character Accuracy:   {mean_acc:.2f}%")
-print(f"Mean CER:                  {mean_cer:.2f}%")
-print(f"Exact Match Rate:          {exact_rate:.2f}% ({exact_matches}/{len(test_items)})")
-print(f"Target (> 80%) Achieved:   {'YES 🎉' if mean_sim > 80.0 else 'NO'}")
-print("="*50 + "\n")
-
+print("\n--- Unseen Test Recording #0 ---")
+print("Ground Truth:", refs[0])
+print("Before LoRA :", before_preds[0])
+print("After LoRA  :", after_preds[0])
 ```
 
 ```{ .no-copy .output }
-Loading fine-tuned model for inference from ./checkpoints/final_model...
-==((====))==  Unsloth 2026.9.4: Fast Gemma4 patching. Transformers: 5.17.0.
-    \\   /|    NVIDIA L4. Num GPUs = 1. Max memory: 22.034 GB. Platform: Linux.
-O^O/ \_/ \    Torch: 2.14.0+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.8.0
-\        /    Bfloat16 = TRUE. FA [Xformers = None. FA2 = False]
-    "-____-"     Free license: http://github.com/unslothai/unsloth
-Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Before LoRA (100 unseen Welsh clips): {'wer_pct': 71.21, 'cer_pct': 29.63}
+After LoRA  (100 unseen Welsh clips): {'wer_pct': 49.28, 'cer_pct': 22.24}
 
-Loading weights:   0%|          | 0/1951 [00:00<?, ?it/s]
-
-Evaluating 130 test samples...
-Evaluating: 100%|██████████| 130/130 [08:33<00:00,  3.95s/it]    
-==================================================
-QLoRA ASR EVALUATION SUMMARY
-==================================================
-Total Test Samples:        130
-Mean Text Similarity:      84.75%
-Mean Levenshtein Sim:      81.83%
-Mean Character Accuracy:   80.89%
-Mean CER:                  19.11%
-Exact Match Rate:          9.23% (12/130)
-Target (> 80%) Achieved:   YES 🎉
-==================================================
+--- Unseen Test Recording #0 ---
+Ground Truth: Mae'r term saffari mewn defnydd cyffredinol yn cyfeirio at deithio dros dir i weld bywyd gwyllt syfrdanol Affrica, yn enwedig ar safana.
+Before LoRA : Mar ten swfary, mae'n ddefnyddiol yn cyfderio astaethiad ostod i wal bywyd gwll syfratonnol Africa yn ywedig ar sffana.
+After LoRA  : Mae'r Term Saffari, mewn defnydd cyffredinol, yn cyfeirio at steithio dros dro i'w wylbwyd gwyllt sefylladol Affrica, yn enwedig ar Safana.
 ```
 
-## 9. Interactive Inspection & Dialect Audio Demo
+The scores are looking much better now with only two epochs and updating a small number of weights:
 
-Let's inspect sample predictions against ground-truth Kumamoto dialect sentences, and play an audio sample directly in Colab.
+| Metric | Before LoRA | After LoRA | Change |
+|---|---|---|---|
+| **Word Error Rate (WER, lower is better)** | 71.21% | **49.28%** | **-21.93 pp** |
+| **Character Error Rate (CER, lower is better)** | 29.63% | **22.24%** | **-7.39 pp** |
 
+---
 
+## What's next
 
-```python { .notebook-cell }
-from IPython.display import Audio, display
-import pandas as pd
-
-# Display top predictions in a clean table
-df_results = pd.DataFrame(results[:15])
-display(df_results[["id", "reference", "prediction", "similarity", "exact_match"]])
-
-# Play an example audio
-sample_to_play = test_items[0]
-print(f"Playing sample {sample_to_play['id']}:")
-print(f"Ground Truth: {sample_to_play['sentence']}")
-matched_pred = next(r['prediction'] for r in results if r['id'] == sample_to_play['id'])
-print(f"QLoRA Pred  : {matched_pred}")
-
-display(Audio(sample_to_play["audio_path"]))
-
-```
-
-```{ .no-copy .output }
-| | id | reference | prediction | similarity | exact_match |
-|--|--|--|--|--|--|
-| 0 | kumamoto_test_0000 | カピバラに触らるっ場所もあっばい。親子で歩きよる姿に癒さるっけん。 | カピバラに触らるっ場所もあっばい。親子で歩きよる姿に癒さるっけん。 | 100.00 | True |
-| 1 | kumamoto_test_0001 | 舗装もぴしゃっとしとらすけんあんま揺れんし，風ば受けながり土手ん上ば走るとは気持ちんよか（爽... | ホソーもぴしゃっとしとらすけんあんまよれんし、風邪ば受けながらどっでん上ば走るとは気持ちんよ... | 77.23 | False |
-| 2 | kumamoto_test_0002 | だけん，祇園界隈な観光客でわんさかしとって，人気の店ん前には長蛇ん列のでくる． | だけん、気取らない観光客でわん探しとって、人気の店ん前にはちょうだん列のでくる。 | 70.89 | False |
-| 3 | kumamoto_test_0003 | 飛行機の着陸する寸前に窓から下ば見っと、格子状ん畑の広がっとって帰ってきたなっちゅう感じのすっ。 | 飛行機の着陸する瞬間に窓から下ばみっと、合志城ん畑の広がっとって、帰ってきたなっちゅう感じのすっ。 | 86.60 | False |
-| 4 | kumamoto_test_0004 | 次，料理ん本番ばい． | 次，両親ん本番ばい． | 80.00 | False |
-| 5 | kumamoto_test_0005 | 透き通っとる白湯スープのラーメンで，たいぎゃあっさりとした味わいばい． | 好きとっとるパイタンスープのラーメンで、たいぎゃあっさりとした味ばい。 | 77.14 | False |
-| 6 | kumamoto_test_0006 | 東京まぢ戻ってきたばってん，１１時オープンてだけん，時間のちと早かごたる． | 東京マジ戻ってきたばってん、１１時オープンてだけん、時間の落ちと早かごたる。 | 85.33 | False |
-| 7 | kumamoto_test_0007 | 近くにゃレンゲ畑のあって、きれいかねって思いよりながら自転車ん乗っとったら、いがわさんつこけた。 | 近くにゃレンギバタケのあって、きれいかねって思いよりながら自転車ん乗っとったら、飯川さんつこけだ。 | 86.60 | False |
-| 8 | kumamoto_test_0008 | 大人んなってくっと一人で過ごしたか時間の出てくるもんたい． | 大人になってくっと一人で過ごしたか時間の出てくるもんだい． | 93.10 | False |
-| 9 | kumamoto_test_0009 | 近所ん豚舎んもんの友達におって、たまあにうまか豚バラん串焼きば食わせてもらいよった。 | キンジョン豚しゃんもんの友達におって、たまーにうまか豚バラん串焼きば作ってもらいよった。 | 79.07 | False |
-| 10 | kumamoto_test_0010 | ばってん夏休みな結局ずっと部活しかしとらん． | ばってん夏休みは結局ずっと部活しとらん． | 90.48 | False |
-| 11 | kumamoto_test_0011 | そぎゃん親切ばしてもらうと、旅の何倍でん楽しゅうなったい。 | そぎゃん新設ばしてもらうと、旅の何倍でん楽ちゅうなったい。 | 89.66 | False |
-| 12 | kumamoto_test_0012 | またいろいろあると思ちょるばってんが，今ん状態じゃ，そんぐらいしか見つけきらんかった． | まあたいろいろあると思ちょるばってんが，今ん状態じゃそんくらいしか見つけきらんかった． | 95.35 | False |
-| 13 | kumamoto_test_0013 | 飲み放題もついとったばってん，だっもいっちょん飲まんで，食ぶる食ぶる肉ばひたすら食べよらす． | 飲み放題もついとったばってん、だんもいっちょん飲まんで、食べぶる食べぶる、肉ばひたすら食べよらす。 | 88.42 | False |
-| 14 | kumamoto_test_0014 | 桜んイメージのなかかもしれんばってん、一心行ん大桜は有名ばい。 | 桜んイメージのなかかも試練ばってん、一芯ぎょうん大桜は夢え。 | 72.13 | False |
-
-Playing sample kumamoto_test_0000:
-Ground Truth: カピバラに触らるっ場所もあっばい。親子で歩きよる姿に癒さるっけん。
-QLoRA Pred  : カピバラに触らるっ場所もあっばい。親子で歩きよる姿に癒さるっけん。
-```
-
-<audio class="output" controls="controls" >
-    <source src="/assets/tuning/output_kumamoto_test.wav" type="audio/x-wav" />
-    Your browser does not support the audio element.
-</audio>
-
-## 10. (Optional) Save & Push LoRA Adapter to Hugging Face Hub
-
-You can push the fine-tuned LoRA weights directly to Hugging Face Hub for easy sharing or downstream deployment:
-
-
-
-```python { .notebook-cell }
-from huggingface_hub import whoami
-
-hf_repo_id = whoami()["name"] + "/gemma-4-kumamoto-asr-qlora"
-eval_model.push_to_hub(hf_repo_id, token=hf_token)
-eval_processor.push_to_hub(hf_repo_id, token=hf_token)
-print(f"Adapter successfully pushed to https://huggingface.co/{hf_repo_id}")
-
-```
-
-```{ .no-copy .output }
-Processing Files (0 / 0)      : |          |  0.00B /  0.00B            
-New Data Upload               : |          |  0.00B /  0.00B            
-...adapter_model.safetensors:   8%|8         | 16.0MB /  193MB            
-Saved model to https://huggingface.co/bebechien/gemma-4-kumamoto-asr-qlora
-Unsloth: Restored added_tokens_decoder metadata in /tmp/tmpx47_aabs/tokenizer_config.json.
-Processing Files (0 / 0)      : |          |  0.00B /  0.00B            
-New Data Upload               : |          |  0.00B /  0.00B            
-...mpx47_aabs/tokenizer.json:  50%|####9     | 16.0MB / 32.2MB            
-Adapter successfully pushed to https://huggingface.co/bebechien/gemma-4-kumamoto-asr-qlora
-```
-
-## Summary and next steps
-
-This tutorial covered how to fine-tune a Gemma model using Unsloth and QLoRA. Check out the following docs next:
-
-- Learn how to [fine-tune Gemma for text tasks using Hugging Face Transformers](qlora.md).
-- Learn how to [fine-tune Gemma for vision tasks using Hugging Face Transformers](vision-qlora.md).
-- Learn how to [use Gemma open models with Vertex AI](https://cloud.google.com/vertex-ai/docs/generative-ai/open-models/use-gemma).
-
+<div class="card-grid">
+<a class="card" href="vision-qlora.md">
+  <span class="card-icon">{{ icon('lucide/eye') }}</span>
+  <div class="card-title">Vision fine-tuning</div>
+  <p class="card-desc">Fine-tune Gemma 4 on custom images, charts, receipts, and documents using selectable vision token budgets.</p>
+</a>
+<a class="card" href="preference-alignment.md">
+  <span class="card-icon">{{ icon('lucide/sliders-horizontal') }}</span>
+  <div class="card-title">Preference optimization</div>
+  <p class="card-desc">Shape your model's tone and conciseness using chosen and rejected response pairs.</p>
+</a>
+<a class="card" href="reinforcement-learning.md">
+  <span class="card-icon">{{ icon('lucide/brain') }}</span>
+  <div class="card-title">Verifiable rewards</div>
+  <p class="card-desc">Train Gemma 4's thinking channel using verifiable reward functions.</p>
+</a>
+<a class="card" href="export.md">
+  <span class="card-icon">{{ icon('lucide/rocket') }}</span>
+  <div class="card-title">Export</div>
+  <p class="card-desc">Export your fine-tuned E2B, E4B, or 12B model to LiteRT-LM for on-device audio inference or vLLM for servers.</p>
+</a>
+</div>

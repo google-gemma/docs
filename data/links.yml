@@ -133,6 +133,20 @@ links:
     url: https://github.com/google-gemma
   vertex-use-gemma:
     url: https://cloud.google.com/vertex-ai/docs/generative-ai/open-models/use-gemma
+  unsloth-gemma4:
+    url: https://unsloth.ai/docs/models/gemma-4
+    model: gemma-4
+  unsloth-gemma4-train:
+    url: https://unsloth.ai/docs/models/gemma-4/train
+    model: gemma-4
+  trl-docs:
+    url: https://huggingface.co/docs/trl
+  peft-docs:
+    url: https://huggingface.co/docs/peft
+  accelerate-docs:
+    url: https://huggingface.co/docs/accelerate
+  torchao-repo:
+    url: https://github.com/pytorch/ao
 
   # --- Old Documents ---------------------------------------------------------------------
   legacy-gemma-setup:

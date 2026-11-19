@@ -1,279 +1,338 @@
 ---
-title: Fine-Tune Gemma for Vision Tasks using Hugging Face Transformers and QLoRA
-description: This guide walks you through how to fine-tune Gemma on a custom image and text dataset for a vision task (generating product descriptions) using Hugging Face Transformers and TRL.
-models: [gemma-4]
+title: Vision fine-tuning
+description: Fine-tune Gemma 4 on custom image-text datasets using QLoRA, selectable vision token budgets, and completion-only multimodal loss masking.
+models: [gemma-4/e2b, gemma-4/e4b, gemma-4/12b, gemma-4/31b]
 frameworks: [transformers, peft, trl]
 source_url: "https://ai.google.dev/gemma/docs/core/huggingface_vision_finetune_qlora.md.txt"
 colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/vision-qlora-gemma-4-e2b.ipynb
 ---
-# Fine-Tune Gemma for Vision Tasks using Hugging Face Transformers and QLoRA
 
+# Vision fine-tuning
 
-This guide walks you through how to fine-tune Gemma on a custom image and text dataset for a vision task (generating product descriptions) using Hugging Face [Transformers](https://huggingface.co/docs/transformers/index) and [TRL](https://huggingface.co/docs/trl/index). You will learn:
+Every model in the Gemma 4 family accepts images and text natively. Fine-tuning Gemma 4 on image-text pairs lets you build visual assistants for receipt and document OCR, medical imaging, chart extraction, UI grounding, and product cataloging.
 
-- What is Quantized Low-Rank Adaptation (QLoRA)
-- Setup development environment
-- Create and prepare the fine-tuning dataset
-- Fine-tune Gemma using TRL and the SFTTrainer
-- Test Model Inference and generate product descriptions from images and text.
+!!! note "Hardware requirements"
+    Vision fine-tuning requires a GPU that supports bfloat16 (such as an NVIDIA L4, A100, H100, or RTX 30/40/50 series) with at least 16 GB of VRAM for E2B and E4B, 24 GB for 12B, and 48 to 80 GB for 26B A4B and 31B.
 
-!!! Note
-    This guide requires a GPU which support bfloat16 data type such as NVIDIA L4 or NVIDIA A100 and more than 16GB of memory.
+---
 
+## 1. Choosing a vision token budget
 
-## What is Quantized Low-Rank Adaptation (QLoRA)
+Many older vision-language models crop every image into a fixed square, which distorts wide charts and tall receipts. Gemma 4 preserves each image's original aspect ratio, slices it into patches, and pools them into a selectable token budget:
 
-This guide demonstrates the use of [Quantized Low-Rank Adaptation (QLoRA)](https://arxiv.org/abs/2305.14314), which emerged as a popular method to efficiently fine-tune LLMs as it reduces computational resource requirements while maintaining high performance. In QloRA, the pretrained model is quantized to 4-bit and the weights are frozen. Then trainable adapter layers (LoRA) are attached and only the adapter layers are trained. Afterwards, the adapter weights can be merged with the base model or kept as a separate adapter.
+![Gemma 4 vision token budgets from 70 to 1,120 tokens](../assets/tuning/vision_01_variable_token_budget.svg)
 
-## Setup development environment
+Each image is wrapped between `<|image|>`{.token-multi} and `<image|>`{.token-multi} tokens and converted into soft tokens. The vision token budget decides how many tokens will be generated. Lowering the budget from 1,120 to 280 tokens cuts the visual token count by 4x, which reduces activation memory and lets you train with larger batch sizes. Here are some guiding principles for choosing the budget:
 
-The first step is to install Hugging Face Libraries, including TRL, and datasets to fine-tune open model.
+- **70 or 140 tokens**: Best for thumbnails, multi-image prompts, or fast classification where you want larger batch sizes.
+- **280 tokens (default)**: Good balance for general visual question answering, product photos, and UI screenshots.
+- **560 or 1,120 tokens**: High-detail budgets for dense PDF pages, financial charts, schematics, and small-font OCR.
 
-```python { .notebook-cell }
-# Install Pytorch & other libraries
-%pip install torch tensorboard torchvision
-%pip install -U torchao
+---
 
-# Install Transformers
-%pip install "transformers>=5.10.1"
+## 2. Two architectures
 
-# Install Hugging Face libraries
-%pip install datasets accelerate evaluate bitsandbytes trl "peft>=0.19.0" protobuf pillow sentencepiece
+The image patches are processed through either dedicated vision encoder (all models except 12B) or an encoder-free embedder (12B). When fine-tuning the models, note how everything is frozen except for the adapters:
 
-# COMMENT IN: if you are running on a GPU that supports BF16 data type and flash attn, such as NVIDIA L4 or NVIDIA A100
-#%pip install flash-attn
-```
+![Separate vision tower versus encoder-free Gemma 4 12B](../assets/tuning/vision_02_12b_vs_siglip_vision.svg)
 
-*Note: If you are using a GPU with Ampere architecture (such as NVIDIA L4) or newer, you can use Flash attention. Flash Attention is a method that significantly speeds computations up and reduces memory usage from quadratic to linear in sequence length, leading to acelerating training up to 3x. Learn more at [FlashAttention](https://github.com/Dao-AILab/flash-attention/tree/main).*
+ As shown, there are two different architecture to encoding the input images and training the adapters:
+ 
+ 1. **Separate vision encoder** *(E2B, E4B, 26B A4B, and 31B)*: The images are sliced into 16x16 pixels which we call "patches" and are passed through a vision encoder. For most tasks such as OCR, captioning, and product descriptions, keep the vision encoder frozen and attach LoRA adapters to the language layers. Unfreeze the vision encoder only when you want the model to train on things it may not have seen before, like X-rays or satellite radar images.
+ 2. **Encoder-free (12B)**: Gemma 4 12B has no separate vision encoder. Instead, 48x48 pixel patches pass through a frozen 1x embedder block into the 12B, so attaching LoRA adapters to the 12B layers adapts vision and text together.
 
-You need a valid Hugging Face Token to publish your model. If you are running inside a Google Colab, you can securely use your Hugging Face Token using the Colab secrets otherwise you can set the token as directly in the `login` method. Make sure your token has write access too, as you push your model to the Hub during training.
+---
 
-```python { .notebook-cell }
-# Login into Hugging Face Hub
-from huggingface_hub import login
-login()
-```
+## 3. Masking tokens
 
-## Create and prepare the fine-tuning dataset
+As we have seen before, it is important to mask the input tokens so the loss only tries to predict the output tokens rather than trying to predict the input image tokens. 
 
-When fine-tuning LLMs, it is important to know your use case and the task you want to solve. This helps you create a dataset to fine-tune your model. If you haven't defined your use case yet, you might want to go back to the drawing board.
+![Completion-only masking for vision fine-tuning](../assets/tuning/vision_03_vision_loss_masking.svg)
 
-As an example, this guide focuses on the following use case:
+If we would not mask the input image tokens, then the cross-entropy loss would attempt to predict the input image placeholder IDs which corrupts the gradients. Masking all prompt and image tokens directs 100% of the weight updates to the model's text answer and closing `<turn|>`{.token-turn} token.
 
-- Fine-tuning a Gemma model to generate concise, SEO-optimized product descriptions for an ecommerce platform, specifically tailored for mobile search.
+---
 
-This guide uses the [philschmid/amazon-product-descriptions-vlm](https://huggingface.co/datasets/philschmid/amazon-product-descriptions-vlm) dataset, a dataset of Amazon product descriptions, including product images and categories.
+## 4. Set up the environment
 
-Hugging Face TRL supports multimodal conversations. The important piece is the "image" role, which tells the processing class that it should load the image. The structure should follow:
+We will fine-tune Gemma 4 on [`naver-clova-ix/cord-v2`](https://huggingface.co/datasets/naver-clova-ix/cord-v2) which is a multimodal dataset for receipt parsing. We use 1000 examples from the dataset that we can train and validate on. The goal is to extract structured items like subtotals and discounts on the receipts. 
 
-```text
-{"messages": [{"role": "system", "content": [{"type": "text", "text":"You are..."}]}, {"role": "user", "content": [{"type": "text", "text": "..."}, {"type": "image"}]}, {"role": "assistant", "content": [{"type": "text", "text": "..."}]}]}
-{"messages": [{"role": "system", "content": [{"type": "text", "text":"You are..."}]}, {"role": "user", "content": [{"type": "text", "text": "..."}, {"type": "image"}]}, {"role": "assistant", "content": [{"type": "text", "text": "..."}]}]}
-{"messages": [{"role": "system", "content": [{"type": "text", "text":"You are..."}]}, {"role": "user", "content": [{"type": "text", "text": "..."}, {"type": "image"}]}, {"role": "assistant", "content": [{"type": "text", "text": "..."}]}]}
-```
-
-You can now use the Hugging Face Datasets library to load the dataset and create a prompt template to combine the image, product name, and category, and add a system message. The dataset includes images as`Pil.Image` objects.
+To start, we install the Hugging Face post-training, quantization, multimodal, and evaluation libraries:
 
 ```python { .notebook-cell }
+# Install Hugging Face post-training, quantization, multimodal, and evaluation libraries
+%pip install -q -U "transformers>=5.10.1" "trl>=0.16.0" "peft>=0.19.0" accelerate datasets bitsandbytes torchao
+%pip install -q -U evaluate sacrebleu jiwer pillow soundfile librosa matplotlib tensorboard
+```
+
+If you plan to push your trained adapter to the Hugging Face Hub, log in with a write token:
+
+```python { .notebook-cell }
+# Optional: Uncomment if using gated checkpoints or pushing to the Hub
+# from huggingface_hub import login
+# login()
+```
+
+---
+
+## 5. Prepare the dataset
+
+
+Next up is preparing the dataset such that they are in a conversational format:
+
+```python { .notebook-cell }
+import json
 from datasets import load_dataset
-from PIL import Image
 
-# System message for the assistant
-system_message = "You are an expert product description writer for Amazon."
+system_message = (
+    "You are a document extraction assistant that parses receipt images into "
+    "structured JSON using the CORD schema (menu, sub_total, total). "
+    "Return only valid JSON without markdown code fences."
+)
+user_prompt = "Extract all line items, subtotals, and totals from this receipt image as JSON."
 
-# User prompt that combines the user query and the schema
-user_prompt = """Create a Short Product description based on the provided <PRODUCT> and <CATEGORY> and image.
-Only return description. The description should be SEO optimized and for a better mobile search experience.
 
-<PRODUCT>
-{product}
-</PRODUCT>
+# Format each receipt photo and ground-truth JSON into a multimodal conversation
+def format_batch(batch):
+    messages_list = []
+    images_list = []
+    for img, gt in zip(batch["image"], batch["ground_truth"]):
+        rgb_img = img.convert("RGB")
+        gt_parse = json.loads(gt)["gt_parse"]
+        images_list.append(rgb_img)
+        messages_list.append(
+            [
+                {"role": "system", "content": system_message},
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "image", "image": rgb_img},
+                        {"type": "text", "text": user_prompt},
+                    ],
+                },
+                {
+                    "role": "assistant",
+                    "content": [
+                        {"type": "text", "text": json.dumps(gt_parse, ensure_ascii=False)}
+                    ],
+                },
+            ]
+        )
+    return {"image": images_list, "messages": messages_list}
 
-<CATEGORY>
-{category}
-</CATEGORY>
-"""
 
-# Convert dataset to OAI messages
-def format_data(sample):
-    return {
-        "messages": [
-            {
-                "role": "system",
-                #"content": [{"type": "text", "text": system_message}],
-                "content": system_message,
-            },
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": user_prompt.format(
-                            product=sample["Product Name"],
-                            category=sample["Category"],
-                        ),
-                    },
-                    {
-                        "type": "image",
-                        "image": sample["image"],
-                    },
-                ],
-            },
-            {
-                "role": "assistant",
-                "content": [{"type": "text", "text": sample["description"]}],
-            },
-        ],
-    }
+# Attach the lazy batch transform to the train, validation, and test splits
+raw_dataset = load_dataset("naver-clova-ix/cord-v2")
+dataset_train = raw_dataset["train"].with_transform(format_batch)
+dataset_val = raw_dataset["validation"].with_transform(format_batch)
+dataset_test = raw_dataset["test"].with_transform(format_batch)
 
-def process_vision_info(messages: list[dict]) -> list[Image.Image]:
-    image_inputs = []
-    # Iterate through each conversation
-    for msg in messages:
-        # Get content (ensure it's a list)
-        content = msg.get("content", [])
-        if not isinstance(content, list):
-            content = [content]
-
-        # Check each content element for images
-        for element in content:
-            if isinstance(element, dict) and (
-                "image" in element or element.get("type") == "image"
-            ):
-                # Get the image and convert to RGB
-                if "image" in element:
-                    image = element["image"]
-                else:
-                    image = element
-                image_inputs.append(image.convert("RGB"))
-    return image_inputs
-
-# Load dataset from the hub
-dataset = load_dataset("philschmid/amazon-product-descriptions-vlm", split="train")
-dataset = dataset.train_test_split(test_size=0.1)
-
-# Convert dataset to OAI messages
-# need to use list comprehension to keep Pil.Image type, .mape convert image to bytes
-dataset_train = [format_data(sample) for sample in dataset["train"]]
-dataset_test = [format_data(sample) for sample in dataset["test"]]
-
-print(dataset_train[345]["messages"])
+print(f"Splits: train={len(dataset_train)}, val={len(dataset_val)}, test={len(dataset_test)}")
+print(dataset_train[0]["messages"])
 ```
 
 ```{ .no-copy .output }
-[{'role': 'system', 'content': 'You are an expert product description writer for Amazon.'}, {'role': 'user', 'content': [{'type': 'text', 'text': 'Create a Short Product description based on the provided <PRODUCT> and <CATEGORY> and image.\nOnly return description. The description should be SEO optimized and for a better mobile search experience.\n\n<PRODUCT>\nBachmann Trains inches 6 inches Pine Trees with Snow 6 Per Box\n</PRODUCT>\n\n<CATEGORY>\nToys & Games | Hobbies | Trains & Accessories | Accessories | Scenery\n</CATEGORY>\n'}, {'type': 'image', 'image': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=173x500 at 0x7ED5E4422C00>}]}, {'role': 'assistant', 'content': [{'type': 'text', 'text': 'Enhance your model train landscape with these realistic Bachmann Trains 6-inch pine trees, flocked with snow.  Six highly detailed trees per box, perfect for adding winter charm to your HO scale layout.  Create a captivating snowy scene!'}]}]
+Splits: train=800, val=100, test=100
+[{'role': 'system', 'content': 'You are a document extraction assistant that parses receipt images into structured JSON using the CORD schema (menu, sub_total, total). Return only valid JSON without markdown code fences.'}, {'role': 'user', 'content': [{'type': 'image', 'image': <PIL.Image.Image image mode=RGB size=864x1296>}, {'type': 'text', 'text': 'Extract all line items, subtotals, and totals from this receipt image as JSON.'}]}, {'role': 'assistant', 'content': [{'type': 'text', 'text': '{"menu": [{"nm": "Nasi Campur Bali", "cnt": "1 x", "price": "75,000"}, {"nm": "Bbk Bengil Nasi", "cnt": "1 x", "price": "125,000"}, ...], "sub_total": {"subtotal_price": "1,346,000", "service_price": "100,950", "tax_price": "144,695", "etc": "-45"}, "total": {"total_price": "1,591,600"}}'}]}]
 ```
 
-## Fine-tune Gemma using TRL and the SFTTrainer
+Note that the images in a given turn are always before the text. That was part of the training of Gemma 4 models and tends to result in a better performance rather than putting the images after the text.
 
-You are now ready to fine-tune your model. Hugging Face TRL [SFTTrainer](https://huggingface.co/docs/trl/sft_trainer) makes it straightforward to supervise fine-tune open LLMs. The `SFTTrainer` is a subclass of the `Trainer` from the `transformers` library and supports all the same features, including logging, evaluation, and checkpointing, but adds additional quality of life features, including:
+---
 
-- Dataset formatting, including conversational and instruction formats
-- Training on completions only, ignoring prompts
-- Packing datasets for more efficient training
-- Parameter-efficient fine-tuning (PEFT) support including QloRA
-- Preparing the model and tokenizer for conversational fine-tuning (such as adding special tokens)
+## 6. Load the model
 
-The following code loads the Gemma model and tokenizer from Hugging Face and initializes the quantization configuration.
+We will load the Gemma 4 checkpoint in 4-bit and set the token budget to 560. 560 is a nice trade-off between accuracy and speed. Especially receipts benefit from more vision tokens, so it might be worthwhile to increase it even further to improve the performance (at the cost of speed).
 
 ```python { .notebook-cell .model-swap }
 import torch
-from transformers import AutoProcessor, AutoModelForMultimodalLM, BitsAndBytesConfig
-from peft import prepare_model_for_kbit_training
+from transformers import AutoModelForMultimodalLM, AutoProcessor, BitsAndBytesConfig
 
-# Hugging Face model id
-model_id = "google/gemma-4-E2B"
+model_id = "google/gemma-4-E2B-it"
 
-# Check if GPU supports bfloat16
-if not torch.cuda.is_bf16_supported():
-    raise ValueError("GPU does not support bfloat16, please use a GPU that supports bfloat16.")
-
-torch_dtype = torch.bfloat16
-
-# Define model init arguments
-model_kwargs = dict(
-    dtype=torch_dtype, # What torch dtype to use
-    device_map="auto", # Let torch decide how to load the model
-)
-
-# BitsAndBytesConfig int-4 config
-model_kwargs["quantization_config"] = BitsAndBytesConfig(
+# Configure 4-bit NF4 quantization with bfloat16 compute
+bnb_config = BitsAndBytesConfig(
     load_in_4bit=True,
     bnb_4bit_use_double_quant=True,
     bnb_4bit_quant_type="nf4",
-    bnb_4bit_compute_dtype=torch_dtype,
-    bnb_4bit_quant_storage=torch_dtype,
+    bnb_4bit_compute_dtype=torch.bfloat16,
+    bnb_4bit_quant_storage=torch.bfloat16,
 )
 
-# Load model and processor
-model = AutoModelForMultimodalLM.from_pretrained(model_id, **model_kwargs)
-processor = AutoProcessor.from_pretrained("google/gemma-4-E2B-it") # Load the Instruction Tokenizer to use the official Gemma template
+# Load the multimodal base model and processor
+model = AutoModelForMultimodalLM.from_pretrained(
+    model_id,
+    dtype=torch.bfloat16,
+    device_map="auto",
+    quantization_config=bnb_config,
+)
+processor = AutoProcessor.from_pretrained(model_id)
 
-# Prepare model for QLoRA training
-model = prepare_model_for_kbit_training(model)
+# Set the 560-token high-detail budget for dense receipt OCR (70, 140, 280, 560, or 1120)
+processor.image_processor.max_soft_tokens = 560
 ```
 
-The `SFTTrainer` supports a built-in integration with `peft`, which makes it straightforward to efficiently tune LLMs using QLoRA. You only need to create a `LoraConfig` and provide it to the trainer.
+---
+
+## 7. Evaluate the base model
+
+We evaluate the base model on held-out receipts first to establish a baseline we can compare it to:
 
 ```python { .notebook-cell }
-from peft import LoraConfig
+# Evaluate CORD schema adherence and exact total_price accuracy on held-out receipts
+def evaluate_receipts(eval_model, eval_processor, samples):
+    eval_model.eval()
+    stop_ids = [
+        eval_processor.tokenizer.eos_token_id,
+        eval_processor.tokenizer.convert_tokens_to_ids("<turn|>"),
+    ]
+    schema_ok, total_matches, total_count = 0, 0, 0
+    preds = []
 
-peft_config = LoraConfig(
-    lora_alpha=16,
-    lora_dropout=0.05,
-    r=16,
-    bias="none",
-    # no target_modules --- PEFT's Gemma 4 defaults scope to the LM layers
-    task_type="CAUSAL_LM",
-    modules_to_save=["lm_head", "embed_tokens"], # make sure to save the lm_head and embed_tokens as you train the special tokens
-    ensure_weight_tying=True,
-)
-```
-
-Before you can start your training, you need to define the hyperparameter you want to use in a `SFTConfig` and a custom `collate_fn` to handle the vision processing. The `collate_fn` converts the messages with text and images into a format that the model can understand.
-
-```python { .notebook-cell }
-from trl import SFTConfig
-
-args = SFTConfig(
-    output_dir="gemma-product-description",     # directory to save and repository id
-    num_train_epochs=3,                         # number of training epochs
-    per_device_train_batch_size=1,              # batch size per device during training
-    per_device_eval_batch_size=1,               # batch size per device during evaluation
-    optim="adamw_torch_fused",                  # use fused adamw optimizer
-    logging_steps=5,                            # log every 5 steps
-    save_strategy="epoch",                      # save checkpoint every epoch
-    eval_strategy="epoch",                      # evaluate checkpoint every epoch
-    learning_rate=2e-4,                         # learning rate, based on QLoRA paper
-    bf16=True,                                  # use bfloat16 precision
-    max_grad_norm=0.3,                          # max gradient norm based on QLoRA paper
-    lr_scheduler_type="constant",               # use constant learning rate scheduler
-    push_to_hub=True,                           # push model to hub
-    report_to="tensorboard",                    # report metrics to tensorboard
-    dataset_text_field="",                      # need a dummy field for collator
-    dataset_kwargs={"skip_prepare_dataset": True}, # important for collator
-    remove_unused_columns = False               # important for collator
-)
-
-# Create a data collator to encode text and image pairs
-def collate_fn(examples):
-    texts = []
-    images = []
-    for example in examples:
-        image_inputs = process_vision_info(example["messages"])
-        text = processor.apply_chat_template(
-            example["messages"], add_generation_prompt=False, tokenize=False
+    for idx in range(len(samples)):
+        sample = samples[idx]
+        gold = json.loads(sample["messages"][2]["content"][0]["text"])
+        prompt = eval_processor.apply_chat_template(
+            sample["messages"][:2], tokenize=False, add_generation_prompt=True
         )
-        texts.append(text.strip())
-        images.append(image_inputs)
+        inputs = eval_processor(
+            text=[prompt], images=[[sample["image"]]], padding=True, return_tensors="pt"
+        ).to(eval_model.device)
 
-    # Tokenize the texts and process the images
+        with torch.no_grad():
+            out = eval_model.generate(
+                **inputs, max_new_tokens=512, do_sample=False, eos_token_id=stop_ids
+            )
+        pred_text = eval_processor.decode(
+            out[0][inputs.input_ids.shape[1] :], skip_special_tokens=True
+        ).strip()
+        preds.append(pred_text)
+
+        try:
+            pred = json.loads(pred_text)
+        except json.JSONDecodeError:
+            pred = {}
+
+        pred_total = pred.get("total") if isinstance(pred, dict) else None
+        if isinstance(pred_total, dict) and "total_price" in pred_total:
+            schema_ok += 1
+
+        gold_price = (gold.get("total") or {}).get("total_price")
+        if gold_price is not None:
+            total_count += 1
+            pred_price = pred_total.get("total_price") if isinstance(pred_total, dict) else pred_total
+            if str(pred_price).strip() == str(gold_price).strip():
+                total_matches += 1
+
+    metrics = {
+        "schema_valid_pct": round(100.0 * schema_ok / len(samples), 1),
+        "total_price_acc_pct": round(100.0 * total_matches / max(total_count, 1), 1),
+    }
+    return metrics, preds
+
+
+# Measure zero-shot performance on 40 unseen test receipts before training
+eval_subset = raw_dataset["test"].select(range(40)).with_transform(format_batch)
+before_metrics, before_preds = evaluate_receipts(model, processor, eval_subset)
+print("Before QLoRA (40 unseen receipts):", before_metrics)
+print("Sample #4 zero-shot output:", before_preds[4])
+```
+
+```{ .no-copy .output }
+Before QLoRA (40 unseen receipts): {'schema_valid_pct': 0.0, 'total_price_acc_pct': 43.2}
+Sample #4 zero-shot output: {"menu": ["ICE BLACKCOFFEE", "AVOCADO COFFEE", "CHICKEN KATSUFF"], "sub_total": 144000, "total": 200000}
+```
+
+Without any fine-tuning, the model has some failure modes like misreading values (for instance confusing the cash tendered `200000` with the actual `174,600` total) and not adhering to the exact nested CORD format (`{"total": {"total_price": "174,600"}}`), since our short prompt did not spell out every nested key or comma-formatting rule. This is a great signal as it allows us to identify why the model fails without any tuning. In practical use cases, you might want to identify the failure modes first before deciding what data to use and/or collect.
+
+---
+
+## 8. Train the model
+
+We start with defining the `LoraConfig` where we choose the same target projections as before and exclude the vision encoder (called the `vision_tower`). Remember that we are not fine-tuning the encoder itself (if you choose a non-12B model) since there is already much to be gained from fine-tuning the model itself.
+
+```python { .notebook-cell }
+from peft import LoraConfig, prepare_model_for_kbit_training
+
+# Prepare the 4-bit model for gradient checkpointing and k-bit adapter training
+model = prepare_model_for_kbit_training(model)
+
+# Configure LoRA adapters on the language layers while keeping vision/audio towers frozen
+peft_config = LoraConfig(
+    r=16,
+    lora_alpha=32,
+    lora_dropout=0.0,
+    bias="none",
+    target_modules=[
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj",
+    ],
+    exclude_modules=r"model\.(vision_tower|audio_tower)\..*",
+    task_type="CAUSAL_LM",
+)
+```
+
+Next up, is training. The process is similar to other training processes in these guide with one difference, we need to properly build the multimodal batches. This means making sure that we they are padded correctly and the right input information is ignored during loss updates:
+
+```python { .notebook-cell }
+from trl import SFTConfig, SFTTrainer
+
+# Set the training hyperparameters for SFTTrainer
+args = SFTConfig(
+    output_dir="gemma-4-receipt-json",
+    num_train_epochs=3,
+    per_device_train_batch_size=2,
+    per_device_eval_batch_size=2,
+    gradient_accumulation_steps=4,
+    optim="adamw_torch_fused",
+    logging_steps=25,
+    save_strategy="no",
+    eval_strategy="epoch",
+    eval_on_start=True,
+    learning_rate=2e-4,
+    warmup_steps=0.05,
+    lr_scheduler_type="cosine",
+    bf16=True,
+    max_grad_norm=1.0,
+    report_to="none",
+    dataset_text_field="",
+    dataset_kwargs={"skip_prepare_dataset": True},
+    remove_unused_columns=False,
+)
+
+target_tokens = [
+    processor.tokenizer.convert_tokens_to_ids("<|turn>"),
+    processor.tokenizer.convert_tokens_to_ids("model"),
+    processor.tokenizer.convert_tokens_to_ids("\n"),
+]
+target_len = len(target_tokens)
+
+
+# Build multimodal batches and mask prompt, padding, and image soft tokens from the loss
+def collate_fn(examples):
+    texts = [
+        processor.apply_chat_template(
+            example["messages"], add_generation_prompt=False, tokenize=False
+        ).strip()
+        for example in examples
+    ]
+    images = [[example["image"]] for example in examples]
+
     batch = processor(text=texts, images=images, return_tensors="pt", padding=True)
-
-    # The labels are the input_ids, and we mask the padding tokens and image tokens in the loss computation
     labels = batch["input_ids"].clone()
 
-    # Mask tokens for not being used in the loss computation
+    for i in range(labels.size(0)):
+        row_tokens = batch["input_ids"][i].tolist()
+        for idx in range(len(row_tokens) - target_len, -1, -1):
+            if row_tokens[idx : idx + target_len] == target_tokens:
+                labels[i, : idx + target_len] = -100
+                break
+
     labels[labels == processor.tokenizer.pad_token_id] = -100
     labels[labels == processor.tokenizer.boi_token_id] = -100
     labels[labels == processor.tokenizer.image_token_id] = -100
@@ -281,189 +340,134 @@ def collate_fn(examples):
 
     batch["labels"] = labels
     return batch
-```
 
-You now have every building block you need to create your `SFTTrainer` to start the training of your model.
 
-```python { .notebook-cell }
-from trl import SFTTrainer
-
-# Create Trainer object
+# Initialize and run the multimodal trainer
 trainer = SFTTrainer(
     model=model,
     args=args,
     train_dataset=dataset_train,
-    eval_dataset=dataset_test,
+    eval_dataset=dataset_val,
     peft_config=peft_config,
     processing_class=processor,
     data_collator=collate_fn,
 )
-```
 
-Start training by calling the `train()` method.
-
-```python { .notebook-cell }
-# Start training, the model will be automatically saved to the Hub and the output directory
 trainer.train()
-
-# Save the final model again to the Hugging Face Hub
 trainer.save_model()
 ```
 
 ```{ .no-copy .output }
-[3630/3630 57:38, Epoch 3/3]
+[300/300 24:23, Epoch 3/3]
 
-| Epoch | Training Loss | Validation Loss | Entropy | Mean Token Accuracy | Num Tokens |
-|---|---|---|---|---|---|
-| 1 | 0.835934 | 0.844098 | 0.735220 | 0.818571 | 521741.000000 |
-| 2 | 0.411868 | 0.886929 | 0.548703 | 0.822062 | 1043482.000000 |
-| 3 | 0.488929 | 1.007192 | 0.417825 | 0.822075 | 1565223.000000 |
+| Epoch | Training Loss | Validation Loss | Mean Token Accuracy |
+|---|---|---|---|
+| 0 | — | 1.4696 | 0.8571 |
+| 1 | 0.0691 | 0.0500 | 0.9869 |
+| 2 | 0.0319 | 0.0389 | 0.9907 |
+| 3 | 0.0252 | 0.0389 | 0.9908 |
 ```
 
-Before you can test your model, make sure to free the memory.
+<!-- notebook:skip-start -->
+??? info "Inspect the training curve"
+    ![Training and validation loss across epochs](../assets/tuning/vision-qlora_loss.svg)
+<!-- notebook:skip-end -->
+
+We see a healthy loss, which is definitely a good sign!
+
+---
+
+## 9. Evaluate the fine-tuned model
+
+To evaluate our model, let's free up the GPU memory and save the adapter first:
 
 ```python { .notebook-cell }
-# free the memory again
+import gc
+
+# Free the 4-bit training model and optimizer states before merging
 del model
 del trainer
+gc.collect()
 torch.cuda.empty_cache()
 ```
 
-When using QLoRA, you only train adapters and not the full model. This means when saving the model during training you only save the adapter weights and not the full model. If you want to save the full model, which makes it easier to use with serving stacks like vLLM or TGI, you can merge the adapter weights into the model weights using the `merge_and_unload` method and then save the model with the `save_pretrained` method. This saves a default model, which can be used for inference.
-
-!!! Note
-    It requires more than 30GB of CPU Memory when you want to merge the adapter into the model. You can skip this and continue with Test Model Inference.
-
-
 ```python { .notebook-cell }
-from transformers import AutoModelForMultimodalLM, AutoProcessor
 from peft import PeftModel
-
-# Load Model base model
-model = AutoModelForMultimodalLM.from_pretrained(model_id, low_cpu_mem_usage=True)
-
-# Merge LoRA and base model and save
-peft_model = PeftModel.from_pretrained(model, args.output_dir)
-merged_model = peft_model.merge_and_unload()
-merged_model.save_pretrained("merged_model", safe_serialization=True, max_shard_size="2GB")
-
-processor = AutoProcessor.from_pretrained(args.output_dir)
-processor.save_pretrained("merged_model")
-```
-
-```{ .no-copy .output }
-Loading weights:   0%|          | 0/1951 [00:00<?, ?it/s]
-Writing model shards:   0%|          | 0/4 [00:00<?, ?it/s]
-['merged_model/processor_config.json']
-```
-
-## Test Model Inference and generate product descriptions
-
-After the training is done, you'll want to evaluate and test your model. You can load different samples from the test dataset and evaluate the model on those samples.
-
-!!! Note
-    Evaluating Generative AI models is not a trivial task since one input can have multiple correct outputs. This guide only focuses on manual evaluation and vibe checks.
-
-
-```python { .notebook-cell }
 from transformers import AutoModelForMultimodalLM, AutoProcessor
 
-model_id = "merged_model"
-
-# Load Model with PEFT adapter
-model = AutoModelForMultimodalLM.from_pretrained(
-  model_id,
-  device_map="auto",
-  dtype="auto",
+# Merge the trained LoRA adapter into the bfloat16 base checkpoint
+base_model = AutoModelForMultimodalLM.from_pretrained(
+    model_id,
+    low_cpu_mem_usage=True,
+    dtype=torch.bfloat16,
+    device_map="auto",
 )
-processor = AutoProcessor.from_pretrained(model_id)
+
+peft_model = PeftModel.from_pretrained(base_model, args.output_dir)
+merged_model = peft_model.merge_and_unload()
+merged_model.save_pretrained("merged_vision_model", safe_serialization=True, max_shard_size="2GB")
+processor.save_pretrained("merged_vision_model")
+
+del base_model, peft_model, merged_model
+torch.cuda.empty_cache()
 ```
 
-```{ .no-copy .output }
-Loading weights:   0%|          | 0/1951 [00:00<?, ?it/s]
-```
-
-You can test inference by providing a product name, category and image. The `sample` includes a marvel action figure.
+Now, we can load the adapter that we merged into the checkpoint and explore how it performs across the unseen receipts:
 
 ```python { .notebook-cell }
-import requests
-from PIL import Image
+# Reload the merged checkpoint and evaluate on the 40 unseen test receipts
+merged_dir = "merged_vision_model"
+reloaded_model = AutoModelForMultimodalLM.from_pretrained(
+    merged_dir, device_map="auto", dtype="auto"
+)
+reloaded_processor = AutoProcessor.from_pretrained(merged_dir)
 
-# Test sample with Product Name, Category and Image
-sample = {
-  "product_name": "Hasbro Marvel Avengers-Serie Marvel Assemble Titan-Held, Iron Man, 30,5 cm Actionfigur",
-  "category": "Toys & Games | Toy Figures & Playsets | Action Figures",
-  "image": Image.open(requests.get("https://m.media-amazon.com/images/I/81+7Up7IWyL._AC_SY300_SX300_.jpg", stream=True).raw).convert("RGB")
-}
+after_metrics, after_preds = evaluate_receipts(reloaded_model, reloaded_processor, eval_subset)
+print("Before QLoRA (40 unseen receipts):", before_metrics)
+print("After QLoRA  (40 unseen receipts):", after_metrics)
 
-def generate_description(sample, model, processor):
-    # Convert sample into messages and then apply the chat template
-    messages = [
-        {"role": "system", "content": system_message},
-        {"role": "user", "content": [
-            {"type": "image","image": sample["image"]},
-            {"type": "text", "text": user_prompt.format(product=sample["product_name"], category=sample["category"])},
-        ]},
-    ]
-    text = processor.apply_chat_template(
-        messages, tokenize=False, add_generation_prompt=True
-    )
-    print(text)
-    # Process the image and text
-    image_inputs = process_vision_info(messages)
-    # Tokenize the text and process the images
-    inputs = processor(
-        text=[text],
-        images=image_inputs,
-        padding=True,
-        return_tensors="pt",
-    )
-    # Move the inputs to the device
-    inputs = inputs.to(model.device)
-
-    # Generate the output
-    stop_token_ids = [processor.tokenizer.eos_token_id, processor.tokenizer.convert_tokens_to_ids("<turn|>")]
-    generated_ids = model.generate(**inputs, max_new_tokens=256, top_p=1.0, do_sample=True, temperature=0.8, eos_token_id=stop_token_ids, disable_compile=True)
-    # Trim the generation and decode the output to text
-    generated_ids_trimmed = [out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)]
-    output_text = processor.batch_decode(
-        generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
-    )
-    return output_text[0]
-
-# generate the description
-description = generate_description(sample, model, processor)
-print("MODEL OUTPUT>> \n")
-print(description)
+gold_sample_4 = eval_subset[4]["messages"][2]["content"][0]["text"]
+print("\n--- Unseen Test Receipt #4 ---")
+print("Ground Truth:", gold_sample_4)
+print("Before QLoRA:", before_preds[4])
+print("After QLoRA :", after_preds[4])
 ```
 
 ```{ .no-copy .output }
-<bos><|turn>system
-You are an expert product description writer for Amazon.<turn|>
-<|turn>user
-<|image|>Create a Short Product description based on the provided <PRODUCT> and <CATEGORY> and image.
-Only return description. The description should be SEO optimized and for a better mobile search experience.
+Before QLoRA (40 unseen receipts): {'schema_valid_pct': 0.0, 'total_price_acc_pct': 43.2}
+After QLoRA  (40 unseen receipts): {'schema_valid_pct': 95.0, 'total_price_acc_pct': 91.9}
 
-<PRODUCT>
-Hasbro Marvel Avengers-Serie Marvel Assemble Titan-Held, Iron Man, 30,5 cm Actionfigur
-</PRODUCT>
-
-<CATEGORY>
-Toys & Games | Toy Figures & Playsets | Action Figures
-</CATEGORY><turn|>
-<|turn>model
-
-MODEL OUTPUT>> 
-
-Bring home the action with the Hasbro Marvel Avengers Assemble Titan-held Iron Man Action Figure! This highly detailed 30.5-centimeter figure is perfect for recreating epic battles.  Collect the entire Marvel Avengers Assemble Titan-held series for an authentic experience.  Shop now!
+--- Unseen Test Receipt #4 ---
+Ground Truth: {"menu": [{"nm": "ICE BLACKCOFFE", "cnt": "2", "price": "82,000"}, {"nm": "AVOCADO COFFEE", "cnt": "1", "price": "61,000"}, {"nm": "CHIKEN KATSU FF", "cnt": "1", "price": "51,000"}], "sub_total": {"subtotal_price": "194,000", "discount_price": "19,400"}, "total": {"total_price": "174,600", "cashprice": "200,000", "changeprice": "25,400"}}
+Before QLoRA: {"menu": ["ICE BLACKCOFFEE", "AVOCADO COFFEE", "CHICKEN KATSUFF"], "sub_total": 144000, "total": 200000}
+After QLoRA : {"menu": [{"nm": "ICE BLACKCOFFE", "cnt": "2", "price": "82,000"}, {"nm": "NEW AVOCADO COFFEE", "cnt": "1", "price": "61,000"}, {"nm": "OLBE CHIKEN KATSUFF", "cnt": "1", "price": "51,000"}], "sub_total": {"subtotal_price": "194,000", "discount_price": "19,400"}, "total": {"total_price": "174,600", "cashprice": "200,000", "changeprice": "28,400"}}
 ```
 
-## Summary and next steps
+The performance increased quite a bit! Fine-tuning only the language adapters taught the model the exact nested CORD JSON schema (`95.0%`) and raised exact `total_price` extraction to `91.9%` across unseen receipts—though notice in Sample #4 that harder character-level line-item OCR (such as `"NEW AVOCADO COFFEE"` and `"changeprice": "28,400"` vs. `"25,400"`) can still make occasional mistakes on a compact E2B model. It shows how far you can get with fine-tuning a small part of the model rather than the entire encoders.
 
-This tutorial covered how to fine-tune a Gemma model for vision tasks using TRL and QLoRA, specifically for generating product descriptions. Check out the following docs next:
+---
 
-- Learn how to [generate text with a Gemma model](../get-started/index.md).
-- Learn how to [fine-tune Gemma for text tasks using Hugging Face Transformers](qlora.md).
-- Learn how to [full model fine-tune using Hugging Face Transformers](full-finetune.md).
-- Learn how to [use Gemma open models with Vertex AI][vertex-use-gemma].
-- Learn how to [fine-tune Gemma using KerasNLP and deploy to Vertex AI](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/community/model_garden/model_garden_gemma_kerasnlp_to_vertexai.ipynb).
+## What's next
+
+<div class="card-grid">
+<a class="card" href="audio-qlora.md">
+  <span class="card-icon">{{ icon('lucide/audio-lines') }}</span>
+  <div class="card-title">Audio fine-tuning</div>
+  <p class="card-desc">Fine-tune Gemma 4 E2B, E4B, and 12B on speech transcription, dialect adaptation, and spoken QA.</p>
+</a>
+<a class="card" href="preference-alignment.md">
+  <span class="card-icon">{{ icon('lucide/sliders-horizontal') }}</span>
+  <div class="card-title">Preference optimization</div>
+  <p class="card-desc">Shape your model's tone and formatting using chosen and rejected response pairs.</p>
+</a>
+<a class="card" href="reinforcement-learning.md">
+  <span class="card-icon">{{ icon('lucide/brain') }}</span>
+  <div class="card-title">Verifiable rewards</div>
+  <p class="card-desc">Train Gemma 4's thinking channel using verifiable reward functions.</p>
+</a>
+<a class="card" href="export.md">
+  <span class="card-icon">{{ icon('lucide/rocket') }}</span>
+  <div class="card-title">Export</div>
+  <p class="card-desc">Export your multimodal Gemma 4 model to LiteRT-LM, GGUF, or vLLM.</p>
+</a>
+</div>

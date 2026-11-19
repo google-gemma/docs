@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="576" height="254" viewBox="0 0 576 254" fill="none">
+  <rect id="background" width="576" height="254" fill="#FFFFFF"/>
+  <g id="c03-contrast">
+    <g id="c03-contrast-pair">
+      <g id="c03-contrast-left">
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="c03-contrast-left-title"><tspan x="287.99" y="34">Without stop string</tspan></text>
+        <g id="c03-top-spans">
+          <g id="c03-top-spans-groups">
+            <g id="c03-s-ta">
+              <g id="c03-top-ans">
+                <g id="c03-ta-p">
+                  <path d="M 28.88 50 H 65.12 A 6.88 6.88 0 0 1 72 56.88 V 75 H 22 V 56.88 A 6.88 6.88 0 0 1 28.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="46.99" y="67">Paris</tspan></text>
+                </g>
+                <g id="c03-ta-e-0">
+                  <path d="M 82.88 50 H 95.12 A 6.88 6.88 0 0 1 102 56.88 V 75 H 76 V 56.88 A 6.88 6.88 0 0 1 82.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="89" y="67">&lt;</tspan></text>
+                </g>
+                <g id="c03-ta-e-1">
+                  <path d="M 112.88 50 H 123.12 A 6.88 6.88 0 0 1 130 56.88 V 75 H 106 V 56.88 A 6.88 6.88 0 0 1 112.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="118" y="67">|</tspan></text>
+                </g>
+                <g id="c03-ta-e-2">
+                  <path d="M 140.88 50 H 161.12 A 6.88 6.88 0 0 1 168 56.88 V 75 H 134 V 56.88 A 6.88 6.88 0 0 1 140.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="150.99" y="67">im</tspan></text>
+                </g>
+                <g id="c03-ta-e-3">
+                  <path d="M 178.88 50 H 191.12 A 6.88 6.88 0 0 1 198 56.88 V 75 H 172 V 56.88 A 6.88 6.88 0 0 1 178.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="184.99" y="67">_</tspan></text>
+                </g>
+                <g id="c03-ta-e-4">
+                  <path d="M 208.88 50 H 235.12 A 6.88 6.88 0 0 1 242 56.88 V 75 H 202 V 56.88 A 6.88 6.88 0 0 1 208.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="222" y="67">end</tspan></text>
+                </g>
+                <g id="c03-ta-e-5">
+                  <path d="M 252.88 50 H 271.12 A 6.88 6.88 0 0 1 278 56.88 V 75 H 246 V 56.88 A 6.88 6.88 0 0 1 252.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="261.99" y="67">|&gt;</tspan></text>
+                </g>
+              </g>
+              <path d="M 22 80 L 22 86 L 278 86 L 278 80" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="c03-s-ta-br"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="c03-s-ta-lbl"><tspan x="150" y="103" font-weight="700">Answer + &lt;|im_end|&gt;</tspan></text>
+            </g>
+            <g id="c03-s-te">
+              <g id="c03-top-extra">
+                <g id="c03-te-0">
+                  <path d="M 300.88 50 H 313.12 A 6.88 6.88 0 0 1 320 56.88 V 75 H 294 V 56.88 A 6.88 6.88 0 0 1 300.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="307" y="67">&lt;</tspan></text>
+                </g>
+                <g id="c03-te-1">
+                  <path d="M 330.88 50 H 341.12 A 6.88 6.88 0 0 1 348 56.88 V 75 H 324 V 56.88 A 6.88 6.88 0 0 1 330.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="336" y="67">|</tspan></text>
+                </g>
+                <g id="c03-te-2">
+                  <path d="M 358.88 50 H 379.12 A 6.88 6.88 0 0 1 386 56.88 V 75 H 352 V 56.88 A 6.88 6.88 0 0 1 358.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="368.99" y="67">im</tspan></text>
+                </g>
+                <g id="c03-te-3">
+                  <path d="M 396.88 50 H 409.12 A 6.88 6.88 0 0 1 416 56.88 V 75 H 390 V 56.88 A 6.88 6.88 0 0 1 396.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="402.99" y="67">_</tspan></text>
+                </g>
+                <g id="c03-te-4">
+                  <path d="M 426.88 50 H 461.12 A 6.88 6.88 0 0 1 468 56.88 V 75 H 420 V 56.88 A 6.88 6.88 0 0 1 426.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="444" y="67">start</tspan></text>
+                </g>
+                <g id="c03-te-5">
+                  <path d="M 478.88 50 H 497.12 A 6.88 6.88 0 0 1 504 56.88 V 75 H 472 V 56.88 A 6.88 6.88 0 0 1 478.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="487.99" y="67">|&gt;</tspan></text>
+                </g>
+                <g id="c03-te-6">
+                  <path d="M 514.88 50 H 547.12 A 6.88 6.88 0 0 1 554 56.88 V 75 H 508 V 56.88 A 6.88 6.88 0 0 1 514.88 50 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="530.99" y="67">user</tspan></text>
+                </g>
+              </g>
+              <path d="M 294 80 L 294 86 L 554 86 L 554 80" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="c03-s-te-br"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="c03-s-te-lbl"><tspan x="424" y="103" font-weight="700" fill="#B83232">Continues into next turn</tspan></text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <line x1="20" y1="126.75" x2="556" y2="126.75" stroke="#8C8C8C" stroke-width="1.5" stroke-dasharray="3 3" id="c03-contrast-div"/>
+      <g id="c03-contrast-right">
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="c03-contrast-right-title"><tspan x="288" y="162">With stop string</tspan></text>
+        <g id="c03-bot-aligned">
+          <g id="c03-bot-spans">
+            <g id="c03-bot-spans-groups">
+              <g id="c03-s-ba">
+                <g id="c03-ba-p">
+                  <path d="M 28.88 177.5 H 65.12 A 6.88 6.88 0 0 1 72 184.38 V 202.5 H 22 V 184.38 A 6.88 6.88 0 0 1 28.88 177.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="46.99" y="195">Paris</tspan></text>
+                </g>
+                <path d="M 22 207.5 L 22 213.5 L 72 213.5 L 72 207.5" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="c03-s-ba-br"/>
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="c03-s-ba-lbl"><tspan x="46.99" y="230" font-weight="700">Answer</tspan></text>
+              </g>
+              <g id="c03-s-be">
+                <g id="c03-bot-end">
+                  <g id="c03-be-0">
+                    <path d="M 82.88 177.5 H 95.12 A 6.88 6.88 0 0 1 102 184.38 V 202.5 H 76 V 184.38 A 6.88 6.88 0 0 1 82.88 177.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="89" y="195">&lt;</tspan></text>
+                  </g>
+                  <g id="c03-be-1">
+                    <path d="M 112.88 177.5 H 123.12 A 6.88 6.88 0 0 1 130 184.38 V 202.5 H 106 V 184.38 A 6.88 6.88 0 0 1 112.88 177.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="118" y="195">|</tspan></text>
+                  </g>
+                  <g id="c03-be-2">
+                    <path d="M 140.88 177.5 H 161.12 A 6.88 6.88 0 0 1 168 184.38 V 202.5 H 134 V 184.38 A 6.88 6.88 0 0 1 140.88 177.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="150.99" y="195">im</tspan></text>
+                  </g>
+                  <g id="c03-be-3">
+                    <path d="M 178.88 177.5 H 191.12 A 6.88 6.88 0 0 1 198 184.38 V 202.5 H 172 V 184.38 A 6.88 6.88 0 0 1 178.88 177.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="184.99" y="195">_</tspan></text>
+                  </g>
+                  <g id="c03-be-4">
+                    <path d="M 208.88 177.5 H 235.12 A 6.88 6.88 0 0 1 242 184.38 V 202.5 H 202 V 184.38 A 6.88 6.88 0 0 1 208.88 177.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="222" y="195">end</tspan></text>
+                  </g>
+                  <g id="c03-be-5">
+                    <path d="M 252.88 177.5 H 271.12 A 6.88 6.88 0 0 1 278 184.38 V 202.5 H 246 V 184.38 A 6.88 6.88 0 0 1 252.88 177.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+                    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="261.99" y="195">|&gt;</tspan></text>
+                  </g>
+                </g>
+                <path d="M 76 207.5 L 76 213.5 L 278 213.5 L 278 207.5" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="c03-s-be-br"/>
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="c03-s-be-lbl"><tspan x="176.99" y="230" font-weight="700" fill="#2B8D1E">Stops on &lt;|im_end|&gt;</tspan></text>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

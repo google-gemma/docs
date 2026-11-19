@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="258" viewBox="0 0 560 258" fill="none">
+  <rect id="background" width="560" height="258" fill="#FFFFFF"/>
+  <g id="v03-contrast">
+    <g id="v03-contrast-pair">
+      <g id="v03-contrast-left">
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="v03-contrast-left-title"><tspan x="279.99" y="36">Plain-text tags</tspan></text>
+        <g id="v03-top-spans">
+          <g id="v03-top-spans-groups">
+            <g id="v03-s-tr">
+              <g id="v03-tr-route">
+                <g id="v03-t0">
+                  <path d="M 38.88 52 H 53.12 A 6.88 6.88 0 0 1 60 58.88 V 77 H 32 V 58.88 A 6.88 6.88 0 0 1 38.88 52 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="46" y="69">[</tspan></text>
+                </g>
+                <g id="v03-t1">
+                  <path d="M 70.88 52 H 119.12 A 6.88 6.88 0 0 1 126 58.88 V 77 H 64 V 58.88 A 6.88 6.88 0 0 1 70.88 52 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="95.01" y="69">ROUTE</tspan></text>
+                </g>
+                <g id="v03-t2">
+                  <path d="M 136.88 52 H 151.12 A 6.88 6.88 0 0 1 158 58.88 V 77 H 130 V 58.88 A 6.88 6.88 0 0 1 136.88 52 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="143.99" y="69">:</tspan></text>
+                </g>
+                <g id="v03-t3">
+                  <path d="M 168.88 52 H 215.12 A 6.88 6.88 0 0 1 222 58.88 V 77 H 162 V 58.88 A 6.88 6.88 0 0 1 168.88 52 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="191.99" y="69">billing</tspan></text>
+                </g>
+                <g id="v03-t4">
+                  <path d="M 232.88 52 H 247.12 A 6.88 6.88 0 0 1 254 58.88 V 77 H 226 V 58.88 A 6.88 6.88 0 0 1 232.88 52 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="240" y="69">]</tspan></text>
+                </g>
+              </g>
+              <path d="M 32 82 L 32 88 L 254 88 L 254 82" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="v03-s-tr-br"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="v03-s-tr-lbl"><tspan x="143" y="105" font-weight="700">5 tokens</tspan></text>
+            </g>
+            <g id="v03-s-ta">
+              <g id="v03-tr-ans">
+                <g id="v03-t5">
+                  <path d="M 270.88 52 H 319.12 A 6.88 6.88 0 0 1 326 58.88 V 77 H 264 V 58.88 A 6.88 6.88 0 0 1 270.88 52 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="295.01" y="69">Refund</tspan></text>
+                </g>
+                <g id="v03-t6">
+                  <path d="M 336.88 52 H 369.12 A 6.88 6.88 0 0 1 376 58.88 V 77 H 330 V 58.88 A 6.88 6.88 0 0 1 336.88 52 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="353" y="69">sent</tspan></text>
+                </g>
+              </g>
+              <path d="M 264 82 L 264 88 L 376 88 L 376 82" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="v03-s-ta-br"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="v03-s-ta-lbl"><tspan x="320" y="105" font-weight="700">2 tokens</tspan></text>
+            </g>
+            <g id="v03-s-tc">
+              <g id="v03-tr-cite">
+                <g id="v03-t7">
+                  <path d="M 392.88 52 H 407.12 A 6.88 6.88 0 0 1 414 58.88 V 77 H 386 V 58.88 A 6.88 6.88 0 0 1 392.88 52 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="400" y="69">[</tspan></text>
+                </g>
+                <g id="v03-t8">
+                  <path d="M 424.88 52 H 457.12 A 6.88 6.88 0 0 1 464 58.88 V 77 H 418 V 58.88 A 6.88 6.88 0 0 1 424.88 52 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="441" y="69">DOC</tspan></text>
+                </g>
+                <g id="v03-t9">
+                  <path d="M 474.88 52 H 489.12 A 6.88 6.88 0 0 1 496 58.88 V 77 H 468 V 58.88 A 6.88 6.88 0 0 1 474.88 52 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="481.99" y="69">2</tspan></text>
+                </g>
+                <g id="v03-t10">
+                  <path d="M 506.88 52 H 521.12 A 6.88 6.88 0 0 1 528 58.88 V 77 H 500 V 58.88 A 6.88 6.88 0 0 1 506.88 52 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="514" y="69">]</tspan></text>
+                </g>
+              </g>
+              <path d="M 386 82 L 386 88 L 528 88 L 528 82" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="v03-s-tc-br"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="v03-s-tc-lbl"><tspan x="457" y="105" font-weight="700">4 tokens</tspan></text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <line x1="22" y1="128.75" x2="538" y2="128.75" stroke="#8C8C8C" stroke-width="1.5" stroke-dasharray="3 3" id="v03-contrast-div"/>
+      <g id="v03-contrast-right">
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="v03-contrast-right-title"><tspan x="279.99" y="164">Repurposed unused tokens</tspan></text>
+        <g id="v03-bot-spans">
+          <g id="v03-bot-spans-groups">
+            <g id="v03-s-br">
+              <g id="v03-b0">
+                <path d="M 114.88 179.5 H 193.12 A 6.88 6.88 0 0 1 200 186.38 V 204.5 H 108 V 186.38 A 6.88 6.88 0 0 1 114.88 179.5 Z" fill="#D1FAE5" stroke="#34D399" stroke-width="1.5"/>
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#065F46" text-anchor="middle"><tspan x="153.99" y="197">&lt;unused0&gt;</tspan></text>
+              </g>
+              <path d="M 108 209.5 L 108 215.5 L 200 215.5 L 200 209.5" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="v03-s-br-br"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="v03-s-br-lbl"><tspan x="153.99" y="232" font-weight="700" fill="#2B8D1E">1 token</tspan></text>
+            </g>
+            <g id="v03-s-ba">
+              <g id="v03-br-ans">
+                <g id="v03-b1">
+                  <path d="M 230.88 179.5 H 279.12 A 6.88 6.88 0 0 1 286 186.38 V 204.5 H 224 V 186.38 A 6.88 6.88 0 0 1 230.88 179.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="255.01" y="197">Refund</tspan></text>
+                </g>
+                <g id="v03-b2">
+                  <path d="M 296.88 179.5 H 329.12 A 6.88 6.88 0 0 1 336 186.38 V 204.5 H 290 V 186.38 A 6.88 6.88 0 0 1 296.88 179.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="313" y="197">sent</tspan></text>
+                </g>
+              </g>
+              <path d="M 224 209.5 L 224 215.5 L 336 215.5 L 336 209.5" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="v03-s-ba-br"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="v03-s-ba-lbl"><tspan x="280" y="232" font-weight="700">2 tokens</tspan></text>
+            </g>
+            <g id="v03-s-bc">
+              <g id="v03-b3">
+                <path d="M 366.88 179.5 H 445.12 A 6.88 6.88 0 0 1 452 186.38 V 204.5 H 360 V 186.38 A 6.88 6.88 0 0 1 366.88 179.5 Z" fill="#F3E8FF" stroke="#C084FC" stroke-width="1.5"/>
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#6B21A8" text-anchor="middle"><tspan x="406" y="197">&lt;unused5&gt;</tspan></text>
+              </g>
+              <path d="M 360 209.5 L 360 215.5 L 452 215.5 L 452 209.5" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="v03-s-bc-br"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="v03-s-bc-lbl"><tspan x="405.99" y="232" font-weight="700" fill="#743BBE">1 token</tspan></text>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

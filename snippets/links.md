@@ -41,4 +41,10 @@
 [gemma-translator]: https://github.com/google-gemma/gemma-translator
 [gemma-github]: https://github.com/google-gemma
 [vertex-use-gemma]: https://cloud.google.com/vertex-ai/docs/generative-ai/open-models/use-gemma
+[unsloth-gemma4]: https://unsloth.ai/docs/models/gemma-4
+[unsloth-gemma4-train]: https://unsloth.ai/docs/models/gemma-4/train
+[trl-docs]: https://huggingface.co/docs/trl
+[peft-docs]: https://huggingface.co/docs/peft
+[accelerate-docs]: https://huggingface.co/docs/accelerate
+[torchao-repo]: https://github.com/pytorch/ao
 [legacy-gemma-setup]: https://ai.google.dev/gemma/docs/setup

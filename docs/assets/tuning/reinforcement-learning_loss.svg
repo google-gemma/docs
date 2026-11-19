@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="347" viewBox="0 0 680 268" role="img" aria-label="reinforcement-learning training curve">
+  <rect width="680" height="268" fill="#FFFFFF"/>
+  <line x1="76.0" y1="58.78" x2="500.0" y2="58.78" stroke="#B8B8B8" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <path d="M 146.67 188.53 L 217.33 141.00 L 288.00 130.27 L 358.67 118.00 L 429.33 130.27 L 500.00 105.73" fill="none" stroke="#743BBE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 146.67 175.50 L 217.33 111.56 L 288.00 94.54 L 358.67 76.14 L 429.33 85.42 L 500.00 58.78" fill="none" stroke="#2E7D32" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="76.0" y1="26.0" x2="76.0" y2="210.0" stroke="#000000" stroke-width="2.2" stroke-linecap="square"/>
+  <line x1="76.0" y1="210.0" x2="500.0" y2="210.0" stroke="#000000" stroke-width="2.2" stroke-linecap="square"/>
+  <line x1="76.00" y1="210.0" x2="76.00" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="76.00" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">0</text>
+  <line x1="146.67" y1="210.0" x2="146.67" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="146.67" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">5</text>
+  <line x1="217.33" y1="210.0" x2="217.33" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="217.33" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">10</text>
+  <line x1="288.00" y1="210.0" x2="288.00" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="288.00" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">15</text>
+  <line x1="358.67" y1="210.0" x2="358.67" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="358.67" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">20</text>
+  <line x1="429.33" y1="210.0" x2="429.33" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="429.33" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">25</text>
+  <line x1="500.00" y1="210.0" x2="500.00" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="500.00" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">30</text>
+  <line x1="70.0" y1="210.00" x2="76.0" y2="210.00" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="214.50" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">0</text>
+  <line x1="70.0" y1="179.33" x2="76.0" y2="179.33" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="183.83" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">0.5</text>
+  <line x1="70.0" y1="148.67" x2="76.0" y2="148.67" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="153.17" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">1</text>
+  <line x1="70.0" y1="118.00" x2="76.0" y2="118.00" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="122.50" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">1.5</text>
+  <line x1="70.0" y1="87.33" x2="76.0" y2="87.33" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="91.83" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">2</text>
+  <line x1="70.0" y1="56.67" x2="76.0" y2="56.67" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="61.17" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">2.5</text>
+  <line x1="70.0" y1="26.00" x2="76.0" y2="26.00" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="30.50" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">3</text>
+  <circle cx="146.67" cy="175.50" r="4.6" fill="#2E7D32" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="217.33" cy="111.56" r="4.6" fill="#2E7D32" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="288.00" cy="94.54" r="4.6" fill="#2E7D32" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="358.67" cy="76.14" r="4.6" fill="#2E7D32" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="429.33" cy="85.42" r="4.6" fill="#2E7D32" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="500.00" cy="58.78" r="4.6" fill="#2E7D32" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="146.67" cy="188.53" r="4.4" fill="#743BBE" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="500.00" cy="105.73" r="4.4" fill="#743BBE" stroke="#FFFFFF" stroke-width="2"/>
+  <text x="518.0" y="57.8" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#2E7D32">Total reward</text>
+  <text x="518.0" y="72.8" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" fill="#4A4A4A">(0.56 → 2.47)</text>
+  <text x="518.0" y="104.7" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#743BBE">Correctness</text>
+  <text x="518.0" y="119.7" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" fill="#4A4A4A">(0.35 → 1.70)</text>
+  <text x="20" y="118.0" text-anchor="middle" transform="rotate(-90 20 118.0)" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#000000">Reward</text>
+  <text x="288.0" y="255.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#000000">Step</text>
+</svg>

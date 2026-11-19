@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="263" viewBox="0 0 720 263" fill="none">
+  <rect id="background" width="720" height="263" fill="#FFFFFF"/>
+  <g id="router-contrast">
+    <g id="router-contrast-pair">
+      <g id="router-contrast-left">
+        <g id="router-contrast-left-hdr">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="router-contrast-left-title"><tspan x="177" y="34">Trainable router</tspan></text>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="router-contrast-left-sub"><tspan x="177" y="51">(collapses onto a few experts)</tspan></text>
+        </g>
+        <g id="col-col">
+          <g id="col-router">
+            <rect x="123" y="66" width="108" height="30" rx="4" fill="#F4DEC1" stroke="#000000" stroke-width="2"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="177" y="86">Router</tspan></text>
+          </g>
+          <g id="col-bank-wrap">
+            <g id="col-bank">
+              <g id="col-e1" opacity="0.35">
+                <g id="col-e1-bar-slot">
+                  <rect x="48" y="175" width="28" height="5" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="col-e1-bar"/>
+                </g>
+                <g id="col-e1-exp">
+                  <rect x="22" y="187" width="80" height="28" rx="4" fill="#E95348" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle"><tspan x="61.99" y="206">Expert 1</tspan></text>
+                </g>
+              </g>
+              <g id="col-e2">
+                <g id="col-e2-bar-slot">
+                  <rect x="138" y="128" width="28" height="52" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="col-e2-bar"/>
+                </g>
+                <g id="col-e2-exp">
+                  <rect x="112" y="187" width="80" height="28" rx="4" fill="#E95348" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle"><tspan x="152" y="206">Expert 2</tspan></text>
+                </g>
+              </g>
+              <g id="col-dots-col">
+                <g id="col-dots">
+                  <rect x="202" y="198" width="6" height="6" rx="3" fill="#000000" id="col-dots-0"/>
+                  <rect x="213" y="198" width="6" height="6" rx="3" fill="#000000" id="col-dots-1"/>
+                  <rect x="224" y="198" width="6" height="6" rx="3" fill="#000000" id="col-dots-2"/>
+                </g>
+              </g>
+              <g id="col-e128" opacity="0.35">
+                <g id="col-e128-bar-slot">
+                  <rect x="272" y="175" width="28" height="5" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="col-e128-bar"/>
+                </g>
+                <g id="col-e128-exp">
+                  <rect x="240" y="187" width="92" height="28" rx="4" fill="#E95348" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle"><tspan x="285.99" y="206">Expert 128</tspan></text>
+                </g>
+              </g>
+            </g>
+            <line x1="20" y1="182.5" x2="324" y2="182.5" stroke="#000000" stroke-width="1.5" id="col-base"/>
+          </g>
+        </g>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#000000" text-anchor="middle" id="router-contrast-left-verdict"><tspan x="177" y="240" font-weight="700">Starved</tspan><tspan> experts stop receiving tokens</tspan></text>
+      </g>
+      <line x1="360.75" y1="20" x2="360.75" y2="226" stroke="#8C8C8C" stroke-width="1.5" stroke-dasharray="3 3" id="router-contrast-div"/>
+      <g id="router-contrast-right">
+        <g id="router-contrast-right-hdr">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="router-contrast-right-title"><tspan x="544.49" y="34">Frozen router</tspan></text>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="router-contrast-right-sub"><tspan x="544.5" y="51">(keeps routing balanced)</tspan></text>
+        </g>
+        <g id="frz-col">
+          <g id="frz-router">
+            <rect x="490.5" y="66" width="108" height="30" rx="4" fill="#F4DEC1" stroke="#000000" stroke-width="2"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="544.5" y="86">Router</tspan></text>
+          </g>
+          <g id="frz-bank-wrap">
+            <g id="frz-bank">
+              <g id="frz-e1">
+                <g id="frz-e1-bar-slot">
+                  <rect x="415.5" y="154" width="28" height="26" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="frz-e1-bar"/>
+                </g>
+                <g id="frz-e1-exp">
+                  <rect x="389.5" y="187" width="80" height="28" rx="4" fill="#E95348" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle"><tspan x="429.49" y="206">Expert 1</tspan></text>
+                </g>
+              </g>
+              <g id="frz-e2">
+                <g id="frz-e2-bar-slot">
+                  <rect x="505.5" y="156" width="28" height="24" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="frz-e2-bar"/>
+                </g>
+                <g id="frz-e2-exp">
+                  <rect x="479.5" y="187" width="80" height="28" rx="4" fill="#E95348" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle"><tspan x="519.5" y="206">Expert 2</tspan></text>
+                </g>
+              </g>
+              <g id="frz-dots-col">
+                <g id="frz-dots">
+                  <rect x="569.5" y="198" width="6" height="6" rx="3" fill="#000000" id="frz-dots-0"/>
+                  <rect x="580.5" y="198" width="6" height="6" rx="3" fill="#000000" id="frz-dots-1"/>
+                  <rect x="591.5" y="198" width="6" height="6" rx="3" fill="#000000" id="frz-dots-2"/>
+                </g>
+              </g>
+              <g id="frz-e128">
+                <g id="frz-e128-bar-slot">
+                  <rect x="639.5" y="155" width="28" height="25" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="frz-e128-bar"/>
+                </g>
+                <g id="frz-e128-exp">
+                  <rect x="607.5" y="187" width="92" height="28" rx="4" fill="#E95348" stroke="#000000" stroke-width="2"/>
+                  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle"><tspan x="653.49" y="206">Expert 128</tspan></text>
+                </g>
+              </g>
+            </g>
+            <line x1="387.5" y1="182.5" x2="691.5" y2="182.5" stroke="#000000" stroke-width="1.5" id="frz-base"/>
+          </g>
+        </g>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#000000" text-anchor="middle" id="router-contrast-right-verdict"><tspan x="544.5" y="240" font-weight="700">All 128</tspan><tspan> experts stay evenly trained</tspan></text>
+      </g>
+    </g>
+  </g>
+  <g id="flame-col-router">
+    <rect x="222" y="57" width="18" height="18" rx="9" fill="#FFFFFF" stroke="#000000" stroke-width="0" id="flame-col-router-bg"/>
+    <path d="M 231 58.8 C 231.4 61.6 234.8 62.8 234.8 66.6 C 234.8 69.4 232.9 71.4 230.6 71.4 C 228.1 71.4 226.4 69.5 226.4 66.9 C 226.4 65 227.5 63.4 228.6 62.4 C 228.4 63.9 229.2 64.8 230 64.9 C 229.5 62.8 230 60.5 231 58.8 Z" fill="#B83232" id="flame-col-router-icon"/>
+    <rect x="228.3" y="65.8" width="5" height="5" rx="2.5" fill="#F4DEC1" stroke="#000000" stroke-width="0" id="flame-col-router-core"/>
+  </g>
+  <g id="snow-frz-router">
+    <rect x="589.5" y="57" width="18" height="18" rx="9" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.4" id="snow-frz-router-bg"/>
+    <path d="M 598.5 60.6 L 598.5 71.4 M 593.8 63.3 L 603.2 68.7 M 603.2 63.3 L 593.8 68.7" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" id="snow-frz-router-icon"/>
+  </g>
+  <g id="arrows" fill="none">
+    <g id="a-col">
+      <path d="M 177 102 L 177 113.8" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="177,121 172.38,113 181.62,113" fill="#000000"/>
+    </g>
+    <g id="a-frz">
+      <path d="M 544.5 102 L 544.5 113.8" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="544.5,121 539.88,113 549.12,113" fill="#000000"/>
+    </g>
+  </g>
+</svg>

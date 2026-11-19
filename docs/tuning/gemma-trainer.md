@@ -1,76 +1,108 @@
 ---
-title: Master Local Fine-Tuning with gemma-trainer
-description: Take control of your AI models with our newest skill, designed to make local fine-tuning efficient.
+title: Gemma trainer skill
+description: Install the gemma-trainer agent skill to automate dataset validation, hyperparameter sizing, fine-tuning, evaluation, and export across Gemma 4.
 models: [gemma-4]
-frameworks: [unsloth, transformers]
-source_url: "https://bebechien.github.io/cozy-corner-future/posts/master-local-fine-tuning-with-gemma-trainer/"
+frameworks: [transformers, unsloth]
 ---
 
-# Master Local Fine-Tuning with `gemma-trainer`
+# Gemma trainer skill
 
-!!! note
-    Originally published on
-    [Cozy Corner Future](https://bebechien.github.io/cozy-corner-future/posts/master-local-fine-tuning-with-gemma-trainer/).
+The **`gemma-trainer`** skill from [`google-gemma/gemma-skills`][gemma-skills-repo] gives AI coding agents—such as Gemini CLI, Claude Code, Cursor, and Antigravity—up-to-date working knowledge of Gemma 4 fine-tuning. Instead of piecing together boilerplate from scratch, describe your dataset and goal in plain English and your agent will validate your data format, size hyperparameters to your GPU, run training, and evaluate the result.
 
-Remember back in May when I introduced the [`gemma-skills`](https://github.com/google-gemma/gemma-skills) repository? It's been rewarding to see how many of you have used [my previous post](https://bebechien.github.io/cozy-corner-future/posts/a-warm-welcome-to-gemma-skills/) to streamline your workflows. (And hey, even if we aren't swimming in GitHub stars yet, I think we're off to a great start! 😉)
+---
 
-But as I built more custom applications, I kept hitting the same roadblock: **how to take a great base model and adapt it to my specific needs.**
+## 1. Install the skill
 
-Fine-tuning a model usually requires wading through complex setups and confusing guides. To make this process straightforward and quick, we created our newest skill: **`gemma-trainer`**.
+Install `gemma-trainer` into your coding agent's skills directory:
 
-## What is `gemma-trainer`?
+=== "skills CLI"
 
-`gemma-trainer` is your blueprint for training and adapting Gemma models on your local hardware. It handles the "how-to" so you can focus on your specific project goals, whether you are teaching a model a new domain or aligning its behavior to your preferences.
+    ```bash
+    # Install the gemma-trainer skill from google-gemma/gemma-skills
+    npx skills add google-gemma/gemma-skills --skill gemma-trainer
+    ```
 
-## Why You'll Use It
+=== "Antigravity CLI"
 
-- **Faster, Lighter Training**: We recommend using **[Unsloth](http://unsloth.ai/)** for single-GPU training, making it fast and using less memory so it runs easily on personal hardware.
-- **Three Key Methods**: It guides you through Supervised Fine-Tuning (SFT) to teach new info, Direct Preference Optimization (DPO) to align with preferences, and Reward Modeling (RM) to rate responses.
-- **Teach Models to See and Hear**: It includes clear instructions for training models with images and audio (multimodal learning) alongside text.
-- **Run Anywhere**: Quickly convert your models to lightweight formats (like GGUF) and run them on mobile or smart devices (IoT) using **[LiteRT-LM](https://developers.google.com/edge/litert-lm/models/gemma-4)**.
-- **Up-to-Date Best Practices**: The skill is continuously updated with the latest optimized settings and training techniques, ensuring you're always using the best methods.
+    ```bash
+    # Install the full Gemma Skills bundle
+    agy plugin install https://github.com/google-gemma/gemma-skills
+    ```
 
-## Practical Use Case
+See [Gemma Skills](../resources/gemma-skills.md) for how to list and manage other skills in the repository, such as `gemma-dev`.
 
-To see this in action, recall how we turned Gemma 4 into an expert translator for Classical Korean literature in [my previous post](https://bebechien.github.io/cozy-corner-future/posts/turning-gemma-4-into-an-old-korean-translator/). With `gemma-trainer`, you don't need to manually piece together a pipeline. You can simply ask your agent:
+---
 
-> **"Fine-tune Gemma 4 E2B on the dataset bebechien/HongGildongJeon."**
+## 2. How the skill works
 
-With the `gemma-trainer` skill, your agent will partner with you to:
+When you ask your coding agent to fine-tune a Gemma 4 model, `gemma-trainer` guides the session through four stages before and after training:
 
-1. **Verify your data**: Use the validation script to ensure your training data matches template requirements.
-2. **Set up parameters**: Select the best LoRA settings to teach the model linguistic nuances without running out of video memory (VRAM).
-3. **Run the training**: Launch the training session using optimized, resource-efficient defaults.
-4. **Evaluate and iterate**: Review the model's performance and adjust settings to get the exact results you need.
+![How the gemma-trainer skill turns a plain-English goal into a trained adapter](../assets/tuning/gemma_trainer_01_workflow.svg)
 
-Here is an example showing the agent starting a fine-tuning run on a Gemma 4 12B model for audio tasks:
+1. **Verify the dataset and template**: Inspects your local `JSONL`, `CSV`, `Parquet`, or Hugging Face dataset, formats turns with `<|turn>` and `<turn|>`, and enables completion-only loss masking so prompt tokens do not dilute weight updates.
+2. **Match model and GPU memory**: Checks your available VRAM, selects a compatible Gemma 4 checkpoint (catching modality mismatches automatically, such as routing speech tasks to audio-capable `E2B`, `E4B`, or `12B` rather than text-and-vision `26B A4B` or `31B`), and proposes LoRA rank, batch size, and learning rate for review before launching.
+3. **Run the training recipe**: Generates a clean standalone Python training script—using [Unsloth](unsloth.md) for fast single-GPU runs or Hugging Face TRL and PEFT for custom setups and multi-GPU [scaling](scaling.md)—and tracks training and validation loss.
+4. **Evaluate and export**: Runs before-and-after evaluation on held-out examples and exports your adapter or merged checkpoint to Hugging Face, `GGUF`, or `LiteRT-LM`.
 
-![audio-tuning start](../assets/tuning/gemma-trainer-audio-tuning-start.png)
+---
 
-Once configured, the agent kicks off the training process using your designated dataset:
+## 3. Supported workflows
 
-![audio-tuning training](../assets/tuning/gemma-trainer-audio-tuning-training.png)
+`gemma-trainer` covers the full post-training lifecycle across this documentation suite:
 
-Even if you make a mistake, the agent has your back. For instance, when I accidentally requested training a Gemma 4 31B model (which is a text-and-vision model and has no audio capability), it suggested using Gemma 4 E2B or 12B for audio tuning instead:
+| Goal | What it does | Guide |
+| :--- | :--- | :--- |
+| **New language** | Packs raw domain text with a replay mix to prevent forgetting | [Continued pre-training](continued-pretraining.md) |
+| **Custom formats** | Sets up custom chat templates or single-token routing tags | [Custom chat templates](custom-chat-template.md) · [Unused tokens](unused-tokens.md) |
+| **Task tuning** | Trains a lightweight LoRA or 4-bit QLoRA adapter on a single GPU | [(Q)LoRA](qlora.md) |
+| **Full-weight shift** | Updates all model weights using memory-efficient 8-bit AdamW | [Full fine-tuning](full-finetune.md) |
+| **MoE tuning** | Adapts all 128 routed experts while keeping the router frozen | [MoE fine-tuning](moe-finetune.md) |
+| **Vision tasks** | Extracts structured data from images, receipts, and documents | [Vision fine-tuning](vision-qlora.md) |
+| **Audio tasks** | Fine-tunes speech transcription and audio understanding | [Audio fine-tuning](audio-qlora.md) |
+| **Style and tone** | Aligns responses on chosen and rejected preference pairs | [Preference optimization](preference-alignment.md) |
+| **Verifiable tasks** | Rewards concise reasoning and exact answers on math or code | [Verifiable rewards](reinforcement-learning.md) |
+| **Scaling and export** | Shards multi-GPU runs and exports to vLLM, GGUF, or LiteRT-LM | [Scaling](scaling.md) · [Export](export.md) |
 
-![audio-tuning fix](../assets/tuning/gemma-trainer-audio-tuning-fix.png)
+---
 
-Once training is complete, the agent presents the results and outlines the next steps:
+## 4. Example prompts
 
-![audio-tuning finish](../assets/tuning/gemma-trainer-audio-tuning-finish.png)
+Once installed, prompt your coding agent directly in your project folder:
 
-You can also ask your agent to write a custom evaluation script based on your specific requirements. In this case, I asked the agent to create a script that checks transcription similarity:
+- **Supervised fine-tuning on local data**:
+  > *"Fine-tune Gemma 4 E4B on `./data/support_tickets.jsonl` to classify ticket priority and draft concise replies. Validate the dataset first and size QLoRA for a 24 GB GPU."*
+- **Multimodal vision extraction**:
+  > *"Train Gemma 4 E2B to extract structured JSON line items from the receipt images in `./invoices/` and evaluate exact-match accuracy before and after training."*
+- **Reasoning with verifiable rewards**:
+  > *"Run GRPO on Gemma 4 E2B using my SQL benchmark so it reasons inside `<|thought>` blocks and gets rewarded when queries execute and match the expected rows."*
+- **On-device export**:
+  > *"Merge my trained Gemma 4 E2B LoRA adapter and convert it to GGUF Q4_K_M and LiteRT-LM for mobile deployment."*
 
-![audio-tuning eval](../assets/tuning/gemma-trainer-audio-tuning-eval.png)
+---
 
-Finally, you will receive a comprehensive report summarizing the training performance, making it clear where you can make improvements in the next run:
+## What's next
 
-![audio-tuning report](../assets/tuning/gemma-trainer-audio-tuning-report.png)
+<div class="card-grid">
+<a class="card" href="index.md">
+  <span class="card-icon">{{ icon('lucide/graduation-cap') }}</span>
+  <div class="card-title">Fine-tuning overview</div>
+  <p class="card-desc">Explore the interactive pipeline map to pick a training stage, method, and checkpoint.</p>
+</a>
+<a class="card" href="qlora.md">
+  <span class="card-icon">{{ icon('lucide/sliders-horizontal') }}</span>
+  <div class="card-title">(Q)LoRA</div>
+  <p class="card-desc">Walk through the Hugging Face TRL and PEFT code behind a LoRA fine-tuning run.</p>
+</a>
+<a class="card" href="unsloth.md">
+  <span class="card-icon">{{ icon('lucide/zap') }}</span>
+  <div class="card-title">Unsloth</div>
+  <p class="card-desc">Swap in Unsloth's fused kernels for faster single-GPU training on 16–40 GB GPUs.</p>
+</a>
+<a class="card" href="export.md">
+  <span class="card-icon">{{ icon('lucide/rocket') }}</span>
+  <div class="card-title">Export</div>
+  <p class="card-desc">Export your fine-tuned model to vLLM, GGUF, or LiteRT-LM for deployment.</p>
+</a>
+</div>
 
-## Let's try!
-
-`gemma-trainer` is a living, structured document. Drop it into your agent's skills directory, and your AI assistant will immediately know how to guide you through the process.
-
-Check out the [repository](https://github.com/google-gemma/gemma-skills), add the skill to your toolbox, and let's build something amazing!
-
-Thanks for reading and happy training!
+--8<-- "glossary.md"

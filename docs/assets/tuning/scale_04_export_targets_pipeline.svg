@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="582" height="248" viewBox="0 0 582 248" fill="none">
+  <rect id="background" width="582" height="248" fill="#FFFFFF"/>
+  <g id="s04-scene">
+    <g id="s04-ckpt-wrap">
+      <g id="s04-ckpt">
+        <g id="s04-ckpt-tab">
+          <path d="M 25.5 80.42 H 122.05 A 5.5 5.5 0 0 1 127.55 85.92 V 100.42 H 20 V 85.92 A 5.5 5.5 0 0 1 25.5 80.42 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="73.77" y="95">merged_model/</tspan></text>
+        </g>
+        <g id="s04-ckpt-body">
+          <path d="M 20 100.42 H 167.52 A 4 4 0 0 1 171.52 104.42 V 166.8 A 4 4 0 0 1 167.52 170.8 H 24 A 4 4 0 0 1 20 166.8 V 100.42 Z" fill="#FAFDFF" stroke="#000000" stroke-width="1.5"/>
+          <text font-family="JetBrains Mono, Menlo, monospace" font-size="12.5" font-weight="400" fill="#000000"><tspan x="32" y="121">config.json</tspan><tspan x="32" y="140">model.safetensors</tspan><tspan x="32" y="158">tokenizer.json</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g id="s04-targets">
+      <g id="t-vllm">
+        <g id="t-vllm-hdr">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#000000" text-anchor="middle" id="t-vllm-t"><tspan x="253.31" y="33">vLLM</tspan></text>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle" id="t-vllm-s"><tspan x="335.72" y="33">(cloud &amp; multi-GPU)</tspan></text>
+        </g>
+        <g id="sh-vllm">
+          <rect x="235.52" y="40" width="326" height="39.75" rx="4" fill="#363636" stroke="#363636" stroke-width="1.5"/>
+          <text font-family="JetBrains Mono, Menlo, monospace" font-size="15" font-weight="400" fill="#FFFFFF"><tspan x="251.52" y="64" font-weight="700" fill="#8BD5A0">$</tspan><tspan font-weight="700"> vllm serve ./merged_model</tspan></text>
+        </g>
+      </g>
+      <g id="t-gguf">
+        <g id="t-gguf-hdr">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#000000" text-anchor="middle" id="t-gguf-t"><tspan x="254.66" y="109">GGUF</tspan></text>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle" id="t-gguf-s"><tspan x="340.32" y="109">(llama.cpp &amp; Ollama)</tspan></text>
+        </g>
+        <g id="sh-gguf">
+          <rect x="235.52" y="115.75" width="326" height="39.75" rx="4" fill="#363636" stroke="#363636" stroke-width="1.5"/>
+          <text font-family="JetBrains Mono, Menlo, monospace" font-size="15" font-weight="400" fill="#FFFFFF"><tspan x="251.52" y="140" font-weight="700" fill="#8BD5A0">$</tspan><tspan font-weight="700"> ollama run gemma4-q4_k_m</tspan></text>
+        </g>
+      </g>
+      <g id="t-litert">
+        <g id="t-litert-hdr">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#000000" text-anchor="middle" id="t-litert-t"><tspan x="269.72" y="184">LiteRT-LM</tspan></text>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle" id="t-litert-s"><tspan x="385.15" y="185">(Android, iOS &amp; WebGPU)</tspan></text>
+        </g>
+        <g id="cd-litert">
+          <rect x="235.52" y="191.5" width="326" height="36.13" rx="4" fill="#FAFDFF" stroke="#000000" stroke-width="1.5"/>
+          <text font-family="JetBrains Mono, Menlo, monospace" font-size="12.5" font-weight="400" fill="#000000"><tspan x="249.52" y="214">gemma4-e2b-int4.litertlm</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="arrows" fill="none">
+    <g id="a-s04-fork-0">
+      <path d="M 177.27 135.61 L 197.52 135.61 L 197.52 59.88 L 222.57 59.88" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="229.77,59.88 221.77,64.49 221.77,55.26" fill="#000000"/>
+    </g>
+    <g id="a-s04-fork-1">
+      <path d="M 177.27 135.61 L 197.52 135.61 L 197.52 209.56 L 222.57 209.56" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="229.77,209.56 221.77,214.18 221.77,204.94" fill="#000000"/>
+    </g>
+    <g id="a-s04-mid">
+      <path d="M 177.27 135.63 L 222.57 135.63" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="229.77,135.63 221.77,140.24 221.77,131.01" fill="#000000"/>
+    </g>
+  </g>
+</svg>

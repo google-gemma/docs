@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="752" height="278" viewBox="0 0 752 278" fill="none">
+  <rect id="background" width="752" height="278" fill="#FFFFFF"/>
+  <g id="d01-scene">
+    <g id="d01-top-pair">
+      <g id="d01-prompt">
+        <g id="d01-prompt-0">
+          <path d="M 26.88 37.5 H 82.12 A 6.88 6.88 0 0 1 89 44.38 V 62.5 H 20 V 44.38 A 6.88 6.88 0 0 1 26.88 37.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="54.49" y="55">Active</tspan></text>
+        </g>
+        <g id="d01-prompt-1">
+          <path d="M 99.88 37.5 H 146.12 A 6.88 6.88 0 0 1 153 44.38 V 62.5 H 93 V 44.38 A 6.88 6.88 0 0 1 99.88 37.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="123" y="55">users</tspan></text>
+        </g>
+        <g id="d01-prompt-2">
+          <path d="M 163.88 37.5 H 180.12 A 6.88 6.88 0 0 1 187 44.38 V 62.5 H 157 V 44.38 A 6.88 6.88 0 0 1 163.88 37.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="171.99" y="55">?</tspan></text>
+        </g>
+      </g>
+      <g id="d01-cands">
+        <g id="d01-chosen-row">
+          <g id="d01-ch-tag-slot">
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="d01-ch-tag"><tspan x="256.46" y="37" font-weight="700" fill="#2B8D1E">Chosen</tspan></text>
+          </g>
+          <g id="d01-chosen-sql">
+            <g id="d01-chosen-sql-0">
+              <path d="M 307.88 20 H 363.12 A 6.88 6.88 0 0 1 370 26.88 V 45 H 301 V 26.88 A 6.88 6.88 0 0 1 307.88 20 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="335.49" y="37">SELECT</tspan></text>
+            </g>
+            <g id="d01-chosen-sql-1">
+              <path d="M 380.88 20 H 401.12 A 6.88 6.88 0 0 1 408 26.88 V 45 H 374 V 26.88 A 6.88 6.88 0 0 1 380.88 20 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="391" y="37">*</tspan></text>
+            </g>
+            <g id="d01-chosen-sql-2">
+              <path d="M 418.88 20 H 456.12 A 6.88 6.88 0 0 1 463 26.88 V 45 H 412 V 26.88 A 6.88 6.88 0 0 1 418.88 20 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="437.51" y="37">FROM</tspan></text>
+            </g>
+            <g id="d01-chosen-sql-3">
+              <path d="M 473.88 20 H 520.12 A 6.88 6.88 0 0 1 527 26.88 V 45 H 467 V 26.88 A 6.88 6.88 0 0 1 473.88 20 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="497" y="37">users</tspan></text>
+            </g>
+            <g id="d01-chosen-sql-4">
+              <path d="M 537.88 20 H 584.12 A 6.88 6.88 0 0 1 591 26.88 V 45 H 531 V 26.88 A 6.88 6.88 0 0 1 537.88 20 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="561.01" y="37">WHERE</tspan></text>
+            </g>
+            <g id="d01-chosen-sql-5">
+              <path d="M 601.88 20 H 657.12 A 6.88 6.88 0 0 1 664 26.88 V 45 H 595 V 26.88 A 6.88 6.88 0 0 1 601.88 20 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="629.49" y="37">active</tspan></text>
+            </g>
+            <g id="d01-chosen-sql-6">
+              <path d="M 674.88 20 H 691.12 A 6.88 6.88 0 0 1 698 26.88 V 45 H 668 V 26.88 A 6.88 6.88 0 0 1 674.88 20 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="683" y="37">=</tspan></text>
+            </g>
+            <g id="d01-chosen-sql-7">
+              <path d="M 708.88 20 H 725.12 A 6.88 6.88 0 0 1 732 26.88 V 45 H 702 V 26.88 A 6.88 6.88 0 0 1 708.88 20 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="717" y="37">1</tspan></text>
+            </g>
+          </g>
+        </g>
+        <g id="d01-rej-row" opacity="0.35">
+          <g id="d01-rj-tag-slot">
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="d01-rj-tag"><tspan x="260.15" y="72" font-weight="700" fill="#B83232">Rejected</tspan></text>
+          </g>
+          <g id="d01-rej-sql">
+            <g id="d01-rej-sql-0">
+              <path d="M 307.88 55 H 363.12 A 6.88 6.88 0 0 1 370 61.88 V 80 H 301 V 61.88 A 6.88 6.88 0 0 1 307.88 55 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="335.49" y="72">SELECT</tspan></text>
+            </g>
+            <g id="d01-rej-sql-1">
+              <path d="M 380.88 55 H 401.12 A 6.88 6.88 0 0 1 408 61.88 V 80 H 374 V 61.88 A 6.88 6.88 0 0 1 380.88 55 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="391" y="72">*</tspan></text>
+            </g>
+            <g id="d01-rej-sql-2">
+              <path d="M 418.88 55 H 456.12 A 6.88 6.88 0 0 1 463 61.88 V 80 H 412 V 61.88 A 6.88 6.88 0 0 1 418.88 55 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="437.51" y="72">FROM</tspan></text>
+            </g>
+            <g id="d01-rej-sql-3">
+              <path d="M 473.88 55 H 520.12 A 6.88 6.88 0 0 1 527 61.88 V 80 H 467 V 61.88 A 6.88 6.88 0 0 1 473.88 55 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="497" y="72">users</tspan></text>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <line x1="63" y1="98.75" x2="689" y2="98.75" stroke="#9D9D9D" stroke-width="1.5" stroke-dasharray="3 3" id="d01-hdiv"/>
+    <g id="d01-contrast">
+      <g id="d01-contrast-pair">
+        <g id="d01-contrast-left">
+          <g id="d01-contrast-left-hdr">
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="d01-contrast-left-title"><tspan x="210.24" y="132">After SFT</tspan></text>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="d01-contrast-left-sub"><tspan x="210.24" y="148">(trains on chosen answer only)</tspan></text>
+          </g>
+          <g id="sft-meters">
+            <g id="sft-ch">
+              <g id="sft-ch-lbl-slot">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="sft-ch-lbl"><tspan x="110.73" y="180" font-weight="700" fill="#2B8D1E">Chosen</tspan></text>
+              </g>
+              <g id="sft-ch-gauge">
+                <rect x="143.25" y="163.5" width="156" height="24" rx="3" fill="#F6F7F9" stroke="#AEAEAE" stroke-width="1.2" id="sft-ch-track"/>
+                <rect x="143.25" y="163.5" width="125" height="24" rx="2" fill="#C1ECC8" stroke="#000000" stroke-width="1.5" id="sft-ch-fill"/>
+                <rect x="143.25" y="163.5" width="66" height="24" rx="2" fill="#FFFFFF" fill-opacity="0" stroke="#444444" stroke-width="1.6" stroke-dasharray="4 3" id="sft-ch-before"/>
+                <path d="M 217.25 175.5 L 260.25 175.5 M 255.75 171.5 L 260.25 175.5 L 255.75 179.5" fill="none" stroke="#2B8D1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" id="sft-ch-shift-r"/>
+              </g>
+              <g id="sft-ch-val-slot">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#2B8D1E" text-anchor="middle" id="sft-ch-val"><tspan x="321.61" y="180" font-weight="700">80%</tspan></text>
+              </g>
+            </g>
+            <g id="sft-rj">
+              <g id="sft-rj-lbl-slot">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="sft-rj-lbl"><tspan x="107.18" y="216" font-weight="700" fill="#B83232">Rejected</tspan></text>
+              </g>
+              <g id="sft-rj-gauge">
+                <rect x="143.25" y="199.5" width="156" height="24" rx="3" fill="#F6F7F9" stroke="#AEAEAE" stroke-width="1.2" id="sft-rj-track"/>
+                <rect x="143.25" y="199.5" width="59" height="24" rx="2" fill="#F8C6C6" stroke="#555555" stroke-width="1.5" stroke-dasharray="4 3" id="sft-rj-fill"/>
+              </g>
+              <g id="sft-rj-val-slot">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#B83232" text-anchor="middle" id="sft-rj-val"><tspan x="321.42" y="216" font-weight="700">38%</tspan></text>
+              </g>
+            </g>
+          </g>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#000000" text-anchor="middle" id="d01-contrast-left-verdict"><tspan x="210.24" y="248">Rejected query stays at </tspan><tspan font-weight="700">38%</tspan></text>
+        </g>
+        <line x1="376" y1="117.5" x2="376" y2="257.5" stroke="#8C8C8C" stroke-width="1.5" stroke-dasharray="3 3" id="d01-contrast-div"/>
+        <g id="d01-contrast-right">
+          <g id="d01-contrast-right-hdr">
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="d01-contrast-right-title"><tspan x="541.73" y="132">After DPO</tspan></text>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="d01-contrast-right-sub"><tspan x="541.74" y="148">(raises chosen &amp; pushes rejected down)</tspan></text>
+          </g>
+          <g id="dpo-meters">
+            <g id="dpo-ch">
+              <g id="dpo-ch-lbl-slot">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="dpo-ch-lbl"><tspan x="442.23" y="180" font-weight="700" fill="#2B8D1E">Chosen</tspan></text>
+              </g>
+              <g id="dpo-ch-gauge">
+                <rect x="474.75" y="163.5" width="156" height="24" rx="3" fill="#F6F7F9" stroke="#AEAEAE" stroke-width="1.2" id="dpo-ch-track"/>
+                <rect x="474.75" y="163.5" width="134" height="24" rx="2" fill="#C1ECC8" stroke="#000000" stroke-width="1.5" id="dpo-ch-fill"/>
+                <rect x="474.75" y="163.5" width="66" height="24" rx="2" fill="#FFFFFF" fill-opacity="0" stroke="#444444" stroke-width="1.6" stroke-dasharray="4 3" id="dpo-ch-before"/>
+                <path d="M 548.75 175.5 L 600.75 175.5 M 596.25 171.5 L 600.75 175.5 L 596.25 179.5" fill="none" stroke="#2B8D1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" id="dpo-ch-shift-r"/>
+              </g>
+              <g id="dpo-ch-val-slot">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#2B8D1E" text-anchor="middle" id="dpo-ch-val"><tspan x="652.93" y="180" font-weight="700">86%</tspan></text>
+              </g>
+            </g>
+            <g id="dpo-rj">
+              <g id="dpo-rj-lbl-slot">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="dpo-rj-lbl"><tspan x="438.68" y="216" font-weight="700" fill="#B83232">Rejected</tspan></text>
+              </g>
+              <g id="dpo-rj-gauge">
+                <rect x="474.75" y="199.5" width="156" height="24" rx="3" fill="#F6F7F9" stroke="#AEAEAE" stroke-width="1.2" id="dpo-rj-track"/>
+                <rect x="474.75" y="199.5" width="59" height="24" rx="2" fill="#FFFFFF" fill-opacity="0" stroke="#444444" stroke-width="1.6" stroke-dasharray="4 3" id="dpo-rj-before"/>
+                <rect x="474.75" y="199.5" width="16" height="24" rx="2" fill="#F8C6C6" stroke="#000000" stroke-width="1.5" id="dpo-rj-fill"/>
+                <path d="M 526.75 211.5 L 498.75 211.5 M 503.25 207.5 L 498.75 211.5 L 503.25 215.5" fill="none" stroke="#B83232" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" id="dpo-rj-shift-l"/>
+              </g>
+              <g id="dpo-rj-val-slot">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#B83232" text-anchor="middle" id="dpo-rj-val"><tspan x="651.99" y="216" font-weight="700">10%</tspan></text>
+              </g>
+            </g>
+          </g>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#000000" text-anchor="middle" id="d01-contrast-right-verdict"><tspan x="541.74" y="248" font-weight="700">Wide margin</tspan><tspan> separates 86% vs 10%</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="arrows" fill="none">
+    <g id="a-d01-fork-0">
+      <path d="M 192 50 L 207 50 L 207 32.5 L 218.8 32.5" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="226,32.5 218,37.12 218,27.88" fill="#000000"/>
+    </g>
+    <g id="a-d01-fork-1">
+      <path d="M 192 50 L 207 50 L 207 67.5 L 218.8 67.5" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="226,67.5 218,72.12 218,62.88" fill="#000000"/>
+    </g>
+  </g>
+</svg>

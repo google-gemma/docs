@@ -25,6 +25,7 @@ extra_css = [
   "stylesheets/embeds.css?v=2",      # external interactive demos
   "stylesheets/page-context.css?v=2",# the applicability bar above every H1
   "stylesheets/tokens.css?v=2",      # chat-token badges
+  "stylesheets/tuning-map.css?v=3",  # interactive fine-tuning pipeline map
   "stylesheets/home.css?v=3",        # landing page: chrome, backdrop, hero
   "stylesheets/llm-tutorial.css",    # interactive "How LLMs work" tutorial widgets
   "stylesheets/llm-animations.css",  # keyframes & motion choreography for LLM tutorial widgets
@@ -36,7 +37,8 @@ extra_css = [
 # Order matters: the generated data must load before the switcher that reads it.
 extra_javascript = [
   "javascripts/model-data.js?v=2",     # GENERATED from data/models.yml -- do not edit
-  "javascripts/model-switcher.js?v=2", # page context strip selector + code rewriting
+  "javascripts/model-switcher.js?v=3", # page context strip selector + code rewriting
+  "javascripts/tuning-map.js?v=3",     # interactive fine-tuning map & path picker
   "javascripts/llm-tutorial.js",        # interactive "How LLMs work" tutorial widgets
   "javascripts/llm-ascii-shell.js?v=1", # interactive tour shell: ASCII canvas, stage rail, terminal
   "javascripts/mathjax.js",
@@ -185,12 +187,33 @@ nav = [
 
   { "Fine-tune" = [
     { "Overview" = "tuning/index.md" },
-    { "Guides" = [
-      { "QLoRA" = "tuning/qlora.md" },
-      { "Audio QLoRA" = "tuning/audio-qlora.md" },
-      { "Vision QLoRA" = "tuning/vision-qlora.md" },
-      { "Full fine-tune" = "tuning/full-finetune.md" },
-      { "Agent Skill" = "tuning/gemma-trainer.md" },
+    { "Foundations" = [
+      { "Best practices" = "tuning/best-practices.md" },
+      { "Dataset formatting" = "tuning/datasets-formatting.md" },
+    ]},
+    { "Continued pre-training" = [
+      { "Continued pre-training" = "tuning/continued-pretraining.md" },
+      { "Custom chat templates" = "tuning/custom-chat-template.md" },
+    ]},
+    { "Supervised fine-tuning" = [
+      { "(Q)LoRA" = "tuning/qlora.md" },
+      { "Full fine-tuning" = "tuning/full-finetune.md" },
+      { "MoE fine-tuning" = "tuning/moe-finetune.md" },
+      { "Unused tokens" = "tuning/unused-tokens.md" },
+    ]},
+    { "Multimodal fine-tuning" = [
+      { "Vision fine-tuning" = "tuning/vision-qlora.md" },
+      { "Audio fine-tuning" = "tuning/audio-qlora.md" },
+    ]},
+    { "Reinforcement learning" = [
+      { "Preference optimization" = "tuning/preference-alignment.md" },
+      { "Verifiable rewards" = "tuning/reinforcement-learning.md" },
+    ]},
+    { "Deployment" = [
+      { "Scaling" = "tuning/scaling.md" },
+      { "Export" = "tuning/export.md" },
+      { "Unsloth" = "tuning/unsloth.md" },
+      { "Gemma trainer skill" = "tuning/gemma-trainer.md" },
     ]},
   ]},
 

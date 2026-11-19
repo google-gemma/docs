@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="347" viewBox="0 0 680 268" role="img" aria-label="audio-qlora training curve">
+  <rect width="680" height="268" fill="#FFFFFF"/>
+  <line x1="76.0" y1="175.79" x2="500.0" y2="175.79" stroke="#B8B8B8" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <path d="M 88.37 86.34 L 100.74 140.72 L 113.11 141.05 L 125.47 147.32 L 137.84 150.38 L 150.21 151.36 L 162.58 156.88 L 174.95 149.60 L 187.32 155.81 L 199.69 157.39 L 212.06 158.67 L 224.42 160.97 L 236.79 157.43 L 249.16 161.70 L 261.53 165.93 L 273.90 164.65 L 286.27 163.44 L 298.39 168.54 L 310.76 172.78 L 323.13 169.66 L 335.50 172.88 L 347.86 173.15 L 360.23 175.04 L 372.60 174.65 L 384.97 181.11 L 397.34 176.92 L 409.71 170.65 L 422.08 178.25 L 434.45 178.15 L 446.81 177.08 L 459.18 174.42 L 471.55 180.95 L 483.92 174.75 L 496.29 182.47" fill="none" stroke="#743BBE" stroke-width="1.4" stroke-opacity="0.24" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 88.37 86.34 L 100.74 127.21 L 113.11 137.82 L 125.47 146.36 L 137.84 149.64 L 150.21 151.78 L 162.58 153.31 L 174.95 153.52 L 187.32 155.19 L 199.69 156.90 L 212.06 158.49 L 224.42 159.40 L 236.79 160.12 L 249.16 161.91 L 261.53 163.62 L 273.90 164.76 L 286.27 166.01 L 298.39 168.07 L 310.76 170.24 L 323.13 171.29 L 335.50 172.44 L 347.86 173.31 L 360.23 174.93 L 372.60 176.23 L 384.97 177.11 L 397.34 176.37 L 409.71 175.50 L 422.08 176.31 L 434.45 176.81 L 446.81 177.24 L 459.18 176.85 L 471.55 177.92 L 483.92 178.23 L 496.29 182.47" fill="none" stroke="#743BBE" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 76.00 38.37 L 288.00 174.33 L 500.00 175.79" fill="none" stroke="#2E7D32" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="76.0" y1="26.0" x2="76.0" y2="210.0" stroke="#000000" stroke-width="2.2" stroke-linecap="square"/>
+  <line x1="76.0" y1="210.0" x2="500.0" y2="210.0" stroke="#000000" stroke-width="2.2" stroke-linecap="square"/>
+  <line x1="76.00" y1="210.0" x2="76.00" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="76.00" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">0</text>
+  <line x1="288.00" y1="210.0" x2="288.00" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="288.00" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">1</text>
+  <line x1="500.00" y1="210.0" x2="500.00" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="500.00" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">2</text>
+  <line x1="70.0" y1="210.00" x2="76.0" y2="210.00" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="214.50" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">0</text>
+  <line x1="70.0" y1="173.20" x2="76.0" y2="173.20" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="177.70" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">1</text>
+  <line x1="70.0" y1="136.40" x2="76.0" y2="136.40" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="140.90" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">2</text>
+  <line x1="70.0" y1="99.60" x2="76.0" y2="99.60" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="104.10" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">3</text>
+  <line x1="70.0" y1="62.80" x2="76.0" y2="62.80" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="67.30" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">4</text>
+  <line x1="70.0" y1="26.00" x2="76.0" y2="26.00" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="30.50" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">5</text>
+  <circle cx="88.37" cy="86.34" r="4.4" fill="#743BBE" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="496.29" cy="182.47" r="4.6" fill="#743BBE" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="76.00" cy="38.37" r="5.0" fill="#2E7D32" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="288.00" cy="174.33" r="5.0" fill="#2E7D32" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="500.00" cy="175.79" r="5.0" fill="#2E7D32" stroke="#FFFFFF" stroke-width="2"/>
+  <path d="M 506.0 175.8 H 510.0 V 149.2 H 514.0" fill="none" stroke="#2E7D32" stroke-width="1.3" stroke-opacity="0.65" stroke-linejoin="round"/>
+  <text x="518.0" y="152.2" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#2E7D32">Validation loss</text>
+  <text x="518.0" y="167.2" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" fill="#4A4A4A">(4.66 → 0.93)</text>
+  <path d="M 506.0 182.5 H 510.0 V 191.2 H 514.0" fill="none" stroke="#743BBE" stroke-width="1.3" stroke-opacity="0.65" stroke-linejoin="round"/>
+  <text x="518.0" y="194.2" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#743BBE">Training loss</text>
+  <text x="518.0" y="209.2" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" fill="#4A4A4A">(3.36 → 0.75)</text>
+  <text x="20" y="118.0" text-anchor="middle" transform="rotate(-90 20 118.0)" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#000000">Loss</text>
+  <text x="288.0" y="255.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#000000">Epoch</text>
+</svg>

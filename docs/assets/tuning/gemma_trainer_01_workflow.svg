@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="694" height="410" viewBox="0 0 694 410" fill="none">
+  <rect id="background" width="694" height="410" fill="#FFFFFF"/>
+  <g id="tr-root">
+    <g id="tr-goal">
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#000000" text-anchor="middle" id="tr-goal-hdr"><tspan x="164" y="39">User prompt</tspan></text>
+      <g id="tr-q1">
+        <g id="tr-q1-0">
+          <path d="M 91.88 48.5 H 138.12 A 6.88 6.88 0 0 1 145 55.38 V 73.5 H 85 V 55.38 A 6.88 6.88 0 0 1 91.88 48.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="115" y="66">Train</tspan></text>
+        </g>
+        <g id="tr-q1-1">
+          <path d="M 155.88 48.5 H 202.12 A 6.88 6.88 0 0 1 209 55.38 V 73.5 H 149 V 55.38 A 6.88 6.88 0 0 1 155.88 48.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="179.01" y="66">Gemma</tspan></text>
+        </g>
+        <g id="tr-q1-2">
+          <path d="M 219.88 48.5 H 236.12 A 6.88 6.88 0 0 1 243 55.38 V 73.5 H 213 V 55.38 A 6.88 6.88 0 0 1 219.88 48.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="228" y="66">4</tspan></text>
+        </g>
+      </g>
+      <g id="tr-q2">
+        <g id="tr-q2-0">
+          <path d="M 107.38 77.5 H 127.62 A 6.88 6.88 0 0 1 134.5 84.38 V 102.5 H 100.5 V 84.38 A 6.88 6.88 0 0 1 107.38 77.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="117.49" y="95">on</tspan></text>
+        </g>
+        <g id="tr-q2-1">
+          <path d="M 145.38 77.5 H 165.62 A 6.88 6.88 0 0 1 172.5 84.38 V 102.5 H 138.5 V 84.38 A 6.88 6.88 0 0 1 145.38 77.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="155.51" y="95">my</tspan></text>
+        </g>
+        <g id="tr-q2-2">
+          <path d="M 183.38 77.5 H 220.62 A 6.88 6.88 0 0 1 227.5 84.38 V 102.5 H 176.5 V 84.38 A 6.88 6.88 0 0 1 183.38 77.5 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="202" y="95">data</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g id="tr-skill">
+      <g id="tr-skill-tab">
+        <path d="M 71.24 137.25 H 222.08 A 5.5 5.5 0 0 1 227.59 142.75 V 157.25 H 65.74 V 142.75 A 5.5 5.5 0 0 1 71.24 137.25 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="146.66" y="152">gemma-trainer/SKILL.md</tspan></text>
+      </g>
+      <g id="tr-skill-body">
+        <path d="M 65.74 157.25 H 258.26 A 4 4 0 0 1 262.26 161.25 V 241.75 A 4 4 0 0 1 258.26 245.75 H 69.74 A 4 4 0 0 1 65.74 241.75 V 157.25 Z" fill="#FAFDFF" stroke="#000000" stroke-width="1.5"/>
+        <text font-family="JetBrains Mono, Menlo, monospace" font-size="12.5" font-weight="400" fill="#000000"><tspan x="77.74" y="178">1. Verify data template</tspan><tspan x="77.74" y="196">2. Size LoRA for VRAM</tspan><tspan x="77.74" y="215">3. Train with Unsloth</tspan><tspan x="77.74" y="233">4. Evaluate &amp; iterate</tspan></text>
+      </g>
+    </g>
+    <g id="sh-prep">
+      <rect x="354" y="173.25" width="304" height="61.5" rx="4" fill="#363636" stroke="#363636" stroke-width="1.5"/>
+      <text font-family="JetBrains Mono, Menlo, monospace" font-size="15" font-weight="400" fill="#FFFFFF"><tspan x="370" y="197" font-weight="700" fill="#8BD5A0">$</tspan><tspan font-weight="700"> python validate_data.py</tspan><tspan x="370" y="219">✓ Data OK · QLoRA (r=16)</tspan></text>
+    </g>
+    <g id="sh-run">
+      <rect x="354" y="301.25" width="304" height="61.5" rx="4" fill="#363636" stroke="#363636" stroke-width="1.5"/>
+      <text font-family="JetBrains Mono, Menlo, monospace" font-size="15" font-weight="400" fill="#FFFFFF"><tspan x="370" y="325" font-weight="700" fill="#8BD5A0">$</tspan><tspan font-weight="700"> python train_and_eval.py</tspan><tspan x="370" y="347">✓ Loss 0.64 · Eval OK</tspan></text>
+    </g>
+    <g id="tr-out">
+      <g id="tr-lora">
+        <g id="tr-lora-acol">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle" id="tr-lora-albl"><tspan x="125.88" y="293" font-weight="700">LoRA A</tspan></text>
+          <g id="tr-lora-a">
+            <rect x="113.88" y="300" width="12" height="12" fill="#9A5FD1" stroke="#000000" stroke-width="1.5" id="tr-lora-a-0-0"/>
+            <rect x="125.88" y="300" width="12" height="12" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="tr-lora-a-0-1"/>
+            <rect x="113.88" y="312" width="12" height="12" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="tr-lora-a-1-0"/>
+            <rect x="125.88" y="312" width="12" height="12" fill="#743BBE" stroke="#000000" stroke-width="1.5" id="tr-lora-a-1-1"/>
+            <rect x="113.88" y="324" width="12" height="12" fill="#BF94E4" stroke="#000000" stroke-width="1.5" id="tr-lora-a-2-0"/>
+            <rect x="125.88" y="324" width="12" height="12" fill="#F3EAFA" stroke="#000000" stroke-width="1.5" id="tr-lora-a-2-1"/>
+            <rect x="113.88" y="336" width="12" height="12" fill="#743BBE" stroke="#000000" stroke-width="1.5" id="tr-lora-a-3-0"/>
+            <rect x="125.88" y="336" width="12" height="12" fill="#BF94E4" stroke="#000000" stroke-width="1.5" id="tr-lora-a-3-1"/>
+          </g>
+        </g>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#000000" text-anchor="middle" id="tr-lora-mul"><tspan x="162.27" y="321" font-weight="700">×</tspan></text>
+        <g id="tr-lora-bcol">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle" id="tr-lora-blbl"><tspan x="200.38" y="305" font-weight="700">LoRA B</tspan></text>
+          <g id="tr-lora-b">
+            <rect x="176.39" y="312" width="12" height="12" fill="#BF94E4" stroke="#000000" stroke-width="1.5" id="tr-lora-b-0-0"/>
+            <rect x="188.39" y="312" width="12" height="12" fill="#743BBE" stroke="#000000" stroke-width="1.5" id="tr-lora-b-0-1"/>
+            <rect x="200.39" y="312" width="12" height="12" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="tr-lora-b-0-2"/>
+            <rect x="212.39" y="312" width="12" height="12" fill="#9A5FD1" stroke="#000000" stroke-width="1.5" id="tr-lora-b-0-3"/>
+            <rect x="176.39" y="324" width="12" height="12" fill="#F3EAFA" stroke="#000000" stroke-width="1.5" id="tr-lora-b-1-0"/>
+            <rect x="188.39" y="324" width="12" height="12" fill="#BF94E4" stroke="#000000" stroke-width="1.5" id="tr-lora-b-1-1"/>
+            <rect x="200.39" y="324" width="12" height="12" fill="#743BBE" stroke="#000000" stroke-width="1.5" id="tr-lora-b-1-2"/>
+            <rect x="212.39" y="324" width="12" height="12" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="tr-lora-b-1-3"/>
+          </g>
+        </g>
+      </g>
+      <g id="tr-report">
+        <g id="tr-r0">
+          <path d="M 69.88 358 H 124.12 A 6.88 6.88 0 0 1 131 364.88 V 383 H 63 V 364.88 A 6.88 6.88 0 0 1 69.88 358 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="97" y="375">Adapter</tspan></text>
+        </g>
+        <g id="tr-r1">
+          <path d="M 142.88 358 H 185.12 A 6.88 6.88 0 0 1 192 364.88 V 383 H 136 V 364.88 A 6.88 6.88 0 0 1 142.88 358 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="164" y="375">ready</tspan></text>
+        </g>
+        <g id="tr-r2">
+          <path d="M 203.88 358 H 258.12 A 6.88 6.88 0 0 1 265 364.88 V 383 H 197 V 364.88 A 6.88 6.88 0 0 1 203.88 358 Z" fill="#DBEAFE" stroke="#60A5FA" stroke-width="1.5"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#1E40AF" text-anchor="middle"><tspan x="231" y="375">&lt;turn|&gt;</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="flame-tr-lora">
+    <rect x="215.39" y="327" width="18" height="18" rx="9" fill="#FFFFFF" stroke="#000000" stroke-width="0" id="flame-tr-lora-bg"/>
+    <path d="M 224.39 328.8 C 224.79 331.6 228.19 332.8 228.19 336.6 C 228.19 339.4 226.29 341.4 223.99 341.4 C 221.49 341.4 219.79 339.5 219.79 336.9 C 219.79 335 220.89 333.4 221.99 332.4 C 221.79 333.9 222.59 334.8 223.39 334.9 C 222.89 332.8 223.39 330.5 224.39 328.8 Z" fill="#B83232" id="flame-tr-lora-icon"/>
+    <rect x="221.69" y="335.8" width="5" height="5" rx="2.5" fill="#F4DEC1" stroke="#000000" stroke-width="0" id="flame-tr-lora-core"/>
+  </g>
+  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#000000" text-anchor="middle" id="hdr-prep"><tspan x="462.22" y="163">1–2. Verify data &amp; set parameters</tspan></text>
+  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#000000" text-anchor="middle" id="hdr-run"><tspan x="422.34" y="291">3–4. Train &amp; evaluate</tspan></text>
+  <g id="arrows" fill="none">
+    <g id="a-tr-1">
+      <path d="M 164 108.5 L 164 124.05" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="164,131.25 159.38,123.25 168.62,123.25" fill="#000000"/>
+    </g>
+    <g id="a-tr-2">
+      <path d="M 269.01 204 L 340.05 204" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="347.25,204 339.25,208.62 339.25,199.38" fill="#000000"/>
+    </g>
+    <g id="a-tr-3">
+      <path d="M 572.88 241.5 L 572.88 287.3" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="572.88,294.5 568.26,286.5 577.5,286.5" fill="#000000"/>
+    </g>
+    <g id="a-tr-4">
+      <path d="M 347.25 332 L 278.2 332" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="271,332 279,327.38 279,336.62" fill="#000000"/>
+    </g>
+  </g>
+</svg>

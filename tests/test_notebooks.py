@@ -74,6 +74,24 @@ print(42)
         self.assertEqual([cell["cell_type"] for cell in cells], ["markdown", "code"])
         self.assertIn("```json", "".join(cells[0]["source"]))
 
+    def test_jinja_raw_guards_unwrap_in_markdown_and_code_cells(self):
+        body = """{% raw %}
+Use `{% generation %}` spans in Jinja2:
+
+```python { .notebook-cell }
+tpl = "{% generation %}{{ message['content'] }}{% endgeneration %}"
+```
+{% endraw %}
+"""
+        cells = notebooks.export_cells(body)
+        self.assertEqual([cell["cell_type"] for cell in cells], ["markdown", "code"])
+        md_src = "".join(cells[0]["source"])
+        code_src = "".join(cells[1]["source"])
+        self.assertIn("`{% generation %}`", md_src)
+        self.assertNotIn("raw", md_src)
+        self.assertIn("{% generation %}", code_src)
+        self.assertNotIn("raw", code_src)
+
     def test_render_is_a_version_four_notebook(self):
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory) / "guide.md"
@@ -87,8 +105,8 @@ print(42)
             self.assertEqual(payload["cells"][3]["cell_type"], "code")
 
     def test_registered_notebooks_have_unique_outputs_and_code_cells(self):
-        self.assertEqual(len(notebooks.SOURCES), 25)
-        self.assertEqual(len(notebooks.NOTEBOOKS), 68)
+        self.assertEqual(len(notebooks.SOURCES), 31)
+        self.assertEqual(len(notebooks.NOTEBOOKS), 91)
         self.assertEqual(len(set(notebooks.NOTEBOOKS.values())), len(notebooks.NOTEBOOKS))
         for (source, model), target in notebooks.NOTEBOOKS.items():
             with self.subTest(target=target.name):
@@ -98,6 +116,15 @@ print(42)
                     f"{target} exports no executable cells",
                 )
                 self.assertEqual(payload["metadata"]["colab"]["name"], target.name)
+
+    def test_explicit_models_frontmatter_excludes_moe_from_dense_lora_guides(self):
+        qlora_source = notebooks.REPO_ROOT / "docs" / "tuning" / "qlora.md"
+        candidates = notebooks.candidate_models(qlora_source)
+        self.assertEqual(
+            candidates,
+            ["gemma-4/e2b", "gemma-4/e4b", "gemma-4/12b", "gemma-4/31b"],
+        )
+        self.assertNotIn("gemma-4/26b-a4b", candidates)
 
     def test_model_swap_rewrites_code_cells(self):
         body = """---

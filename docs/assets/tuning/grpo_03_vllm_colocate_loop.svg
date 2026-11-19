@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="618" height="327" viewBox="0 0 618 327" fill="none">
+  <rect id="background" width="618" height="327" fill="#FFFFFF"/>
+  <g id="g03-scene">
+    <g id="gpu-sheet">
+      <rect x="20" y="20" width="348" height="287" rx="9" fill="#FAFDFF" stroke="#000000" stroke-width="2"/>
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="gpu-hdr"><tspan x="193.99" y="46">Single GPU Memory</tspan></text>
+      <g id="vllm-card">
+        <rect x="40" y="60" width="308" height="48" rx="6" fill="#EBF3FE" stroke="#000000" stroke-width="2"/>
+        <g id="vllm-row">
+          <g id="vllm-txt">
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#000000" text-anchor="middle" id="vllm-t"><tspan x="96.03" y="81">vLLM Engine</tspan></text>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="vllm-s"><tspan x="102.3" y="97">(PagedAttention)</tspan></text>
+          </g>
+          <g id="vllm-kv">
+            <g id="kv-0">
+              <rect x="218" y="75" width="26" height="18" rx="2" fill="#C4DCFA" stroke="#000000" stroke-width="1.3"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="231" y="88">KV</tspan></text>
+            </g>
+            <g id="kv-1">
+              <rect x="248" y="75" width="26" height="18" rx="2" fill="#C4DCFA" stroke="#000000" stroke-width="1.3"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="261" y="88">KV</tspan></text>
+            </g>
+            <g id="kv-2">
+              <rect x="278" y="75" width="26" height="18" rx="2" fill="#C4DCFA" stroke="#000000" stroke-width="1.3"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="291" y="88">KV</tspan></text>
+            </g>
+            <g id="kv-3">
+              <rect x="308" y="75" width="26" height="18" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="1.3"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="321" y="88">KV</tspan></text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g id="gpu-weights-row">
+        <g id="gpu-lora-col">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#000000" text-anchor="middle" id="gpu-lora-lbl"><tspan x="116" y="158" fill="#743BBE">LoRA Adapter</tspan></text>
+          <g id="gpu-lora-mat">
+            <rect x="102" y="173" width="14" height="14" fill="#9A5FD1" stroke="#000000" stroke-width="1.5" id="gpu-lora-mat-0-0"/>
+            <rect x="116" y="173" width="14" height="14" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="gpu-lora-mat-0-1"/>
+            <rect x="102" y="187" width="14" height="14" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="gpu-lora-mat-1-0"/>
+            <rect x="116" y="187" width="14" height="14" fill="#743BBE" stroke="#000000" stroke-width="1.5" id="gpu-lora-mat-1-1"/>
+            <rect x="102" y="201" width="14" height="14" fill="#743BBE" stroke="#000000" stroke-width="1.5" id="gpu-lora-mat-2-0"/>
+            <rect x="116" y="201" width="14" height="14" fill="#BF94E4" stroke="#000000" stroke-width="1.5" id="gpu-lora-mat-2-1"/>
+          </g>
+        </g>
+        <g id="gpu-base-col">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#000000" text-anchor="middle" id="gpu-base-lbl"><tspan x="272" y="158">4-bit Base</tspan></text>
+          <g id="gpu-base-mat">
+            <rect x="244" y="173" width="14" height="14" fill="#B4EFEF" stroke="#000000" stroke-width="1.5" id="gpu-base-mat-0-0"/>
+            <rect x="258" y="173" width="14" height="14" fill="#3FC2C2" stroke="#000000" stroke-width="1.5" id="gpu-base-mat-0-1"/>
+            <rect x="272" y="173" width="14" height="14" fill="#7FE0E0" stroke="#000000" stroke-width="1.5" id="gpu-base-mat-0-2"/>
+            <rect x="286" y="173" width="14" height="14" fill="#1A9494" stroke="#000000" stroke-width="1.5" id="gpu-base-mat-0-3"/>
+            <rect x="244" y="187" width="14" height="14" fill="#3FC2C2" stroke="#000000" stroke-width="1.5" id="gpu-base-mat-1-0"/>
+            <rect x="258" y="187" width="14" height="14" fill="#1A9494" stroke="#000000" stroke-width="1.5" id="gpu-base-mat-1-1"/>
+            <rect x="272" y="187" width="14" height="14" fill="#B4EFEF" stroke="#000000" stroke-width="1.5" id="gpu-base-mat-1-2"/>
+            <rect x="286" y="187" width="14" height="14" fill="#7FE0E0" stroke="#000000" stroke-width="1.5" id="gpu-base-mat-1-3"/>
+            <rect x="244" y="201" width="14" height="14" fill="#7FE0E0" stroke="#000000" stroke-width="1.5" id="gpu-base-mat-2-0"/>
+            <rect x="258" y="201" width="14" height="14" fill="#B4EFEF" stroke="#000000" stroke-width="1.5" id="gpu-base-mat-2-1"/>
+            <rect x="272" y="201" width="14" height="14" fill="#1A9494" stroke="#000000" stroke-width="1.5" id="gpu-base-mat-2-2"/>
+            <rect x="286" y="201" width="14" height="14" fill="#3FC2C2" stroke="#000000" stroke-width="1.5" id="gpu-base-mat-2-3"/>
+          </g>
+        </g>
+      </g>
+      <g id="trainer-card">
+        <rect x="40" y="251" width="308" height="40" rx="6" fill="#DEC4F2" stroke="#000000" stroke-width="2"/>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="193.99" y="276">3. Loss &amp; Update (GRPO)</tspan></text>
+      </g>
+    </g>
+    <g id="reward-card">
+      <rect x="422" y="121" width="176" height="85" rx="6" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#000000" text-anchor="middle" id="rew-t"><tspan x="509.99" y="144">2. Score (verifiers)</tspan></text>
+      <g id="score-pills">
+        <g id="sp-1">
+          <rect x="436" y="153" width="34" height="22" rx="3" fill="#C1ECC8" stroke="#000000" stroke-width="1.3"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="452.99" y="168">3.0</tspan></text>
+        </g>
+        <g id="sp-2">
+          <rect x="474" y="153" width="34" height="22" rx="3" fill="#C1ECC8" stroke="#000000" stroke-width="1.3"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="490.99" y="168">3.0</tspan></text>
+        </g>
+        <g id="sp-3">
+          <rect x="512" y="153" width="34" height="22" rx="3" fill="#F8C6C6" stroke="#000000" stroke-width="1.3"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="529" y="168">0.0</tspan></text>
+        </g>
+        <g id="sp-4">
+          <rect x="550" y="153" width="34" height="22" rx="3" fill="#F8C6C6" stroke="#000000" stroke-width="1.3"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="566.99" y="168">1.0</tspan></text>
+        </g>
+      </g>
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="rew-s"><tspan x="510" y="193">advantages </tspan><tspan font-weight="700">+1.25 / −1.75</tspan></text>
+    </g>
+  </g>
+  <g id="flame-gpu-lora">
+    <rect x="121" y="164" width="18" height="18" rx="9" fill="#FFFFFF" stroke="#000000" stroke-width="0" id="flame-gpu-lora-bg"/>
+    <path d="M 130 165.8 C 130.4 168.6 133.8 169.8 133.8 173.6 C 133.8 176.4 131.9 178.4 129.6 178.4 C 127.1 178.4 125.4 176.5 125.4 173.9 C 125.4 172 126.5 170.4 127.6 169.4 C 127.4 170.9 128.2 171.8 129 171.9 C 128.5 169.8 129 167.5 130 165.8 Z" fill="#B83232" id="flame-gpu-lora-icon"/>
+    <rect x="127.3" y="172.8" width="5" height="5" rx="2.5" fill="#F4DEC1" stroke="#000000" stroke-width="0" id="flame-gpu-lora-core"/>
+  </g>
+  <g id="snow-gpu-base">
+    <rect x="291" y="164" width="18" height="18" rx="9" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.4" id="snow-gpu-base-bg"/>
+    <path d="M 300 167.6 L 300 178.4 M 295.3 170.3 L 304.7 175.7 M 304.7 170.3 L 295.3 175.7" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" id="snow-gpu-base-icon"/>
+  </g>
+  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle" id="step1-lbl"><tspan x="442.05" y="73" font-weight="700">1. Generate</tspan><tspan> (4 rollouts)</tspan></text>
+  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#000000" text-anchor="middle" id="step2-out-lbl"><tspan x="419.45" y="292">advantages</tspan></text>
+  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle" id="step4-lbl"><tspan x="150" y="132" font-weight="700" fill="#743BBE">4. Sync</tspan></text>
+  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#000000" text-anchor="middle" id="upd-dw-lbl"><tspan x="138" y="237" fill="#743BBE">ΔW</tspan></text>
+  <g id="arrows" fill="none">
+    <g id="a-step1">
+      <path d="M 354 84 L 510 84 L 510 107.35" stroke="#000000" stroke-width="1.7" stroke-linejoin="miter"/>
+      <polygon points="510,115 505.09,106.5 514.91,106.5" fill="#000000"/>
+    </g>
+    <g id="a-step2">
+      <path d="M 510 212 L 510 271 L 361.65 271" stroke="#000000" stroke-width="1.7" stroke-linejoin="miter"/>
+      <polygon points="354,271 362.5,266.09 362.5,275.91" fill="#000000"/>
+    </g>
+    <g id="a-step3-upd">
+      <path d="M 117 245 L 117 227.2" stroke="#743BBE" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="117,220 121.62,228 112.38,228" fill="#743BBE"/>
+    </g>
+    <g id="a-step4-sync">
+      <path d="M 117 139 L 117 121.2" stroke="#743BBE" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="117,114 121.62,122 112.38,122" fill="#743BBE"/>
+    </g>
+    <g id="a-base-vllm">
+      <path d="M 271 139 L 271 120.3" stroke="#555555" stroke-width="1.4" stroke-dasharray="2.8 2.8" stroke-linejoin="miter"/>
+      <polygon points="271,114 275.04,121 266.96,121" fill="#555555"/>
+    </g>
+    <g id="a-base-trn">
+      <path d="M 271 220 L 271 238.7" stroke="#555555" stroke-width="1.4" stroke-dasharray="2.8 2.8" stroke-linejoin="miter"/>
+      <polygon points="271,245 266.96,238 275.04,238" fill="#555555"/>
+    </g>
+  </g>
+</svg>

@@ -74,11 +74,15 @@
     return found;
   };
 
-  const candidates = (requires) => {
+  const candidates = (requires, allowedModels = "") => {
     const engines = [...enginesInUse()];
     if (!engines.length) return [];
+    const allowed = allowedModels
+      ? new Set(allowedModels.split(",").map((s) => s.trim()).filter(Boolean))
+      : null;
     return Object.keys(models).filter((id) => {
       const model = models[id];
+      if (allowed && !allowed.has(id)) return false;
       if (requires && !(model.inputs || []).includes(requires)) return false;
       return engines.every((engine) => (model.ids || {})[engine]);
     });
@@ -320,7 +324,7 @@
 
     if (!strip || document.querySelector("[data-gemma-model]")) return;
 
-    const available = candidates(strip.dataset.requires || "");
+    const available = candidates(strip.dataset.requires || "", strip.dataset.models || "");
     if (available.length < 2) {
       if (requested && available.includes(requested)) {
         apply(requested);

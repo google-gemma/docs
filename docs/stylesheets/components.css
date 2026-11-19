@@ -163,6 +163,8 @@
   color: var(--md-default-fg-color--light);
 }
 
+.md-typeset img[src$=".svg"] { display: block; max-width: 100%; height: auto; margin: var(--gemma-space-4) auto; }
+
 /* Dark-mode image swap: mark the pair and only one shows.
    (Phase 1 groundwork; variants are produced per-diagram as needed.) */
 [data-md-color-scheme="default"] .md-typeset .only-dark,

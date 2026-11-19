@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="661" height="209" viewBox="0 0 661 209" fill="none">
+  <rect id="background" width="661" height="209" fill="#FFFFFF"/>
+  <g id="v02-main">
+    <g id="v02-subs">
+      <g id="v02-r-route-wrap">
+        <g id="v02-r-route-tslot">
+          <g id="v02-t-route">
+            <path d="M 42.88 87 H 81.12 A 6.88 6.88 0 0 1 88 93.88 V 112 H 36 V 93.88 A 6.88 6.88 0 0 1 42.88 87 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="62" y="104">route</tspan></text>
+          </g>
+        </g>
+        <g id="v02-r-route">
+          <g id="v02-r-route-c0">
+            <rect x="96" y="87" width="36" height="25" fill="#C4DCFA" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="114" y="104">0.3</tspan></text>
+          </g>
+          <g id="v02-r-route-c1">
+            <rect x="132" y="87" width="36" height="25" fill="#8EB9F5" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="149.99" y="104">0.7</tspan></text>
+          </g>
+          <g id="v02-r-route-c2">
+            <rect x="168" y="87" width="36" height="25" fill="#EAF2FD" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="185.99" y="104">0.2</tspan></text>
+          </g>
+          <g id="v02-r-route-c3">
+            <rect x="204" y="87" width="36" height="25" fill="#8EB9F5" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="222" y="104">0.6</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g id="v02-r-bill-wrap">
+        <g id="v02-r-bill-tslot">
+          <g id="v02-t-bill">
+            <path d="M 34.88 128 H 81.12 A 6.88 6.88 0 0 1 88 134.88 V 153 H 28 V 134.88 A 6.88 6.88 0 0 1 34.88 128 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="57.99" y="145">billing</tspan></text>
+          </g>
+        </g>
+        <g id="v02-r-bill">
+          <g id="v02-r-bill-c0">
+            <rect x="96" y="128" width="36" height="25" fill="#8EB9F5" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="113.99" y="145">0.5</tspan></text>
+          </g>
+          <g id="v02-r-bill-c1">
+            <rect x="132" y="128" width="36" height="25" fill="#C4DCFA" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="150" y="145">0.3</tspan></text>
+          </g>
+          <g id="v02-r-bill-c2">
+            <rect x="168" y="128" width="36" height="25" fill="#8EB9F5" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="185.99" y="145">0.8</tspan></text>
+          </g>
+          <g id="v02-r-bill-c3">
+            <rect x="204" y="128" width="36" height="25" fill="#C4DCFA" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="221.99" y="145">0.4</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g id="v02-mean">
+      <rect x="288" y="104" width="68" height="32" rx="16" fill="#FFF2CC" stroke="#000000" stroke-width="2"/>
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#1D1D1D" text-anchor="middle"><tspan x="322" y="125">Mean</tspan></text>
+    </g>
+    <g id="v02-target-tbl">
+      <g id="v02-r-0-wrap">
+        <g id="v02-r-0-lslot">
+          <g id="v02-t-pad" opacity="0.35">
+            <path d="M 428.88 53 H 471.12 A 6.88 6.88 0 0 1 478 59.88 V 78 H 422 V 59.88 A 6.88 6.88 0 0 1 428.88 53 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="450" y="70">&lt;pad&gt;</tspan></text>
+          </g>
+        </g>
+        <g id="v02-r-0" opacity="0.35">
+          <g id="v02-r-0-c0">
+            <rect x="486" y="53" width="36" height="25" fill="#F4F4F4" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="503.99" y="70">−0.1</tspan></text>
+          </g>
+          <g id="v02-r-0-c1">
+            <rect x="522" y="53" width="36" height="25" fill="#D9D9D9" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="539.99" y="70">0.2</tspan></text>
+          </g>
+          <g id="v02-r-0-c2">
+            <rect x="558" y="53" width="36" height="25" fill="#F4F4F4" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="576" y="70">0.0</tspan></text>
+          </g>
+          <g id="v02-r-0-c3">
+            <rect x="594" y="53" width="36" height="25" fill="#D9D9D9" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="612" y="70">0.1</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g id="v02-d1">
+        <g id="v02-d1-dslot">
+          <g id="v02-d1-dots">
+            <rect x="556.25" y="84" width="3.5" height="3.5" rx="1.75" fill="#000000" id="v02-d1-dots-0"/>
+            <rect x="556.25" y="91" width="3.5" height="3.5" rx="1.75" fill="#000000" id="v02-d1-dots-1"/>
+            <rect x="556.25" y="98" width="3.5" height="3.5" rx="1.75" fill="#000000" id="v02-d1-dots-2"/>
+          </g>
+        </g>
+      </g>
+      <g id="v02-r-u0-wrap">
+        <g id="v02-r-u0-lslot">
+          <g id="v02-t-u0">
+            <path d="M 402.88 107.5 H 471.12 A 6.88 6.88 0 0 1 478 114.38 V 132.5 H 396 V 114.38 A 6.88 6.88 0 0 1 402.88 107.5 Z" fill="#D1FAE5" stroke="#34D399" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#065F46" text-anchor="middle"><tspan x="437.01" y="125">&lt;unused0&gt;</tspan></text>
+          </g>
+        </g>
+        <g id="v02-r-u0">
+          <g id="v02-r-u0-c0">
+            <rect x="486" y="107.5" width="36" height="25" fill="#DEC4F2" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="503.99" y="124">0.4</tspan></text>
+          </g>
+          <g id="v02-r-u0-c1">
+            <rect x="522" y="107.5" width="36" height="25" fill="#BF94E4" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="539.99" y="124">0.5</tspan></text>
+          </g>
+          <g id="v02-r-u0-c2">
+            <rect x="558" y="107.5" width="36" height="25" fill="#BF94E4" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="575.99" y="124">0.5</tspan></text>
+          </g>
+          <g id="v02-r-u0-c3">
+            <rect x="594" y="107.5" width="36" height="25" fill="#BF94E4" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="611.99" y="124">0.5</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g id="v02-d2">
+        <g id="v02-d2-dslot">
+          <g id="v02-d2-dots">
+            <rect x="556.25" y="138.5" width="3.5" height="3.5" rx="1.75" fill="#000000" id="v02-d2-dots-0"/>
+            <rect x="556.25" y="145.5" width="3.5" height="3.5" rx="1.75" fill="#000000" id="v02-d2-dots-1"/>
+            <rect x="556.25" y="152.5" width="3.5" height="3.5" rx="1.75" fill="#000000" id="v02-d2-dots-2"/>
+          </g>
+        </g>
+      </g>
+      <g id="v02-r-end-wrap">
+        <g id="v02-r-end-lslot">
+          <g id="v02-t-u9" opacity="0.35">
+            <path d="M 402.88 162 H 471.12 A 6.88 6.88 0 0 1 478 168.88 V 187 H 396 V 168.88 A 6.88 6.88 0 0 1 402.88 162 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#374151" text-anchor="middle"><tspan x="437" y="179">&lt;unused9&gt;</tspan></text>
+          </g>
+        </g>
+        <g id="v02-r-end" opacity="0.35">
+          <g id="v02-r-end-c0">
+            <rect x="486" y="162" width="36" height="25" fill="#D9D9D9" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="504" y="179">0.3</tspan></text>
+          </g>
+          <g id="v02-r-end-c1">
+            <rect x="522" y="162" width="36" height="25" fill="#F4F4F4" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="540" y="179">−0.2</tspan></text>
+          </g>
+          <g id="v02-r-end-c2">
+            <rect x="558" y="162" width="36" height="25" fill="#D9D9D9" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="575.99" y="179">0.4</tspan></text>
+          </g>
+          <g id="v02-r-end-c3">
+            <rect x="594" y="162" width="36" height="25" fill="#F4F4F4" stroke="#000000" stroke-width="1.5"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="612" y="179">0.1</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#000000" text-anchor="middle" id="v02-sub-t"><tspan x="131" y="70">Subword embeddings</tspan></text>
+  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#000000" text-anchor="middle" id="v02-tbl-t"><tspan x="512" y="36">Embedding table</tspan></text>
+  <g id="v02-snow-0">
+    <rect x="621" y="44" width="18" height="18" rx="9" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.4" id="v02-snow-0-bg"/>
+    <path d="M 630 47.6 L 630 58.4 M 625.3 50.3 L 634.7 55.7 M 634.7 50.3 L 625.3 55.7" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" id="v02-snow-0-icon"/>
+  </g>
+  <g id="v02-flame-u0">
+    <rect x="621" y="123.5" width="18" height="18" rx="9" fill="#FFFFFF" stroke="#000000" stroke-width="0" id="v02-flame-u0-bg"/>
+    <path d="M 630 125.3 C 630.4 128.1 633.8 129.3 633.8 133.1 C 633.8 135.9 631.9 137.9 629.6 137.9 C 627.1 137.9 625.4 136 625.4 133.4 C 625.4 131.5 626.5 129.9 627.6 128.9 C 627.4 130.4 628.2 131.3 629 131.4 C 628.5 129.3 629 127 630 125.3 Z" fill="#B83232" id="v02-flame-u0-icon"/>
+    <rect x="627.3" y="132.3" width="5" height="5" rx="2.5" fill="#F4DEC1" stroke="#000000" stroke-width="0" id="v02-flame-u0-core"/>
+  </g>
+  <g id="v02-snow-end">
+    <rect x="621" y="153" width="18" height="18" rx="9" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.4" id="v02-snow-end-bg"/>
+    <path d="M 630 156.6 L 630 167.4 M 625.3 159.3 L 634.7 164.7 M 634.7 159.3 L 625.3 164.7" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" id="v02-snow-end-icon"/>
+  </g>
+  <g id="arrows" fill="none">
+    <g id="a-v02-subs-0">
+      <path d="M 246 99.5 L 262 99.5 L 262 120 L 273.8 120" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="281,120 273,124.62 273,115.38" fill="#000000"/>
+    </g>
+    <g id="a-v02-subs-1">
+      <path d="M 246 140.5 L 262 140.5 L 262 120 L 273.8 120" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="281,120 273,124.62 273,115.38" fill="#000000"/>
+    </g>
+    <g id="a-v02-init">
+      <path d="M 363 120 L 382.05 120" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="389.25,120 381.25,124.62 381.25,115.38" fill="#000000"/>
+    </g>
+  </g>
+</svg>

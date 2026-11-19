@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="682" height="157" viewBox="0 0 682 157" fill="none">
+  <rect id="background" width="682" height="157" fill="#FFFFFF"/>
+  <g id="c02-scene">
+    <g id="c02-t1-line">
+      <g id="c02-t1-tag">
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="c02-t1-lbl"><tspan x="38.04" y="41" font-weight="700">Turn 1</tspan></text>
+      </g>
+      <g id="c02-t1-seq">
+        <g id="c02-t1-p" opacity="0.35">
+          <rect x="80" y="18" width="406" height="36" rx="6" fill="#EDEDED" stroke="#BDBDBD" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle"><tspan x="283" y="41" font-weight="700" fill="#1E40AF">&lt;|im_start|&gt;</tspan><tspan font-weight="700" fill="#991B1B">user</tspan><tspan>  France?</tspan><tspan font-weight="700" fill="#1E40AF">&lt;|im_end|&gt;</tspan><tspan>  </tspan><tspan font-weight="700" fill="#1E40AF">&lt;|im_start|&gt;</tspan><tspan font-weight="700" fill="#991B1B">assistant</tspan></text>
+        </g>
+        <g id="c02-t1-g">
+          <rect x="498" y="18" width="166" height="36" rx="6" fill="#F3EAFA" stroke="#743BBE" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="580.99" y="41" font-weight="700">Paris.</tspan><tspan font-weight="700" fill="#1E40AF">&lt;|im_end|&gt;</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g id="c02-t2-line">
+      <g id="c02-t2-tag">
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="c02-t2-lbl"><tspan x="38.98" y="93" font-weight="700">Turn 2</tspan></text>
+      </g>
+      <g id="c02-turn2-spans">
+        <g id="c02-turn2-spans-groups">
+          <g id="t2-mask-span">
+            <g id="c02-t2-p" opacity="0.35">
+              <rect x="80" y="72" width="406" height="36" rx="6" fill="#EDEDED" stroke="#BDBDBD" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle"><tspan x="282.99" y="95" font-weight="700" fill="#1E40AF">&lt;|im_start|&gt;</tspan><tspan font-weight="700" fill="#991B1B">user</tspan><tspan>  Spain?</tspan><tspan font-weight="700" fill="#1E40AF">&lt;|im_end|&gt;</tspan><tspan>  </tspan><tspan font-weight="700" fill="#1E40AF">&lt;|im_start|&gt;</tspan><tspan font-weight="700" fill="#991B1B">assistant</tspan></text>
+            </g>
+            <path d="M 80 113 L 80 119 L 486 119 L 486 113" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="t2-mask-span-br"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="t2-mask-span-lbl"><tspan x="282.99" y="136" font-style="italic">Masked prompt</tspan></text>
+          </g>
+          <g id="t2-gen-span">
+            <g id="c02-t2-g">
+              <rect x="498" y="72" width="166" height="36" rx="6" fill="#F3EAFA" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="580.99" y="95" font-weight="700">Madrid.</tspan><tspan font-weight="700" fill="#1E40AF">&lt;|im_end|&gt;</tspan></text>
+            </g>
+            <path d="M 498 113 L 498 119 L 664 119 L 664 113" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" id="t2-gen-span-br"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#000000" text-anchor="middle" id="t2-gen-span-lbl"><tspan x="581" y="136" font-weight="700">Trained response</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

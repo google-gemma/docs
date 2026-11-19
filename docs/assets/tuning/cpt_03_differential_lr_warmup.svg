@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="298" viewBox="0 0 640 298" fill="none">
+  <rect id="background" width="640" height="298" fill="#FFFFFF"/>
+  <g id="cpt03-plot">
+    <rect x="139" y="46" width="44" height="180" fill="#D6FFC7" fill-opacity="0.65" stroke="#000000" stroke-width="0" id="warmup-band"/>
+    <line x1="183.39" y1="46" x2="183.39" y2="226" stroke="#4B9745" stroke-width="1.8" stroke-dasharray="3 3" id="warmup-div"/>
+    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#2B8D1E" text-anchor="middle" id="warmup-lbl"><tspan x="237.39" y="63" font-weight="700">10% warmup</tspan></text>
+    <line x1="139" y1="82" x2="183.39" y2="82" stroke="#9A9A9A" stroke-width="1.3" stroke-dasharray="3 3" id="ref-5e5"/>
+    <line x1="139" y1="197.19" x2="183.39" y2="197.19" stroke="#9A9A9A" stroke-width="1.3" stroke-dasharray="3 3" id="ref-1e5"/>
+    <path d="M 139 226 L 183.4 82 L 191.72 82.15 L 200.05 82.62 L 208.38 83.38 L 216.7 84.45 L 225.03 85.82 L 233.35 87.48 L 241.68 89.43 L 250 91.65 L 258.32 94.13 L 266.65 96.88 L 274.98 99.87 L 283.3 103.09 L 291.63 106.53 L 299.95 110.17 L 308.27 114 L 316.6 118 L 324.93 122.16 L 333.25 126.45 L 341.58 130.86 L 349.9 135.37 L 358.23 139.95 L 366.55 144.6 L 374.88 149.29 L 383.2 154 L 391.52 158.71 L 399.85 163.4 L 408.17 168.05 L 416.5 172.63 L 424.83 177.14 L 433.15 181.55 L 441.48 185.84 L 449.8 190 L 458.13 194 L 466.45 197.83 L 474.77 201.47 L 483.1 204.91 L 491.43 208.13 L 499.75 211.12 L 508.08 213.87 L 516.4 216.35 L 524.72 218.57 L 533.05 220.52 L 541.38 222.18 L 549.7 223.55 L 558.02 224.62 L 566.35 225.38 L 574.67 225.85 L 583 226" fill="none" stroke="#743BBE" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" id="lora-curve"/>
+    <path d="M 139 226 L 183.4 197.2 L 191.72 197.23 L 200.05 197.32 L 208.38 197.48 L 216.7 197.69 L 225.03 197.96 L 233.35 198.3 L 241.68 198.69 L 250 199.13 L 258.32 199.63 L 266.65 200.18 L 274.98 200.77 L 283.3 201.42 L 291.63 202.11 L 299.95 202.83 L 308.27 203.6 L 316.6 204.4 L 324.93 205.23 L 333.25 206.09 L 341.58 206.97 L 349.9 207.87 L 358.23 208.79 L 366.55 209.72 L 374.88 210.66 L 383.2 211.6 L 391.52 212.54 L 399.85 213.48 L 408.17 214.41 L 416.5 215.33 L 424.83 216.23 L 433.15 217.11 L 441.48 217.97 L 449.8 218.8 L 458.13 219.6 L 466.45 220.37 L 474.77 221.09 L 483.1 221.78 L 491.43 222.43 L 499.75 223.02 L 508.08 223.57 L 516.4 224.07 L 524.72 224.51 L 533.05 224.9 L 541.38 225.24 L 549.7 225.51 L 558.02 225.72 L 566.35 225.88 L 574.67 225.97 L 583 226" fill="none" stroke="#2563EB" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" id="emb-curve"/>
+    <line x1="139" y1="46" x2="139" y2="226" stroke="#000000" stroke-width="2.2" id="axis-y"/>
+    <line x1="139" y1="226" x2="583" y2="226" stroke="#000000" stroke-width="2.2" id="axis-x"/>
+    <line x1="139" y1="226" x2="139" y2="232" stroke="#000000" stroke-width="1.6" id="xt-0-tk"/>
+    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="xt-0-lbl"><tspan x="139" y="249">0%</tspan></text>
+    <line x1="183.39" y1="226" x2="183.39" y2="232" stroke="#000000" stroke-width="1.6" id="xt-10-tk"/>
+    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="xt-10-lbl"><tspan x="183.39" y="249">10%</tspan></text>
+    <line x1="361" y1="226" x2="361" y2="232" stroke="#000000" stroke-width="1.6" id="xt-50-tk"/>
+    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="xt-50-lbl"><tspan x="361" y="249">50%</tspan></text>
+    <line x1="583" y1="226" x2="583" y2="232" stroke="#000000" stroke-width="1.6" id="xt-100-tk"/>
+    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="xt-100-lbl"><tspan x="583" y="249">100%</tspan></text>
+    <line x1="133" y1="226" x2="139" y2="226" stroke="#000000" stroke-width="1.6" id="yt-0-tk"/>
+    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="yt-0-lbl"><tspan x="123.77" y="231">0</tspan></text>
+    <line x1="133" y1="197.19" x2="139" y2="197.19" stroke="#000000" stroke-width="1.6" id="yt-1e5-tk"/>
+    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="yt-1e5-lbl"><tspan x="113.72" y="202">1e-5</tspan></text>
+    <line x1="133" y1="82" x2="139" y2="82" stroke="#000000" stroke-width="1.6" id="yt-5e5-tk"/>
+    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#000000" text-anchor="middle" id="yt-5e5-lbl"><tspan x="112.75" y="87">5e-5</tspan></text>
+    <rect x="134" y="221" width="10" height="10" rx="5" fill="#000000" stroke="#FFFFFF" stroke-width="2" id="pt-0"/>
+    <rect x="178.39" y="77" width="10" height="10" rx="5" fill="#743BBE" stroke="#FFFFFF" stroke-width="2" id="pt-lora-pk"/>
+    <rect x="178.39" y="192.19" width="10" height="10" rx="5" fill="#2563EB" stroke="#FFFFFF" stroke-width="2" id="pt-emb-pk"/>
+    <rect x="578" y="221" width="10" height="10" rx="5" fill="#000000" stroke="#FFFFFF" stroke-width="2" id="pt-end"/>
+    <g id="lbl-lora">
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#743BBE" id="lbl-lora-m"><tspan x="365.44" y="105" font-weight="700">LoRA adapters</tspan></text>
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" id="lbl-lora-s"><tspan x="365.44" y="121">(peak 5e-5, cosine decay)</tspan></text>
+    </g>
+    <g id="lbl-emb">
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="400" fill="#2563EB" id="lbl-emb-m"><tspan x="210.03" y="170" font-weight="700">Embeddings &amp; head</tspan></text>
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" id="lbl-emb-s"><tspan x="210.03" y="186">(peak 1e-5 — 5× lower)</tspan></text>
+    </g>
+    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#000000" text-anchor="middle" transform="rotate(-90 65 136.1)" id="y-axis-title"><tspan x="65" y="141" font-weight="700">Learning rate</tspan></text>
+    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#000000" text-anchor="middle" id="x-axis-title"><tspan x="361" y="274" font-weight="700">Training progress</tspan></text>
+  </g>
+</svg>

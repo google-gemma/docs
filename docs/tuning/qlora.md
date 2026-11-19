@@ -1,225 +1,346 @@
 ---
-title: Fine-Tune Gemma using Hugging Face Transformers and QloRA
-description: This guide walks you through how to fine-tune Gemma on a custom text-to-sql dataset using Hugging Face Transformers and TRL.
-models: [gemma-4]
+title: "(Q)LoRA"
+description: Fine-tune Gemma 4 with LoRA and 4-bit QLoRA on a single GPU, from dataset to merged model.
+models: [gemma-4/e2b, gemma-4/e4b, gemma-4/12b, gemma-4/31b]
 frameworks: [transformers, peft, trl]
 source_url: "https://ai.google.dev/gemma/docs/core/huggingface_text_finetune_qlora.md.txt"
 colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/qlora-gemma-4-e2b.ipynb
 ---
-# Fine-Tune Gemma using Hugging Face Transformers and QloRA
 
+# (Q)LoRA
 
-This guide walks you through how to fine-tune Gemma on a custom text-to-sql dataset using Hugging Face [Transformers](https://huggingface.co/docs/transformers/index) and [TRL](https://huggingface.co/docs/trl/index). You will learn:
+LoRA is the easiest way to customize Gemma 4. Instead of updating billions of weights, you freeze the model and train a small adapter next to each layer.
 
-- What is Quantized Low-Rank Adaptation (QLoRA)
-- Setup development environment
-- Create and prepare the fine-tuning dataset
-- Fine-tune Gemma using TRL and the SFTTrainer
-- Test Model Inference and generate SQL queries
+QLoRA goes one step further and stores the frozen model in 4 bits. That lets you fine-tune much larger models on a single GPU.
 
-!!! Note
-    This guide was created to run on a Google colaboratory account using a NVIDIA T4 GPU with 16GB and Gemma 1B, but can be adapted to run on bigger GPUs and bigger models.
+In this guide, we first look at how LoRA and QLoRA work and which layers to adapt. Then we fine-tune Gemma 4 to reason in a chosen language before answering in English.
 
+---
 
-## What is Quantized Low-Rank Adaptation (QLoRA)
+## 1. How LoRA works
 
-This guide demonstrates the use of [Quantized Low-Rank Adaptation (QLoRA)](https://arxiv.org/abs/2305.14314), which emerged as a popular method to efficiently fine-tune LLMs as it reduces computational resource requirements while maintaining high performance. In QloRA, the pretrained model is quantized to 4-bit and the weights are frozen. Then trainable adapter layers (LoRA) are attached and only the adapter layers are trained. Afterwards, the adapter weights can be merged with the base model or kept as a separate adapter.
+When you fine-tune with LoRA, you freeze the original weight matrix <span style="color: #2B529E; font-weight: 700;">W</span> and attach two small adapter matrices (<span style="color: #7F43AA; font-weight: 700;">A</span> and <span style="color: #7F43AA; font-weight: 700;">B</span>) beside it. Only these adapters receive updates, so you skip the gradients and optimizer states for billions of frozen weights.
 
-## Setup development environment
+Think of the frozen matrix <span style="color: #2B529E; font-weight: 700;">W</span> as a main highway carrying general language knowledge, and the LoRA adapter as a narrow side lane that learns only the adjustments for your task. Matrix <span style="color: #7F43AA; font-weight: 700;">A</span> compresses the input down to a small rank <span style="color: #857230; font-weight: 700;">r</span> (such as 16 or 32), and matrix <span style="color: #7F43AA; font-weight: 700;">B</span> projects it back up to the output size:
 
-The first step is to install Hugging Face Libraries, including TRL, and datasets to fine-tune open model, including different RLHF and alignment techniques.
+![Signal flow through a frozen weight matrix and trainable LoRA matrices A and B](../assets/tuning/arch_03_lora_rank_alpha_scaling.svg)
+
+As shown in the equation at the bottom of the figure, the adapter output is multiplied by <span style="color: #857230; font-weight: 700;">alpha / r</span> before being added to the frozen layer. Two settings control this:
+
+- **<span style="color: #857230; font-weight: 700;">r</span>** *(rank)*: The size of the adapter. Higher ranks add more trainable parameters and require more compute to train.
+- **<span style="color: #857230; font-weight: 700;">alpha</span>:** Controls how strongly the adapter output is weighted. Setting <span style="color: #857230; font-weight: 700;">alpha</span> equal to <span style="color: #857230; font-weight: 700;">r</span> (a 1x multiplier) or twice <span style="color: #857230; font-weight: 700;">r</span> (a 2x multiplier) works well across all Gemma 4 models.
+
+| Task type | Rank | Alpha | Notes |
+| :--- | :--- | :--- | :--- |
+| Formatting, tone, classification, JSON or SQL | `16` | `16` or `32` | Fast, low VRAM, low risk of overfitting. |
+| Domain, multi-step reasoning, tool use | `32` | `32` or `64` | Good default across all Gemma 4 models. |
+| Large domain shift or continued pre-training | `64` to `128` | `64` to `128` | Extra adapter capacity for new domains or languages. |
+
+---
+
+## 2. From LoRA to QLoRA
+
+There is a catch with standard LoRA, however. The frozen weights still sit in GPU memory in 16-bit precision (bfloat16), which takes 2 bytes per weight. For Gemma 4 31B, that is about 60 GB before training even starts.
+
+QLoRA ([Dettmers et al., 2023](https://arxiv.org/abs/2305.14314)) shrinks that frozen copy by storing every weight in just 4 bits, using a data type called NF4 (4-bit NormalFloat).
+
+### How NF4 stores a weight in 4 bits
+
+Four bits can only represent 16 different values. The NF4 format uses those 16 different values and matches them to how the trained weights were spread out. Generally, most are close to zero with a couple of relative outliers:
+
+![Each 16-bit weight snapping to the nearest 4-bit weight](../assets/tuning/qlora_01a_nf4_levels.svg)
+
+NF4 works on blocks of 64 weights that each get their own scale, so one large weight cannot stretch the values of a whole matrix. QLoRA also compresses those scales with a second round of quantization (double quantization), which saves roughly another 1.5 GB on 31B.
+
+### How QLoRA trains with 4-bit weights
+
+However, there is a problem. The matrix multiplications still run in 16-bit precision (bfloat16), which can be quite costly during training. QLoRA therefore dequantizes one layer at a time into temporary 16-bit weights, uses them for that layer, and frees them again:
+
+![The frozen 4-bit weights dequantized into frozen 16-bit weights alongside the trainable LoRA matrices](../assets/tuning/qlora_01b_4bit_lora_layer.svg)
+
+Both the stored 4-bit weights and the unpacked 16-bit weights stay frozen. Only LoRA A and LoRA B receive updates, just like in regular LoRA.
+
+In short, QLoRA trades some speed for a lot of memory:
+
+| | LoRA | QLoRA |
+| :--- | :--- | :--- |
+| Frozen weights | bfloat16, 2 bytes each | NF4, about 0.5 bytes each |
+| Adapters | bfloat16 | bfloat16 |
+| Speed | Faster | Slower, since every layer is dequantized on each step |
+| Use it when | The 16-bit model fits in memory | GPU memory is the bottleneck |
+
+!!! note "Fine-tuning 26B A4B"
+    The 26B A4B Mixture-of-Experts model stores its 128 routed experts as fused 3D parameter tensors and uses a learned router that must stay frozen during fine-tuning. [MoE fine-tuning](moe-finetune.md) walks through both 4-bit QLoRA (~21 GB VRAM) and 16-bit LoRA (~56 GB VRAM) setups with grouped GEMM.
+
+---
+
+## 3. Targeting layers
+
+Every Gemma 4 decoder layer contains seven linear projections: four in attention and three in the feed-forward MLP block:
+
+![The seven linear projections in a Gemma 4 decoder layer, each with its own LoRA adapter](../assets/tuning/qlora_02_target_modules_anatomy.svg)
+
+These projections work as follows:
+
+1. **Attention projections:** The Query, Key, and Value projections feed the attention step, and the Output projection maps its result back to the residual stream.
+2. **MLP projections:** The Gate projection goes through a GELU activation and is multiplied with the Up projection, then the Down projection maps the result back down.
+
+Each frozen projection gets its own trainable LoRA adapter. Early LoRA recipes only adapted the Query and Value projections. The QLoRA paper found that adapting all seven linear projections is needed to match full 16-bit fine-tuning, and the extra adapters only add a small number of trainable weights.
+
+---
+
+## 4. Set up the environment
+
+Let's fine-tune Gemma 4 to reason in a language other than English while still writing its final answer in English. Out of the box, `gemma-4-E2B-it` ignores instructions to reason in a different language and thinks in English or accidentally switches the final answer language instead.
+
+First, we need to install various common training and evaluation libraries:
 
 ```python { .notebook-cell }
-# Install Pytorch & other libraries
-%pip install torch tensorboard
-%pip install -U torchao
-
-# Install Transformers
-%pip install "transformers>=5.10.1"
-
-# Install Hugging Face libraries
-%pip install datasets accelerate evaluate bitsandbytes trl "peft>=0.19.0" protobuf sentencepiece
-
-# COMMENT IN: if you are running on a GPU that supports BF16 data type and flash attn, such as NVIDIA L4 or NVIDIA A100
-#%pip install flash-attn
+# Install Hugging Face post-training, quantization, multimodal, and evaluation libraries
+%pip install -q -U "transformers>=5.10.1" "trl>=0.16.0" "peft>=0.19.0" accelerate datasets bitsandbytes torchao
+%pip install -q -U evaluate sacrebleu jiwer pillow soundfile librosa matplotlib tensorboard
 ```
 
-*Note: If you are using a GPU with Ampere architecture (such as NVIDIA L4) or newer, you can use Flash attention. Flash Attention is a method that significantly speeds computations up and reduces memory usage from quadratic to linear in sequence length, leading to acelerating training up to 3x. Learn more at [FlashAttention](https://github.com/Dao-AILab/flash-attention/tree/main).*
-
-You need a valid Hugging Face Token to publish your model. If you are running inside a Google Colab, you can securely use your Hugging Face Token using the Colab secrets otherwise you can set the token as directly in the `login` method. Make sure your token has write access too, as you push your model to the Hub during training.
+If you plan to push your trained adapter to the Hugging Face Hub, log in as follows:
 
 ```python { .notebook-cell }
-# Login into Hugging Face Hub
 from huggingface_hub import login
-login()
+
+# Optional: uncomment to push your trained adapter to the Hugging Face Hub
+# login()
 ```
 
-## Create and prepare the fine-tuning dataset
+---
 
-When fine-tuning LLMs, it is important to know your use case and the task you want to solve. This helps you create a dataset to fine-tune your model. If you haven't defined your use case yet, you might want to go back to the drawing board.
+## 5. Prepare the dataset
 
-As an example, this guide focuses on the following use case:
+We use the [Multilingual-Thinking](https://huggingface.co/datasets/HuggingFaceH4/Multilingual-Thinking) dataset, which pairs 1,000 English prompts with step-by-step reasoning traces in French, German, Spanish, Italian, and English alongside final English responses.
 
-- Fine-tune a natural language to SQL model for seamless integration into a data analysis tool. The objective is to significantly reduce the time and expertise required for SQL query generation, enabling even non-technical users to extract meaningful insights from data.
+Format each example into:
 
-Text-to-SQL can be a good use case for fine-tuning LLMs, as it is a complex task that requires a lot of (internal) knowledge about the data and the SQL language.
+* `prompt` list (system and user turns)
+* `completion` list (the assistant's `"reasoning_content"` and final `"content"`)
+* `"chat_template_kwargs": {"enable_thinking": True}`
 
-Once you have determined that fine-tuning is the right solution, you need a dataset to fine-tune. The dataset should be a diverse set of demonstrations of the task(s) you want to solve. There are several ways to create such a dataset, including:
-
-- Using existing open-source datasets, such as [Spider](https://huggingface.co/datasets/spider)
-- Using synthetic datasets created by LLMs, such as [Alpaca](https://huggingface.co/datasets/tatsu-lab/alpaca)
-- Using datasets created by humans, such as [Dolly](https://huggingface.co/datasets/databricks/databricks-dolly-15k).
-- Using a combination of the methods, such as [Orca](https://huggingface.co/datasets/Open-Orca/OpenOrca)
-
-Each of the methods has its own advantages and disadvantages and depends on the budget, time, and quality requirements. For example, using an existing dataset is the easiest but might not be tailored to your specific use case, while using domain experts might be the most accurate but can be time-consuming and expensive. It is also possible to combine several methods to create an instruction dataset, as shown in [Orca: Progressive Learning from Complex Explanation Traces of GPT-4.](https://arxiv.org/abs/2306.02707)
-
-This guide uses an already existing dataset ([philschmid/gretel-synthetic-text-to-sql](https://huggingface.co/datasets/philschmid/gretel-synthetic-text-to-sql)), a high quality synthetic Text-to-SQL dataset including natural language instructions, schema definitions, reasoning and the corresponding SQL query.
-
-[Hugging Face TRL](https://huggingface.co/docs/trl/en/index) supports automatic templating of conversation dataset formats. This means you only need to convert your dataset into the right json objects, and `trl` takes care of templating and putting it into the right format. With the prompt-completion format below, `trl` also computes the loss on the completion only, so the model learns to write the SQL query rather than to repeat the prompt.
-
-```text
-{"prompt": [{"role": "system", "content": "You are..."}, {"role": "user", "content": "..."}], "completion": [{"role": "assistant", "content": "..."}]}
-{"prompt": [{"role": "system", "content": "You are..."}, {"role": "user", "content": "..."}], "completion": [{"role": "assistant", "content": "..."}]}
-{"prompt": [{"role": "system", "content": "You are..."}, {"role": "user", "content": "..."}], "completion": [{"role": "assistant", "content": "..."}]}
-```
-
-The [philschmid/gretel-synthetic-text-to-sql](https://huggingface.co/datasets/philschmid/gretel-synthetic-text-to-sql) contains over 100k samples. To keep the guide small, it is downsampled to only use 10,000 samples.
-
-You can now use the Hugging Face Datasets library to load the dataset and create a prompt template to combine the natural language instruction, schema definition and add a system message for your assistant.
+With this structure, TRL automatically places `<|think|>`{.token-think} in the system turn, wraps the reasoning trace in `<|channel>thought`{.token-think} ... `<channel|>`{.token-think}, and masks the prompt tokens from the loss, as we covered in [Dataset formatting](datasets-formatting.md#3-training-with-thinking-tokens):
 
 ```python { .notebook-cell }
 from datasets import load_dataset
 
-# System message for the assistant
-system_message = """You are a text to SQL query translator. Users will ask you questions in English and you will generate a SQL query based on the provided SCHEMA."""
 
-# User prompt that combines the user query and the schema
-user_prompt = """Given the <USER_QUERY> and the <SCHEMA>, generate the corresponding SQL command to retrieve the desired data, considering the query's syntax, semantics, and schema constraints.
+# Format each row into prompt and completion turns with thinking enabled
+def create_conversation(sample):
+    system_message = (
+        f"reasoning language: {sample['reasoning_language']}\n\n{sample['developer']}"
+    ).strip()
+    return {
+        "prompt": [
+            {"role": "system", "content": system_message},
+            {"role": "user", "content": sample["user"]},
+        ],
+        "completion": [
+            {
+                "role": "assistant",
+                "reasoning_content": sample["analysis"],
+                "content": sample["final"],
+            },
+        ],
+        "chat_template_kwargs": {"enable_thinking": True},
+    }
 
-<SCHEMA>
-{context}
-</SCHEMA>
 
-<USER_QUERY>
-{question}
-</USER_QUERY>
-"""
-def create_conversation(sample, idx):
-  return {
-    "prompt": [
-      {"role": "system", "content": system_message},
-      {"role": "user", "content": user_prompt.format(question=sample["sql_prompt"], context=sample["sql_context"])},
-    ],
-    "completion": [
-      {"role": "assistant", "content": sample["sql"]}
-    ],
-  }
+# Load the dataset and create a 90/10 train-test split
+dataset = load_dataset("HuggingFaceH4/Multilingual-Thinking", split="train")
+dataset = dataset.map(create_conversation, remove_columns=dataset.features)
+dataset = dataset.train_test_split(test_size=0.1, seed=42)
 
-# Load dataset from the hub
-dataset = load_dataset("philschmid/gretel-synthetic-text-to-sql", split="train")
-dataset = dataset.select(range(1250))
-
-# Convert dataset to OAI messages
-dataset = dataset.map(create_conversation, with_indices=True, remove_columns=dataset.features)
-# split dataset into 80% training samples and 20% test samples
-dataset = dataset.train_test_split(test_size=0.2, shuffle=False)
-
-# Print formatted user prompt
-for item in dataset["train"][0]["prompt"] + dataset["train"][0]["completion"]:
-  print(item)
+for turn in dataset["train"][0]["prompt"] + dataset["train"][0]["completion"]:
+    print({k: (v[:180] + "..." if len(v) > 180 else v) for k, v in turn.items()})
 ```
 
 ```{ .no-copy .output }
-{'role': 'system', 'content': 'You are a text to SQL query translator. Users will ask you questions in English and you will generate a SQL query based on the provided SCHEMA.'}
-{'role': 'user', 'content': "Given the <USER_QUERY> and the <SCHEMA>, generate the corresponding SQL command to retrieve the desired data, considering the query's syntax, semantics, and schema constraints.\n\n<SCHEMA>\nCREATE TABLE salesperson (salesperson_id INT, name TEXT, region TEXT); INSERT INTO salesperson (salesperson_id, name, region) VALUES (1, 'John Doe', 'North'), (2, 'Jane Smith', 'South'); CREATE TABLE timber_sales (sales_id INT, salesperson_id INT, volume REAL, sale_date DATE); INSERT INTO timber_sales (sales_id, salesperson_id, volume, sale_date) VALUES (1, 1, 120, '2021-01-01'), (2, 1, 150, '2021-02-01'), (3, 2, 180, '2021-01-01');\n</SCHEMA>\n\n<USER_QUERY>\nWhat is the total volume of timber sold by each salesperson, sorted by salesperson?\n</USER_QUERY>\n"}
-{'role': 'assistant', 'content': 'SELECT salesperson_id, name, SUM(volume) as total_volume FROM timber_sales JOIN salesperson ON timber_sales.salesperson_id = salesperson.salesperson_id GROUP BY salesperson_id, name ORDER BY total_volume DESC;'}
+{'role': 'system', 'content': 'reasoning language: French\n\nyou are a chatbot assuming the role of a rogue space pirate in a distant galaxy'}
+{'role': 'user', 'content': "Can you create a dramatic dialogue between two characters named John and Mary in a play, where they're discussing a serious issue that could potentially end their relationship?"}
+{'role': 'assistant', 'reasoning_content': "D'accord, l'utilisateur souhaite un dialogue dramatique entre John et Marie abordant un problème sérieux susceptible de mettre fin à leur relation. Ils ont mentionné une pièce de t...", 'content': '**Title:** *Shattered Stars*  \n**Setting:** A dimly lit cargo hold on a rogue starship, *The Black Siren*. The hum of the engine pulses like a heartbeat. A viewport shows a distant...'}
 ```
 
-## Fine-tune Gemma using TRL and the SFTTrainer
+---
 
-You are now ready to fine-tune your model. Hugging Face TRL [SFTTrainer](https://huggingface.co/docs/trl/sft_trainer) makes it straightforward to supervise fine-tune open LLMs. The `SFTTrainer` is a subclass of the `Trainer` from the `transformers` library and supports all the same features, including logging, evaluation, and checkpointing, but adds additional quality of life features, including:
+## 6. Load the model
 
-- Dataset formatting, including conversational and instruction formats
-- Training on completions only, ignoring prompts
-- Packing datasets for more efficient training
-- Parameter-efficient fine-tuning (PEFT) support including QloRA
-- Preparing the model and tokenizer for conversational fine-tuning (such as adding special tokens)
-
-The following code defines the quantization configuration and loads the tokenizer. The `SFTTrainer` loads and quantizes the model for you.
+We then define a `BitsAndBytesConfig` that allows us to store the frozen weights in NF4 and run the temporary layer multiplications in blfoat16. We also load the model:
 
 ```python { .notebook-cell .model-swap }
 import torch
-from transformers import AutoTokenizer, BitsAndBytesConfig
+from transformers import AutoProcessor, BitsAndBytesConfig
 
-# Hugging Face model id
-model_id = "google/gemma-4-E2B"
+model_id = "google/gemma-4-E2B-it"
 
-# Check if GPU supports bfloat16
-if torch.cuda.is_bf16_supported():
-    dtype = "bfloat16"
-else:
-    dtype = "float16"
-
-# BitsAndBytesConfig: Enables 4-bit quantization to reduce model size/memory usage
+# Configure 4-bit NF4 quantization with bfloat16 compute
 quantization_config = BitsAndBytesConfig(
     load_in_4bit=True,
     bnb_4bit_use_double_quant=True,
-    bnb_4bit_quant_type='nf4',
-    bnb_4bit_compute_dtype=dtype,
-    bnb_4bit_quant_storage=dtype,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=torch.bfloat16,
+    bnb_4bit_quant_storage=torch.bfloat16,
 )
 
-# The base model ships no chat template, so load the tokenizer of the instruction-tuned model
-tokenizer = AutoTokenizer.from_pretrained("google/gemma-4-E2B-it")
+# Load the processor and tokenizer
+processor = AutoProcessor.from_pretrained(model_id)
+tokenizer = processor.tokenizer
 ```
 
-The `SFTTrainer` supports a built-in integration with `peft`, which makes it straightforward to efficiently tune LLMs using QLoRA. You only need to create a `LoraConfig` and provide it to the trainer.
+The parameters work as follows:
+
+* `bnb_4bit_quant_type="nf4"` picks the 16 NF4 levels
+* `bnb_4bit_use_double_quant=True` compresses the block scales
+* `bnb_4bit_compute_dtype=torch.bfloat16` sets the precision of the temporary copy.
+
+Next, we define the adapters. The `LoraConfig` adds a rank-16 adapter to each of the seven linear projections in the language decoder while skipping the vision and audio encoders:
 
 ```python { .notebook-cell }
 from peft import LoraConfig
 
+# Configure LoRA adapters across the seven decoder projections
 peft_config = LoraConfig(
-    lora_alpha=16,
-    lora_dropout=0.05,
     r=16,
+    lora_alpha=32,
+    lora_dropout=0.0,
     bias="none",
-    # no target_modules --- PEFT's Gemma 4 defaults scope to the LM layers
+    target_modules=[
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj",
+    ],
+    exclude_modules=r"model\.(vision_tower|audio_tower)\..*",
     task_type="CAUSAL_LM",
-    modules_to_save=["lm_head", "embed_tokens"], # make sure to save the lm_head and embed_tokens as you train the special tokens
-    ensure_weight_tying=True,
 )
 ```
 
-Before you can start your training, you need to define the hyperparameter you want to use in a `SFTConfig` instance.
+Setting `exclude_modules` keeps `peft` focused on the text decoder layers (`Gemma 4` wraps linear projections inside `vision_tower` and `audio_tower` with `Gemma4ClippableLinear`). The rank and alpha follow the recommendations in [section 1](#1-how-lora-works).
+
+---
+
+## 7. Evaluate the base model
+
+Before training, let's check how the unmodified 4-bit model handles a held-out test prompt that asks for `French` reasoning on an English question. Use `processor.parse_response` with `skip_special_tokens=False` to separate the `<|channel>thought`{.token-think} block from the final answer:
 
 ```python { .notebook-cell }
-from trl import SFTConfig
+from transformers import AutoModelForMultimodalLM
 
+# Load the 4-bit base model for baseline evaluation
+torch.manual_seed(42)
+base_model = AutoModelForMultimodalLM.from_pretrained(
+    model_id,
+    quantization_config=quantization_config,
+    device_map="auto",
+)
+
+# Format a held-out test prompt with thinking enabled and generate a baseline response
+test_sample = dataset["test"][5]
+prompt = processor.apply_chat_template(
+    test_sample["prompt"],
+    tokenize=False,
+    add_generation_prompt=True,
+    enable_thinking=True,
+)
+inputs = processor(text=prompt, return_tensors="pt").to(base_model.device)
+input_len = inputs["input_ids"].shape[-1]
+
+outputs = base_model.generate(**inputs, max_new_tokens=1024)
+response = processor.decode(outputs[0][input_len:], skip_special_tokens=False)
+result = processor.parse_response(response, prefix="")
+
+print(f"System:\n{test_sample['prompt'][0]['content']}\n")
+print(f"User:\n{test_sample['prompt'][1]['content']}\n")
+print(f"Thoughts:\n{result['thinking']}\n")
+print(f"Answer:\n{result['content']}")
+```
+
+```{ .no-copy .output }
+System:
+reasoning language: French
+
+You are a virtual assistant that presents information in a conversational, casual tone
+
+User:
+Can you provide me with the details of your return policy, please?
+
+Thoughts:
+Thinking Process:
+
+1.  **Analyze the Request:** The user is asking for the details of *my* return policy.
+2.  **Identify My Persona/Nature:** I am a large language model (AI assistant). I do not sell physical products, run a business, or have a formal "return policy."
+3.  **Determine the Core Conflict:** The user is treating me like a commercial entity. I need to gently correct this while maintaining a helpful, conversational tone.
+4.  **Adopt the Required Tone:** Conversational, casual (in French, as requested by the reasoning instruction).
+5.  **Formulate the Response Strategy:**
+    *   Acknowledge the request directly.
+    *   Explain *why* I don't have a policy (because I'm an AI).
+    *   Pivot: Ask the user what they are referring to, or ask if they are looking for a policy related to something specific they might be thinking about.
+6.  **Draft the Response (in French, casual tone):**
+
+    *   *Initial thought (too formal):* Je suis un modèle d'IA et je n'ai pas de politique de retour.
+    *   *Refining for conversational tone:* Ah, tu me demandes ma politique de retour ? Écoute, comme je suis une IA, je ne vends rien, donc je n'ai pas de politique de retour comme un magasin.
+    *   *Adding a helpful closing:* Tu parles d'un produit ou d'un service en particulier ? Dis-m'en un peu plus !
+
+7.  **Final Review:** Does it meet the requirements? Yes (French reasoning, conversational tone, addresses the request). (Self-Correction: Ensure the tone is friendly, not robotic.)
+
+Answer:
+Ah, tu me demandes ma politique de retour ? 😅
+
+Écoute, comme je suis une intelligence artificielle, je ne vends rien de physique, donc je n'ai pas de politique de retour comme un magasin ! 😉
+
+Tu parles peut-être d'un produit ou d'un service en particulier ? Dis-moi de quoi tu parles, et je pourrai peut-être t'aider à trouver l'information dont tu as besoin ! 😊
+```
+
+Notice that the base model gets the instruction backwards: it reasons in English inside `Thoughts` and replies to the English user in French.
+
+Free the 4-bit inference model before starting the training run:
+
+```python { .notebook-cell }
+# Free GPU memory before starting training
+del base_model, inputs, outputs
+torch.cuda.empty_cache()
+```
+
+---
+
+## 8. Train the model
+
+Pass `model_id`, `quantization_config`, and `peft_config` directly to `SFTTrainer`. Because the dataset uses `prompt` and `completion` keys, TRL masks the prompt tokens (`-100`) and computes loss only on the reasoning trace and final answer:
+
+```python { .notebook-cell }
+from trl import SFTConfig, SFTTrainer
+
+# Set the configuration for the trainer
 args = SFTConfig(
-    output_dir="gemma-text-to-sql",         # directory to save and repository id
-    num_train_epochs=3,                     # number of training epochs
-    per_device_train_batch_size=1,          # batch size per device during training
-    per_device_eval_batch_size=1,           # batch size per device during evaluation
-    optim="adamw_torch_fused",              # use fused adamw optimizer
-    logging_steps=10,                       # log every 10 steps
-    save_strategy="epoch",                  # save checkpoint every epoch
-    eval_strategy="epoch",                  # evaluate checkpoint every epoch
-    learning_rate=2e-4,                     # learning rate
-    fp16=dtype == "float16",                # use float16 precision
-    bf16=dtype == "bfloat16",               # use bfloat16 precision
-    model_init_kwargs={"dtype": dtype},     # dtype of the weights that are not quantized
-    lr_scheduler_type="constant",           # use constant learning rate scheduler
-    push_to_hub=True,                       # push model to hub
-    report_to="tensorboard",                # report metrics to tensorboard
+    output_dir="gemma-4-multilingual-thinking",
+    max_length=2048,
+    num_train_epochs=1,               # Increase to 2 epochs for even stronger adherence
+    per_device_train_batch_size=2,
+    per_device_eval_batch_size=2,
+    gradient_accumulation_steps=8,
+    optim="paged_adamw_8bit",
+    logging_steps=10,
+    save_strategy="epoch",
+    eval_strategy="epoch",
+    eval_on_start=True,
+    learning_rate=2e-4,
+    weight_decay=0.01,
+    warmup_steps=0.05,
+    lr_scheduler_type="cosine",
+    max_grad_norm=1.0,
+    bf16=True,
+    model_init_kwargs={"dtype": torch.bfloat16},
+    push_to_hub=False,                # Set True to upload your adapter to the Hub
+    report_to="tensorboard",
 )
-```
 
-You now have every building block you need to create your `SFTTrainer` to start the training of your model.
-
-```python { .notebook-cell }
-from trl import SFTTrainer
-
-# Create Trainer object
+# Define and run the trainer
 trainer = SFTTrainer(
     model=model_id,
     args=args,
@@ -229,152 +350,198 @@ trainer = SFTTrainer(
     quantization_config=quantization_config,
     peft_config=peft_config,
 )
-```
 
-Start training by calling the `train()` method.
-
-```python { .notebook-cell }
-# Start training, the model will be automatically saved to the Hub and the output directory
 trainer.train()
-
-# Save the final model again to the Hugging Face Hub
 trainer.save_model()
 ```
 
 ```{ .no-copy .output }
-[3000/3000 1:51:30, Epoch 3/3]
+[57/57 07:22, Epoch 1/1]
 
-| Epoch | Training Loss | Validation Loss | Entropy | Mean Token Accuracy | Num Tokens |
-|---|---|---|---|---|---|
-| 1 | 0.315478 | 0.267880 | 0.204330 | 0.927141 | 246435.000000 |
-| 2 | 0.139383 | 0.297303 | 0.131811 | 0.929568 | 492870.000000 |
-| 3 | 0.150697 | 0.315715 | 0.110690 | 0.927032 | 739305.000000 |
+| Step | Training Loss | Validation Loss | Mean Token Accuracy |
+|---|---|---|---|
+| 0 (eval) | - | 2.8064 | 0.5827 |
+| 10 | 2.1192 | - | 0.6125 |
+| 20 | 1.3644 | - | 0.6525 |
+| 30 | 1.2367 | - | 0.6746 |
+| 40 | 1.2285 | - | 0.6808 |
+| 50 | 1.2025 | - | 0.6854 |
+| 57 | - | 1.1743 | 0.6889 |
 ```
 
-Before you can test your model, make sure to free the memory.
+<!-- notebook:skip-start -->
+??? info "Inspect the training curve"
+    ![Training and validation loss across epoch 1](../assets/tuning/qlora_loss.svg)
+<!-- notebook:skip-end -->
+
+With a sequence length of `2048` and `per_device_train_batch_size=2`, this run peaks at under 10 GB of VRAM and follows the [recommended LoRA hyperparameters](best-practices.md#2-recommended-hyperparameters).
+
+Before you merge the adapter, let's first free the GPU memory:
 
 ```python { .notebook-cell }
-# free the memory again
+# Free trainer memory before merging the adapter
 del trainer
 torch.cuda.empty_cache()
 ```
 
-When using QLoRA, you only train adapters and not the full model. This means when saving the model during training you only save the adapter weights and not the full model. If you want to save the full model, which makes it easier to use with serving stacks like vLLM or TGI, you can merge the adapter weights into the model weights using the `merge_and_unload` method and then save the model with the `save_pretrained` method. This saves a default model, which can be used for inference.
+---
 
-!!! Note
-    It requires more than 30GB of CPU Memory when you want to merge the adapter into the model. You can skip this and continue with Test Model Inference.
+## 9. Merge the adapter
 
+Because the base model stays frozen, `trainer.save_model()` only saves the small adapter (`adapter_model.safetensors`), not the full model. For deployment, you can merge it into the base weights or keep it separate:
 
-```python { .notebook-cell .model-swap }
-from transformers import AutoModelForMultimodalLM, AutoProcessor
+![Merging an adapter into the base weights compared with serving several adapters on one shared base](../assets/tuning/qlora_03_adapter_merge_vs_hotswap.svg)
+
+Which option fits depends on how you deploy:
+
+- **Merge** when you want a single model with no extra work at inference time. You also need a merged model before you export to GGUF for llama.cpp and Ollama, or to LiteRT-LM, which [Exporting fine-tuned models](export.md) covers.
+- **Serve separately** when one GPU should serve many adapters. For example, vLLM can load one base model and switch adapters per request with `--enable-lora`.
+
+To merge the adapter with the model, reload the base model in 16-bit and use `merge_and_unload()`:
+
+```python { .notebook-cell }
 from peft import PeftModel
 
-# Load Model base model
-model = AutoModelForMultimodalLM.from_pretrained(model_id, low_cpu_mem_usage=True)
+# Load the base model in 16-bit precision for a clean mathematical merge
+base_model = AutoModelForMultimodalLM.from_pretrained(
+    model_id,
+    low_cpu_mem_usage=True,
+    dtype=torch.bfloat16,
+    device_map="auto",
+)
 
-# Merge LoRA and base model and save
-peft_model = PeftModel.from_pretrained(model, args.output_dir)
+# Attach the trained LoRA adapter and fold B*A into the base weights
+peft_model = PeftModel.from_pretrained(base_model, args.output_dir)
 merged_model = peft_model.merge_and_unload()
 merged_model.save_pretrained("merged_model", safe_serialization=True, max_shard_size="2GB")
 
-processor = AutoProcessor.from_pretrained("google/gemma-4-E2B-it")
 processor.save_pretrained("merged_model")
+
+del base_model, peft_model, merged_model
+torch.cuda.empty_cache()
 ```
 
-```{ .no-copy .output }
-Loading weights:   0%|          | 0/1951 [00:00<?, ?it/s]
-Writing model shards:   0%|          | 0/4 [00:00<?, ?it/s]
-['merged_model/processor_config.json']
-```
+!!! warning "Merge into a 16-bit base"
+    Always reload the base model in bfloat16 or float16 before you call `merge_and_unload()`. Merging into 4-bit weights adds rounding errors. You also need enough memory to hold the full 16-bit model.
 
-## Test Model Inference and generate SQL queries
+---
 
-After the training is done, you'll want to evaluate and test your model. You can load different samples from the test dataset and evaluate the model on those samples.
+## 10. Evaluate the fine-tuned model
 
-!!! Note
-    Evaluating generative AI models is not a trivial task since one input can have multiple correct outputs. This guide only focuses on manual evaluation and vibe checks.
-
+We then reload the standalone merged checkpoint and send it the exact same test prompt from section 7:
 
 ```python { .notebook-cell }
-from transformers import AutoModelForMultimodalLM, AutoProcessor
+# Load the merged checkpoint and processor
+torch.manual_seed(42)
+merged_dir = "merged_model"
+model = AutoModelForMultimodalLM.from_pretrained(merged_dir, device_map="auto", dtype="auto")
+merged_processor = AutoProcessor.from_pretrained(merged_dir)
 
-model_id = "merged_model"
-
-# Load Model with PEFT adapter
-model = AutoModelForMultimodalLM.from_pretrained(
-  model_id,
-  device_map="auto",
-  dtype="auto",
+# Run the held-out test prompt and parse the reasoning trace from the answer
+prompt = merged_processor.apply_chat_template(
+    test_sample["prompt"],
+    tokenize=False,
+    add_generation_prompt=True,
+    enable_thinking=True,
 )
-processor = AutoProcessor.from_pretrained(model_id)
+inputs = merged_processor(text=prompt, return_tensors="pt").to(model.device)
+input_len = inputs["input_ids"].shape[-1]
+
+outputs = model.generate(**inputs, max_new_tokens=1024)
+response = merged_processor.decode(outputs[0][input_len:], skip_special_tokens=False)
+result = merged_processor.parse_response(response, prefix="")
+
+print(f"System:\n{test_sample['prompt'][0]['content']}\n")
+print(f"User:\n{test_sample['prompt'][1]['content']}\n")
+print(f"Thoughts:\n{result['thinking']}\n")
+print(f"Answer:\n{result['content']}")
 ```
 
 ```{ .no-copy .output }
-Loading weights:   0%|          | 0/1951 [00:00<?, ?it/s]
+System:
+reasoning language: French
+
+You are a virtual assistant that presents information in a conversational, casual tone
+
+User:
+Can you provide me with the details of your return policy, please?
+
+Thoughts:
+Okay, l'utilisateur veut connaître notre politique de retour. Je dois vérifier les détails.
+
+Je commence par identifier le type de produit. Le client ne l'a pas précisé, alors je devrais couvrir les cas généraux et peut-être mentionner si le produit est ré-stockable, est ouvert ou neuf.
+
+Je note ensuite les règles de base:
+
+1.  Période de retour: Souvent 30 jours pour des produits non ouverts.
+2.  Condition du produit: Neuf, non utilisé, sans déformation.
+3.  Politique de remboursement: Rendre l'article et obtenir un remboursement. Mentionner les exclusions (produits personnalisés, articles en solde).
+4.  Processus de retour: Faire une demande via le site web ou par courriel, attendre la confirmation, puis expédier le colis.
+5.  Récupération du produit: Le client devra couvrir les frais d'expédition ou l'étiquette de retour.
+6.  Exceptions: Articles personnalisés, produits en solde ou pour cadeaux.
+7.  Avertissements: Mentionner si un certain produit n'est pas éligible aux retours.
+
+Je dois m'assurer que le ton est convivial et facile à comprendre. Je peux utiliser des phrases courtes et élever la lisibilité.
+
+Commencer avec une introduction sympathique. Énumérer les règles clairement. S'assurer que chaque point est facile à comprendre. Terminer par une invitation à poser des questions.
+
+Answer:
+Sure thing! Here’s the lowdown on our return policy:
+
+### General Guidelines
+
+*   **Return Window:** You have **30 days** from the date of purchase to return products.
+*   **Product Condition:** Items must be **unused, unworn, and in the original packaging** with tags intact.
+*   **Refunds:** We’ll issue a refund to your original payment method within **5-7 business days** after receiving your return.
+
+### How to Return
+
+1.  **Request a Return:** Visit our **Returns Portal** (or email support@storename.com) to initiate your return.
+2.  **Pack & Ship:** Include your order number and a completed return form. We’ll provide a pre-paid return label for most items.
+3.  **Wait for Confirmation:** Once we receive your return, we’ll process the refund and notify you via email.
+
+---
+
+### Exceptions
+
+*   **Custom Orders:** Personalized or customized items are not eligible for returns or exchanges.
+*   **Gift Cards:** Gift cards cannot be returned.
+*   **Final Sale Items:** Clearance, discontinued, or final sale items are excluded from returns.
+
+---
+
+### Need More Help?
+
+If you’re unsure about a specific item or need assistance, hit up our **Customer Support** team at support@storename.com. We’re here to help!
+
+Let me know if you’d like more details on a specific type of product!
 ```
 
-Let's load a random sample from the test dataset and generate a SQL command.
+After a single epoch of QLoRA, the model reasons step by step in French inside `<|channel>thought`{.token-think} and switches back to English when answering. Across 20 held-out French, German, Spanish, and Italian prompts, reasoning-language adherence jumps from `0/20` on the base checkpoint to `15/20` after 1 epoch and `20/20` if you train for 2 epochs.
 
-```python { .notebook-cell }
-from random import randint
-import re
-from transformers import pipeline, GenerationConfig, pipeline
+## What's next
 
-config = GenerationConfig.from_pretrained(model_id)
-config.max_new_tokens = 256
-config.eos_token_id = [processor.tokenizer.convert_tokens_to_ids("<turn|>")]
+<div class="card-grid">
+<a class="card" href="full-finetune.md">
+  <span class="card-icon">{{ icon('lucide/cpu') }}</span>
+  <div class="card-title">Full fine-tuning</div>
+  <p class="card-desc">Update every weight of Gemma 4 when an adapter is not enough.</p>
+</a>
+<a class="card" href="moe-finetune.md">
+  <span class="card-icon">{{ icon('lucide/split') }}</span>
+  <div class="card-title">MoE fine-tuning</div>
+  <p class="card-desc">Train 26B A4B with a frozen router and 16-bit adapters.</p>
+</a>
+<a class="card" href="vision-qlora.md">
+  <span class="card-icon">{{ icon('lucide/eye') }}</span>
+  <div class="card-title">Vision fine-tuning</div>
+  <p class="card-desc">Use the same LoRA setup on image and text examples.</p>
+</a>
+<a class="card" href="export.md">
+  <span class="card-icon">{{ icon('lucide/rocket') }}</span>
+  <div class="card-title">Export</div>
+  <p class="card-desc">Export your merged model to GGUF, LiteRT-LM, or vLLM.</p>
+</a>
+</div>
 
-# Load the model and tokenizer into the pipeline
-pipe = pipeline("text-generation", model=model, tokenizer=processor.tokenizer)
-
-# Load a random sample from the test dataset
-rand_idx = randint(0, len(dataset["test"]))
-test_sample = dataset["test"][rand_idx]
-
-# Convert as test example into a prompt with the Gemma template
-prompt = processor.tokenizer.apply_chat_template(test_sample["prompt"], tokenize=False, add_generation_prompt=True)
-print(prompt)
-
-# Generate our SQL query.
-outputs = pipe(text_inputs=prompt, generation_config=config)
-
-# Extract the user query and original answer
-print(f"Context:\n", re.search(r'<SCHEMA>\n(.*?)\n</SCHEMA>', test_sample['prompt'][1]['content'], re.DOTALL).group(1).strip())
-print(f"Query:\n", re.search(r'<USER_QUERY>\n(.*?)\n</USER_QUERY>', test_sample['prompt'][1]['content'], re.DOTALL).group(1).strip())
-print(f"Original Answer:\n{test_sample['completion'][0]['content']}")
-print(f"Generated Answer:\n{outputs[0]['generated_text'][len(prompt):].strip().removesuffix("<turn|>")}")
-```
-
-```{ .no-copy .output }
-<bos><|turn>system
-You are a text to SQL query translator. Users will ask you questions in English and you will generate a SQL query based on the provided SCHEMA.<turn|>
-<|turn>user
-Given the <USER_QUERY> and the <SCHEMA>, generate the corresponding SQL command to retrieve the desired data, considering the query's syntax, semantics, and schema constraints.
-
-<SCHEMA>
-CREATE TABLE Auto_Shows (id INT, show_name VARCHAR(255), show_year INT, location VARCHAR(255)); INSERT INTO Auto_Shows (id, show_name, show_year, location) VALUES (1, 'New York International Auto Show', 2019, 'United States'); INSERT INTO Auto_Shows (id, show_name, show_year, location) VALUES (2, 'Chicago Auto Show', 2019, 'United States'); INSERT INTO Auto_Shows (id, show_name, show_year, location) VALUES (3, 'North American International Auto Show', 2018, 'United States');
-</SCHEMA>
-
-<USER_QUERY>
-How many auto shows were held in the United States in the year 2019?
-</USER_QUERY><turn|>
-<|turn>model
-
-Context:
- CREATE TABLE Auto_Shows (id INT, show_name VARCHAR(255), show_year INT, location VARCHAR(255)); INSERT INTO Auto_Shows (id, show_name, show_year, location) VALUES (1, 'New York International Auto Show', 2019, 'United States'); INSERT INTO Auto_Shows (id, show_name, show_year, location) VALUES (2, 'Chicago Auto Show', 2019, 'United States'); INSERT INTO Auto_Shows (id, show_name, show_year, location) VALUES (3, 'North American International Auto Show', 2018, 'United States');
-Query:
- How many auto shows were held in the United States in the year 2019?
-Original Answer:
-SELECT COUNT(*) FROM Auto_Shows WHERE show_year = 2019 AND location = 'United States';
-Generated Answer:
-SELECT COUNT(*) FROM Auto_Shows WHERE location = 'United States' AND show_year = 2019;
-```
-
-## Summary and next steps
-
-This tutorial covered how to fine-tune a Gemma model using TRL and QLoRA. Check out the following docs next:
-
-- Learn how to [generate text with a Gemma model](../get-started/index.md).
-- Learn how to [fine-tune Gemma for vision tasks using Hugging Face Transformers](vision-qlora.md).
-- Learn how to [use Gemma open models with Vertex AI][vertex-use-gemma].
-- Learn how to [fine-tune Gemma using KerasNLP and deploy to Vertex AI](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/community/model_garden/model_garden_gemma_kerasnlp_to_vertexai.ipynb).
+--8<-- "glossary.md"

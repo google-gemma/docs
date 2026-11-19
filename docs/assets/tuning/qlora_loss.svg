@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="347" viewBox="0 0 680 268" role="img" aria-label="qlora training curve">
+  <rect width="680" height="268" fill="#FFFFFF"/>
+  <line x1="76.0" y1="193.96" x2="500.0" y2="193.96" stroke="#B8B8B8" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <path d="M 151.38 107.04 L 226.76 176.47 L 302.13 188.22 L 377.51 188.98 L 452.89 191.37" fill="none" stroke="#743BBE" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 76.00 43.81 L 500.00 193.96" fill="none" stroke="#2E7D32" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="76.0" y1="26.0" x2="76.0" y2="210.0" stroke="#000000" stroke-width="2.2" stroke-linecap="square"/>
+  <line x1="76.0" y1="210.0" x2="500.0" y2="210.0" stroke="#000000" stroke-width="2.2" stroke-linecap="square"/>
+  <line x1="76.00" y1="210.0" x2="76.00" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="76.00" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">0</text>
+  <line x1="182.00" y1="210.0" x2="182.00" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="182.00" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">0.25</text>
+  <line x1="288.00" y1="210.0" x2="288.00" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="288.00" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">0.5</text>
+  <line x1="394.00" y1="210.0" x2="394.00" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="394.00" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">0.75</text>
+  <line x1="500.00" y1="210.0" x2="500.00" y2="216.0" stroke="#000000" stroke-width="1.6"/>
+  <text x="500.00" y="231.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">1</text>
+  <line x1="70.0" y1="210.00" x2="76.0" y2="210.00" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="214.50" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">1</text>
+  <line x1="70.0" y1="164.00" x2="76.0" y2="164.00" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="168.50" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">1.5</text>
+  <line x1="70.0" y1="118.00" x2="76.0" y2="118.00" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="122.50" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">2</text>
+  <line x1="70.0" y1="72.00" x2="76.0" y2="72.00" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="76.50" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">2.5</text>
+  <line x1="70.0" y1="26.00" x2="76.0" y2="26.00" stroke="#000000" stroke-width="1.6"/>
+  <text x="66.0" y="30.50" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#000000">3</text>
+  <circle cx="151.38" cy="107.04" r="4.4" fill="#743BBE" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="452.89" cy="191.37" r="4.6" fill="#743BBE" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="76.00" cy="43.81" r="5.0" fill="#2E7D32" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="500.00" cy="193.96" r="5.0" fill="#2E7D32" stroke="#FFFFFF" stroke-width="2"/>
+  <path d="M 506.0 191.4 H 510.0 V 155.0 H 514.0" fill="none" stroke="#743BBE" stroke-width="1.3" stroke-opacity="0.65" stroke-linejoin="round"/>
+  <text x="518.0" y="158.0" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#743BBE">Training loss</text>
+  <text x="518.0" y="173.0" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" fill="#4A4A4A">(2.12 → 1.20)</text>
+  <path d="M 506.0 194.0 H 510.0 V 197.0 H 514.0" fill="none" stroke="#2E7D32" stroke-width="1.3" stroke-opacity="0.65" stroke-linejoin="round"/>
+  <text x="518.0" y="200.0" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#2E7D32">Validation loss</text>
+  <text x="518.0" y="215.0" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11.5" fill="#4A4A4A">(2.81 → 1.17)</text>
+  <text x="20" y="118.0" text-anchor="middle" transform="rotate(-90 20 118.0)" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#000000">Loss</text>
+  <text x="288.0" y="255.0" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="700" fill="#000000">Epoch</text>
+</svg>

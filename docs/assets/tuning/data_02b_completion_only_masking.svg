@@ -1,0 +1,34 @@
+<svg width="880" height="225" viewBox="0 0 880 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      text, tspan { font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+    </style>
+      </defs>
+  <rect id="canvas_bg" width="880" height="225" fill="#FFFFFF"/>
+  <g id="layer_nodes">
+    <g id="token_01" opacity="0.35"><path d="M 56.50 140.00 L 56.50 118.00 Q 56.50 112.00 62.50 112.00 L 119.50 112.00 Q 125.50 112.00 125.50 118.00 L 125.50 140.00 Z" fill="#DBEAFE" stroke="#60A5FA" stroke-width="1.50"/><text x="91.00" y="130.20" font-family="Inter" font-size="12.0" font-weight="700" fill="#1E40AF" text-anchor="middle">&lt;|turn&gt;</text></g>
+    <g id="token_02" opacity="0.35"><path d="M 131.50 140.00 L 131.50 118.00 Q 131.50 112.00 137.50 112.00 L 170.50 112.00 Q 176.50 112.00 176.50 118.00 L 176.50 140.00 Z" fill="#FEE2E2" stroke="#F87171" stroke-width="1.50"/><text x="154.00" y="130.20" font-family="Inter" font-size="12.0" font-weight="700" fill="#991B1B" text-anchor="middle">user</text></g>
+    <g id="token_03" opacity="0.35"><path d="M 182.50 140.00 L 182.50 118.00 Q 182.50 112.00 188.50 112.00 L 221.50 112.00 Q 227.50 112.00 227.50 118.00 L 227.50 140.00 Z" fill="#000000"/><text x="205.00" y="130.20" font-family="Inter" font-size="12.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">List</text></g>
+    <g id="token_04" opacity="0.35"><path d="M 233.50 140.00 L 233.50 118.00 Q 233.50 112.00 239.50 112.00 L 288.50 112.00 Q 294.50 112.00 294.50 118.00 L 294.50 140.00 Z" fill="#000000"/><text x="264.00" y="130.20" font-family="Inter" font-size="12.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">active</text></g>
+    <g id="token_05" opacity="0.35"><path d="M 300.50 140.00 L 300.50 118.00 Q 300.50 112.00 306.50 112.00 L 347.50 112.00 Q 353.50 112.00 353.50 118.00 L 353.50 140.00 Z" fill="#000000"/><text x="327.00" y="130.20" font-family="Inter" font-size="12.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">users</text></g>
+    <g id="token_06" opacity="0.35"><path d="M 359.50 140.00 L 359.50 118.00 Q 359.50 112.00 365.50 112.00 L 422.50 112.00 Q 428.50 112.00 428.50 118.00 L 428.50 140.00 Z" fill="#DBEAFE" stroke="#60A5FA" stroke-width="1.50"/><text x="394.00" y="130.20" font-family="Inter" font-size="12.0" font-weight="700" fill="#1E40AF" text-anchor="middle">&lt;turn|&gt;</text></g>
+    <g id="token_07" opacity="0.35"><path d="M 434.50 140.00 L 434.50 118.00 Q 434.50 112.00 440.50 112.00 L 497.50 112.00 Q 503.50 112.00 503.50 118.00 L 503.50 140.00 Z" fill="#DBEAFE" stroke="#60A5FA" stroke-width="1.50"/><text x="469.00" y="130.20" font-family="Inter" font-size="12.0" font-weight="700" fill="#1E40AF" text-anchor="middle">&lt;|turn&gt;</text></g>
+    <g id="token_08" opacity="0.35"><path d="M 509.50 140.00 L 509.50 118.00 Q 509.50 112.00 515.50 112.00 L 556.50 112.00 Q 562.50 112.00 562.50 118.00 L 562.50 140.00 Z" fill="#FEE2E2" stroke="#F87171" stroke-width="1.50"/><text x="536.00" y="130.20" font-family="Inter" font-size="12.0" font-weight="700" fill="#991B1B" text-anchor="middle">model</text></g>
+    <g id="token_09"><path d="M 568.50 140.00 L 568.50 118.00 Q 568.50 112.00 574.50 112.00 L 623.50 112.00 Q 629.50 112.00 629.50 118.00 L 629.50 140.00 Z" fill="#000000"/><text x="599.00" y="130.20" font-family="Inter" font-size="12.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">SELECT</text></g>
+    <g id="token_10"><path d="M 663.50 140.00 L 663.50 118.00 Q 663.50 112.00 669.50 112.00 L 710.50 112.00 Q 716.50 112.00 716.50 118.00 L 716.50 140.00 Z" fill="#000000"/><text x="690.00" y="130.20" font-family="Inter" font-size="12.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">users</text></g>
+    <g id="token_11"><path d="M 722.50 140.00 L 722.50 118.00 Q 722.50 112.00 728.50 112.00 L 742.50 112.00 Q 748.50 112.00 748.50 118.00 L 748.50 140.00 Z" fill="#000000"/><text x="735.50" y="130.20" font-family="Inter" font-size="12.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">;</text></g>
+    <g id="token_12"><path d="M 754.50 140.00 L 754.50 118.00 Q 754.50 112.00 760.50 112.00 L 817.50 112.00 Q 823.50 112.00 823.50 118.00 L 823.50 140.00 Z" fill="#DBEAFE" stroke="#60A5FA" stroke-width="1.50"/><text x="789.00" y="130.20" font-family="Inter" font-size="12.0" font-weight="700" fill="#1E40AF" text-anchor="middle">&lt;turn|&gt;</text></g>
+  </g>
+  <g id="layer_annotations">
+    <text id="txt_01" x="440.00" y="29.77" font-family="Inter" font-size="16.5" font-weight="400" fill="#272727" text-anchor="middle"><tspan font-weight="700">Completion-only loss masking</tspan></text>
+    <g id="arrow_01"><line x1="599.00" y1="108.00" x2="599.00" y2="74.79" stroke="#4B9745" stroke-width="2.60"/><polygon points="599.00,64.00 605.91,75.96 592.09,75.96" fill="#4B9745"/></g>
+    <text id="txt_02" x="646.50" y="130.90" font-family="Inter" font-size="14.0" font-weight="400" fill="#272727" text-anchor="middle"><tspan font-weight="700">...</tspan></text>
+    <g id="arrow_02"><line x1="690.00" y1="108.00" x2="690.00" y2="74.79" stroke="#4B9745" stroke-width="2.60"/><polygon points="690.00,64.00 696.91,75.96 683.09,75.96" fill="#4B9745"/></g>
+    <g id="arrow_03"><line x1="735.50" y1="108.00" x2="735.50" y2="74.79" stroke="#4B9745" stroke-width="2.60"/><polygon points="735.50,64.00 742.41,75.96 728.59,75.96" fill="#4B9745"/></g>
+    <g id="arrow_04"><line x1="789.00" y1="108.00" x2="789.00" y2="74.79" stroke="#4B9745" stroke-width="2.60"/><polygon points="789.00,64.00 795.91,75.96 782.09,75.96" fill="#4B9745"/></g>
+    <g id="span_bracket_01"><path d="M 56.50 148.00 L 56.50 156.00 L 562.50 156.00 L 562.50 148.00" stroke="#8C8C8C" stroke-width="1.60" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <text id="txt_03" x="309.50" y="178.72" font-family="Inter" font-size="13.5" font-weight="400" fill="#616161" text-anchor="middle"><tspan font-style="italic">Masked prompt tokens (ignored in loss)</tspan></text>
+    <g id="span_bracket_02"><path d="M 568.50 148.00 L 568.50 156.00 L 823.50 156.00 L 823.50 148.00" stroke="#4B9745" stroke-width="1.60" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <text id="txt_04" x="696.00" y="178.72" font-family="Inter" font-size="13.5" font-weight="400" fill="#2E7D32" text-anchor="middle"><tspan font-weight="700">100% updates on answer</tspan></text>
+  </g>
+</svg>

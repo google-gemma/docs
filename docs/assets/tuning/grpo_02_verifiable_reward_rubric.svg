@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="756" height="205" viewBox="0 0 756 205" fill="none">
+  <rect id="background" width="756" height="205" fill="#FFFFFF"/>
+  <g id="g02-main">
+    <g id="g02-s1">
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#000000" text-anchor="middle" id="g02-s1-title"><tspan x="164" y="30">Model completion</tspan></text>
+      <g id="g02-s1-slot">
+        <g id="g02-comp-core">
+          <g id="g02-thought-row">
+            <g id="g02-t-open">
+              <path d="M 22.88 71.5 H 145.12 A 6.88 6.88 0 0 1 152 78.38 V 96.5 H 16 V 78.38 A 6.88 6.88 0 0 1 22.88 71.5 Z" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#92400E" text-anchor="middle"><tspan x="84.01" y="89">&lt;|channel&gt;thought</tspan></text>
+            </g>
+            <g id="g02-t-body">
+              <path d="M 162.88 71.5 H 209.12 A 6.88 6.88 0 0 1 216 78.38 V 96.5 H 156 V 78.38 A 6.88 6.88 0 0 1 162.88 71.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="185.99" y="89">active</tspan></text>
+            </g>
+            <g id="g02-t-close">
+              <path d="M 226.88 71.5 H 305.12 A 6.88 6.88 0 0 1 312 78.38 V 96.5 H 220 V 78.38 A 6.88 6.88 0 0 1 226.88 71.5 Z" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#92400E" text-anchor="middle"><tspan x="265.99" y="89">&lt;channel|&gt;</tspan></text>
+            </g>
+          </g>
+          <g id="g02-sql1">
+            <g id="g02-sql1-0">
+              <path d="M 22.88 102.5 H 78.12 A 6.88 6.88 0 0 1 85 109.38 V 127.5 H 16 V 109.38 A 6.88 6.88 0 0 1 22.88 102.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="50.49" y="120">SELECT</tspan></text>
+            </g>
+            <g id="g02-sql1-1">
+              <path d="M 95.88 102.5 H 133.12 A 6.88 6.88 0 0 1 140 109.38 V 127.5 H 89 V 109.38 A 6.88 6.88 0 0 1 95.88 102.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="114.51" y="120">name</tspan></text>
+            </g>
+            <g id="g02-sql1-2">
+              <path d="M 150.88 102.5 H 188.12 A 6.88 6.88 0 0 1 195 109.38 V 127.5 H 144 V 109.38 A 6.88 6.88 0 0 1 150.88 102.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="169.51" y="120">FROM</tspan></text>
+            </g>
+            <g id="g02-sql1-3">
+              <path d="M 205.88 102.5 H 252.12 A 6.88 6.88 0 0 1 259 109.38 V 127.5 H 199 V 109.38 A 6.88 6.88 0 0 1 205.88 102.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="229" y="120">users</tspan></text>
+            </g>
+          </g>
+          <g id="g02-sql2">
+            <g id="g02-w0">
+              <path d="M 22.88 133.5 H 69.12 A 6.88 6.88 0 0 1 76 140.38 V 158.5 H 16 V 140.38 A 6.88 6.88 0 0 1 22.88 133.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="46.01" y="151">WHERE</tspan></text>
+            </g>
+            <g id="g02-w1">
+              <path d="M 86.88 133.5 H 142.12 A 6.88 6.88 0 0 1 149 140.38 V 158.5 H 80 V 140.38 A 6.88 6.88 0 0 1 86.88 133.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="114.49" y="151">active</tspan></text>
+            </g>
+            <g id="g02-w2">
+              <path d="M 159.88 133.5 H 176.12 A 6.88 6.88 0 0 1 183 140.38 V 158.5 H 153 V 140.38 A 6.88 6.88 0 0 1 159.88 133.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="168" y="151">=</tspan></text>
+            </g>
+            <g id="g02-w3">
+              <path d="M 193.88 133.5 H 210.12 A 6.88 6.88 0 0 1 217 140.38 V 158.5 H 187 V 140.38 A 6.88 6.88 0 0 1 193.88 133.5 Z" fill="#743BBE" stroke="#743BBE" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="202" y="151">1</tspan></text>
+            </g>
+            <g id="g02-turn">
+              <path d="M 227.88 133.5 H 282.12 A 6.88 6.88 0 0 1 289 140.38 V 158.5 H 221 V 140.38 A 6.88 6.88 0 0 1 227.88 133.5 Z" fill="#DBEAFE" stroke="#60A5FA" stroke-width="1.5"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#1E40AF" text-anchor="middle"><tspan x="255" y="151">&lt;turn|&gt;</tspan></text>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g id="g02-s2">
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#000000" text-anchor="middle" id="g02-s2-title"><tspan x="432.52" y="30">SQLite verifier</tspan></text>
+      <g id="g02-s2-slot">
+        <g id="g02-shell">
+          <rect x="340" y="73.38" width="185.03" height="83.25" rx="4" fill="#363636" stroke="#363636" stroke-width="1.5"/>
+          <text font-family="JetBrains Mono, Menlo, monospace" font-size="15" font-weight="400" fill="#FFFFFF"><tspan x="356" y="97" font-weight="700" fill="#8BD5A0">$</tspan><tspan font-weight="700"> sqlite3 test.db</tspan><tspan x="356" y="119">1 | Ana</tspan><tspan x="356" y="141">3 | Cy</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g id="g02-s3">
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#000000" text-anchor="middle" id="g02-s3-title"><tspan x="646.12" y="30">Reward rubric</tspan></text>
+      <g id="g02-s3-slot">
+        <g id="g02-rubric">
+          <g id="g02-rubric-0-0">
+            <g id="g02-rubric-0-0-in">
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#000000" id="g02-rubric-0-0-t"><tspan x="561.03" y="61">Check</tspan></text>
+            </g>
+            <line x1="553.03" y1="71.5" x2="636.66" y2="71.5" stroke="#000000" stroke-width="2" id="g02-rubric-0-0-rule"/>
+          </g>
+          <g id="g02-rubric-0-1">
+            <g id="g02-rubric-0-1-in">
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#000000" text-anchor="middle" id="g02-rubric-0-1-t"><tspan x="659.85" y="61">Pass</tspan></text>
+            </g>
+            <line x1="636.66" y1="71.5" x2="683.05" y2="71.5" stroke="#000000" stroke-width="2" id="g02-rubric-0-1-rule"/>
+          </g>
+          <g id="g02-rubric-0-2">
+            <g id="g02-rubric-0-2-in">
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#000000" text-anchor="end" id="g02-rubric-0-2-t"><tspan x="731.2" y="61">Points</tspan></text>
+            </g>
+            <line x1="683.05" y1="71.5" x2="739.2" y2="71.5" stroke="#000000" stroke-width="2" id="g02-rubric-0-2-rule"/>
+          </g>
+          <g id="g02-rubric-1-0">
+            <g id="g02-rubric-1-0-in">
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#000000" id="g02-rubric-1-0-t"><tspan x="561.03" y="91">Format</tspan></text>
+            </g>
+            <line x1="553.03" y1="101" x2="636.66" y2="101" stroke="#D9D9D9" stroke-width="1" id="g02-rubric-1-0-rule"/>
+          </g>
+          <g id="g02-rubric-1-1">
+            <g id="g02-rubric-1-1-in">
+              <path d="M 655.21 86.96 L 658.46 90.21 L 664.5 83.25" fill="none" stroke="#2B8D1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="g02-rubric-1-1-m"/>
+            </g>
+            <line x1="636.66" y1="101" x2="683.05" y2="101" stroke="#D9D9D9" stroke-width="1" id="g02-rubric-1-1-rule"/>
+          </g>
+          <g id="g02-rubric-1-2">
+            <g id="g02-rubric-1-2-in">
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#000000" text-anchor="end" id="g02-rubric-1-2-t"><tspan x="731.2" y="91">+0.5</tspan></text>
+            </g>
+            <line x1="683.05" y1="101" x2="739.2" y2="101" stroke="#D9D9D9" stroke-width="1" id="g02-rubric-1-2-rule"/>
+          </g>
+          <g id="g02-rubric-2-0">
+            <g id="g02-rubric-2-0-in">
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#000000" id="g02-rubric-2-0-t"><tspan x="561.03" y="120">Runs</tspan></text>
+            </g>
+            <line x1="553.03" y1="130" x2="636.66" y2="130" stroke="#D9D9D9" stroke-width="1" id="g02-rubric-2-0-rule"/>
+          </g>
+          <g id="g02-rubric-2-1">
+            <g id="g02-rubric-2-1-in">
+              <path d="M 655.21 115.96 L 658.46 119.21 L 664.5 112.25" fill="none" stroke="#2B8D1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="g02-rubric-2-1-m"/>
+            </g>
+            <line x1="636.66" y1="130" x2="683.05" y2="130" stroke="#D9D9D9" stroke-width="1" id="g02-rubric-2-1-rule"/>
+          </g>
+          <g id="g02-rubric-2-2">
+            <g id="g02-rubric-2-2-in">
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#000000" text-anchor="end" id="g02-rubric-2-2-t"><tspan x="731.2" y="120">+0.5</tspan></text>
+            </g>
+            <line x1="683.05" y1="130" x2="739.2" y2="130" stroke="#D9D9D9" stroke-width="1" id="g02-rubric-2-2-rule"/>
+          </g>
+          <g id="g02-rubric-3-0">
+            <g id="g02-rubric-3-0-in">
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#000000" id="g02-rubric-3-0-t"><tspan x="561.03" y="149">Right rows</tspan></text>
+            </g>
+            <line x1="553.03" y1="159" x2="636.66" y2="159" stroke="#D9D9D9" stroke-width="1" id="g02-rubric-3-0-rule"/>
+          </g>
+          <g id="g02-rubric-3-1">
+            <g id="g02-rubric-3-1-in">
+              <path d="M 655.21 144.96 L 658.46 148.21 L 664.5 141.25" fill="none" stroke="#2B8D1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="g02-rubric-3-1-m"/>
+            </g>
+            <line x1="636.66" y1="159" x2="683.05" y2="159" stroke="#D9D9D9" stroke-width="1" id="g02-rubric-3-1-rule"/>
+          </g>
+          <g id="g02-rubric-3-2">
+            <g id="g02-rubric-3-2-in">
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#000000" text-anchor="end" id="g02-rubric-3-2-t"><tspan x="731.2" y="149">+2.0</tspan></text>
+            </g>
+            <line x1="683.05" y1="159" x2="739.2" y2="159" stroke="#D9D9D9" stroke-width="1" id="g02-rubric-3-2-rule"/>
+          </g>
+          <g id="g02-rubric-4-0">
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#000000" id="g02-rubric-4-0-t"><tspan x="561.03" y="178">Total</tspan></text>
+          </g>
+          <g id="g02-rubric-4-2">
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#000000" text-anchor="end" id="g02-rubric-4-2-t"><tspan x="731.2" y="178" font-weight="700" fill="#2B8D1E">+3.0</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="arrows" fill="none">
+    <g id="a-g02-1">
+      <path d="M 317 115 L 327.05 115" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="334.25,115 326.25,119.62 326.25,110.38" fill="#000000"/>
+    </g>
+    <g id="a-g02-2">
+      <path d="M 530.78 115 L 540.83 115" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="548.03,115 540.03,119.62 540.03,110.38" fill="#000000"/>
+    </g>
+  </g>
+</svg>

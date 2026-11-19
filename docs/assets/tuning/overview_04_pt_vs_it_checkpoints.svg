@@ -1,0 +1,41 @@
+<svg width="880" height="240" viewBox="0 0 880 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      text, tspan { font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+    </style>
+    <linearGradient id="gemma4_chip_bg" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3186FF" stop-opacity="0.5"/><stop offset="45%" stop-color="#346BF1"/><stop offset="95%" stop-color="#4FA0FF"/></linearGradient><linearGradient id="gemma4_text_grad" x1="0%" y1="50%" x2="100%" y2="50%"><stop offset="0%" stop-color="#3186FF"/><stop offset="50%" stop-color="#346BF1"/><stop offset="100%" stop-color="#4FA0FF"/></linearGradient>
+  </defs>
+  <rect id="canvas_bg" width="880" height="240" fill="#FFFFFF"/>
+  <g id="layer_connections_bg">
+    <g id="connections_bg_01"><line x1="179.00" y1="120.00" x2="202.00" y2="120.00" stroke="#272727" stroke-width="2.00"/></g>
+  </g>
+  <g id="layer_nodes">
+    <g id="prompt_card_01"><rect x="24.00" y="97.00" width="150.00" height="46.00" rx="6.5" fill="#F6F5F5" stroke="#1C1C1C" stroke-width="1.80"/><text x="99.00" y="125.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#111111" text-anchor="middle"><tspan font-weight="700">Active users?</tspan></text></g>
+    <g id="nodes_01"><rect x="232.00" y="31.00" width="176.00" height="46.00" rx="9.0" fill="#FFFFFF"/><rect x="232.00" y="31.00" width="176.00" height="46.00" rx="9.0" fill="url(#gemma4_chip_bg)" fill-opacity="0.18" stroke="#040404" stroke-width="2.0"/></g>
+    <g id="token_01"><path d="M 440.00 69.00 L 440.00 44.00 Q 440.00 39.00 445.00 39.00 L 502.94 39.00 Q 507.94 39.00 507.94 44.00 L 507.94 69.00 Z" fill="#000000"/><text x="473.97" y="58.90" font-family="Inter" font-size="14.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">Inactive</text></g>
+    <g id="token_02"><path d="M 512.94 69.00 L 512.94 44.00 Q 512.94 39.00 517.94 39.00 L 559.60 39.00 Q 564.60 39.00 564.60 44.00 L 564.60 69.00 Z" fill="#000000"/><text x="538.77" y="58.90" font-family="Inter" font-size="14.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">users</text></g>
+    <g id="token_03"><path d="M 569.60 69.00 L 569.60 44.00 Q 569.60 39.00 574.60 39.00 L 589.13 39.00 Q 594.13 39.00 594.13 44.00 L 594.13 69.00 Z" fill="#000000"/><text x="581.86" y="58.90" font-family="Inter" font-size="14.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">?</text></g>
+    <g id="token_04"><path d="M 599.13 69.00 L 599.13 44.00 Q 599.13 39.00 604.13 39.00 L 661.91 39.00 Q 666.91 39.00 666.91 44.00 L 666.91 69.00 Z" fill="#000000"/><text x="633.02" y="58.90" font-family="Inter" font-size="14.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">Deleted</text></g>
+    <g id="token_05"><path d="M 671.91 69.00 L 671.91 44.00 Q 671.91 39.00 676.91 39.00 L 718.57 39.00 Q 723.57 39.00 723.57 44.00 L 723.57 69.00 Z" fill="#000000"/><text x="697.74" y="58.90" font-family="Inter" font-size="14.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">users</text></g>
+    <g id="nodes_02"><rect x="232.00" y="145.00" width="176.00" height="46.00" rx="9.0" fill="#FFFFFF"/><rect x="232.00" y="145.00" width="176.00" height="46.00" rx="9.0" fill="url(#gemma4_chip_bg)" fill-opacity="0.18" stroke="#040404" stroke-width="2.0"/></g>
+    <g id="token_06"><path d="M 440.00 183.00 L 440.00 158.00 Q 440.00 153.00 445.00 153.00 L 506.82 153.00 Q 511.82 153.00 511.82 158.00 L 511.82 183.00 Z" fill="#000000"/><text x="475.91" y="172.90" font-family="Inter" font-size="14.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">SELECT</text></g>
+    <g id="token_07"><path d="M 516.82 183.00 L 516.82 158.00 Q 516.82 153.00 521.82 153.00 L 534.64 153.00 Q 539.64 153.00 539.64 158.00 L 539.64 183.00 Z" fill="#000000"/><text x="528.23" y="172.90" font-family="Inter" font-size="14.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">*</text></g>
+    <g id="token_08"><path d="M 544.64 183.00 L 544.64 158.00 Q 544.64 153.00 549.64 153.00 L 599.05 153.00 Q 604.05 153.00 604.05 158.00 L 604.05 183.00 Z" fill="#000000"/><text x="574.34" y="172.90" font-family="Inter" font-size="14.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">FROM</text></g>
+    <g id="token_09"><path d="M 609.05 183.00 L 609.05 158.00 Q 609.05 153.00 614.05 153.00 L 655.71 153.00 Q 660.71 153.00 660.71 158.00 L 660.71 183.00 Z" fill="#000000"/><text x="634.88" y="172.90" font-family="Inter" font-size="14.0" font-weight="700" fill="#FFFFFF" text-anchor="middle">users</text></g>
+    <g id="token_10"><path d="M 684.71 183.00 L 684.71 158.00 Q 684.71 153.00 689.71 153.00 L 748.11 153.00 Q 753.11 153.00 753.11 158.00 L 753.11 183.00 Z" fill="#DBEAFE" stroke="#60A5FA" stroke-width="1.50"/><text x="718.91" y="172.90" font-family="Inter" font-size="14.0" font-weight="700" fill="#1E40AF" text-anchor="middle">&lt;turn|&gt;</text></g>
+  </g>
+  <g id="layer_annotations">
+    <text id="txt_01" x="320.00" y="59.42" font-family="Inter" font-size="15.5" font-weight="400" fill="#346BF1" text-anchor="middle"><tspan font-weight="700">gemma-4-12B</tspan></text>
+    <g id="arrow_01"><path d="M 202.00 120.00 L 202.00 54.00 L 217.70 54.00" stroke="#272727" stroke-width="2.00" fill="none"/><polygon points="226.00,54.00 216.80,59.31 216.80,48.69" fill="#272727"/></g>
+    <text id="txt_02" x="735.57" y="59.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#272727" text-anchor="middle"><tspan font-weight="700">...</tspan></text>
+    <g id="arrow_02"><line x1="414.00" y1="54.00" x2="425.70" y2="54.00" stroke="#272727" stroke-width="2.00"/><polygon points="434.00,54.00 424.80,59.31 424.80,48.69" fill="#272727"/></g>
+    <g id="span_bracket_01"><path d="M 440.00 76.00 L 440.00 84.00 L 747.57 84.00 L 747.57 76.00" stroke="#8C8C8C" stroke-width="1.60" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <text id="txt_03" x="593.79" y="105.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#505050" text-anchor="middle">Continues the text</text>
+    <text id="txt_04" x="320.00" y="173.43" font-family="Inter" font-size="15.5" font-weight="400" fill="#346BF1" text-anchor="middle"><tspan font-weight="700">gemma-4-12B-it</tspan></text>
+    <g id="arrow_03"><path d="M 202.00 120.00 L 202.00 168.00 L 217.70 168.00" stroke="#272727" stroke-width="2.00" fill="none"/><polygon points="226.00,168.00 216.80,173.31 216.80,162.69" fill="#272727"/></g>
+    <text id="txt_05" x="672.71" y="173.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#272727" text-anchor="middle"><tspan font-weight="700">...</tspan></text>
+    <g id="arrow_04"><line x1="414.00" y1="168.00" x2="425.70" y2="168.00" stroke="#272727" stroke-width="2.00"/><polygon points="434.00,168.00 424.80,173.31 424.80,162.69" fill="#272727"/></g>
+    <g id="span_bracket_02"><path d="M 440.00 190.00 L 440.00 198.00 L 753.11 198.00 L 753.11 190.00" stroke="#8C8C8C" stroke-width="1.60" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <text id="txt_06" x="596.56" y="219.25" font-family="Inter" font-size="15.0" font-weight="400" fill="#505050" text-anchor="middle">Answers and ends its turn</text>
+  </g>
+</svg>

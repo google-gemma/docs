@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="718" height="294" viewBox="0 0 718 294" fill="none">
+  <rect id="background" width="718" height="294" fill="#FFFFFF"/>
+  <g id="d02-contrast">
+    <g id="d02-contrast-pair">
+      <g id="d02-contrast-left">
+        <g id="d02-contrast-left-hdr">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="d02-contrast-left-title"><tspan x="175.98" y="34">Full-weight DPO</tspan></text>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="d02-contrast-left-sub"><tspan x="175.99" y="51">(two 31B copies · ~124 GB)</tspan></text>
+        </g>
+        <g id="d02-left-row">
+          <g id="full-pol-col">
+            <g id="full-pol-hdr">
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#000000" text-anchor="middle" id="full-pol-t"><tspan x="93.99" y="79">Policy Weights</tspan></text>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="full-pol-s"><tspan x="93.99" y="95">(16-bit · 62 GB)</tspan></text>
+            </g>
+            <g id="full-pol-mat">
+              <rect x="56.5" y="108" width="15" height="15" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="full-pol-mat-0-0"/>
+              <rect x="71.5" y="108" width="15" height="15" fill="#9A5FD1" stroke="#000000" stroke-width="1.5" id="full-pol-mat-0-1"/>
+              <rect x="86.5" y="108" width="15" height="15" fill="#BF94E4" stroke="#000000" stroke-width="1.5" id="full-pol-mat-0-2"/>
+              <rect x="101.5" y="108" width="15" height="15" fill="#743BBE" stroke="#000000" stroke-width="1.5" id="full-pol-mat-0-3"/>
+              <rect x="116.5" y="108" width="15" height="15" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="full-pol-mat-0-4"/>
+              <rect x="56.5" y="123" width="15" height="15" fill="#9A5FD1" stroke="#000000" stroke-width="1.5" id="full-pol-mat-1-0"/>
+              <rect x="71.5" y="123" width="15" height="15" fill="#743BBE" stroke="#000000" stroke-width="1.5" id="full-pol-mat-1-1"/>
+              <rect x="86.5" y="123" width="15" height="15" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="full-pol-mat-1-2"/>
+              <rect x="101.5" y="123" width="15" height="15" fill="#BF94E4" stroke="#000000" stroke-width="1.5" id="full-pol-mat-1-3"/>
+              <rect x="116.5" y="123" width="15" height="15" fill="#9A5FD1" stroke="#000000" stroke-width="1.5" id="full-pol-mat-1-4"/>
+              <rect x="56.5" y="138" width="15" height="15" fill="#BF94E4" stroke="#000000" stroke-width="1.5" id="full-pol-mat-2-0"/>
+              <rect x="71.5" y="138" width="15" height="15" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="full-pol-mat-2-1"/>
+              <rect x="86.5" y="138" width="15" height="15" fill="#743BBE" stroke="#000000" stroke-width="1.5" id="full-pol-mat-2-2"/>
+              <rect x="101.5" y="138" width="15" height="15" fill="#9A5FD1" stroke="#000000" stroke-width="1.5" id="full-pol-mat-2-3"/>
+              <rect x="116.5" y="138" width="15" height="15" fill="#BF94E4" stroke="#000000" stroke-width="1.5" id="full-pol-mat-2-4"/>
+              <rect x="56.5" y="153" width="15" height="15" fill="#743BBE" stroke="#000000" stroke-width="1.5" id="full-pol-mat-3-0"/>
+              <rect x="71.5" y="153" width="15" height="15" fill="#BF94E4" stroke="#000000" stroke-width="1.5" id="full-pol-mat-3-1"/>
+              <rect x="86.5" y="153" width="15" height="15" fill="#9A5FD1" stroke="#000000" stroke-width="1.5" id="full-pol-mat-3-2"/>
+              <rect x="101.5" y="153" width="15" height="15" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="full-pol-mat-3-3"/>
+              <rect x="116.5" y="153" width="15" height="15" fill="#743BBE" stroke="#000000" stroke-width="1.5" id="full-pol-mat-3-4"/>
+            </g>
+            <g id="full-pass1">
+              <rect x="20" y="216" width="148" height="30" rx="4" fill="#FAFDFF" stroke="#000000" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="93.99" y="236">Policy pass</tspan></text>
+            </g>
+          </g>
+          <g id="full-ref-col">
+            <g id="full-ref-hdr">
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#000000" text-anchor="middle" id="full-ref-t"><tspan x="257.99" y="79">Reference Copy</tspan></text>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="full-ref-s"><tspan x="257.99" y="95">(16-bit · 62 GB)</tspan></text>
+            </g>
+            <g id="full-ref-mat">
+              <rect x="220.5" y="108" width="15" height="15" fill="#C4DCFA" stroke="#000000" stroke-width="1.5" id="full-ref-mat-0-0"/>
+              <rect x="235.5" y="108" width="15" height="15" fill="#5492E8" stroke="#000000" stroke-width="1.5" id="full-ref-mat-0-1"/>
+              <rect x="250.5" y="108" width="15" height="15" fill="#8EB9F5" stroke="#000000" stroke-width="1.5" id="full-ref-mat-0-2"/>
+              <rect x="265.5" y="108" width="15" height="15" fill="#2563EB" stroke="#000000" stroke-width="1.5" id="full-ref-mat-0-3"/>
+              <rect x="280.5" y="108" width="15" height="15" fill="#C4DCFA" stroke="#000000" stroke-width="1.5" id="full-ref-mat-0-4"/>
+              <rect x="220.5" y="123" width="15" height="15" fill="#5492E8" stroke="#000000" stroke-width="1.5" id="full-ref-mat-1-0"/>
+              <rect x="235.5" y="123" width="15" height="15" fill="#2563EB" stroke="#000000" stroke-width="1.5" id="full-ref-mat-1-1"/>
+              <rect x="250.5" y="123" width="15" height="15" fill="#C4DCFA" stroke="#000000" stroke-width="1.5" id="full-ref-mat-1-2"/>
+              <rect x="265.5" y="123" width="15" height="15" fill="#8EB9F5" stroke="#000000" stroke-width="1.5" id="full-ref-mat-1-3"/>
+              <rect x="280.5" y="123" width="15" height="15" fill="#5492E8" stroke="#000000" stroke-width="1.5" id="full-ref-mat-1-4"/>
+              <rect x="220.5" y="138" width="15" height="15" fill="#8EB9F5" stroke="#000000" stroke-width="1.5" id="full-ref-mat-2-0"/>
+              <rect x="235.5" y="138" width="15" height="15" fill="#C4DCFA" stroke="#000000" stroke-width="1.5" id="full-ref-mat-2-1"/>
+              <rect x="250.5" y="138" width="15" height="15" fill="#2563EB" stroke="#000000" stroke-width="1.5" id="full-ref-mat-2-2"/>
+              <rect x="265.5" y="138" width="15" height="15" fill="#5492E8" stroke="#000000" stroke-width="1.5" id="full-ref-mat-2-3"/>
+              <rect x="280.5" y="138" width="15" height="15" fill="#8EB9F5" stroke="#000000" stroke-width="1.5" id="full-ref-mat-2-4"/>
+              <rect x="220.5" y="153" width="15" height="15" fill="#2563EB" stroke="#000000" stroke-width="1.5" id="full-ref-mat-3-0"/>
+              <rect x="235.5" y="153" width="15" height="15" fill="#8EB9F5" stroke="#000000" stroke-width="1.5" id="full-ref-mat-3-1"/>
+              <rect x="250.5" y="153" width="15" height="15" fill="#5492E8" stroke="#000000" stroke-width="1.5" id="full-ref-mat-3-2"/>
+              <rect x="265.5" y="153" width="15" height="15" fill="#C4DCFA" stroke="#000000" stroke-width="1.5" id="full-ref-mat-3-3"/>
+              <rect x="280.5" y="153" width="15" height="15" fill="#2563EB" stroke="#000000" stroke-width="1.5" id="full-ref-mat-3-4"/>
+            </g>
+            <g id="full-pass2">
+              <rect x="184" y="216" width="148" height="30" rx="4" fill="#FAFDFF" stroke="#000000" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="258" y="236">Reference pass</tspan></text>
+            </g>
+          </g>
+        </g>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#000000" text-anchor="middle" id="d02-contrast-left-verdict"><tspan x="176" y="271" font-weight="700">62 GB extra</tspan><tspan> just for the reference model</tspan></text>
+      </g>
+      <line x1="358.75" y1="20" x2="358.75" y2="266" stroke="#8C8C8C" stroke-width="1.5" stroke-dasharray="3 3" id="d02-contrast-div"/>
+      <g id="d02-contrast-right">
+        <g id="d02-contrast-right-hdr">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="d02-contrast-right-title"><tspan x="541.5" y="34">LoRA DPO</tspan></text>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="d02-contrast-right-sub"><tspan x="541.5" y="51">(one 4-bit base · ~18 GB)</tspan></text>
+        </g>
+        <g id="d02-right-col">
+          <g id="lora-model-row">
+            <g id="lora-adp-col">
+              <g id="lora-adp-hdr">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#000000" text-anchor="middle" id="lora-adp-t"><tspan x="459.5" y="79" fill="#743BBE">LoRA Adapter</tspan></text>
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="lora-adp-s"><tspan x="459.49" y="95">(16-bit · 0.2 GB)</tspan></text>
+              </g>
+              <g id="lora-adp-mat">
+                <rect x="445.5" y="126" width="14" height="14" fill="#9A5FD1" stroke="#000000" stroke-width="1.5" id="lora-adp-mat-0-0"/>
+                <rect x="459.5" y="126" width="14" height="14" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="lora-adp-mat-0-1"/>
+                <rect x="445.5" y="140" width="14" height="14" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="lora-adp-mat-1-0"/>
+                <rect x="459.5" y="140" width="14" height="14" fill="#743BBE" stroke="#000000" stroke-width="1.5" id="lora-adp-mat-1-1"/>
+                <rect x="445.5" y="154" width="14" height="14" fill="#743BBE" stroke="#000000" stroke-width="1.5" id="lora-adp-mat-2-0"/>
+                <rect x="459.5" y="154" width="14" height="14" fill="#BF94E4" stroke="#000000" stroke-width="1.5" id="lora-adp-mat-2-1"/>
+              </g>
+            </g>
+            <g id="lora-base-col">
+              <g id="lora-base-hdr">
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="700" fill="#000000" text-anchor="middle" id="lora-base-t"><tspan x="623.5" y="79">Base Weights</tspan></text>
+                <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="lora-base-s"><tspan x="623.49" y="95">(4-bit · 18 GB)</tspan></text>
+              </g>
+              <g id="lora-base-mat">
+                <rect x="593.5" y="108" width="15" height="15" fill="#B4EFEF" stroke="#000000" stroke-width="1.5" id="lora-base-mat-0-0"/>
+                <rect x="608.5" y="108" width="15" height="15" fill="#3FC2C2" stroke="#000000" stroke-width="1.5" id="lora-base-mat-0-1"/>
+                <rect x="623.5" y="108" width="15" height="15" fill="#7FE0E0" stroke="#000000" stroke-width="1.5" id="lora-base-mat-0-2"/>
+                <rect x="638.5" y="108" width="15" height="15" fill="#1A9494" stroke="#000000" stroke-width="1.5" id="lora-base-mat-0-3"/>
+                <rect x="593.5" y="123" width="15" height="15" fill="#3FC2C2" stroke="#000000" stroke-width="1.5" id="lora-base-mat-1-0"/>
+                <rect x="608.5" y="123" width="15" height="15" fill="#1A9494" stroke="#000000" stroke-width="1.5" id="lora-base-mat-1-1"/>
+                <rect x="623.5" y="123" width="15" height="15" fill="#B4EFEF" stroke="#000000" stroke-width="1.5" id="lora-base-mat-1-2"/>
+                <rect x="638.5" y="123" width="15" height="15" fill="#7FE0E0" stroke="#000000" stroke-width="1.5" id="lora-base-mat-1-3"/>
+                <rect x="593.5" y="138" width="15" height="15" fill="#7FE0E0" stroke="#000000" stroke-width="1.5" id="lora-base-mat-2-0"/>
+                <rect x="608.5" y="138" width="15" height="15" fill="#B4EFEF" stroke="#000000" stroke-width="1.5" id="lora-base-mat-2-1"/>
+                <rect x="623.5" y="138" width="15" height="15" fill="#1A9494" stroke="#000000" stroke-width="1.5" id="lora-base-mat-2-2"/>
+                <rect x="638.5" y="138" width="15" height="15" fill="#3FC2C2" stroke="#000000" stroke-width="1.5" id="lora-base-mat-2-3"/>
+                <rect x="593.5" y="153" width="15" height="15" fill="#1A9494" stroke="#000000" stroke-width="1.5" id="lora-base-mat-3-0"/>
+                <rect x="608.5" y="153" width="15" height="15" fill="#7FE0E0" stroke="#000000" stroke-width="1.5" id="lora-base-mat-3-1"/>
+                <rect x="623.5" y="153" width="15" height="15" fill="#3FC2C2" stroke="#000000" stroke-width="1.5" id="lora-base-mat-3-2"/>
+                <rect x="638.5" y="153" width="15" height="15" fill="#B4EFEF" stroke="#000000" stroke-width="1.5" id="lora-base-mat-3-3"/>
+              </g>
+            </g>
+          </g>
+          <g id="lora-passes-row">
+            <g id="lora-pass-on">
+              <rect x="385.5" y="216" width="148" height="30" rx="4" fill="#FAFDFF" stroke="#000000" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="459.49" y="236">Policy pass (on)</tspan></text>
+            </g>
+            <g id="lora-pass-off">
+              <rect x="549.5" y="216" width="148" height="30" rx="4" fill="#FAFDFF" stroke="#000000" stroke-width="2"/>
+              <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="623.5" y="236">Reference pass (off)</tspan></text>
+            </g>
+          </g>
+        </g>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#000000" text-anchor="middle" id="d02-contrast-right-verdict"><tspan x="541.49" y="271" font-weight="700">Zero extra copies</tspan><tspan> — switch adapter off</tspan></text>
+      </g>
+    </g>
+  </g>
+  <g id="flame-full-pol">
+    <rect x="122.5" y="99" width="18" height="18" rx="9" fill="#FFFFFF" stroke="#000000" stroke-width="0" id="flame-full-pol-bg"/>
+    <path d="M 131.5 100.8 C 131.9 103.6 135.3 104.8 135.3 108.6 C 135.3 111.4 133.4 113.4 131.1 113.4 C 128.6 113.4 126.9 111.5 126.9 108.9 C 126.9 107 128 105.4 129.1 104.4 C 128.9 105.9 129.7 106.8 130.5 106.9 C 130 104.8 130.5 102.5 131.5 100.8 Z" fill="#B83232" id="flame-full-pol-icon"/>
+    <rect x="128.8" y="107.8" width="5" height="5" rx="2.5" fill="#F4DEC1" stroke="#000000" stroke-width="0" id="flame-full-pol-core"/>
+  </g>
+  <g id="snow-full-ref">
+    <rect x="286.5" y="99" width="18" height="18" rx="9" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.4" id="snow-full-ref-bg"/>
+    <path d="M 295.5 102.6 L 295.5 113.4 M 290.8 105.3 L 300.2 110.7 M 300.2 105.3 L 290.8 110.7" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" id="snow-full-ref-icon"/>
+  </g>
+  <g id="flame-lora-adp">
+    <rect x="464.5" y="117" width="18" height="18" rx="9" fill="#FFFFFF" stroke="#000000" stroke-width="0" id="flame-lora-adp-bg"/>
+    <path d="M 473.5 118.8 C 473.9 121.6 477.3 122.8 477.3 126.6 C 477.3 129.4 475.4 131.4 473.1 131.4 C 470.6 131.4 468.9 129.5 468.9 126.9 C 468.9 125 470 123.4 471.1 122.4 C 470.9 123.9 471.7 124.8 472.5 124.9 C 472 122.8 472.5 120.5 473.5 118.8 Z" fill="#B83232" id="flame-lora-adp-icon"/>
+    <rect x="470.8" y="125.8" width="5" height="5" rx="2.5" fill="#F4DEC1" stroke="#000000" stroke-width="0" id="flame-lora-adp-core"/>
+  </g>
+  <g id="snow-lora-base">
+    <rect x="644.5" y="99" width="18" height="18" rx="9" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.4" id="snow-lora-base-bg"/>
+    <path d="M 653.5 102.6 L 653.5 113.4 M 648.8 105.3 L 658.2 110.7 M 658.2 105.3 L 648.8 110.7" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" id="snow-lora-base-icon"/>
+  </g>
+  <g id="arrows" fill="none">
+    <g id="a-fp1">
+      <path d="M 94 173 L 94 202.8" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="94,210 89.38,202 98.62,202" fill="#000000"/>
+    </g>
+    <g id="a-fp2">
+      <path d="M 258 173 L 258 202.8" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="258,210 253.38,202 262.62,202" fill="#000000"/>
+    </g>
+    <g id="a-lp-on-adp">
+      <path d="M 459.5 173 L 459.5 202.8" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="459.5,210 454.88,202 464.12,202" fill="#000000"/>
+    </g>
+    <g id="a-base-fork-0">
+      <path d="M 623.5 173 L 623.5 184 L 497.98 184 L 497.98 202.8" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="497.98,210 493.36,202 502.6,202" fill="#000000"/>
+    </g>
+    <g id="a-base-fork-1">
+      <path d="M 623.5 173 L 623.5 184 L 623.5 202.8" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="623.5,210 618.88,202 628.12,202" fill="#000000"/>
+    </g>
+  </g>
+</svg>

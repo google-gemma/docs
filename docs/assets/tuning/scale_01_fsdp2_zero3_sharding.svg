@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="616" height="359" viewBox="0 0 616 359" fill="none">
+  <rect id="background" width="616" height="359" fill="#FFFFFF"/>
+  <g id="s01-contrast">
+    <g id="s01-contrast-pair">
+      <g id="s01-contrast-left">
+        <g id="s01-contrast-left-hdr">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="s01-contrast-left-title"><tspan x="139.99" y="32">Data parallel</tspan></text>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="s01-contrast-left-sub"><tspan x="139.99" y="49">(372 GB replicated per GPU)</tspan></text>
+        </g>
+        <g id="dp-chart">
+          <rect x="36" y="68" width="36" height="114" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="dp0-opt"/>
+          <rect x="36" y="182" width="36" height="28" fill="#C4C4C4" stroke="#000000" stroke-width="1.5" id="dp0-grad"/>
+          <rect x="36" y="210" width="36" height="28" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="dp0-wt"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="dp0-lbl"><tspan x="54" y="256">GPU 0</tspan></text>
+          <rect x="86" y="68" width="36" height="114" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="dp1-opt"/>
+          <rect x="86" y="182" width="36" height="28" fill="#C4C4C4" stroke="#000000" stroke-width="1.5" id="dp1-grad"/>
+          <rect x="86" y="210" width="36" height="28" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="dp1-wt"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="dp1-lbl"><tspan x="104" y="256">GPU 1</tspan></text>
+          <rect x="136" y="68" width="36" height="114" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="dp2-opt"/>
+          <rect x="136" y="182" width="36" height="28" fill="#C4C4C4" stroke="#000000" stroke-width="1.5" id="dp2-grad"/>
+          <rect x="136" y="210" width="36" height="28" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="dp2-wt"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="dp2-lbl"><tspan x="154" y="256">GPU 2</tspan></text>
+          <g id="dp-dots">
+            <rect x="181" y="146" width="4" height="4" rx="2" fill="#000000" id="dp-dots-0"/>
+            <rect x="189" y="146" width="4" height="4" rx="2" fill="#000000" id="dp-dots-1"/>
+            <rect x="197" y="146" width="4" height="4" rx="2" fill="#000000" id="dp-dots-2"/>
+          </g>
+          <rect x="212" y="68" width="36" height="114" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="dp7-opt"/>
+          <rect x="212" y="182" width="36" height="28" fill="#C4C4C4" stroke="#000000" stroke-width="1.5" id="dp7-grad"/>
+          <rect x="212" y="210" width="36" height="28" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="dp7-wt"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="dp7-lbl"><tspan x="230" y="256">GPU 7</tspan></text>
+          <line x1="26" y1="238" x2="258" y2="238" stroke="#000000" stroke-width="1.6" id="dp-base"/>
+          <line x1="26" y1="200" x2="258" y2="200" stroke="#B83232" stroke-width="1.6" stroke-dasharray="3 3" id="dp-lim"/>
+        </g>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#000000" text-anchor="middle" id="s01-contrast-left-verdict"><tspan x="140" y="307" font-weight="700">Out of memory</tspan><tspan> on 80 GB GPUs</tspan></text>
+      </g>
+      <line x1="286.75" y1="18" x2="286.75" y2="282" stroke="#8C8C8C" stroke-width="1.5" stroke-dasharray="3 3" id="s01-contrast-div"/>
+      <g id="s01-contrast-right">
+        <g id="s01-contrast-right-hdr">
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#000000" text-anchor="middle" id="s01-contrast-right-title"><tspan x="454.48" y="32">PyTorch FSDP2</tspan></text>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="s01-contrast-right-sub"><tspan x="454.49" y="49">(46.5 GB 1/8 shard per GPU)</tspan></text>
+        </g>
+        <g id="fs-chart">
+          <rect x="323.5" y="216" width="23" height="14" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="fs0-opt"/>
+          <rect x="323.5" y="230" width="23" height="4" fill="#C4C4C4" stroke="#000000" stroke-width="1.5" id="fs0-grad"/>
+          <rect x="323.5" y="234" width="23" height="4" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="fs0-wt"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="fs0-lbl"><tspan x="335" y="256">0</tspan></text>
+          <rect x="355.5" y="216" width="23" height="14" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="fs1-opt"/>
+          <rect x="355.5" y="230" width="23" height="4" fill="#C4C4C4" stroke="#000000" stroke-width="1.5" id="fs1-grad"/>
+          <rect x="355.5" y="234" width="23" height="4" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="fs1-wt"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="fs1-lbl"><tspan x="367" y="256">1</tspan></text>
+          <rect x="387.5" y="216" width="23" height="14" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="fs2-opt"/>
+          <rect x="387.5" y="230" width="23" height="4" fill="#C4C4C4" stroke="#000000" stroke-width="1.5" id="fs2-grad"/>
+          <rect x="387.5" y="234" width="23" height="4" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="fs2-wt"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="fs2-lbl"><tspan x="399" y="256">2</tspan></text>
+          <rect x="419.5" y="216" width="23" height="14" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="fs3-opt"/>
+          <rect x="419.5" y="230" width="23" height="4" fill="#C4C4C4" stroke="#000000" stroke-width="1.5" id="fs3-grad"/>
+          <rect x="419.5" y="234" width="23" height="4" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="fs3-wt"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="fs3-lbl"><tspan x="431" y="256">3</tspan></text>
+          <rect x="451.5" y="216" width="23" height="14" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="fs4-opt"/>
+          <rect x="451.5" y="230" width="23" height="4" fill="#C4C4C4" stroke="#000000" stroke-width="1.5" id="fs4-grad"/>
+          <rect x="451.5" y="234" width="23" height="4" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="fs4-wt"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="fs4-lbl"><tspan x="463" y="256">4</tspan></text>
+          <rect x="483.5" y="216" width="23" height="14" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="fs5-opt"/>
+          <rect x="483.5" y="230" width="23" height="4" fill="#C4C4C4" stroke="#000000" stroke-width="1.5" id="fs5-grad"/>
+          <rect x="483.5" y="234" width="23" height="4" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="fs5-wt"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="fs5-lbl"><tspan x="495" y="256">5</tspan></text>
+          <rect x="515.5" y="216" width="23" height="14" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="fs6-opt"/>
+          <rect x="515.5" y="230" width="23" height="4" fill="#C4C4C4" stroke="#000000" stroke-width="1.5" id="fs6-grad"/>
+          <rect x="515.5" y="234" width="23" height="4" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="fs6-wt"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="fs6-lbl"><tspan x="527" y="256">6</tspan></text>
+          <rect x="547.5" y="216" width="23" height="14" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="fs7-opt"/>
+          <rect x="547.5" y="230" width="23" height="4" fill="#C4C4C4" stroke="#000000" stroke-width="1.5" id="fs7-grad"/>
+          <rect x="547.5" y="234" width="23" height="4" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="fs7-wt"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="fs7-lbl"><tspan x="559" y="256">7</tspan></text>
+          <line x1="317.5" y1="238" x2="585.5" y2="238" stroke="#000000" stroke-width="1.6" id="fs-base"/>
+          <line x1="317.5" y1="200" x2="585.5" y2="200" stroke="#B83232" stroke-width="1.6" stroke-dasharray="3 3" id="fs-lim"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle" id="fs-lim-lbl"><tspan x="454.5" y="190" font-weight="700" fill="#B83232">80 GB GPU memory</tspan></text>
+          <g id="fs-nvlink">
+            <rect x="336.5" y="98" width="236" height="26" rx="4" fill="#EBF3FE" stroke="#000000" stroke-width="2"/>
+            <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#000000" text-anchor="middle"><tspan x="454.49" y="115">NVLink all-gather 1 layer at a time</tspan></text>
+          </g>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" text-anchor="middle" id="fs-axis-lbl"><tspan x="454.5" y="274">GPU rank (0–7)</tspan></text>
+        </g>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#000000" text-anchor="middle" id="s01-contrast-right-verdict"><tspan x="454.49" y="307" font-weight="700">Fits inside</tspan><tspan> 80 GB with room for activations</tspan></text>
+      </g>
+    </g>
+    <g id="s01-legend">
+      <g id="leg-w">
+        <rect x="79.78" y="326.5" width="14" height="14" rx="3" fill="#DEC4F2" stroke="#000000" stroke-width="1.5" id="leg-w-sw"/>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle" id="leg-w-txt"><tspan x="147.93" y="338">Weights (62 GB)</tspan></text>
+      </g>
+      <g id="leg-g">
+        <rect x="216.08" y="326.5" width="14" height="14" rx="3" fill="#C4C4C4" stroke="#000000" stroke-width="1.5" id="leg-g-sw"/>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle" id="leg-g-txt"><tspan x="289.14" y="338">Gradients (62 GB)</tspan></text>
+      </g>
+      <g id="leg-o">
+        <rect x="362.2" y="326.5" width="14" height="14" rx="3" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="leg-o-sw"/>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="400" fill="#000000" text-anchor="middle" id="leg-o-txt"><tspan x="458.96" y="338">Optimizer states (248 GB)</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

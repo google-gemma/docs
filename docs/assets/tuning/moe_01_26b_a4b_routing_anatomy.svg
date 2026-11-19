@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="740" height="288" viewBox="0 0 740 288" fill="none">
+  <rect id="background" width="740" height="288" fill="#FFFFFF"/>
+  <g id="moe01-root">
+    <g id="in-stack">
+      <g id="in-tok">
+        <path d="M 26.88 108 H 71.12 A 6.88 6.88 0 0 1 78 114.88 V 133 H 20 V 114.88 A 6.88 6.88 0 0 1 26.88 108 Z" fill="#000000" stroke="#000000" stroke-width="2"/>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle"><tspan x="49" y="125">users</tspan></text>
+      </g>
+      <g id="in-vec">
+        <rect x="21" y="138" width="14" height="14" fill="#D9D9D9" stroke="#000000" stroke-width="1.5" id="in-vec-0-0"/>
+        <rect x="35" y="138" width="14" height="14" fill="#8C8C8C" stroke="#000000" stroke-width="1.5" id="in-vec-0-1"/>
+        <rect x="49" y="138" width="14" height="14" fill="#B3B3B3" stroke="#000000" stroke-width="1.5" id="in-vec-0-2"/>
+        <rect x="63" y="138" width="14" height="14" fill="#666666" stroke="#000000" stroke-width="1.5" id="in-vec-0-3"/>
+      </g>
+    </g>
+    <g id="shared-unit">
+      <g id="shared-exp">
+        <rect x="286" y="32" width="136" height="36" rx="4" fill="#C1C5F4" stroke="#000000" stroke-width="2"/>
+        <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="354" y="55">Shared Expert</tspan></text>
+      </g>
+      <g id="shared-lora">
+        <rect x="436" y="32" width="12" height="12" fill="#9A5FD1" stroke="#000000" stroke-width="1.25" id="shared-lora-0-0"/>
+        <rect x="448" y="32" width="12" height="12" fill="#DEC4F2" stroke="#000000" stroke-width="1.25" id="shared-lora-0-1"/>
+        <rect x="436" y="44" width="12" height="12" fill="#DEC4F2" stroke="#000000" stroke-width="1.25" id="shared-lora-1-0"/>
+        <rect x="448" y="44" width="12" height="12" fill="#743BBE" stroke="#000000" stroke-width="1.25" id="shared-lora-1-1"/>
+        <rect x="436" y="56" width="12" height="12" fill="#743BBE" stroke="#000000" stroke-width="1.25" id="shared-lora-2-0"/>
+        <rect x="448" y="56" width="12" height="12" fill="#BF94E4" stroke="#000000" stroke-width="1.25" id="shared-lora-2-1"/>
+      </g>
+    </g>
+    <g id="router-blk">
+      <rect x="130" y="162" width="88" height="30" rx="4" fill="#F4DEC1" stroke="#000000" stroke-width="2"/>
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#000000" text-anchor="middle"><tspan x="174" y="182">Router</tspan></text>
+    </g>
+    <line x1="250" y1="158.5" x2="568" y2="158.5" stroke="#000000" stroke-width="1.5" id="bar-base"/>
+    <g id="routed-bank">
+      <g id="e1">
+        <g id="e1-bar-slot">
+          <rect x="278" y="120" width="28" height="36" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="e1-bar"/>
+        </g>
+        <g id="e1-exp">
+          <rect x="252" y="163" width="80" height="28" rx="4" fill="#E95348" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle"><tspan x="291.99" y="182">Expert 1</tspan></text>
+        </g>
+        <g id="e1-lora">
+          <rect x="268" y="196" width="12" height="12" fill="#BF94E4" stroke="#000000" stroke-width="1.25" id="e1-lora-0-0"/>
+          <rect x="280" y="196" width="12" height="12" fill="#743BBE" stroke="#000000" stroke-width="1.25" id="e1-lora-0-1"/>
+          <rect x="292" y="196" width="12" height="12" fill="#DEC4F2" stroke="#000000" stroke-width="1.25" id="e1-lora-0-2"/>
+          <rect x="304" y="196" width="12" height="12" fill="#9A5FD1" stroke="#000000" stroke-width="1.25" id="e1-lora-0-3"/>
+        </g>
+      </g>
+      <g id="e2" opacity="0.35">
+        <g id="e2-bar-slot">
+          <rect x="372" y="150" width="28" height="6" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="e2-bar"/>
+        </g>
+        <g id="e2-exp">
+          <rect x="346" y="163" width="80" height="28" rx="4" fill="#E95348" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle"><tspan x="386" y="182">Expert 2</tspan></text>
+        </g>
+        <g id="e2-lora">
+          <rect x="362" y="196" width="12" height="12" fill="#BF94E4" stroke="#000000" stroke-width="1.25" id="e2-lora-0-0"/>
+          <rect x="374" y="196" width="12" height="12" fill="#743BBE" stroke="#000000" stroke-width="1.25" id="e2-lora-0-1"/>
+          <rect x="386" y="196" width="12" height="12" fill="#DEC4F2" stroke="#000000" stroke-width="1.25" id="e2-lora-0-2"/>
+          <rect x="398" y="196" width="12" height="12" fill="#9A5FD1" stroke="#000000" stroke-width="1.25" id="e2-lora-0-3"/>
+        </g>
+      </g>
+      <g id="e-dots-col">
+        <g id="e-dots">
+          <rect x="440" y="174" width="6" height="6" rx="3" fill="#000000" id="e-dots-0"/>
+          <rect x="451" y="174" width="6" height="6" rx="3" fill="#000000" id="e-dots-1"/>
+          <rect x="462" y="174" width="6" height="6" rx="3" fill="#000000" id="e-dots-2"/>
+        </g>
+      </g>
+      <g id="e128">
+        <g id="e128-bar-slot">
+          <rect x="514" y="122" width="28" height="34" fill="#F4DEC1" stroke="#000000" stroke-width="1.5" id="e128-bar"/>
+        </g>
+        <g id="e128-exp">
+          <rect x="482" y="163" width="92" height="28" rx="4" fill="#E95348" stroke="#000000" stroke-width="2"/>
+          <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle"><tspan x="527.99" y="182">Expert 128</tspan></text>
+        </g>
+        <g id="e128-lora">
+          <rect x="504" y="196" width="12" height="12" fill="#BF94E4" stroke="#000000" stroke-width="1.25" id="e128-lora-0-0"/>
+          <rect x="516" y="196" width="12" height="12" fill="#743BBE" stroke="#000000" stroke-width="1.25" id="e128-lora-0-1"/>
+          <rect x="528" y="196" width="12" height="12" fill="#DEC4F2" stroke="#000000" stroke-width="1.25" id="e128-lora-0-2"/>
+          <rect x="540" y="196" width="12" height="12" fill="#9A5FD1" stroke="#000000" stroke-width="1.25" id="e128-lora-0-3"/>
+        </g>
+      </g>
+    </g>
+    <g id="moe-plus">
+      <circle cx="612" cy="130" r="12" fill="#FFFFFF" stroke="#000000" stroke-width="2.2"/>
+      <path d="M 605.4 130 H 618.6 M 612 123.4 V 136.6" stroke="#000000" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+    <g id="out-stack">
+      <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#000000" text-anchor="middle" id="out-lbl"><tspan x="680" y="117" font-weight="700">Output</tspan></text>
+      <g id="out-vec">
+        <rect x="652" y="124" width="14" height="14" fill="#8C8C8C" stroke="#000000" stroke-width="1.5" id="out-vec-0-0"/>
+        <rect x="666" y="124" width="14" height="14" fill="#D9D9D9" stroke="#000000" stroke-width="1.5" id="out-vec-0-1"/>
+        <rect x="680" y="124" width="14" height="14" fill="#666666" stroke="#000000" stroke-width="1.5" id="out-vec-0-2"/>
+        <rect x="694" y="124" width="14" height="14" fill="#B3B3B3" stroke="#000000" stroke-width="1.5" id="out-vec-0-3"/>
+      </g>
+    </g>
+  </g>
+  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#743BBE" text-anchor="middle" id="shared-lora-lbl"><tspan x="485.52" y="54" font-weight="700">LoRA</tspan></text>
+  <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#743BBE" text-anchor="middle" id="routed-lora-lbl"><tspan x="244.48" y="206" font-weight="700">LoRA</tspan></text>
+  <g id="snow-shared">
+    <rect x="413" y="23" width="18" height="18" rx="9" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.4" id="snow-shared-bg"/>
+    <path d="M 422 26.6 L 422 37.4 M 417.3 29.3 L 426.7 34.7 M 426.7 29.3 L 417.3 34.7" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" id="snow-shared-icon"/>
+  </g>
+  <g id="flame-shared">
+    <rect x="451" y="59" width="18" height="18" rx="9" fill="#FFFFFF" stroke="#000000" stroke-width="0" id="flame-shared-bg"/>
+    <path d="M 460 60.8 C 460.4 63.6 463.8 64.8 463.8 68.6 C 463.8 71.4 461.9 73.4 459.6 73.4 C 457.1 73.4 455.4 71.5 455.4 68.9 C 455.4 67 456.5 65.4 457.6 64.4 C 457.4 65.9 458.2 66.8 459 66.9 C 458.5 64.8 459 62.5 460 60.8 Z" fill="#B83232" id="flame-shared-icon"/>
+    <rect x="457.3" y="67.8" width="5" height="5" rx="2.5" fill="#F4DEC1" stroke="#000000" stroke-width="0" id="flame-shared-core"/>
+  </g>
+  <g id="snow-router">
+    <rect x="209" y="153" width="18" height="18" rx="9" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.4" id="snow-router-bg"/>
+    <path d="M 218 156.6 L 218 167.4 M 213.3 159.3 L 222.7 164.7 M 222.7 159.3 L 213.3 164.7" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" id="snow-router-icon"/>
+  </g>
+  <g id="snow-e1">
+    <rect x="323" y="154" width="18" height="18" rx="9" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.4" id="snow-e1-bg"/>
+    <path d="M 332 157.6 L 332 168.4 M 327.3 160.3 L 336.7 165.7 M 336.7 160.3 L 327.3 165.7" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" id="snow-e1-icon"/>
+  </g>
+  <g id="snow-e128">
+    <rect x="565" y="154" width="18" height="18" rx="9" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.4" id="snow-e128-bg"/>
+    <path d="M 574 157.6 L 574 168.4 M 569.3 160.3 L 578.7 165.7 M 578.7 160.3 L 569.3 165.7" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" id="snow-e128-icon"/>
+  </g>
+  <g id="flame-e1">
+    <rect x="307" y="199" width="18" height="18" rx="9" fill="#FFFFFF" stroke="#000000" stroke-width="0" id="flame-e1-bg"/>
+    <path d="M 316 200.8 C 316.4 203.6 319.8 204.8 319.8 208.6 C 319.8 211.4 317.9 213.4 315.6 213.4 C 313.1 213.4 311.4 211.5 311.4 208.9 C 311.4 207 312.5 205.4 313.6 204.4 C 313.4 205.9 314.2 206.8 315 206.9 C 314.5 204.8 315 202.5 316 200.8 Z" fill="#B83232" id="flame-e1-icon"/>
+    <rect x="313.3" y="207.8" width="5" height="5" rx="2.5" fill="#F4DEC1" stroke="#000000" stroke-width="0" id="flame-e1-core"/>
+  </g>
+  <g id="flame-e128">
+    <rect x="543" y="199" width="18" height="18" rx="9" fill="#FFFFFF" stroke="#000000" stroke-width="0" id="flame-e128-bg"/>
+    <path d="M 552 200.8 C 552.4 203.6 555.8 204.8 555.8 208.6 C 555.8 211.4 553.9 213.4 551.6 213.4 C 549.1 213.4 547.4 211.5 547.4 208.9 C 547.4 207 548.5 205.4 549.6 204.4 C 549.4 205.9 550.2 206.8 551 206.9 C 550.5 204.8 551 202.5 552 200.8 Z" fill="#B83232" id="flame-e128-icon"/>
+    <rect x="549.3" y="207.8" width="5" height="5" rx="2.5" fill="#F4DEC1" stroke="#000000" stroke-width="0" id="flame-e128-core"/>
+  </g>
+  <g id="n-routed">
+    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#000000" id="n-routed-main"><tspan x="356" y="244" font-weight="700">Top 8 of 128</tspan><tspan> experts run per token</tspan></text>
+    <text font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#000000" id="n-routed-sub"><tspan x="356" y="260">(LoRA adapts shared and routed experts)</tspan></text>
+  </g>
+  <g id="arrows" fill="none">
+    <g id="a-fork-0">
+      <path d="M 82 145 L 97 145 L 97 50 L 272.8 50" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="280,50 272,54.62 272,45.38" fill="#000000"/>
+    </g>
+    <g id="a-fork-1">
+      <path d="M 82 145 L 97 145 L 97 177 L 116.8 177" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="124,177 116,181.62 116,172.38" fill="#000000"/>
+    </g>
+    <g id="a-router-e1">
+      <path d="M 224 177 L 238.8 177" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="246,177 238,181.62 238,172.38" fill="#000000"/>
+    </g>
+    <g id="a-shared-plus">
+      <path d="M 510 50 L 612 50 L 612 104.7" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="612,111.9 607.38,103.9 616.62,103.9" fill="#000000"/>
+    </g>
+    <g id="a-routed-plus">
+      <path d="M 580 177 L 612 177 L 612 155.3" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="612,148.1 616.62,156.1 607.38,156.1" fill="#000000"/>
+    </g>
+    <g id="a-plus-out">
+      <path d="M 630.1 131 L 639.8 131" stroke="#000000" stroke-width="1.6" stroke-linejoin="miter"/>
+      <polygon points="647,131 639,135.62 639,126.38" fill="#000000"/>
+    </g>
+    <g id="a-note">
+      <path d="M 350 246.5 C 322.74 246.5, 292 229.14, 292 213.75" stroke="#000000" stroke-width="1.5" stroke-linejoin="miter"/>
+      <polyline points="288.24,219.35 292,213.75 297.6,217.51" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>
