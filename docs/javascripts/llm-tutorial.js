@@ -1273,6 +1273,7 @@
     const renderView = () => {
       const tokens = currentTokens;
       if (selectedIdx >= tokens.length) selectedIdx = Math.max(0, tokens.length - 1);
+      if (pinnedIdx !== null && pinnedIdx >= tokens.length) pinnedIdx = null;
 
       if (!presetsEl.children.length) {
         presetsEl.innerHTML = PRESET_TOKENIZATIONS.map(
@@ -1312,6 +1313,7 @@
         const idx = Number(chipEl.dataset.idx);
         const isSelected = hasPinned && idx === pinnedIdx;
         const isDimmed = hasPinned && idx !== pinnedIdx;
+        if (hasPinned) chipEl.classList.remove("llm-chip--anim");
         chipEl.classList.toggle("llm-chip--selected", isSelected);
         chipEl.classList.toggle("llm-chip--dimmed", isDimmed);
         chipEl.setAttribute("aria-pressed", String(isSelected));
@@ -1399,7 +1401,7 @@
       syncTextareaRows();
       selectedIdx = 0;
       pinnedIdx = null;
-      animateEntrance = true;
+      animateEntrance = false;
       runTokenize();
     });
 
@@ -1478,6 +1480,12 @@
         selectedIdx = nextIdx;
         renderView();
       }
+    });
+
+    streamEl.addEventListener("animationend", (e) => {
+      if (e.animationName !== "llmBadgeFly") return;
+      const chip = e.target.closest(".llm-chip--anim");
+      if (chip) chip.classList.remove("llm-chip--anim");
     });
 
     renderView();

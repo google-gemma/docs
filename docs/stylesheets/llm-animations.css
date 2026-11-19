@@ -47,8 +47,10 @@
 @keyframes llmPulseBorder { 0%, 100% { border-color: var(--gemma-cat-think-border); } 50% { border-color: var(--gemma-status-warning); } }
 
 /* --- Step 1: Tokenizer Split & Alignment Animations ---------------- */
-.llm-chip--anim { animation: llmChipPop 360ms var(--gemma-ease-spring) both; animation-delay: calc(var(--chip-index, 0) * 45ms); }
-.llm-chip--anim .llm-chip__id { animation: llmBadgeFly 280ms var(--gemma-ease-out) both; animation-delay: calc(var(--chip-index, 0) * 45ms + 90ms); }
+.llm-chip--anim { animation: llmChipPop 360ms var(--gemma-ease-spring) backwards; animation-delay: calc(var(--chip-index, 0) * 45ms); }
+.llm-chip--anim .llm-chip__id { animation: llmBadgeFly 280ms var(--gemma-ease-out) backwards; animation-delay: calc(var(--chip-index, 0) * 45ms + 90ms); }
+.llm-chip--anim:is(.llm-chip--selected, .llm-chip--dimmed),
+.llm-chip--anim:is(.llm-chip--selected, .llm-chip--dimmed) .llm-chip__id { animation: none; }
 .llm-scanner-wrap { position: relative; overflow: hidden; }
 .llm-scanner-bar {
   position: absolute; top: 0; bottom: 0; width: 3px;

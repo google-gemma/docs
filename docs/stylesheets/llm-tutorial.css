@@ -159,7 +159,7 @@ textarea.llm-input { resize: vertical; min-height: 2.35rem; display: block; }
   transition: transform 0.14s ease, border-color 0.14s ease, opacity 0.16s ease, box-shadow 0.14s ease;
 }
 .llm-chip:hover { transform: translateY(-1px); border-color: var(--chip-fg); box-shadow: var(--gemma-shadow-sm); }
-.llm-chip--selected { transform: translateY(-2px) scale(1.04); border-color: var(--chip-fg); box-shadow: 0 0 0 1.5px var(--chip-fg), var(--gemma-shadow-sm); font-weight: 700; }
+.llm-chip.llm-chip--selected { transform: translateY(-2px) scale(1.04); border-color: var(--chip-fg); box-shadow: 0 0 0 1.5px var(--chip-fg), var(--gemma-shadow-sm); font-weight: 700; }
 .llm-chip--dimmed { opacity: 0.34; }
 .llm-chip--dimmed:hover { opacity: 0.78; }
 .llm-chip__id { font-size: 0.65rem; color: var(--gemma-text-muted); margin-top: 0.1rem; }
