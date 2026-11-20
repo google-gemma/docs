@@ -11,6 +11,11 @@ on:
         description: "Commit message"
         required: true
         type: string
+      dry_run:
+        description: "Validate everything without pushing or closing the PR"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -44,6 +49,7 @@ jobs:
           COMMIT_MESSAGE: ${{ inputs.commit_message }}
           ACTOR_LOGIN: ${{ github.actor }}
           ACTOR_ID: ${{ github.actor_id }}
+          DRY_RUN: ${{ inputs.dry_run }}
         run: |
           set -euo pipefail
           fail() {
@@ -76,6 +82,18 @@ jobs:
           [[ "$(git rev-parse "${TARGET_SHA}^{tree}")" != "$(git rev-parse "${UPSTREAM_SHA}^{tree}")" ]] || \
             fail "Branch '${SOURCE_BRANCH}' (${TARGET_SHA}) has no tree differences compared to upstream main (${UPSTREAM_SHA})."
 
+          BLOCKED_FILES="$(git diff --no-renames --name-only "${UPSTREAM_SHA}" "${TARGET_SHA}" -- .github/workflows .github/agents)"
+          [[ -z "${BLOCKED_FILES}" ]] || \
+            fail "Branch '${SOURCE_BRANCH}' modifies paths blocked for Publish (.github/workflows or .github/agents): $(printf '%s' "${BLOCKED_FILES}" | tr '\n' ' '). Open a direct PR on google-gemma/docs for those changes."
+
+          MAX_FILE_BYTES=52428800
+          while IFS= read -r -d '' path; do
+            [[ "$(git cat-file -t "${TARGET_SHA}:${path}" 2>/dev/null || true)" == "blob" ]] || continue
+            size="$(git cat-file -s "${TARGET_SHA}:${path}")"
+            (( size <= MAX_FILE_BYTES )) || \
+              fail "File '${path}' is ${size} bytes (exceeds ${MAX_FILE_BYTES} byte Publish limit; GitHub rejects pushes over 100 MB)."
+          done < <(git diff --no-renames --name-only --diff-filter=ACMR -z "${UPSTREAM_SHA}" "${TARGET_SHA}")
+
           PR_JSON="$(gh api -X GET "repos/${SOURCE_REPO}/pulls" -f state=open -f base=main -f "head=${REPO_OWNER}:${SOURCE_BRANCH}")"
           PR_NUMBER="$(printf '%s' "${PR_JSON}" | jq -r '.[0].number // empty')"
           PR_AUTHOR="$(printf '%s' "${PR_JSON}" | jq -r '.[0].user.login // empty')"
@@ -101,6 +119,11 @@ jobs:
           export GIT_COMMITTER_NAME="${GIT_AUTHOR_NAME}"
           export GIT_COMMITTER_EMAIL="${GIT_AUTHOR_EMAIL}"
           SQUASH_SHA="$(git commit-tree "${TARGET_SHA}^{tree}" -p "${UPSTREAM_SHA}" -m "${COMMIT_MESSAGE}")"
+          if [[ "${DRY_RUN}" == "true" ]]; then
+            printf '::notice::Dry run passed for PR #%s (%s -> %s). Built squash commit %s; skipped pushing and closing PR.\n' \
+              "${PR_NUMBER}" "${SOURCE_BRANCH}" "${UPSTREAM_SHA:0:7}" "${SQUASH_SHA:0:7}"
+            exit 0
+          fi
           git push upstream "${SQUASH_SHA}:refs/heads/main"
           git push origin "${SQUASH_SHA}:refs/heads/main"
           gh api -X PATCH "repos/${SOURCE_REPO}/pulls/${PR_NUMBER}" -f state=closed

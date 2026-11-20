@@ -20,6 +20,53 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
+          fetch-depth: 0
+
+      - name: Publish preflight
+        if: github.event.repository.private == true && github.event_name == 'pull_request'
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          BASE_REF: ${{ github.base_ref }}
+          MAX_FILE_BYTES: "52428800"
+        run: |
+          set -euo pipefail
+          fail() {
+            printf '::error::%s\n' "$1"
+            exit 1
+          }
+
+          if [[ "${BASE_REF}" == "main" ]]; then
+            [[ "${HEAD_REF}" != "main" && "${HEAD_REF}" =~ ^[A-Za-z0-9_./-]+$ ]] || \
+              fail "Branch '${HEAD_REF}' is not valid for Publish (cannot be 'main' and must match ^[A-Za-z0-9_./-]+$)."
+            git check-ref-format --branch "${HEAD_REF}" >/dev/null || \
+              fail "Branch '${HEAD_REF}' is not a valid git branch name."
+          fi
+
+          if git rev-parse --verify HEAD^2 >/dev/null 2>&1; then
+            DIFF_RANGE="HEAD^1..HEAD"
+          else
+            DIFF_RANGE="origin/${BASE_REF}...HEAD"
+          fi
+
+          BLOCKED_FILES="$(git diff --no-renames --name-only "${DIFF_RANGE}" -- .github/workflows .github/agents)"
+          if [[ -n "${BLOCKED_FILES}" ]]; then
+            while IFS= read -r path; do
+              [[ -n "${path}" ]] || continue
+              printf '::error file=%s::Blocked by Publish: %s cannot be modified from a private PR. Open a direct PR on google-gemma/docs instead.\n' "${path}" "${path}"
+            done <<< "${BLOCKED_FILES}"
+            exit 1
+          fi
+
+          OVERSIZED=0
+          while IFS= read -r -d '' path; do
+            [[ -f "${path}" ]] || continue
+            size="$(stat -c%s "${path}")"
+            if (( size > MAX_FILE_BYTES )); then
+              printf '::error file=%s::File %s is %s bytes (exceeds %s byte preflight limit; GitHub rejects pushes over 100 MB).\n' "${path}" "${path}" "${size}" "${MAX_FILE_BYTES}"
+              OVERSIZED=1
+            fi
+          done < <(git diff --no-renames --name-only --diff-filter=ACMR -z "${DIFF_RANGE}")
+          [[ "${OVERSIZED}" -eq 0 ]] || exit 1
 
       - name: Install uv
         uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
@@ -32,7 +79,8 @@ jobs:
 
       - name: Build documentation
         env:
-          GA_MEASUREMENT_ID: ""
+          # Non-empty test ID so PR builds exercise the same analytics config path as deploy.yml.
+          GA_MEASUREMENT_ID: "G-0000000000"
         run: uv run --frozen python scripts/build_docs.py
 
       # Advisory: shows the full Phase 0 backlog without affecting the job result.
