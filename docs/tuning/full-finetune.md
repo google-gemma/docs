@@ -1,5 +1,6 @@
 ---
 title: Full fine-tuning
+seo_title: Full fine-tuning with Gemma 4
 description: Run full-parameter bfloat16 fine-tuning on Gemma 4 using Hugging Face Transformers, TRL, cosine warmup schedules, and 8-bit AdamW.
 models: [gemma-4]
 frameworks: [transformers, trl, torchao]

@@ -4,7 +4,7 @@ description: "Model card for FunctionGemma: function-calling inputs and outputs,
 models: [functiongemma]
 source_url: "https://ai.google.dev/gemma/docs/functiongemma/model_card.md.txt"
 ---
-# Model card
+# FunctionGemma model card
 
 **Model Page** : [FunctionGemma](index.md)
 

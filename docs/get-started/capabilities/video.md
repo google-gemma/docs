@@ -1,5 +1,6 @@
 ---
 title: Video understanding
+seo_title: Video understanding with Gemma 4
 description: "Analyze video clips and interleaved frame sequences with Gemma 4 multimodal vision-language models."
 models: [gemma-4]
 frameworks: [transformers]

@@ -1,11 +1,13 @@
 ---
-title: Generate output
+title: Generate text with DiffusionGemma
 description: Generate text with DiffusionGemma using Hugging Face Transformers, including the GPU memory the model requires.
 models: [diffusiongemma]
 frameworks: [transformers]
 colab: https://colab.research.google.com/github/google-gemma/docs/blob/main/docs/notebooks/diffusiongemma-inference.ipynb
 source_url: "https://ai.google.dev/gemma/docs/diffusiongemma/inference-diffusiongemma-with-hf.md.txt"
 ---
+
+# Generate text with DiffusionGemma
 
 DiffusionGemma is an experimental open model that explores text diffusion, an exceptionally fast approach to text generation. Based on the 26B (4B active) Mixture-of-Experts (MoE) Gemma 4 architecture, DiffusionGemma generates tokens using discrete diffusion.
 

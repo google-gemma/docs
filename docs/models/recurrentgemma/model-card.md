@@ -4,7 +4,7 @@ description: RecurrentGemma is a family of open language models built on a novel
 models: [recurrentgemma]
 source_url: "https://ai.google.dev/gemma/docs/recurrentgemma/model_card.md.txt"
 ---
-# Model card
+# RecurrentGemma model card
 
 **Model page:** [RecurrentGemma](index.md)
 

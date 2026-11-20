@@ -4,7 +4,7 @@ description: PaliGemma is a versatile and lightweight vision-language model (VLM
 models: [paligemma]
 source_url: "https://ai.google.dev/gemma/docs/paligemma/model-card.md.txt"
 ---
-# Model card
+# PaliGemma model card
 
 **Model page:** [PaliGemma](index.md)
 

@@ -1,5 +1,6 @@
 ---
 title: Preference optimization
+seo_title: Preference optimization (DPO) with Gemma 4
 description: Train Gemma 4 on pairs of chosen and rejected answers using DPO, ORPO, and KTO in Hugging Face TRL.
 models: [gemma-4/e2b, gemma-4/e4b, gemma-4/12b, gemma-4/31b]
 frameworks: [transformers, peft, trl]

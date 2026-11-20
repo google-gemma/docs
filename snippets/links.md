@@ -47,4 +47,3 @@
 [peft-docs]: https://huggingface.co/docs/peft
 [accelerate-docs]: https://huggingface.co/docs/accelerate
 [torchao-repo]: https://github.com/pytorch/ao
-[legacy-gemma-setup]: https://ai.google.dev/gemma/docs/setup

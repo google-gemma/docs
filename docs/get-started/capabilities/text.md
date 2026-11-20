@@ -1,5 +1,6 @@
 ---
 title: Inference
+seo_title: Text generation with Gemma 4
 description: "Basic text inference with Gemma 4 in Hugging Face Transformers: single-turn prompts, multi-turn conversations, and system instructions."
 models: [gemma-4]
 frameworks: [transformers]

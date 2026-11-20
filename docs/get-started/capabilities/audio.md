@@ -1,5 +1,6 @@
 ---
 title: Audio understanding
+seo_title: Audio understanding with Gemma 4
 description: "Process and transcribe speech, music, and sound inputs with Gemma 4 and Gemma 3n multimodal audio understanding."
 models: [gemma-4]
 requires: audio

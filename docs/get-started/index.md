@@ -1,5 +1,6 @@
 ---
 title: Quickstart
+seo_title: Get started with Gemma
 description: Run your first Gemma 4 generation in one command, then pick the engine, model size and checkpoint that fit your hardware.
 models: [gemma-4]
 frameworks: [transformers, llamacpp, ollama, mlx, vllm, lmstudio]
@@ -15,7 +16,7 @@ Gemma is a family of lightweight, state-of-the-art open models built from the sa
 The latest in the Gemma family is [Gemma 4](../models/gemma-4/index.md) featuring multimodal (text, image, audio) inputs.
 
 !!! tip "New to Gemma?"
-    To learn more about the Gemma family of models, visit the [model family](../models/index.md) page for a tour.
+    To learn more about the Gemma family of models, visit the [model family](../models/index.md) page for a tour or explore the illustrated [architecture guides](../learn/index.md).
 
 ## Choose a model
 

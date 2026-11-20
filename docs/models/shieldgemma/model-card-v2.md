@@ -4,7 +4,7 @@ description: ShieldGemma 2 is a model trained on Gemma 3's 4B IT checkpoint for 
 models: [shieldgemma-2]
 source_url: "https://ai.google.dev/gemma/docs/shieldgemma/model_card_2.md.txt"
 ---
-# ShieldGemma model card
+# ShieldGemma 2 model card
 
 **Model Page** : [ShieldGemma](index.md)
 

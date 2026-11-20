@@ -1,5 +1,6 @@
 ---
 title: Inference with RecurrentGemma using JAX and Flax
+seo_title: Run RecurrentGemma with JAX and Flax
 description: Run sampling and inference with RecurrentGemma 2B Instruct using Google DeepMind's recurrentgemma library and JAX.
 models: [recurrentgemma]
 frameworks: [jax]

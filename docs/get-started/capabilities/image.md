@@ -1,5 +1,6 @@
 ---
 title: Image understanding
+seo_title: Image understanding with Gemma 4
 description: "Analyze images with Gemma 4 using variable aspect ratios, configurable vision token budgets, and multi-image prompts."
 models: [gemma-4]
 frameworks: [transformers]

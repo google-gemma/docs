@@ -1,5 +1,6 @@
 ---
 title: Multimodal Embeddings with Sentence Transformers
+seo_title: Multimodal embeddings with EmbeddingGemma 2
 description: Generate unified image, audio, video, and interleaved multimodal embeddings with EmbeddingGemma 2 and Sentence Transformers.
 models: [embeddinggemma-2]
 frameworks: [sentence-transformers, transformers]

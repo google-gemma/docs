@@ -135,4 +135,8 @@ The on-device member of the Gemma 3 generation.
 
 For the full dated history of every release, see [Releases](releases.md).
 
+## Licensing & Policies
+
+Review the [Apache 2.0 License](../resources/apache-2.md) (for Gemma 4), the [Gemma Terms of Use](../resources/terms.md), the [Prohibited Use Policy](../resources/prohibited-use.md), and the [Intended Use Statement](../resources/intended-use.md).
+
 --8<-- "glossary.md"

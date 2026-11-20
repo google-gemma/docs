@@ -1,5 +1,6 @@
 ---
 title: MoE fine-tuning
+seo_title: Fine-tune Gemma 4 26B A4B MoE
 description: Fine-tune Gemma 4 26B A4B's 128-expert Mixture-of-Experts (MoE) architecture without router collapse using LoRA, PEFT target_parameters, and grouped GEMM.
 models: [gemma-4/26b-a4b]
 frameworks: [transformers, peft, trl]

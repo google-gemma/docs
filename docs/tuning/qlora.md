@@ -1,5 +1,6 @@
 ---
 title: "(Q)LoRA"
+seo_title: Fine-tune Gemma 4 with LoRA and QLoRA
 description: Fine-tune Gemma 4 with LoRA and 4-bit QLoRA on a single GPU, from dataset to merged model.
 models: [gemma-4/e2b, gemma-4/e4b, gemma-4/12b, gemma-4/31b]
 frameworks: [transformers, peft, trl]

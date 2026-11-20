@@ -1,5 +1,6 @@
 ---
 title: Reasoning
+seo_title: Reasoning and thinking mode with Gemma 4
 description: Use Gemma 4's thinking mode to reason before answering, for text and image prompts, and parse the reasoning apart from the answer.
 models: [gemma-4]
 frameworks: [transformers]

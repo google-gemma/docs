@@ -1,5 +1,6 @@
 ---
 title: Gemma trainer skill
+seo_title: Fine-tune Gemma 4 with gemma-trainer
 description: Install the gemma-trainer agent skill to automate dataset validation, hyperparameter sizing, fine-tuning, evaluation, and export across Gemma 4.
 models: [gemma-4]
 frameworks: [transformers, unsloth]

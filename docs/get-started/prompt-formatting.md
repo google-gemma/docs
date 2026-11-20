@@ -1,5 +1,6 @@
 ---
 title: Prompt Formatting
+seo_title: Gemma prompt formatting and control tokens
 description: The control tokens Gemma 4 uses to structure a prompt, and the older start_of_turn format used by Gemma 1 to 3.
 models: [gemma-4]
 ---

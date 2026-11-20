@@ -14,7 +14,7 @@ source_url: "https://ai.google.dev/gemma/docs/embeddinggemma/model_card_2.md.txt
 [Documentation](index.md) \|
 [Technical Report](https://arxiv.org/abs/2610.37364)
 
-**License** : [Apache 2.0](https://gemma.ai/resources/apache-2) \| **Authors** : [Google DeepMind](https://deepmind.google/models/gemma/)
+**License** : [Apache 2.0](https://gemma.ai/resources/apache-2/) \| **Authors** : [Google DeepMind](https://deepmind.google/models/gemma/)
 
 </div>
 
@@ -31,7 +31,7 @@ EmbeddingGemma 2 builds upon the architectural and capability advancements of Ge
 - **Context length:** 8K token context window, capable of processing minutes of audio or video.
 - **Task-steered representations:** Uses lightweight text instruction prefixes to optimize embeddings for different tasks (search, classification, clustering, semantic similarity, etc.).
 
-### Model Overview
+## Model Overview
 
 | | | |
 |---|---|---|

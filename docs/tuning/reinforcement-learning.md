@@ -1,5 +1,6 @@
 ---
 title: Verifiable rewards
+seo_title: RL with verifiable rewards (GRPO) for Gemma 4
 description: Train Gemma 4 step-by-step reasoning and native thinking tokens using Group Relative Policy Optimization, verifiable rewards, TRL, PEFT, and vLLM.
 models: [gemma-4/e2b, gemma-4/e4b, gemma-4/12b, gemma-4/31b]
 frameworks: [transformers, peft, trl, vllm]

@@ -1,5 +1,6 @@
 ---
 title: Unsloth
+seo_title: Fine-tune Gemma 4 with Unsloth
 description: Swap Unsloth's FastVisionModel or FastModel into any single-GPU Gemma 4 tutorial for faster LoRA, QLoRA, and GGUF export.
 models: [gemma-4]
 frameworks: [unsloth, trl]

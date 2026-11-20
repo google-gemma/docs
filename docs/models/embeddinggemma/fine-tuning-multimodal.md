@@ -1,5 +1,6 @@
 ---
 title: Fine-Tune Multimodal EmbeddingGemma 2 with Sentence Transformers
+seo_title: Fine-tune multimodal EmbeddingGemma 2
 description: Adapt EmbeddingGemma 2 across text and visual inputs using contrastive multimodal triplet fine-tuning with Sentence Transformers.
 models: [embeddinggemma-2]
 frameworks: [sentence-transformers, transformers]
@@ -13,7 +14,7 @@ source_url: "https://ai.google.dev/gemma/docs/embeddinggemma/fine-tuning-multimo
 !!! note "Note"
     This guide requires a GPU which support bfloat16 data type such as NVIDIA L4 or NVIDIA A100.
 
-### Example Scenario: Korean Ink Wash Painting Archive Search
+## Example Scenario: Korean Ink Wash Painting Archive Search
 
 Imagine you are building a digital archive search engine for a museum exhibition of traditional Joseon-dynasty Korean paintings:
 

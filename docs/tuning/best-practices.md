@@ -1,5 +1,6 @@
 ---
 title: Best practices
+seo_title: Gemma 4 fine-tuning best practices
 description: Practical guidelines, model architectures, hyperparameter tables, and loss curve tips for all five Gemma 4 models.
 models: [gemma-4]
 ---

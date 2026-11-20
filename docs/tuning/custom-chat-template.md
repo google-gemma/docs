@@ -1,5 +1,6 @@
 ---
 title: Custom chat templates
+seo_title: Custom chat templates for Gemma 4
 description: Turn a pre-trained Gemma 4 base model into a multi-turn chat assistant using a ChatML template and QLoRA.
 models: [gemma-4/e2b, gemma-4/e4b, gemma-4/12b, gemma-4/31b]
 frameworks: [transformers, peft, trl]

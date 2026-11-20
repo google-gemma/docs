@@ -1,5 +1,6 @@
 ---
 title: Quantization-Aware Training
+seo_title: Gemma 4 Quantization-Aware Training (QAT)
 description: Which Gemma 4 quantized weights to download for each engine, and why QAT beats post-training quantization at 4-bit.
 models: [gemma-4]
 frameworks: [llamacpp, vllm]

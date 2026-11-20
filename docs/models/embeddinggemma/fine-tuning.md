@@ -1,5 +1,6 @@
 ---
 title: Fine-tune EmbeddingGemma with Sentence Transformers
+seo_title: Fine-tune EmbeddingGemma 2
 description: Adapt EmbeddingGemma 2 to specialized domain terminology using contrastive triplet fine-tuning with Sentence Transformers.
 models: [embeddinggemma-2]
 frameworks: [sentence-transformers, transformers]
@@ -10,7 +11,7 @@ source_url: "https://ai.google.dev/gemma/docs/embeddinggemma/fine-tuning-embeddi
 
 Fine-tuning helps close the gap between a model's general-purpose understanding and the specialized, high-performance accuracy that your application requires. While **EmbeddingGemma 2** provides strong out-of-the-box semantic representations across text and multimodal inputs, domain-specific terminology often benefits from targeted adaptation.
 
-### Example Scenario: Financial Knowledge Base Search
+## Example Scenario: Financial Knowledge Base Search
 
 Imagine your company, "Shibuya Financial", offers various complex financial products like investment trusts, **NISA accounts** (Japanese tax-advantaged savings accounts), and home loans. Customer support agents rely on an internal semantic search engine to retrieve relevant policy documents for customer inquiries.
 

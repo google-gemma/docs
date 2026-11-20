@@ -8,7 +8,7 @@ hide:
 
 AIventure is an interactive, AI-powered educational game built with Angular, PhaserJS, Gemini, and Gemma 4. It demonstrates how to run a local Gemma 4 model directly in the browser using MediaPipe and WebGPU to power dynamic, agentic non-player characters (NPCs) while introducing concepts in vibe-coding and generative AI.
 
-### How to use this demo
+## How to use this demo
 
 1. Click **Accept and Continue** below to load the demo. The first run downloads and caches a Gemma 4 E4B model in your browser.
 2. Navigate the game world and interact with characters to see responses generated locally on your device's GPU.

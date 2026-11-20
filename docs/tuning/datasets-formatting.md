@@ -1,5 +1,6 @@
 ---
 title: Dataset formatting
+seo_title: Gemma 4 dataset formatting for fine-tuning
 description: Format single-turn, multi-turn, thinking, and tool-calling datasets for Gemma 4 with completion-only loss masking and thought stripping.
 models: [gemma-4]
 ---

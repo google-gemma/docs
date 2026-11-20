@@ -1,5 +1,6 @@
 ---
 title: Function calling with Hugging Face Transformers
+seo_title: Function calling with FunctionGemma
 description: Call functions with FunctionGemma in Hugging Face Transformers, passing tools as manual JSON schemas or as raw Python functions.
 models: [functiongemma]
 frameworks: [transformers]

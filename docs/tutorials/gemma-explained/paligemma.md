@@ -11,7 +11,7 @@ source_url: https://developers.googleblog.com/gemma-explained-paligemma-architec
     Originally published on the
     [Google Developers Blog](https://developers.googleblog.com/gemma-explained-paligemma-architecture/).
 
-![banner](../../assets/gemma-explained/gemma-var-banner.png)
+![PaliGemma architecture banner](../../assets/gemma-explained/gemma-var-banner.png)
 
 In the [previous post](/tutorials/gemma-explained/recurrentgemma/) of Gemma explained, you reviewed RecurrentGemma architecture. In this blog post, you will explore PaliGemma architecture. Let’s dive into it!
 
@@ -155,7 +155,7 @@ For instance, the output displays the cat's location within the coordinates (382
 
 ![image showing the output displaying the cat's location within coordinates (382, 637) and (696, 784)](../../assets/gemma-explained/image3_cB2oyye.original.png)
 
-The mask is encoded with the following 16 segmentation tokens. A neural network model (VQ-VAE) can reconstruct masks from quantized representations (codebook indices) by decoding those values. You can explore the actual code from [here](https://huggingface.co/spaces/big-vision/paligemma/blob/main/paligemma_parse.py).
+The mask is encoded with the following 16 segmentation tokens. A neural network model (VQ-VAE) can reconstruct masks from quantized representations (codebook indices) by decoding those values. You can explore the [PaliGemma mask parsing implementation](https://huggingface.co/spaces/big-vision/paligemma/blob/main/paligemma_parse.py).
 
 At last, you can obtain this beautiful outcome from the output of the PaliGemma.
 

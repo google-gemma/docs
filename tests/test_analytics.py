@@ -77,6 +77,92 @@ class AnalyticsBuildTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 build_docs.rewrite_colab_links(site_dir, "org/repo", "../bad")
 
+    def test_inject_sitemap_lastmod_populates_dates(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            docs_dir = root / "docs"
+            site_dir = root / "site"
+            (docs_dir / "models" / "gemma-3").mkdir(parents=True)
+            (docs_dir / "deployment").mkdir(parents=True)
+            site_dir.mkdir(parents=True)
+
+            (docs_dir / "index.md").write_text("---\ntitle: Home\n---\n", encoding="utf-8")
+            (docs_dir / "models" / "gemma-3" / "index.md").write_text(
+                "---\ntitle: Gemma 3 model card\n---\n", encoding="utf-8"
+            )
+            (docs_dir / "deployment" / "ollama.md").write_text(
+                "---\ntitle: Run Gemma with Ollama\n---\n", encoding="utf-8"
+            )
+
+            sitemap = site_dir / "sitemap.xml"
+            sitemap.write_text(
+                '<?xml version="1.0" encoding="UTF-8"?>\n'
+                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+                "      <url>\n"
+                "        <loc>https://gemma.ai/</loc>\n"
+                "      </url>\n"
+                "      <url>\n"
+                "        <loc>https://gemma.ai/models/gemma-3/</loc>\n"
+                "      </url>\n"
+                "      <url>\n"
+                "        <loc>https://gemma.ai/deployment/ollama/</loc>\n"
+                "      </url>\n"
+                "</urlset>\n",
+                encoding="utf-8",
+            )
+
+            updated = build_docs.inject_sitemap_lastmod(
+                site_dir,
+                docs_dir,
+                site_url="https://gemma.ai",
+                git_dates={
+                    "docs/index.md": "2026-11-18",
+                    "docs/models/gemma-3/index.md": "2026-11-10",
+                    "docs/deployment/ollama.md": "2026-11-05",
+                },
+            )
+            self.assertEqual(updated, 3)
+            rendered = sitemap.read_text(encoding="utf-8")
+            self.assertIn(
+                "<loc>https://gemma.ai/</loc>\n        <lastmod>2026-11-18</lastmod>", rendered
+            )
+            self.assertIn(
+                "<loc>https://gemma.ai/models/gemma-3/</loc>\n        <lastmod>2026-11-10</lastmod>",
+                rendered,
+            )
+            self.assertIn(
+                "<loc>https://gemma.ai/deployment/ollama/</loc>\n        <lastmod>2026-11-05</lastmod>",
+                rendered,
+            )
+
+    def test_inject_article_date_modified_updates_json_ld(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            docs_dir = root / "docs"
+            site_dir = root / "site"
+            (docs_dir / "models" / "gemma-3").mkdir(parents=True)
+            (site_dir / "models" / "gemma-3").mkdir(parents=True)
+
+            (docs_dir / "models" / "gemma-3" / "index.md").write_text(
+                "---\ntitle: Gemma 3 model card\n---\n", encoding="utf-8"
+            )
+            page_html = site_dir / "models" / "gemma-3" / "index.html"
+            page_html.write_text(
+                '<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Gemma 3 model card"}]}</script>',
+                encoding="utf-8",
+            )
+
+            updated = build_docs.inject_article_date_modified(
+                site_dir,
+                docs_dir,
+                git_dates={"docs/models/gemma-3/index.md": "2026-11-18"},
+            )
+            self.assertEqual(updated, 1)
+            self.assertIn(
+                '{"@type":"TechArticle","dateModified":"2026-11-18","headline":"Gemma 3 model card"}',
+                page_html.read_text(encoding="utf-8"),
+            )
+
     @unittest.skipUnless(HAS_ZENSICAL, "zensical is required for full build tests")
     def test_build_without_measurement_id_omits_tracking_script(self):
         env = {**os.environ, "GA_MEASUREMENT_ID": ""}

@@ -1,5 +1,6 @@
 ---
 title: Scaling
+seo_title: Scale Gemma 4 training with FSDP2 and QAT
 description: Scale Gemma 4 training across multi-GPU clusters with PyTorch FSDP2, and recover 4-bit accuracy after custom fine-tuning with TorchAO quantization-aware training.
 models: [gemma-4]
 frameworks: [transformers, peft, trl, torchao]

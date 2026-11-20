@@ -1,5 +1,6 @@
 ---
 title: Resources
+seo_title: Gemma ecosystem and resources
 description: Demos, tools, community projects and the external repositories and collections worth knowing about.
 ---
 
@@ -18,6 +19,11 @@ and the model collections worth bookmarking.
   <span class="card-icon">{{ icon('lucide/notebook-pen') }}</span>
   <div class="card-title">Gemma Cookbook <span class="card-ext">↗</span></div>
   <p class="card-desc">Official Jupyter notebooks covering inference, fine-tuning, RAG and function calling.</p>
+</a>
+<a class="card" href="gemma-skills.md">
+  <span class="card-icon">{{ icon('lucide/wrench') }}</span>
+  <div class="card-title">Gemma Skills</div>
+  <p class="card-desc">Installable agent skills that teach coding agents how to build with and fine-tune Gemma.</p>
 </a>
 </div>
 

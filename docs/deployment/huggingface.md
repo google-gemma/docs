@@ -15,7 +15,7 @@ Generating text, summarizing, and analysing content are just some of the tasks y
     Gemma 3 and later models support input of both images and text. Earlier versions of Gemma only support text input, except for some variants, including [PaliGemma](../models/paligemma/index.md).
 
 
-### Install Python packages
+## Install Python packages
 
 Install the Hugging Face libraries required for running the Gemma model and making requests.
 

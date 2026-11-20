@@ -1,5 +1,6 @@
 ---
 title: Tool calling
+seo_title: Function calling and tool use with Gemma 4
 description: "Build agentic workflows with Gemma 4 native tool calling and structured function schemas in Hugging Face Transformers."
 models: [gemma-4]
 frameworks: [transformers]

@@ -189,7 +189,7 @@ content='Output:\nSure, here is the answer:\n\n3 + 3 = 6<'
 
 This section shows you how to download Gemma from Kaggle and then run the model.
 
-To complete this section, you'll first need to complete the setup instructions at [Gemma setup][legacy-gemma-setup].
+To complete this section, you'll first need to complete the setup instructions in [Get started with Gemma](../get-started/index.md).
 
 Then move on to the next section, where you'll set environment variables for your Colab environment.
 

@@ -10,7 +10,7 @@ source_url: "https://ai.google.dev/gemma/docs/integrations/google-cloud.md.txt"
 Google Cloud offers several routes for deploying, serving and fine-tuning Gemma 4. Pick by what
 you are doing, not by product name — each card jumps to the detail below.
 
-### Serve it
+## Serve it
 
 <div class="card-grid">
 <a class="card" href="google-cloud.md#cloud-run">
@@ -35,7 +35,7 @@ you are doing, not by product name — each card jumps to the detail below.
 </a>
 </div>
 
-### Build with it
+## Build with it
 
 <div class="card-grid">
 <a class="card" href="google-cloud.md#gemini-enterprise-agent-platform">
@@ -50,7 +50,7 @@ you are doing, not by product name — each card jumps to the detail below.
 </a>
 </div>
 
-### Train it
+## Train it
 
 <div class="card-grid">
 <a class="card" href="google-cloud.md#gemini-enterprise-agent-platform-training-clusters">

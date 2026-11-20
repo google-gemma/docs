@@ -35,14 +35,15 @@ extra_css = [
   "stylesheets/motion.css?v=2",      # transitions + reduced-motion opt-out
 ]
 # Order matters: the generated data must load before the switcher that reads it.
+# All entries use `defer = true` so scripts stay non-render-blocking while preserving execution order.
 extra_javascript = [
-  "javascripts/model-data.js?v=2",     # GENERATED from data/models.yml -- do not edit
-  "javascripts/model-switcher.js?v=3", # page context strip selector + code rewriting
-  "javascripts/tuning-map.js?v=3",     # interactive fine-tuning map & path picker
-  "javascripts/llm-tutorial.js",        # interactive "How LLMs work" tutorial widgets
-  "javascripts/llm-ascii-shell.js?v=1", # interactive tour shell: ASCII canvas, stage rail, terminal
-  "javascripts/mathjax.js",
-  "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js",
+  { path = "javascripts/model-data.js?v=2", defer = true },     # GENERATED from data/models.yml -- do not edit
+  { path = "javascripts/model-switcher.js?v=3", defer = true }, # page context strip selector + code rewriting
+  { path = "javascripts/tuning-map.js?v=3", defer = true },     # interactive fine-tuning map & path picker
+  { path = "javascripts/llm-tutorial.js", defer = true },       # interactive "How LLMs work" tutorial widgets
+  { path = "javascripts/llm-ascii-shell.js?v=1", defer = true },# interactive tour shell: ASCII canvas, stage rail, terminal
+  { path = "javascripts/mathjax.js", defer = true },
+  { path = "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js", defer = true },
 ]
 # `include_yaml` exposes data/models.yml as `modeldata.*` in page templates. NOT `models.*`:
 # every page carries a `models:` frontmatter key, and page metadata shadows a macros variable
@@ -153,7 +154,7 @@ nav = [
       { "Gemma Scope" = "models/gemma-scope/index.md" },
       { "Gemma APS" = "models/gemma-aps/index.md" },
     ]},
-    "models/releases.md",
+    { "Releases" = "models/releases.md" },
   ]},
 
   # ---------------------------------------------------------------------------

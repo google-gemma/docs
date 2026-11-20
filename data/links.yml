@@ -147,7 +147,3 @@ links:
     url: https://huggingface.co/docs/accelerate
   torchao-repo:
     url: https://github.com/pytorch/ao
-
-  # --- Old Documents ---------------------------------------------------------------------
-  legacy-gemma-setup:
-    url: https://ai.google.dev/gemma/docs/setup

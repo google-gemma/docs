@@ -11,7 +11,7 @@ source_url: https://developers.googleblog.com/gemma-explained-recurrentgemma-arc
     Originally published on the
     [Google Developers Blog](https://developers.googleblog.com/gemma-explained-recurrentgemma-architecture/).
 
-![banner](../../assets/gemma-explained/gemma-var-banner.png)
+![RecurrentGemma architecture banner](../../assets/gemma-explained/gemma-var-banner.png)
 
 In the [previous post](/tutorials/gemma-explained/gemma-2/) of the Gemma explained series, we discussed the latest Gemma 2 architecture. In this post, you will explore the RecurrentGemma architecture. Let’s get started!
 

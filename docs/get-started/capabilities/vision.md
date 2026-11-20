@@ -1,5 +1,6 @@
 ---
 title: Vision overview
+seo_title: Gemma 4 vision overview
 description: Prepare and pass visual data to Gemma 4 for object detection, OCR, visual question answering, captioning, and multi-image reasoning.
 models: [gemma-4, gemma-3, gemma-3n, paligemma]
 source_url: "https://ai.google.dev/gemma/docs/capabilities/vision.md.txt"

@@ -1,3 +1,15 @@
+User-agent: Googlebot
+Disallow: /*.md$
+Disallow: /*.md.txt$
+Disallow: /llms.txt
+Allow: /
+
+User-agent: Bingbot
+Disallow: /*.md$
+Disallow: /*.md.txt$
+Disallow: /llms.txt
+Allow: /
+
 User-agent: *
 Allow: /
 

@@ -5,7 +5,7 @@ Start with Gemma 4 unless a page or the user's request names another generation.
 Follow the Markdown links below to read canonical page content without cloning the repository.
 
 ## Home
-- [Google Gemma 4 Open Models](https://gemma.ai/index.md): Official documentation for Google Gemma 4 open-weight AI models, multimodal capabilities, deployment, and fine-tuning.
+- [Google Gemma Open Models](https://gemma.ai/index.md): Official documentation for Google DeepMind's Gemma open-weight AI models, including Gemma 4, Gemma 3, multimodal capabilities, deployment, and fine-tuning.
 
 ## Get started
 - [Quickstart](https://gemma.ai/get-started.md): Run your first Gemma 4 generation in one command, then pick the engine, model size and checkpoint that fit your hardware.
@@ -27,13 +27,13 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [Gemma 4 model card](https://gemma.ai/models/gemma-4/model-card.md): Model card for Gemma 4 (E2B, E4B, 12B, 26B A4B, and 31B): architecture, multimodal inputs and outputs, training data, and evaluation benchmarks.
 - [Gemma 3 model card](https://gemma.ai/models/gemma-3.md): Model card for the multimodal Gemma 3 models: 128K context, 140+ languages, inputs and outputs, training data, and evaluation.
 - [Gemma 2 model card](https://gemma.ai/models/gemma-2.md): Model card for Gemma 2 text-to-text models: description, inputs and outputs, training data, and evaluation.
-- [Gemma model card](https://gemma.ai/models/gemma-1.md): Model card for the first-generation Gemma text-to-text models: description, inputs and outputs, training data, and evaluation.
+- [Gemma 1 model card](https://gemma.ai/models/gemma-1.md): Model card for the first-generation Gemma text-to-text models: description, inputs and outputs, training data, and evaluation.
 - [Gemma 3n model overview](https://gemma.ai/models/gemma-3n.md): Gemma 3n is a generative AI model optimized for use in everyday devices, such as phones, laptops, and tablets.
 - [Gemma 3n model card](https://gemma.ai/models/gemma-3n/model-card.md): Model card for Gemma 3n: on-device inputs and outputs, training data, evaluation results, and intended use.
 - [DiffusionGemma model overview](https://gemma.ai/models/diffusiongemma.md): DiffusionGemma is an experimental open model that explores text diffusion, an exceptionally fast approach to text generation.
 - [DiffusionGemma model card](https://gemma.ai/models/diffusiongemma/model-card.md): Model card for DiffusionGemma (26B A4B MoE): discrete text diffusion architecture, multimodal inputs, training data, and evaluation benchmarks.
 - [DiffusionGemma — Diffusion in Text Generation Explained](https://gemma.ai/models/diffusiongemma/explained.md): To understand DiffusionGemma, it helps to examine the core limitations of standard language models and how text-based diffusion differs.
-- [DiffusionGemma — Generate output](https://gemma.ai/models/diffusiongemma/inference.md): Generate text with DiffusionGemma using Hugging Face Transformers, including the GPU memory the model requires.
+- [Generate text with DiffusionGemma](https://gemma.ai/models/diffusiongemma/inference.md): Generate text with DiffusionGemma using Hugging Face Transformers, including the GPU memory the model requires.
 - [FunctionGemma model overview](https://gemma.ai/models/functiongemma.md): FunctionGemma is a specialized version of our Gemma 3 270M model tuned for function calling.
 - [FunctionGemma model card](https://gemma.ai/models/functiongemma/model-card.md): Model card for FunctionGemma: function-calling inputs and outputs, training data, evaluation results, and intended use.
 - [FunctionGemma formatting and best practices](https://gemma.ai/models/functiongemma/formatting.md): FunctionGemma is a specialized version of the Gemma 3 270M model, trained specifically for function calling (i.e., tool use).
@@ -63,10 +63,10 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [DataGemma](https://gemma.ai/models/datagemma.md): DataGemma is a research tool that lets users ask questions in plain language and receive answers based on publicly available statistical data in the Data Commons repository.
 - [Gemma Scope](https://gemma.ai/models/gemma-scope.md): Gemma Scope 2 is a comprehensive, open suite of interpretability tools designed for the Gemma 3 model collection.
 - [Gemma for abstractive proposition segmentation (APS)](https://gemma.ai/models/gemma-aps.md): Abstractive proposition segmentation (APS) is an analysis technique that breaks down text information into component parts.
-- [Releases](https://gemma.ai/models/releases.md): Dated release history for every Gemma model, from Gemma 1 through Gemma 4 and the specialized variants.
+- [Gemma model releases](https://gemma.ai/models/releases.md): Dated release history for every Gemma model, from Gemma 1 through Gemma 4 and the specialized variants.
 
 ## Run
-- [Overview](https://gemma.ai/deployment.md): Choose an execution framework and a Gemma variant for your hardware, then run your first generation request.
+- [Run and deploy Gemma models](https://gemma.ai/deployment.md): Choose an execution framework and a Gemma variant for your hardware, then run your first generation request.
 - [Run Gemma with Ollama](https://gemma.ai/deployment/ollama.md): Run Gemma 4 locally with Ollama — model tags, image input, and the OpenAI-compatible server.
 - [Run Gemma with llama.cpp](https://gemma.ai/deployment/llamacpp.md): Run Gemma 4 with llama.cpp — GGUF repos for every size, image/audio/video input, and the OpenAI-compatible server.
 - [Run Gemma with LM Studio](https://gemma.ai/deployment/lmstudio.md): Run Gemma 4 with LM Studio — desktop app, lms CLI, and the OpenAI-compatible local server.
@@ -113,7 +113,7 @@ Follow the Markdown links below to read canonical page content without cloning t
 - [RecurrentGemma Architecture](https://gemma.ai/tutorials/gemma-explained/recurrentgemma.md): The Griffin architecture mixing local attention and linear recurrences for fast long-sequence inference.
 - [PaliGemma Architecture](https://gemma.ai/tutorials/gemma-explained/paligemma.md): Vision-language model that takes text and images as input to generate text outputs.
 - [What’s New in Gemma 3](https://gemma.ai/tutorials/gemma-explained/gemma-3.md): Updated vision-language model with 5-to-1 interleaved attention and 128k context handling.
-- [EmbeddingGemma Architecture](https://gemma.ai/tutorials/gemma-explained/embeddinggemma.md): Text embedding model for search and retrieval.
+- [EmbeddingGemma Architecture](https://gemma.ai/tutorials/gemma-explained/embeddinggemma.md): How EmbeddingGemma's encoder architecture, Matryoshka Representation Learning, and training recipe power compact search and retrieval.
 
 ## Resources
 - [Resources](https://gemma.ai/resources.md): Demos, tools, community projects and the external repositories and collections worth knowing about.

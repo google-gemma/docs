@@ -11,7 +11,7 @@ source_url: https://developers.googleblog.com/gemma-explained-new-in-gemma-2/
     Originally published on the
     [Google Developers Blog](https://developers.googleblog.com/gemma-explained-new-in-gemma-2/).
 
-![banner](../../assets/gemma-explained/gemma-2-banner.png)
+![What's new in Gemma 2 architecture banner](../../assets/gemma-explained/gemma-2-banner.png)
 
 In the [previous post](/tutorials/gemma-explained/overview/) of the Gemma explained series, we discussed the Gemma architecture. In this post, you will explore the latest model, Gemma 2. Let’s get started!
 

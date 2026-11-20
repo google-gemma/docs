@@ -1,9 +1,11 @@
 ---
-title: Overview
+title: Run and deploy Gemma models
 description: Choose an execution framework and a Gemma variant for your hardware, then run your first generation request.
 models: [gemma-4]
 source_url: "https://ai.google.dev/gemma/docs/run.md.txt"
 ---
+# Run and deploy Gemma models
+
 There are two key decisions to make when you want to run a Gemma model:
 1) what Gemma variant you want to run, and 2) what AI execution framework you
 are going to use to run it? A key issue in making both these decisions has to do
@@ -77,7 +79,7 @@ The libraries you reach for when Gemma is part of an application or a training r
 
 {{ engines(["transformers", "unsloth", "keras"]) }}
 
-Also see [Tunix](https://tunix.readthedocs.io/en/latest/) for tuning in JAX.
+Also see [Get started with Gemma and LangChain](langchain.md) for building agentic and RAG workflows, and [Tunix](https://tunix.readthedocs.io/en/latest/) for tuning in JAX.
 
 ### Serve it at scale
 

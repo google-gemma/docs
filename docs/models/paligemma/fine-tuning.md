@@ -11,7 +11,7 @@ source_url: "https://ai.google.dev/gemma/docs/paligemma/fine-tuning-paligemma.md
 
 This notebook shows how to fine-tune [PaliGemma](index.md) on a vision-language task with [JAX](https://jax.readthedocs.io/en/latest/index.html). *Fine-tuning* is a process that can improve your model's performance on specific tasks or help the model adhere to specific output requirements when instructions aren't sufficient and you have a set of examples that demonstrate the outputs you want. Gemma-based models like PaliGemma require fine-tuning to produce expected results.
 
-### What's in this notebook
+## What's in this notebook
 
 This notebook uses the model reference implementation from [`big_vision`](https://github.com/google-research/big_vision)
 and shows how to:
@@ -26,7 +26,7 @@ The training data for this notebook consists of 90 pairs of images and long capt
 
 This example is for learning purposes only. In a real use case, the amount of data, trainable parameters, training steps and hyper-parameters, and obtained results could be significantly different.
 
-### Before you begin
+## Before you begin
 
 Before going through this notebook, you should be familiar with Python code, as well as how large language models (LLMs) are trained. You don't need to be familiar with JAX, but basic knowledge about JAX (or similar technologies such as Keras) is helpful when reading through the example code.
 

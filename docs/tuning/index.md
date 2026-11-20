@@ -1,5 +1,6 @@
 ---
 title: Fine-tuning overview
+seo_title: Fine-tune Gemma 4 models
 description: Pick a training stage, a method, a GPU budget, and a base checkpoint before you fine-tune Gemma 4.
 models: [gemma-4]
 source_url: "https://ai.google.dev/gemma/docs/tune.md.txt"

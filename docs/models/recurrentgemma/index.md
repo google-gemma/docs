@@ -26,6 +26,14 @@ advantages:
 
 RecurrentGemma's model card contains detailed information about the model, implementation information, evaluation information, model usage and limitations, and more.
 
+### [Generate output with JAX](inference.md)
+
+Run RecurrentGemma inference step by step using JAX and Flax.
+
+### [Fine-tune with JAX](fine-tuning.md)
+
+Fine-tune RecurrentGemma on a custom dataset using JAX and Flax.
+
 ### [View on Kaggle](https://www.kaggle.com/models/google/recurrentgemma){ data-model="recurrentgemma" }
 
 View more code, Colab notebooks, information, and discussions about RecurrentGemma on Kaggle.

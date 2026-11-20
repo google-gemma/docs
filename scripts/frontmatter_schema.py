@@ -78,6 +78,7 @@ class Field:
 
 SCHEMA: tuple[Field, ...] = (
     Field("title", True, "str", "Page title. Rendered as the H1 when the page has none."),
+    Field("seo_title", False, "str", "Optional search/social <title> override when keeping the visible H1 concise."),
     Field("description", True, "str", "One sentence. Feeds llms.txt, search, and cards."),
     Field("models", False, "list", "Models the page is about. Omit when it is about none."),
     Field("requires", False, "str", "Input modality the page needs, narrowing `models`."),
@@ -175,6 +176,10 @@ def validate(frontmatter: dict, *, page_paths: set[str] | None = None) -> list[P
             )
         elif key not in KNOWN:
             problems.append(Problem(key, f"unknown key: {key}"))
+
+    seo_title = frontmatter.get("seo_title")
+    if seo_title is not None and (not isinstance(seo_title, str) or not seo_title.strip()):
+        problems.append(Problem("seo_title", "seo_title must be a non-empty string"))
 
     description = frontmatter.get("description")
     if isinstance(description, str):

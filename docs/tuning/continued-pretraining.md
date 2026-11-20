@@ -1,5 +1,6 @@
 ---
 title: Continued pre-training
+seo_title: Continued pre-training with Gemma 4
 description: Adapt Gemma 4 to unlabeled domain text and new languages using sequence packing, vocabulary extension, and separate embedding learning rates.
 models: [gemma-4/e2b, gemma-4/e4b, gemma-4/12b, gemma-4/31b]
 frameworks: [transformers, peft, trl]

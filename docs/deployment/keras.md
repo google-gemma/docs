@@ -16,7 +16,7 @@ Gemma 3 and later models support text and image input. Earlier versions of Gemma
     This notebook won't run on T4 if you try with Gemma 4. Use L4 or higher GPUs.
     
 
-### Install Keras packages
+## Install Keras packages
 
 Install the Keras and KerasHub Python packages.
 
@@ -24,7 +24,7 @@ Install the Keras and KerasHub Python packages.
 pip install -q -U keras keras-hub keras-nlp
 ```
 
-### Select a backend
+## Select a backend
 
 Keras is a high-level, multi-framework deep learning API designed for simplicity and ease of use. [Keras 3](https://keras.io/keras_3) lets you choose the backend: TensorFlow, JAX, or PyTorch. All three will work for this tutorial. For this tutorial, configure the backend for JAX as it typically provides the better performance.
 
@@ -35,7 +35,7 @@ os.environ["KERAS_BACKEND"] = "jax"  # Or "tensorflow" or "torch".
 os.environ["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "1.00"
 ```
 
-### Import packages
+## Import packages
 
 Import the Keras and KerasHub packages.
 

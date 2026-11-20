@@ -1,5 +1,6 @@
 ---
 title: Generate Embeddings with Sentence Transformers
+seo_title: Generate embeddings with EmbeddingGemma 2
 description: Generate text embeddings, compute semantic similarity, apply task prompts, and build RAG and zero-shot classifiers with EmbeddingGemma 2 and Sentence Transformers.
 models: [embeddinggemma-2]
 frameworks: [sentence-transformers, transformers]

@@ -1,5 +1,6 @@
 ---
 title: Audio fine-tuning
+seo_title: Audio fine-tuning with Gemma 4
 description: Fine-tune Gemma 4 E2B, E4B, and 12B on custom speech transcription, low-resource languages, and spoken QA datasets with LoRA, Transformers, and TRL.
 models: [gemma-4]
 requires: audio

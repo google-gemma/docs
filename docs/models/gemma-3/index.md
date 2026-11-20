@@ -4,9 +4,9 @@ description: "Model card for the multimodal Gemma 3 models: 128K context, 140+ l
 models: [gemma-3]
 source_url: "https://ai.google.dev/gemma/docs/core/model_card_3.md.txt"
 ---
-# Model card
+# Gemma 3 model card
 
-**Model Page** : [Gemma](index.md)
+**Model Page** : [Gemma](../index.md)
 
 **Resources and Technical Documentation**:
 

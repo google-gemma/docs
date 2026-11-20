@@ -1,5 +1,6 @@
 ---
 title: Gemma for abstractive proposition segmentation (APS)
+seo_title: Gemma APS proposition segmentation
 description: Abstractive proposition segmentation (APS) is an analysis technique that breaks down text information into component parts.
 models: [gemma-aps]
 source_url: "https://ai.google.dev/gemma/docs/gemma-aps.md.txt"

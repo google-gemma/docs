@@ -1,5 +1,6 @@
 ---
 title: Best practices
+seo_title: Gemma 4 best practices
 description: Sampling parameters, thinking-mode tokens, modality order and image token budgets that get the best results out of Gemma 4.
 models: [gemma-4]
 ---

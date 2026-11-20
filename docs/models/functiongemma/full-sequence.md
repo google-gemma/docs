@@ -1,5 +1,6 @@
 ---
 title: Full function calling sequence with FunctionGemma
+seo_title: FunctionGemma full tool-calling sequence
 description: "The complete FunctionGemma tool-calling cycle: the model's call, the developer's execution, and the final response built from the tool's output."
 models: [functiongemma]
 frameworks: [transformers]

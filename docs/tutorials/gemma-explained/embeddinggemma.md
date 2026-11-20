@@ -1,6 +1,6 @@
 ---
 title: EmbeddingGemma Architecture
-description: Text embedding model for search and retrieval.
+description: How EmbeddingGemma's encoder architecture, Matryoshka Representation Learning, and training recipe power compact search and retrieval.
 models: [embeddinggemma]
 source_url: https://developers.googleblog.com/gemma-explained-embeddinggemma-architecture-and-recipe/
 ---
@@ -11,7 +11,7 @@ source_url: https://developers.googleblog.com/gemma-explained-embeddinggemma-arc
     Originally published on the
     [Google Developers Blog](https://developers.googleblog.com/gemma-explained-embeddinggemma-architecture-and-recipe/).
 
-![banner](../../assets/gemma-explained/embeddinggemma-banner.png)
+![EmbeddingGemma architecture and recipe banner](../../assets/gemma-explained/embeddinggemma-banner.png)
 
 The previous posts in the “Gemma explained” series provided a detailed overview of the Gemma model family's architectures. You can find links to each post below:
 

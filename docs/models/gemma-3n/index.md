@@ -22,12 +22,12 @@ handling, as well as text and visual data.
 
 Gemma 3n includes the following key features:
 
-- **Audio input** : Process sound data for speech recognition, translation, and audio data analysis. [Learn more](../../deployment/huggingface.md#generate-text-from-audio-data)
-- **Visual and text input** : Multimodal capabilities let you handle vision, sound, and text to help you understand and analyze the world around you. [Learn more](../../deployment/huggingface.md#generate-text-from-image-data)
-- **Vision encoder:** High-performance MobileNet-V5 encoder substantially improves speed and accuracy of processing visual data. [Learn more](https://developers.googleblog.com/en/introducing-gemma-3n-developer-guide/#mobilenet-v5:-new-state-of-the-art-vision-encoder){ data-model="gemma-3n" }
-- **PLE caching** : Per-Layer Embedding (PLE) parameters contained in these models can be cached to fast, local storage to reduce model memory run costs. [Learn more](index.md#ple-caching)
-- **MatFormer architecture:** Matryoshka Transformer architecture allows for selective activation of the models parameters per request to reduce compute cost and response times. [Learn more](index.md#matformer-architecture)
-- **Conditional parameter loading:** Bypass loading of vision and audio parameters in the model to reduce the total number of loaded parameters and save memory resources. [Learn more](index.md#conditional-parameter-loading)
+- **Audio input** : Process sound data for speech recognition, translation, and audio data analysis. [Audio input guide](../../deployment/huggingface.md#generate-text-from-audio-data)
+- **Visual and text input** : Multimodal capabilities let you handle vision, sound, and text to help you understand and analyze the world around you. [Visual input guide](../../deployment/huggingface.md#generate-text-from-image-data)
+- **Vision encoder:** High-performance MobileNet-V5 encoder substantially improves speed and accuracy of processing visual data. [MobileNet-V5 vision encoder overview](https://developers.googleblog.com/en/introducing-gemma-3n-developer-guide/#mobilenet-v5:-new-state-of-the-art-vision-encoder){ data-model="gemma-3n" }
+- **PLE caching** : Per-Layer Embedding (PLE) parameters contained in these models can be cached to fast, local storage to reduce model memory run costs. [PLE caching details](index.md#ple-caching)
+- **MatFormer architecture:** Matryoshka Transformer architecture allows for selective activation of the models parameters per request to reduce compute cost and response times. [MatFormer architecture details](index.md#matformer-architecture)
+- **Conditional parameter loading:** Bypass loading of vision and audio parameters in the model to reduce the total number of loaded parameters and save memory resources. [Conditional parameter loading details](index.md#conditional-parameter-loading)
 - **Wide language support**: Wide linguistic capabilities, trained in over 140 languages.
 - **32K token context**: Substantial input context for analyzing data and handling processing tasks.
 

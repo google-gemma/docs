@@ -4,7 +4,7 @@ description: "Model card for Gemma 3n: on-device inputs and outputs, training da
 models: [gemma-3n]
 source_url: "https://ai.google.dev/gemma/docs/gemma-3n/model_card.md.txt"
 ---
-# Model card
+# Gemma 3n model card
 
 **Model Page** : [Gemma 3n](index.md)
 
@@ -57,7 +57,7 @@ page.
 ```bibtex
 @article{gemma_3n_2025,
     title={Gemma 3n},
-    url={https://ai.google.dev/gemma/docs/gemma-3n},
+    url={https://gemma.ai/models/gemma-3n/},
     publisher={Google DeepMind},
     author={Gemma Team},
     year={2025}

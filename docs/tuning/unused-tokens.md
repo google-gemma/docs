@@ -1,5 +1,6 @@
 ---
 title: Unused tokens
+seo_title: Fine-tune Gemma 4 unused tokens
 description: Turn Gemma 4's 6,227 reserved token slots into single-token routing tags, source tags, and domain terms without resizing the vocabulary.
 models: [gemma-4/e2b, gemma-4/e4b, gemma-4/12b, gemma-4/31b]
 frameworks: [transformers, peft, trl]

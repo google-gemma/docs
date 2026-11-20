@@ -1,5 +1,6 @@
 ---
 title: Export
+seo_title: Export fine-tuned Gemma 4 to GGUF and vLLM
 description: Export and serve fine-tuned Gemma 4 checkpoints across vLLM, GGUF (llama.cpp and Ollama), and LiteRT-LM.
 models: [gemma-4]
 frameworks: [vllm, llamacpp, litert]

@@ -1,5 +1,6 @@
 ---
 title: Learn
+seo_title: Learn how Gemma models work
 description: Illustrated walkthroughs of how the Gemma models work, from the architecture down to individual mechanisms.
 ---
 

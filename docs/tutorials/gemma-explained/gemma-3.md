@@ -11,7 +11,7 @@ source_url: https://developers.googleblog.com/gemma-explained-whats-new-in-gemma
     Originally published on the
     [Google Developers Blog](https://developers.googleblog.com/gemma-explained-whats-new-in-gemma-3/).
 
-![banner](../../assets/gemma-explained/gemma-3-banner.png)
+![What's new in Gemma 3 architecture banner](../../assets/gemma-explained/gemma-3-banner.png)
 
 The previous posts in the "Gemma explained" series provided a detailed overview of the Gemma model family's architectures. You can find links to each post below:
 

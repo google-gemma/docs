@@ -1,5 +1,6 @@
 ---
 title: Diffusion in Text Generation Explained
+seo_title: How DiffusionGemma text diffusion works
 description: To understand DiffusionGemma, it helps to examine the core limitations of standard language models and how text-based diffusion differs.
 models: [diffusiongemma]
 source_url: "https://ai.google.dev/gemma/docs/diffusiongemma/explained.md.txt"

@@ -23,6 +23,7 @@ import shutil
 import subprocess
 import sys
 from contextlib import contextmanager
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterator
 from urllib.parse import quote
@@ -36,6 +37,7 @@ SITE_URL_RE = re.compile(r'^(\s*site_url\s*=\s*)"[^"]*"', re.MULTILINE)
 COLAB_REPO_RE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 COLAB_BRANCH_RE = re.compile(r"^[A-Za-z0-9_./-]+$")
 PUBLIC_COLAB_PREFIX = "https://colab.research.google.com/github/google-gemma/docs/blob/main/"
+SITEMAP_URL_BLOCK_RE = re.compile(r"(<url>\s*<loc>([^<]+)</loc>)(\s*</url>)")
 
 
 def inject_analytics_property(config_text: str, measurement_id: str) -> str:
@@ -83,6 +85,136 @@ def rewrite_colab_links(site_dir: Path, repo: str, branch: str) -> int:
             )
             rewritten_files += 1
     return rewritten_files
+
+
+def collect_git_lastmod_dates(repo_root: Path) -> dict[str, str]:
+    """Return repo-relative POSIX file path -> YYYY-MM-DD last git commit date."""
+    result = subprocess.run(
+        ["git", "log", "--format=__COMMIT__%cs", "--name-only", "--", "docs"],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        return {}
+
+    dates: dict[str, str] = {}
+    current_date = ""
+    for raw_line in result.stdout.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        if line.startswith("__COMMIT__"):
+            current_date = line.removeprefix("__COMMIT__").strip()
+            continue
+        if current_date and line not in dates:
+            dates[line] = current_date
+
+    dirty = subprocess.run(
+        ["git", "status", "--porcelain", "--", "docs"],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if dirty.returncode == 0:
+        today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        for raw_line in dirty.stdout.splitlines():
+            if len(raw_line) > 3:
+                rel_path = raw_line[3:].strip().strip('"')
+                if " -> " in rel_path:
+                    rel_path = rel_path.split(" -> ", 1)[1].strip().strip('"')
+                dates[rel_path] = today
+
+    return dates
+
+
+def resolve_source_markdown(docs_dir: Path, route_slug: str) -> Path | None:
+    """Resolve a URL path slug (e.g. '' or 'models/gemma-3') to its source Markdown file."""
+    clean = route_slug.strip("/")
+    if not clean:
+        candidate = docs_dir / "index.md"
+        return candidate if candidate.is_file() else None
+    for candidate in (docs_dir / f"{clean}.md", docs_dir / clean / "index.md"):
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def inject_sitemap_lastmod(
+    site_dir: Path,
+    docs_dir: Path,
+    site_url: str | None = None,
+    git_dates: dict[str, str] | None = None,
+) -> int:
+    """Inject <lastmod>YYYY-MM-DD</lastmod> into site/sitemap.xml entries."""
+    sitemap_path = site_dir / "sitemap.xml"
+    if not sitemap_path.is_file():
+        return 0
+
+    base_url = (site_url or agent_docs.SITE_URL).rstrip("/")
+    repo_root = docs_dir.parent
+    dates = git_dates if git_dates is not None else collect_git_lastmod_dates(repo_root)
+    updated_count = 0
+
+    def repl(match: re.Match[str]) -> str:
+        nonlocal updated_count
+        prefix, loc, suffix = match.group(1), match.group(2).strip(), match.group(3)
+        if not loc.startswith(base_url):
+            return match.group(0)
+        slug = loc[len(base_url) :].strip("/")
+        md_path = resolve_source_markdown(docs_dir, slug)
+        if md_path is None:
+            return match.group(0)
+        rel_posix = md_path.relative_to(repo_root).as_posix()
+        lastmod = dates.get(rel_posix)
+        if not lastmod:
+            lastmod = datetime.fromtimestamp(md_path.stat().st_mtime, tz=timezone.utc).strftime(
+                "%Y-%m-%d"
+            )
+        updated_count += 1
+        return f"{prefix}\n        <lastmod>{lastmod}</lastmod>{suffix}"
+
+    original = sitemap_path.read_text(encoding="utf-8")
+    rewritten = SITEMAP_URL_BLOCK_RE.sub(repl, original)
+    if rewritten != original:
+        sitemap_path.write_text(rewritten, encoding="utf-8")
+    return updated_count
+
+
+def inject_article_date_modified(
+    site_dir: Path,
+    docs_dir: Path,
+    git_dates: dict[str, str] | None = None,
+) -> int:
+    """Inject dateModified into TechArticle JSON-LD across built HTML pages."""
+    repo_root = docs_dir.parent
+    dates = git_dates if git_dates is not None else collect_git_lastmod_dates(repo_root)
+    marker = '{"@type":"TechArticle",'
+    updated_count = 0
+
+    for html_path in sorted(site_dir.rglob("index.html")):
+        rel_dir = html_path.parent.relative_to(site_dir).as_posix()
+        slug = "" if rel_dir == "." else rel_dir
+        md_path = resolve_source_markdown(docs_dir, slug)
+        if md_path is None:
+            continue
+        html = html_path.read_text(encoding="utf-8")
+        if marker not in html or '"dateModified":' in html:
+            continue
+        rel_posix = md_path.relative_to(repo_root).as_posix()
+        lastmod = dates.get(rel_posix)
+        if not lastmod:
+            lastmod = datetime.fromtimestamp(md_path.stat().st_mtime, tz=timezone.utc).strftime(
+                "%Y-%m-%d"
+            )
+        html_path.write_text(
+            html.replace(marker, f'{marker}"dateModified":"{lastmod}",', 1),
+            encoding="utf-8",
+        )
+        updated_count += 1
+    return updated_count
 
 
 @contextmanager
@@ -166,6 +298,9 @@ def main() -> int:
         if is_non_prod_site and colab_repo and colab_branch:
             rewrite_colab_links(site_dir, colab_repo, colab_branch)
         agent_docs.publish(site_dir)
+    git_dates = collect_git_lastmod_dates(agent_docs.REPO_ROOT)
+    inject_sitemap_lastmod(site_dir, agent_docs.DOCS_DIR, site_url, git_dates=git_dates)
+    inject_article_date_modified(site_dir, agent_docs.DOCS_DIR, git_dates=git_dates)
     return 0
 
 
