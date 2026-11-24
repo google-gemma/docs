@@ -17,6 +17,7 @@
 /* Interactive pipeline map & dropdown picker for docs/tuning/index.md. */
 
 .md-typeset .tmap {
+  isolation: isolate;
   margin: var(--gemma-space-5) 0 var(--gemma-space-6);
   border: 1px solid var(--gemma-border);
   border-radius: var(--gemma-radius-lg);
