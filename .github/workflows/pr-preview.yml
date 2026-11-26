@@ -7,25 +7,23 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: "pr-previews"
+  cancel-in-progress: false
+
 jobs:
-  preview:
+  build:
     if: >-
       github.event.repository.private == true &&
       vars.ENABLE_PR_PREVIEWS == 'true' &&
       vars.PAGES_PREVIEW_ORIGIN != '' &&
       github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    concurrency:
-      group: "pages"
-      cancel-in-progress: false
     permissions:
       contents: write # Update gh-pages-previews branch.
-      pages: write # Deploy GitHub Pages bundle.
-      id-token: write # Mint OIDC token for actions/deploy-pages.
-      pull-requests: write # Post sticky preview link on PR.
-    environment:
-      name: github-pages
-      url: ${{ steps.comment.outputs.preview_url }}
+      pull-requests: read # List open PRs to prune closed preview directories.
+    outputs:
+      artifact_name: github-pages-${{ github.run_attempt }}
     steps:
       - if: github.event.action != 'closed'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -109,10 +107,24 @@ jobs:
 
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
         with:
+          name: github-pages-${{ github.run_attempt }}
           path: _pages
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write # Deploy GitHub Pages bundle.
+      id-token: write # Mint OIDC token for actions/deploy-pages.
+      pull-requests: write # Post sticky preview link on PR.
+    environment:
+      name: github-pages
+      url: ${{ steps.comment.outputs.preview_url }}
+    steps:
       - id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5
+        with:
+          artifact_name: ${{ needs.build.outputs.artifact_name }}
 
       - name: Update PR comment
         id: comment
