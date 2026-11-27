@@ -240,7 +240,7 @@ Once the final token's vector exits the last Transformer layer (which in Gemma 4
 
 ### Step 4A: The LM Head & Logits
 
-Gemma 4 projects the final hidden vector into vocabulary space using a **Language Model Head (`lm_head`)** that ties weights with the ransposed `262,144` row input embedding matrix, producing 262,144 raw logits. It then applies **Final Logig Softcapping** to bound extreme values before softmax normalization.
+Gemma 4 projects the final hidden vector into vocabulary space using a **Language Model Head (`lm_head`)** that ties weights with the transposed `262,144` row input embedding matrix, producing 262,144 raw logits. It then applies **Final Logit Softcapping** to bound extreme values before softmax normalization.
 
 $$\text{logits}_{\text{capped}} = 30.0 \times \tanh\left(\frac{\text{logits}}{30.0}\right)$$
 
